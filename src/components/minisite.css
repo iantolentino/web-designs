@@ -1,0 +1,369 @@
+/* ============ MiniSite: themed live preview ============ */
+
+.dv-site {
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--dv-bg);
+  color: var(--dv-text);
+  font-family: var(--dv-body);
+  min-height: 100%;
+  isolation: isolate;
+}
+.dv-compact { font-size: 9.5px; }
+.dv-compact .dv-nav .dv-links { display: none; }
+.dv-compact .dv-section-forms { display: none; }
+.dv-compact .dv-h2 { margin-top: 1em; }
+
+.dv-stage {
+  container-type: inline-size;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* --- Nav --- */
+.dv-nav {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 1em 2em;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--dv-bg) 82%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid color-mix(in srgb, var(--dv-text) 14%, transparent);
+}
+.dv-logo { font-family: var(--dv-display); font-weight: 700; font-size: 1.05em; white-space: nowrap; }
+.dv-links { display: flex; gap: 1.4em; margin-inline: auto; }
+.dv-links a { color: inherit; text-decoration: none; font-size: 0.9em; opacity: 0.75; }
+.dv-links a:hover { opacity: 1; text-decoration: underline; }
+.dv-btn-nav { margin-left: auto; padding: 0.5em 1.2em; font-size: 0.85em; }
+
+/* --- Hero --- */
+.dv-hero {
+  padding: 4.5em 2em 3.5em;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.dv-kicker {
+  font-size: 0.72em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 1.4em;
+  font-family: var(--dv-body);
+}
+.dv-hero h1 {
+  font-family: var(--dv-display);
+  font-size: clamp(2.1em, 6cqi, 4.2em);
+  line-height: 1.05;
+  margin: 0 auto 0.4em;
+  max-width: 14ch;
+  position: relative;
+  z-index: 1;
+  font-weight: 800;
+}
+.dv-hero h1 em { font-style: italic; }
+.dv-sub { max-width: 46ch; margin: 0 auto 1.8em; opacity: 0.75; font-size: 1.02em; }
+.dv-cta-row { display: flex; gap: 0.9em; justify-content: center; flex-wrap: wrap; }
+
+/* --- Buttons --- */
+.dv-btn {
+  font-family: var(--dv-body);
+  font-weight: 600;
+  padding: 0.8em 1.8em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.dv-btn-primary { background: var(--dv-primary); color: var(--dv-on-primary); }
+.dv-btn-secondary {
+  background: transparent;
+  color: var(--dv-text);
+  border-color: color-mix(in srgb, var(--dv-text) 45%, transparent);
+}
+.dv-btn-secondary:hover { border-color: var(--dv-primary); color: var(--dv-primary); }
+.dv-btn-primary:hover { transform: translateY(-1px); filter: brightness(1.06); }
+.dv-btn:active { transform: translateY(1px); }
+
+/* --- Sections --- */
+.dv-section { padding: 3.2em 2em; max-width: 68em; margin: 0 auto; width: 100%; }
+.dv-h2 {
+  font-family: var(--dv-display);
+  font-size: 1.7em;
+  margin: 0 0 1em;
+  font-weight: 700;
+}
+.dv-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2em; }
+.dv-card {
+  background: color-mix(in srgb, var(--dv-text) 4%, var(--dv-bg));
+  border: 1px solid color-mix(in srgb, var(--dv-text) 16%, transparent);
+  border-radius: 12px;
+  padding: 1.6em;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.dv-card:hover { transform: translateY(-3px); border-color: var(--dv-primary); }
+.dv-card-icon { font-size: 1.3em; color: var(--dv-primary); }
+.dv-card h3 { font-family: var(--dv-display); margin: 0.5em 0 0.4em; font-size: 1.08em; }
+.dv-card p { margin: 0; font-size: 0.92em; opacity: 0.75; }
+
+/* --- Type specimen --- */
+.dv-type { display: grid; gap: 0.8em; }
+.dv-type-display { font-family: var(--dv-display); font-size: 2.4em; font-weight: 800; line-height: 1.05; }
+.dv-type-body p { max-width: 60ch; opacity: 0.8; margin: 0; }
+
+/* --- Stats band --- */
+.dv-stats-band {
+  display: flex;
+  justify-content: center;
+  gap: 4em;
+  padding: 2.4em 2em;
+  background: color-mix(in srgb, var(--dv-primary) 8%, var(--dv-bg));
+  border-block: 1px solid color-mix(in srgb, var(--dv-text) 12%, transparent);
+  flex-wrap: wrap;
+}
+.dv-stat { display: flex; flex-direction: column; align-items: center; gap: 0.2em; }
+.dv-stat strong { font-family: var(--dv-display); font-size: 1.9em; font-weight: 800; }
+.dv-stat span { font-size: 0.8em; opacity: 0.65; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* --- Forms + components --- */
+.dv-section-forms {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3em;
+  align-items: start;
+}
+.dv-form { display: flex; flex-direction: column; gap: 0.7em; max-width: 26em; }
+.dv-label { font-size: 0.78em; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
+.dv-input {
+  padding: 0.8em 1em;
+  border: 1px solid color-mix(in srgb, var(--dv-text) 30%, transparent);
+  border-radius: var(--dv-r);
+  background: color-mix(in srgb, var(--dv-text) 3%, var(--dv-bg));
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+.dv-input:focus { border-color: var(--dv-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--dv-primary) 25%, transparent); }
+.dv-btn-row { display: flex; gap: 0.8em; align-items: center; margin-top: 0.4em; flex-wrap: wrap; }
+.dv-btn-tertiary { padding-inline: 0.4em; }
+.dv-form-ok { color: var(--dv-primary); font-size: 0.9em; margin: 0; }
+.dv-comp-grid { display: flex; flex-wrap: wrap; gap: 0.8em; align-items: center; }
+.dv-chip {
+  border: 1px dashed color-mix(in srgb, var(--dv-text) 30%, transparent);
+  border-radius: var(--dv-r);
+  padding: 0.55em 1em;
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+/* --- Footer --- */
+.dv-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  flex-wrap: wrap;
+  padding: 1.6em 2em;
+  border-top: 1px solid color-mix(in srgb, var(--dv-text) 14%, transparent);
+  font-size: 0.82em;
+  opacity: 0.75;
+}
+
+/* --- Modal --- */
+.dv-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: grid;
+  place-items: center;
+  z-index: 20;
+  animation: dv-fade 0.2s ease;
+}
+.dv-modal {
+  width: min(30em, 88%);
+  padding: 1.4em 1.6em;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  animation: dv-pop 0.22s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.dv-modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6em; }
+.dv-modal-x { background: none; border: none; font-size: 1.4em; cursor: pointer; color: inherit; line-height: 1; }
+.dv-modal p { opacity: 0.8; margin: 0 0 1em; font-size: 0.95em; }
+
+@keyframes dv-fade { from { opacity: 0; } }
+@keyframes dv-pop { from { transform: scale(0.94); opacity: 0; } }
+@keyframes dv-marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* --- Responsive (container queries so device modes work) --- */
+@container (max-width: 760px) {
+  .dv-cards { grid-template-columns: 1fr; }
+  .dv-section-forms { grid-template-columns: 1fr; gap: 2em; }
+  .dv-hero h1 { max-width: 12ch; }
+  .dv-stats-band { gap: 2em; }
+  .dv-nav { padding: 0.9em 1.2em; }
+  .dv-links { display: none; }
+}
+
+/* ============ Motif variants ============ */
+
+/* Serif italic hero: display serif with italic accent word */
+.dv-m-serif-italic-hero .dv-hero h1 { font-weight: 500; letter-spacing: -0.01em; }
+.dv-m-serif-italic-hero .dv-hero h1 em { font-weight: 400; }
+.dv-m-serif-italic-hero .dv-kicker { font-variant: small-caps; letter-spacing: 0.24em; }
+
+/* Underline accent: highlighted word behind hero em */
+.dv-m-underline-accent .dv-hero h1 { position: relative; }
+.dv-m-underline-accent .dv-hero h1 em { position: relative; font-style: normal; z-index: 1; }
+.dv-m-underline-accent .dv-hero h1 em::after {
+  content: '';
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: 0.08em;
+  height: 0.32em;
+  background: color-mix(in srgb, var(--dv-primary) 38%, transparent);
+  z-index: -1;
+  transform: skewX(-8deg);
+}
+
+/* Mono labels: uppercase mono kickers + link style */
+.dv-m-mono-labels .dv-kicker,
+.dv-m-mono-labels .dv-label,
+.dv-m-mono-labels .dv-stat span {
+  font-family: 'Space Mono', 'IBM Plex Mono', monospace;
+  letter-spacing: 0.08em;
+}
+.dv-m-mono-labels .dv-links a { text-transform: uppercase; font-size: 0.78em; letter-spacing: 0.08em; }
+
+/* Grain overlay */
+.dv-m-grain-overlay .dv-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  z-index: 3;
+}
+
+/* Gradient hero background */
+.dv-m-gradient-hero .dv-hero {
+  background:
+    radial-gradient(52em 22em at 78% 6%, color-mix(in srgb, var(--dv-accent) 22%, transparent), transparent 68%),
+    radial-gradient(40em 20em at 12% 88%, color-mix(in srgb, var(--dv-secondary) 20%, transparent), transparent 70%);
+}
+
+/* Pixel grid: dotted tech background */
+.dv-m-pixel-grid .dv-hero {
+  background-image: radial-gradient(color-mix(in srgb, var(--dv-text) 12%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+/* Soft shadows */
+.dv-m-soft-shadows .dv-card { box-shadow: 0 10px 30px color-mix(in srgb, var(--dv-text) 8%, transparent); }
+.dv-m-soft-shadows .dv-btn { box-shadow: 0 6px 18px color-mix(in srgb, var(--dv-primary) 30%, transparent); }
+
+/* Hard shadows: brutalist offset */
+.dv-m-hard-shadows .dv-card,
+.dv-m-hard-shadows .dv-btn {
+  border-radius: 0 !important;
+  border: 2px solid var(--dv-text) !important;
+  box-shadow: 4px 4px 0 var(--dv-text) !important;
+}
+.dv-m-hard-shadows .dv-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--dv-text) !important; }
+.dv-m-hard-shadows .dv-hero h1 { text-transform: uppercase; }
+.dv-m-hard-shadows .dv-input { border-radius: 0 !important; }
+
+/* Rotated stickers: playful tilt */
+.dv-m-rotated-stickers .dv-card { --rot: 1.4deg; transform: rotate(var(--rot)); }
+.dv-m-rotated-stickers .dv-card:nth-child(even) { --rot: -1.4deg; }
+.dv-m-rotated-stickers .dv-card:hover { transform: rotate(0deg) scale(1.02); }
+.dv-m-rotated-stickers .dv-hero h1 { text-shadow: 0.04em 0.04em 0 color-mix(in srgb, var(--dv-primary) 35%, transparent); }
+
+/* Big stat row */
+.dv-m-big-stat-row .dv-stat strong { font-size: 2.6em; background: linear-gradient(90deg, var(--dv-primary), var(--dv-secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Swiss grid: rules and index numbers */
+.dv-m-swiss-grid .dv-section { border-top: 1px solid color-mix(in srgb, var(--dv-text) 25%, transparent); }
+.dv-m-swiss-grid .dv-hero h1 { text-transform: uppercase; letter-spacing: -0.03em; font-weight: 900; }
+.dv-m-swiss-grid .dv-kicker::before { content: '01 — '; color: var(--dv-primary); }
+.dv-m-swiss-grid .dv-card { border-radius: 0 !important; }
+
+/* Quote band */
+.dv-m-quote-band .dv-hero { padding-bottom: 2em; }
+.dv-m-quote-band .dv-type-display { font-style: italic; }
+
+/* Ticker marquee */
+.dv-m-ticker-marquee .dv-marquee {
+  margin-top: 2.2em;
+  overflow: hidden;
+  white-space: nowrap;
+  border-block: 1px solid color-mix(in srgb, var(--dv-text) 25%, transparent);
+  padding: 0.6em 0;
+  font-size: 0.8em;
+  letter-spacing: 0.2em;
+  opacity: 0.8;
+}
+.dv-m-ticker-marquee .dv-marquee span { display: inline-block; animation: dv-marq 16s linear infinite; }
+
+/* Pill nav */
+.dv-m-pill-nav .dv-nav {
+  margin: 1em auto 0;
+  max-width: 60em;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--dv-text) 16%, transparent);
+  position: sticky;
+  top: 1em;
+  width: calc(100% - 2em);
+}
+
+/* Leaf divider: centered glyph divider above sections */
+.dv-m-leaf-divider .dv-section::before {
+  content: '✻';
+  display: block;
+  text-align: center;
+  color: var(--dv-primary);
+  opacity: 0.6;
+  margin-bottom: 1em;
+  letter-spacing: 0.4em;
+}
+
+/* Wave section: soft radial top edge */
+.dv-m-wave-section .dv-stats-band {
+  background:
+    radial-gradient(60% 3em at 50% 0%, color-mix(in srgb, var(--dv-primary) 18%, transparent), transparent 70%),
+    color-mix(in srgb, var(--dv-primary) 8%, var(--dv-bg));
+}
+
+/* Numbered steps */
+.dv-m-numbered-steps .dv-card { counter-increment: dvstep; position: relative; }
+.dv-m-numbered-steps .dv-cards { counter-reset: dvstep; }
+.dv-m-numbered-steps .dv-card::after {
+  content: '0' counter(dvstep);
+  position: absolute;
+  top: 0.7em;
+  right: 1em;
+  font-family: var(--dv-display);
+  font-weight: 800;
+  opacity: 0.18;
+  font-size: 1.6em;
+}
+
+/* Glow pulse (neon/cyber) */
+.dv-m-glow-pulse .dv-hero h1 { text-shadow: 0 0 24px color-mix(in srgb, var(--dv-primary) 60%, transparent); }
+.dv-m-glow-pulse .dv-btn-primary { box-shadow: 0 0 22px color-mix(in srgb, var(--dv-primary) 55%, transparent); }
+.dv-m-glow-pulse .dv-card { box-shadow: 0 0 18px color-mix(in srgb, var(--dv-primary) 14%, transparent) inset; }
+
+/* Dashed borders */
+.dv-m-dashed-borders .dv-card { border-style: dashed; }
+
+/* Editorial columns */
+.dv-m-editorial-columns .dv-hero h1 { font-style: italic; font-weight: 850; }
+
+/* Per-design signature overrides land after these rules because
+   signatureCss is injected inside the MiniSite container. */

@@ -1,0 +1,136 @@
+export type Category =
+  | 'Minimalism'
+  | 'Maximalism'
+  | 'Brutalism'
+  | 'Luxury'
+  | 'Playful'
+  | 'Retro'
+  | 'Organic'
+  | 'Professional'
+  | 'Creative'
+
+export type Motif =
+  | 'serif-italic-hero'
+  | 'underline-accent'
+  | 'mono-labels'
+  | 'grain-overlay'
+  | 'gradient-hero'
+  | 'pixel-grid'
+  | 'soft-shadows'
+  | 'hard-shadows'
+  | 'rotated-stickers'
+  | 'big-stat-row'
+  | 'swiss-grid'
+  | 'quote-band'
+  | 'ticker-marquee'
+  | 'pill-nav'
+  | 'leaf-divider'
+  | 'wave-section'
+  | 'numbered-steps'
+  | 'glow-pulse'
+  | 'dashed-borders'
+  | 'editorial-columns'
+
+export type DeviceMode = 'desktop' | 'tablet' | 'mobile'
+export type PreviewTab = 'live' | 'code' | 'details'
+
+export interface ComponentSpec {
+  /** Main CTA button */
+  primary: string
+  /** Ghost / secondary button */
+  secondary: string
+  /** Text-only button */
+  tertiary: string
+  /** Button corner radius */
+  radius: string
+  /** Button hover treatment */
+  hover: string
+  cards: string
+  forms: string
+  navigation: string
+  modals: string
+}
+
+export interface Spacing {
+  baseUnit: string
+  marginScale: string
+  paddingScale: string
+  grid: string
+}
+
+export interface Motion {
+  pageLoad: string
+  hoverStates: string
+  transitions: string
+  scroll?: string
+}
+
+export interface Colors {
+  primary: string
+  secondary: string
+  accent: string
+  neutral: string
+  background: string
+  text: string
+}
+
+export interface Typography {
+  displayFont: string
+  bodyFont: string
+  scale: string
+  lineHeights: string
+  letterSpacing: string
+}
+
+export interface DesignSystem {
+  id: string
+  name: string
+  category: Category
+  tags: string[]
+  description: string
+  designPhilosophy: string
+  designDetails: string
+  colors: Colors
+  typography: Typography
+  components: ComponentSpec
+  spacing: Spacing
+  motion: Motion
+  accessibility: string
+  responsive: string
+  codeExample: string
+  /** Curated accent the shell UI uses around this design */
+  accent: string
+  /** Optional deep background for the preview stage */
+  stage?: string
+  motif: Motif
+  /** Extra per-design CSS (signature effects); injected only in preview + thumbs */
+  signatureCss: string
+  author: string
+  createdAt: string
+  popularity: number
+  trending?: boolean
+}
+
+export const CATEGORY_ORDER: Category[] = [
+  'Minimalism',
+  'Maximalism',
+  'Brutalism',
+  'Luxury',
+  'Playful',
+  'Retro',
+  'Organic',
+  'Professional',
+  'Creative',
+]
+
+export const CATEGORY_ACCENT: Record<Category, string> = {
+  Minimalism: '#3ecfb2',
+  Maximalism: '#ff5c8a',
+  Brutalism: '#ffd166',
+  Luxury: '#d4b26a',
+  Playful: '#4cc9f0',
+  Retro: '#ff6b35',
+  Organic: '#7bb661',
+  Professional: '#6f9bff',
+  Creative: '#c77dff',
+}
