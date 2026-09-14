@@ -58,7 +58,9 @@ export const retroDesigns: DesignSystem[] = [
       '<section class="chrome">\n  <h1>✦ the future is glossy ✦</h1>\n  <p>Products that feel like 2001 promised.</p>\n  <button class="btn-chrome">Enter site</button>\n</section>',
     accent: '#b8a6f5',
     motif: 'gradient-hero',
-    signatureCss: `
+    layout: 'hero-cards',
+    useCases: ['Music', 'Gaming', 'E-commerce'],
+signatureCss: `
 .dv-hero h1 { background: linear-gradient(100deg, #8f7ae8, #9be3e0 45%, #ff9ad5); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .dv-btn { background: linear-gradient(180deg, #cfc6ff, #8f7ae8); box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 18px rgba(143,122,232,.35); }
 .dv-btn:hover { filter: brightness(1.1); }
@@ -125,7 +127,9 @@ export const retroDesigns: DesignSystem[] = [
       '<article class="broadsheet">\n  <p class="dateline">Vol. XIV — Morning Edition</p>\n  <h1>The Careful Craft of Slowness</h1>\n  <p class="dropcap">Once, every letter was set by hand…</p>\n</article>',
     accent: '#7a3b2e',
     motif: 'serif-italic-hero',
-    signatureCss: `
+    layout: 'editorial',
+    useCases: ['News', 'Education', 'Restaurant'],
+signatureCss: `
 .dv-dropcap::first-letter { font-size: 3.4em; float: left; line-height: .8; padding-right: 8px; font-weight: 600; color: #7a3b2e; }
 .dv-smallcaps { font-variant: small-caps; letter-spacing: .18em; }
 .dv-section + .dv-section { border-top: 3px double #2a2118; }
@@ -190,7 +194,9 @@ export const retroDesigns: DesignSystem[] = [
       '<div class="term">\n  <div class="term-bar">▚ net_runner v4.2</div>\n  <h1> Jack into the grid_</h1>\n  <p>> establishing uplink… ok</p>\n  <button class="btn-term">EXECUTE</button>\n</div>',
     accent: '#00f0ff',
     motif: 'glow-pulse',
-    signatureCss: `
+    layout: 'dashboard',
+    useCases: ['Gaming', 'AI/ML', 'Crypto'],
+signatureCss: `
 .dv-stage { background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px); }
 .dv-card { border: 1px solid rgba(0,240,255,.4); }
 .dv-card .titlebar { border-bottom: 1px solid rgba(0,240,255,.25); color: #00f0ff; font-family: 'Space Mono', monospace; font-size: 12px; padding: 6px 12px; }
@@ -257,7 +263,9 @@ export const retroDesigns: DesignSystem[] = [
       '<section class="pop">\n  <h1>DON’T BE<br/>A SQUARE.</h1>\n  <p>1981 called. It had better taste.</p>\n  <button class="btn-pop">Join the movement</button>\n</section>',
     accent: '#ff5964',
     motif: 'rotated-stickers',
-    signatureCss: `
+    layout: 'magazine',
+    useCases: ['Events', 'Agency', 'E-commerce'],
+signatureCss: `
 .dv-stage { background-image: radial-gradient(4px 4px at 15% 25%, #00a896 45%, transparent 46%), radial-gradient(4px 4px at 75% 60%, #f4c95d 45%, transparent 46%), radial-gradient(4px 4px at 45% 85%, #ff5964 45%, transparent 46%); background-size: 260px 260px; }
 .dv-card { border: 2px solid #1d1d1d; box-shadow: 6px 6px 0 #1d1d1d; transition: transform .15s, box-shadow .15s; }
 .dv-card:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 #1d1d1d; }

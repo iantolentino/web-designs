@@ -57,7 +57,9 @@ export const playfulDesigns: DesignSystem[] = [
       '<section class="sorbet">\n  <h1>Soft tools for<br/>soft mornings.</h1>\n  <p>Everything gentle, nothing sticky.</p>\n  <button class="btn-pill">Try it free</button>\n</section>',
     accent: '#7c6ff0',
     motif: 'soft-shadows',
-    signatureCss: `
+    layout: 'hero-cards',
+    useCases: ['Kids', 'Health', 'Education'],
+signatureCss: `
 .dv-btn { box-shadow: 0 4px 0 rgba(86,74,194,.9); transition: transform .18s ease-out, box-shadow .18s ease-out; }
 .dv-btn:hover { transform: translateY(2px); box-shadow: 0 1px 0 rgba(86,74,194,.9); }
 .dv-card { border: 2px solid #f3d7e4; }
@@ -123,7 +125,9 @@ export const playfulDesigns: DesignSystem[] = [
       '<section class="party" style="--tint:#ffd93d">\n  <h1>🎉 LET’S MAKE STUFF!</h1>\n  <p>Craft kits, coding camps, and chaos (organized).</p>\n  <button class="btn-candy">Start the fun</button>\n</section>',
     accent: '#ff6b6b',
     motif: 'rotated-stickers',
-    signatureCss: `
+    layout: 'hero-cards',
+    useCases: ['Kids', 'Events', 'E-commerce'],
+signatureCss: `
 .dv-stage { background-image: radial-gradient(3px 3px at 10% 20%, #ff6b6b 40%, transparent 41%), radial-gradient(3px 3px at 70% 40%, #4d96ff 40%, transparent 41%), radial-gradient(3px 3px at 40% 80%, #ffd93d 40%, transparent 41%); background-size: 220px 220px; }
 .dv-card { border: 4px solid #333; transition: transform .2s; }
 .dv-card:hover { transform: rotate(-1deg) scale(1.02); }
@@ -188,7 +192,9 @@ export const playfulDesigns: DesignSystem[] = [
       '<section class="clay">\n  <h1>Squeeze the interface.</h1>\n  <p>Tools that feel like toys, work like pro apps.</p>\n  <button class="btn-clay">Get the app</button>\n</section>',
     accent: '#ff8a5c',
     motif: 'soft-shadows',
-    signatureCss: `
+    layout: 'split-hero',
+    useCases: ['Kids', 'SaaS', 'Health'],
+signatureCss: `
 .dv-btn { border-radius: 20px; box-shadow: inset 0 6px 12px rgba(255,255,255,.35), 0 8px 20px rgba(255,138,92,.4); transition: transform .22s ease-out, box-shadow .22s ease-out; }
 .dv-btn:hover { transform: translateY(-4px); box-shadow: inset 0 6px 12px rgba(255,255,255,.35), 0 14px 28px rgba(255,138,92,.5); }
 .dv-card { box-shadow: inset 0 8px 16px rgba(255,255,255,.6), 0 12px 32px rgba(49,73,60,.12); }

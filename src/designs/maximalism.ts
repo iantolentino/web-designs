@@ -58,7 +58,9 @@ export const maximalismDesigns: DesignSystem[] = [
       '<section class="hero">\n  <h1><span class="grad">FEEL</span> EVERY <span class="grad">VOLT</span></h1>\n  <p>The loudest theme for the bravest brand.</p>\n  <button class="btn-neon">Enter the grid</button>\n</section>\n<div class="marquee">NEON ✦ ENERGY ✦ MOTION ✦ COLOR</div>',
     accent: '#ff2e88',
     motif: 'gradient-hero',
-    signatureCss: `
+    layout: 'hero-cards',
+    useCases: ['Gaming', 'Music', 'Events'],
+signatureCss: `
 .dv-hero h1 { background: linear-gradient(90deg, #ff2e88, #00e5ff, #a3ff12); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .dv-marquee { overflow: hidden; white-space: nowrap; border-block: 1px solid rgba(0,229,255,.3); }
 .dv-marquee span { display: inline-block; animation: dv-marq 18s linear infinite; }
@@ -125,7 +127,9 @@ export const maximalismDesigns: DesignSystem[] = [
       '<header class="masthead">\n  <div class="issue">Issue 07</div>\n  <h1>THE<br/>LOUD<br/>ISSUE</h1>\n</header>\n<blockquote class="band">"Design is opinion, printed."</blockquote>',
     accent: '#e63946',
     motif: 'quote-band',
-    signatureCss: `
+    layout: 'magazine',
+    useCases: ['News', 'Fashion', 'Agency'],
+signatureCss: `
 .dv-band { background: #111; color: #faf6ef; font-family: 'Fraunces', serif; font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.05; padding: 48px 24px; text-align: center; font-style: italic; }
 .dv-card:hover { background: #111; color: #faf6ef; }
 .dv-card:hover .dv-price { color: #ffd166; }`,
@@ -189,7 +193,9 @@ export const maximalismDesigns: DesignSystem[] = [
       '<div class="sticker" style="--rot: 2deg">\n  <h3>🎁 Free sticker pack</h3>\n  <p>With every order this month.</p>\n</div>\n<button class="btn-candy">Grab it! ✦</button>',
     accent: '#ff5da2',
     motif: 'rotated-stickers',
-    signatureCss: `
+    layout: 'hero-cards',
+    useCases: ['Kids', 'Events', 'E-commerce'],
+signatureCss: `
 .dv-card { --rot: 2deg; transform: rotate(var(--rot)); transition: transform .28s cubic-bezier(.34,1.56,.64,1); }
 .dv-card:hover { transform: rotate(0deg) scale(1.02); }
 .dv-card:nth-child(even) { --rot: -2deg; }

@@ -1,6 +1,6 @@
 import { lazy, Suspense, useMemo, useState } from 'react'
 import { useStore } from '../store'
-import { CATEGORY_ACCENT } from '../types'
+import { CATEGORY_ACCENT, LAYOUT_LABEL } from '../types'
 import type { DesignSystem, DeviceMode, PreviewTab } from '../types'
 import { getDesign, DESIGN_SYSTEMS } from '../designs'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
@@ -217,7 +217,12 @@ function DetailsView({ d }: { d: DesignSystem }) {
             </div>
             <div>
               <div className="creator-name">{d.author}</div>
-              <div className="creator-sub">Created {d.createdAt} · {d.tags.map((t) => `#${t}`).join(' ')}</div>
+              <div className="creator-sub">
+                Created {d.createdAt} · {d.tags.map((t) => `#${t}`).join(' ')}
+              </div>
+              <div className="creator-sub" style={{ marginTop: 4 }}>
+                <strong>Layout:</strong> {LAYOUT_LABEL[d.layout]} · <strong>Best for:</strong> {d.useCases.join(', ')}
+              </div>
             </div>
             <div className="stat-chips">
               <span className="stat-chip">👁 {(d.popularity * 137).toLocaleString()} views</span>

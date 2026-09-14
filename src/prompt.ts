@@ -9,6 +9,10 @@ export function buildDesignPrompt(d: DesignSystem): string {
 
 === DESIGN SYSTEM: ${d.name} — ${d.category} ===
 
+DESIGNED FOR
+Website types: ${d.useCases.join(', ')}
+Recommended page layout: ${d.layout}
+
 DESIGN PHILOSOPHY
 ${d.designPhilosophy}
 
@@ -57,6 +61,9 @@ ${d.accessibility}
 
 USAGE EXAMPLE
 ${d.codeExample}
+
+LAYOUT GUIDANCE
+Structure the page as a "${d.layout}" layout: hero-cards = centered hero + 3 feature cards + stats band; split-hero = 50/50 text/visual hero + pricing tiers; magazine = masthead + article grid + cover story; dashboard = sidebar nav + KPI row + chart + data table; centered = single centered column with steps and final CTA; editorial = article head + long-form body with pull quotes.
 
 Deliver a complete, production-ready page that a designer would recognize instantly as "${d.name}".`
 }

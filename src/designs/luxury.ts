@@ -57,7 +57,9 @@ export const luxuryDesigns: DesignSystem[] = [
       '<section class="atelier">\n  <p class="smallcaps">Collection No. 3</p>\n  <h1>Quiet objects,<br/>loud heritage.</h1>\n  <a class="ghost" href="#">View the collection</a>\n</section>',
     accent: '#d4af37',
     motif: 'serif-italic-hero',
-    signatureCss: `
+    layout: 'centered',
+    useCases: ['Fashion', 'Fintech', 'Real Estate'],
+signatureCss: `
 .dv-smallcaps { font-variant: small-caps; letter-spacing: .28em; color: #d4af37; }
 .dv-hero h1 { letter-spacing: .02em; font-weight: 350; }
 .dv-btn { transition: background .4s, color .4s; }
@@ -124,7 +126,9 @@ export const luxuryDesigns: DesignSystem[] = [
       '<section class="plate">\n  <p class="plaque">Exhibit 01 — Oeuvre</p>\n  <h1>Considered objects for considered rooms.</h1>\n  <a class="link-quiet" href="#">Visit the gallery</a>\n</section>',
     accent: '#23405c',
     motif: 'serif-italic-hero',
-    signatureCss: `
+    layout: 'split-hero',
+    useCases: ['Fashion', 'Photography', 'Portfolio'],
+signatureCss: `
 .dv-plaque { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #23405c; }
 .dv-hero h1 { font-weight: 400; }
 .dv-card { background: #fff; border: 1px solid #e5e2da; }
@@ -189,7 +193,9 @@ export const luxuryDesigns: DesignSystem[] = [
       '<header class="house">\n  <h1>MAISON<br/><em>ROUGE</em></h1>\n  <p class="kicker">Autumn–Winter 2026</p>\n  <a class="btn-flood" href="#">The Collection</a>\n</header>',
     accent: '#c1121f',
     motif: 'serif-italic-hero',
-    signatureCss: `
+    layout: 'magazine',
+    useCases: ['Fashion', 'Music', 'Events'],
+signatureCss: `
 .dv-hero h1 em { color: #c1121f; font-style: italic; }
 .dv-btn { position: relative; overflow: hidden; transition: color .4s; z-index: 0; }
 .dv-btn::before { content: ''; position: absolute; inset: 0; background: #c1121f; transform: scaleX(0); transform-origin: left; transition: transform .4s; z-index: -1; }

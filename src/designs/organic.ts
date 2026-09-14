@@ -57,7 +57,9 @@ export const organicDesigns: DesignSystem[] = [
       '<section class="trailhead">\n  <h1>Built for the long way round.</h1>\n  <p>Gear for people who read contour lines for fun.</p>\n  <button class="btn-forest">Plan your route</button>\n</section>',
     accent: '#2f4a3c',
     motif: 'leaf-divider',
-    signatureCss: `
+    layout: 'split-hero',
+    useCases: ['Travel', 'Fitness', 'Nonprofit'],
+signatureCss: `
 .dv-stage { background-image: repeating-radial-gradient(circle at 30% 40%, transparent 0 38px, rgba(47,74,60,.05) 38px 40px), repeating-radial-gradient(circle at 80% 70%, transparent 0 52px, rgba(47,74,60,.04) 52px 54px); }
 .dv-hero h1 { font-weight: 800; }
 .dv-card { background: #fffdf7; }
@@ -123,7 +125,9 @@ export const organicDesigns: DesignSystem[] = [
       '<section class="spa">\n  <div class="orb"></div>\n  <h1>Breathe in. Begin.</h1>\n  <p>Slow rituals for fast lives.</p>\n  <a class="pill" href="#">Book a session</a>\n</section>',
     accent: '#5f7a5f',
     motif: 'wave-section',
-    signatureCss: `
+    layout: 'centered',
+    useCases: ['Health', 'Travel', 'Restaurant'],
+signatureCss: `
 .dv-orb { width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #cfe0cf, #8faf8f); animation: dv-breathe 4s ease-in-out infinite; margin-inline: auto; }
 @keyframes dv-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
 .dv-hero h1 { font-weight: 500; }
@@ -189,7 +193,9 @@ export const organicDesigns: DesignSystem[] = [
       '<section class="greenhouse">\n  <p class="cultivar">Cultivar No. 12</p>\n  <h1>Gardens, <em>carefully</em> kept.</h1>\n  <p>Rare seeds and rarer patience.</p>\n  <a class="btn-seed" href="#">Request a catalog</a>\n</section>',
     accent: '#1e3528',
     motif: 'leaf-divider',
-    signatureCss: `
+    layout: 'magazine',
+    useCases: ['Restaurant', 'E-commerce', 'Education'],
+signatureCss: `
 .dv-cultivar { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #7fa074; }
 .dv-hero h1 em { color: #c76b7e; }
 .dv-card { border: 1px solid #22301f; box-shadow: inset 0 0 0 4px #f6f3ea, inset 0 0 0 5px rgba(34,48,31,.35); }

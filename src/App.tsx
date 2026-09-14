@@ -3,6 +3,7 @@ import { useStore, type QuickFilter } from './store'
 import { DESIGN_SYSTEMS } from './designs'
 import { CATEGORY_ORDER, sortSystems, categoryAccent } from './designs/theme'
 import type { Category } from './types'
+import { USE_CASES } from './types'
 import { Gallery } from './components/Gallery'
 import { Preview } from './components/Preview'
 import { useToast, useUrlSync, useKeyboardShortcuts } from './hooks'
@@ -12,6 +13,12 @@ const QUICK_FILTERS: { key: QuickFilter; label: string }[] = [
   { key: 'latest', label: '◷ Latest Added' },
   { key: 'trending', label: '▲ Trending' },
 ]
+
+const USE_CASE_ICONS: Record<string, string> = {  SaaS: '⬡', Agency: '◈', Portfolio: '◐', 'E-commerce': '◍', Restaurant: '✿', Music: '♪', Fintech: '$', Health: '✚', Education: '✎', 'Real Estate': '⌂',
+  Travel: '✈', Gaming: '♟', News: '❏', Events: '★', Nonprofit: '♥',
+  'AI/ML': '◈', Crypto: '◈', Fashion: '✂', Fitness: '✦', Kids: '●',
+  Productivity: '✓', Photography: '◉',
+}
 
 export default function App() {
   useUrlSync()
@@ -25,6 +32,8 @@ export default function App() {
   const quickFilter = useStore((s) => s.quickFilter)
   const setQuickFilter = useStore((s) => s.setQuickFilter)
   const clearFilters = useStore((s) => s.clearFilters)
+  const selectedUseCase = useStore((s) => s.selectedUseCase)
+  const toggleUseCase = useStore((s) => s.toggleUseCase)
   const selectedId = useStore((s) => s.selectedId)
   const favorites = useStore((s) => s.favorites)
   const [favOnly, setFavOnly] = useState(false)
@@ -33,9 +42,10 @@ export default function App() {
     const q = searchQuery.trim().toLowerCase()
     let list = DESIGN_SYSTEMS.filter((d) => {
       if (selectedCategory && d.category !== selectedCategory) return false
+      if (selectedUseCase && !d.useCases.includes(selectedUseCase)) return false
       if (favOnly && !favorites.includes(d.id)) return false
       if (!q) return true
-      const haystack = [d.name, d.category, d.description, d.designPhilosophy, ...d.tags]
+      const haystack = [d.name, d.category, d.description, d.designPhilosophy, ...d.tags, ...d.useCases]
         .join(' ')
         .toLowerCase()
       return haystack.includes(q)
@@ -43,10 +53,11 @@ export default function App() {
     if (quickFilter) list = sortSystems(list, quickFilter)
     else list = [...list].sort((a, b) => b.popularity - a.popularity)
     return list
-  }, [searchQuery, selectedCategory, quickFilter, favOnly, favorites])
+  }, [searchQuery, selectedCategory, quickFilter, favOnly, favorites, selectedUseCase])
 
   const previewIds = filtered.map((d) => d.id)
-  const hasActiveFilters = !!(searchQuery || selectedCategory || quickFilter || favOnly)
+  const hasActiveFilters = !!(searchQuery || selectedCategory || quickFilter || favOnly || selectedUseCase)
+  const [useCaseOpen, setUseCaseOpen] = useState(false)
 
   return (
     <>
@@ -75,6 +86,45 @@ export default function App() {
               <button className="search-clear" onClick={() => setSearchQuery('')} aria-label="Clear search">
                 ✕
               </button>
+            )}
+          </div>
+
+          <div className="usecase-bar">
+            <span className="usecase-label">Building a:</span>
+            <button
+              className={`usecase-trigger ${selectedUseCase ? 'active' : ''}`}
+              onClick={() => setUseCaseOpen((o) => !o)}
+              aria-expanded={useCaseOpen}
+            >
+              {selectedUseCase ? `${USE_CASE_ICONS[selectedUseCase] ?? '◆'} ${selectedUseCase}` : 'Choose a website type…'} ▾
+            </button>
+            {selectedUseCase && (
+              <span className="usecase-count">
+                {DESIGN_SYSTEMS.filter((d) => d.useCases.includes(selectedUseCase)).length} matches
+              </span>
+            )}
+            {useCaseOpen && (
+              <>
+                <div className="usecase-backdrop" onClick={() => setUseCaseOpen(false)} />
+                <div className="usecase-menu" role="listbox" aria-label="Website type">
+                  {USE_CASES.map((u) => {
+                    const n = DESIGN_SYSTEMS.filter((d) => d.useCases.includes(u)).length
+                    return (
+                      <button
+                        key={u}
+                        role="option"
+                        aria-selected={selectedUseCase === u}
+                        className={`usecase-item ${selectedUseCase === u ? 'active' : ''} ${n === 0 ? 'empty' : ''}`}
+                        onClick={() => { toggleUseCase(u); setUseCaseOpen(false) }}
+                      >
+                        <span className="usecase-ic" aria-hidden>{USE_CASE_ICONS[u] ?? '◆'}</span>
+                        {u}
+                        <span className="usecase-n">{n}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </>
             )}
           </div>
 
@@ -122,6 +172,7 @@ export default function App() {
         <span className="result-count">
           <strong>{filtered.length}</strong> of {DESIGN_SYSTEMS.length} designs
           {selectedCategory && <> · {selectedCategory}</>}
+          {selectedUseCase && <> · for {selectedUseCase}</>}
           {quickFilter && <> · {QUICK_FILTERS.find((f) => f.key === quickFilter)?.label}</>}
         </span>
         {favOnly && <span className="fav-filter-note">Showing favorites only</span>}

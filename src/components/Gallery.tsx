@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react'
 import { useStore } from '../store'
-import { CATEGORY_ACCENT } from '../types'
+import { CATEGORY_ACCENT, LAYOUT_LABEL } from '../types'
 import type { DesignSystem } from '../types'
 
 const MiniSite = lazy(() => import('./MiniSite').then((m) => ({ default: m.MiniSite })))
@@ -97,6 +97,7 @@ export function DesignCard({ d }: { d: DesignSystem }) {
         </div>
         <h3 className="card-name">{d.name}</h3>
         <p className="card-desc">{d.description}</p>
+        <div className="card-layout">▤ {LAYOUT_LABEL[d.layout]}</div>
         <div className="card-meta">
           <span>v{d.createdAt.slice(0, 4)}</span>
           <span>♥ {d.popularity}</span>
@@ -118,16 +119,30 @@ export function Gallery({ systems }: { systems: DesignSystem[] }) {
   useEffect(() => setLimit(PAGE_SIZE), [systems])
 
   useEffect(() => {
+    const loadMore = () =>
+      setLimit((l) => (l < systems.length ? Math.min(l + PAGE_SIZE, systems.length) : l))
+
     const el = sentinel.current
     if (!el) return
     const io = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) setLimit((l) => (l < systems.length ? l + PAGE_SIZE : l))
+        if (entries[0].isIntersecting) loadMore()
       },
       { rootMargin: '600px' },
     )
     io.observe(el)
-    return () => io.disconnect()
+
+    // Fallback for embeddeds/contexts where IO misses: check position on scroll.
+    const onScroll = () => {
+      const r = el.getBoundingClientRect()
+      if (r.top < window.innerHeight + 600) loadMore()
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => {
+      io.disconnect()
+      window.removeEventListener('scroll', onScroll)
+    }
   }, [systems.length])
 
   const shown = useMemo(() => systems.slice(0, limit), [systems, limit])

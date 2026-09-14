@@ -367,3 +367,144 @@
 
 /* Per-design signature overrides land after these rules because
    signatureCss is injected inside the MiniSite container. */
+
+/* ============ Component showcase (shared across layouts) ============ */
+.dv-comp-tabs { display: flex; gap: 0.5em; margin-bottom: 1.2em; flex-wrap: wrap; }
+.dv-comp-tab {
+  border: 1px solid color-mix(in srgb, var(--dv-text) 22%, transparent);
+  background: transparent; color: var(--dv-text);
+  padding: 0.45em 1.1em; border-radius: var(--dv-r); font: inherit; font-size: 0.85em;
+  cursor: pointer; transition: all 0.15s ease;
+}
+.dv-comp-tab:hover { border-color: var(--dv-primary); }
+.dv-comp-pane { display: flex; flex-direction: column; gap: 1.2em; }
+.dv-comp-row { display: flex; align-items: center; gap: 0.9em; flex-wrap: wrap; }
+.dv-comp-cards3 { display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 1em; }
+.dv-comp-form2 { display: grid !important; grid-template-columns: 1fr 1fr; gap: 1em; max-width: 34em; }
+.dv-field { display: flex; flex-direction: column; gap: 0.4em; }
+.dv-field-full { grid-column: 1 / -1; }
+.dv-textarea { resize: vertical; font: inherit; }
+.dv-mini-card { display: flex; flex-direction: column; gap: 0.5em; }
+.dv-mini-card p { margin: 0; font-size: 0.85em; opacity: 0.75; }
+.dv-mini-card h3 { margin: 0; font-size: 1em; font-family: var(--dv-display); }
+.dv-media { height: 5.5em; border-radius: calc(var(--dv-r) * 0.8); margin-bottom: 0.4em; }
+.dv-link { color: var(--dv-primary); font-size: 0.85em; font-weight: 600; margin-top: auto; }
+.dv-price-tag { align-self: flex-start; font-size: 0.68em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25em 0.7em; }
+.dv-mini-card-price h3 { font-size: 1.6em; }
+.dv-mini-card-price h3 span { font-size: 0.45em; opacity: 0.6; }
+.dv-mini-card-price ul { margin: 0; padding-left: 1.1em; font-size: 0.82em; opacity: 0.8; display: flex; flex-direction: column; gap: 0.2em; }
+.dv-price-hot { transform: translateY(-0.3em); }
+.dv-badge { display: inline-flex; align-items: center; font-size: 0.72em; font-weight: 700; letter-spacing: 0.04em; padding: 0.3em 0.75em; white-space: nowrap; }
+.dv-toggle { display: inline-flex; align-items: center; gap: 0.55em; cursor: pointer; user-select: none; }
+.dv-toggle-track { width: 2.4em; height: 1.3em; border-radius: 999px; position: relative; transition: background 0.2s ease; display: inline-block; }
+.dv-toggle-knob { position: absolute; top: 0.15em; left: 0.15em; width: 1em; height: 1em; border-radius: 50%; background: #fff; transition: transform 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+.dv-toggle-track.on .dv-toggle-knob { transform: translateX(1.1em); }
+.dv-toggle-label { font-size: 0.82em; opacity: 0.8; }
+.dv-avatar { width: 1.9em; height: 1.9em; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 700; font-size: 0.8em; border: 2px solid var(--dv-bg); }
+.dv-avatar + .dv-avatar { margin-left: -0.7em; }
+.dv-avatar-more { width: 1.9em; height: 1.9em; border-radius: 50%; display: inline-grid; place-items: center; font-size: 0.75em; font-weight: 700; border: 2px dashed; margin-left: -0.7em; background: var(--dv-bg); }
+.dv-sep { width: 1px; height: 1.6em; background: color-mix(in srgb, var(--dv-text) 18%, transparent); }
+.dv-stat-inline { font-size: 0.85em; opacity: 0.85; }
+.dv-stat-inline strong { font-family: var(--dv-display); }
+.dv-btn-disabled { opacity: 0.55; }
+.dv-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+.dv-table th { text-align: left; font-size: 0.72em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; padding: 0.6em 0.8em; border-bottom: 1px solid color-mix(in srgb, var(--dv-text) 18%, transparent); }
+.dv-table td { padding: 0.7em 0.8em; border-bottom: 1px solid color-mix(in srgb, var(--dv-text) 9%, transparent); }
+.dv-table tbody tr:hover { background: color-mix(in srgb, var(--dv-primary) 6%, transparent); }
+.dv-table-lg .dv-table, .dv-table.dv-table-lg { font-size: 0.95em; }
+
+/* ============ Layout: split hero ============ */
+.dv-split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3em; align-items: center; padding: 4em 3em; max-width: 72em; margin: 0 auto; width: 100%; }
+.dv-split .dv-kicker { margin-bottom: 1em; }
+.dv-split h1 { font-family: var(--dv-display); font-size: clamp(2em, 4.6cqi, 3.6em); line-height: 1.05; margin: 0 0 0.35em; max-width: 14ch; }
+.dv-split .dv-sub { margin: 0 0 1.4em; opacity: 0.75; max-width: 42ch; }
+.dv-check-list { list-style: none; margin: 1.4em 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.5em; font-size: 0.88em; opacity: 0.8; }
+.dv-fake-ui { background: color-mix(in srgb, var(--dv-text) 5%, var(--dv-bg)); border: 1px solid color-mix(in srgb, var(--dv-text) 16%, transparent); border-radius: 12px; padding: 1em; display: flex; flex-direction: column; gap: 0.9em; box-shadow: 0 18px 44px color-mix(in srgb, var(--dv-text) 12%, transparent); }
+.dv-fake-ui-bar { display: flex; gap: 0.4em; }
+.dv-fake-ui-bar span { width: 0.6em; height: 0.6em; border-radius: 50%; background: color-mix(in srgb, var(--dv-text) 22%, transparent); }
+.dv-fake-ui-chart { display: flex; align-items: flex-end; gap: 0.45em; height: 8.5em; }
+.dv-fake-ui-chart div { flex: 1; border-radius: 3px 3px 0 0; opacity: 0.92; }
+.dv-fake-ui-rows { display: flex; flex-direction: column; gap: 0.5em; }
+.dv-fake-ui-rows div { height: 0.75em; border-radius: 4px; }
+.dv-pricing { padding: 3em 2em; max-width: 68em; margin: 0 auto; width: 100%; }
+.dv-pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2em; }
+.dv-price { font-family: var(--dv-display); font-size: 1.9em; font-weight: 800; }
+.dv-price span { font-size: 0.4em; opacity: 0.6; font-weight: 500; }
+
+/* ============ Layout: magazine ============ */
+.dv-masthead { text-align: center; padding: 3.5em 2em 2em; }
+.dv-masthead-title { font-family: var(--dv-display); font-size: clamp(2.4em, 7cqi, 5em); margin: 0.2em 0; line-height: 1; }
+.dv-masthead-rule { height: 3px; background: var(--dv-text); max-width: 60em; margin: 1.4em auto 0; }
+.dv-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; padding: 2.5em 3em; max-width: 72em; margin: 0 auto; }
+.dv-article { display: flex; flex-direction: column; gap: 0.6em; }
+.dv-article h3 { font-family: var(--dv-display); font-size: 1.15em; margin: 0; line-height: 1.25; }
+.dv-article p { margin: 0; font-size: 0.88em; opacity: 0.75; }
+.dv-article .dv-badge { align-self: flex-start; }
+.dv-feature-row { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5em; padding: 2em 3em; max-width: 72em; margin: 0 auto; align-items: center; }
+.dv-feature-media { height: 17em; border-radius: 10px; }
+.dv-feature-text { display: flex; flex-direction: column; gap: 0.8em; align-items: flex-start; }
+.dv-feature-text h2 { font-family: var(--dv-display); font-size: 1.9em; margin: 0; line-height: 1.1; }
+.dv-feature-text p { margin: 0; opacity: 0.8; font-size: 0.95em; }
+
+/* ============ Layout: dashboard ============ */
+.dv-dash { display: grid; grid-template-columns: 12em 1fr; gap: 1.6em; padding: 1.6em; width: 100%; max-width: 76em; margin: 0 auto; }
+.dv-dash-side { background: color-mix(in srgb, var(--dv-text) 4%, var(--dv-bg)); border: 1px solid color-mix(in srgb, var(--dv-text) 12%, transparent); border-radius: 12px; padding: 1em; display: flex; flex-direction: column; gap: 0.3em; align-self: start; position: sticky; top: 4em; }
+.dv-dash-logo { font-family: var(--dv-display); font-weight: 700; margin-bottom: 1em; font-size: 0.95em; }
+.dv-dash-item { padding: 0.55em 0.8em; border-radius: 8px; font-size: 0.88em; opacity: 0.8; }
+.dv-dash-on { font-weight: 700; opacity: 1; }
+.dv-dash-main { display: flex; flex-direction: column; gap: 1.2em; }
+.dv-dash-head { display: flex; align-items: center; justify-content: space-between; }
+.dv-dash-head h1 { font-family: var(--dv-display); font-size: 1.5em; margin: 0; }
+.dv-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1em; }
+.dv-kpi { display: flex; flex-direction: column; gap: 0.25em; padding: 1em 1.2em; }
+.dv-kpi strong { font-family: var(--dv-display); font-size: 1.4em; }
+.dv-delta { font-size: 0.78em; font-weight: 700; }
+.dv-chart-card { padding: 1.2em 1.4em; display: flex; flex-direction: column; gap: 1em; }
+.dv-chart-head { display: flex; justify-content: space-between; align-items: baseline; }
+.dv-chart-lg { height: 11em; }
+
+/* ============ Layout: centered ============ */
+.dv-hero-centered { padding-top: 5em; }
+.dv-orb { width: 8em; height: 8em; border-radius: 50%; margin: 0 auto 2em; animation: dv-float 5s ease-in-out infinite; }
+@keyframes dv-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-0.6em); } }
+.dv-mini-note { font-size: 0.78em; opacity: 0.6; margin-top: 1em; }
+.dv-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; padding: 3em 3em; max-width: 68em; margin: 0 auto; }
+.dv-step { text-align: center; display: flex; flex-direction: column; gap: 0.5em; }
+.dv-step h3 { font-family: var(--dv-display); margin: 0; }
+.dv-step p { margin: 0; font-size: 0.88em; opacity: 0.75; }
+.dv-step-num { font-family: var(--dv-display); font-weight: 800; font-size: 2em; color: var(--dv-primary); opacity: 0.9; }
+.dv-quote-band { padding: 3em 2em; text-align: center; }
+.dv-quote-band blockquote { font-family: var(--dv-display); font-size: 1.5em; max-width: 30em; margin: 0 auto; line-height: 1.3; }
+.dv-quote-band footer { font-family: var(--dv-body); font-size: 0.6em; opacity: 0.65; margin-top: 1em; }
+.dv-cta-final { text-align: center; padding: 3.5em 2em 4.5em; display: flex; flex-direction: column; gap: 1.2em; align-items: center; }
+.dv-cta-final h2 { font-family: var(--dv-display); font-size: 2em; margin: 0; }
+
+/* ============ Layout: editorial ============ */
+.dv-ed-head { max-width: 46em; margin: 0 auto; padding: 3.5em 2em 1.5em; }
+.dv-ed-head h1 { font-family: var(--dv-display); font-size: clamp(2.2em, 5.4cqi, 3.8em); line-height: 1.08; margin: 0 0 0.4em; }
+.dv-ed-standfirst { font-size: 1.15em; line-height: 1.6; opacity: 0.8; margin: 0 0 1em; }
+.dv-ed-byline { font-size: 0.8em; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.6; border-top: 1px solid color-mix(in srgb, var(--dv-text) 20%, transparent); padding-top: 1em; }
+.dv-ed-body { max-width: 44em; margin: 0 auto; padding: 1.5em 2em 2em; display: flex; flex-direction: column; gap: 1.2em; font-size: 1.04em; line-height: 1.75; }
+.dv-ed-body p { margin: 0; }
+.dv-ed-lead::first-letter { font-family: var(--dv-display); font-size: 2.6em; float: left; line-height: 0.85; padding-right: 0.12em; font-weight: 700; color: var(--dv-primary); }
+.dv-ed-pull { font-family: var(--dv-display); font-size: 1.4em; line-height: 1.3; border-left: 3px solid var(--dv-primary); padding-left: 1em; margin: 0.4em 0; font-style: italic; }
+.dv-ed-aside { border: 1px solid color-mix(in srgb, var(--dv-text) 18%, transparent); border-radius: 10px; padding: 1.1em 1.3em; font-size: 0.85em; background: color-mix(in srgb, var(--dv-primary) 5%, transparent); }
+.dv-ed-aside ul { margin: 0.5em 0 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 0.25em; }
+.dv-ed-footer-cta { display: flex; gap: 0.9em; justify-content: center; padding: 1.5em 2em 3.5em; }
+
+/* ============ Quote (hero-cards testimonial) ============ */
+.dv-quote { margin: 0; font-family: var(--dv-display); font-size: 1.05em; line-height: 1.5; }
+.dv-quote footer { font-family: var(--dv-body); font-size: 0.78em; opacity: 0.6; margin-top: 0.8em; }
+
+/* ============ Responsive within layouts ============ */
+@container (max-width: 760px) {
+  .dv-split { grid-template-columns: 1fr; padding: 2.5em 1.4em; gap: 2em; }
+  .dv-grid-3, .dv-steps, .dv-pricing-grid, .dv-comp-cards3 { grid-template-columns: 1fr; }
+  .dv-feature-row { grid-template-columns: 1fr; padding: 2em 1.4em; }
+  .dv-dash { grid-template-columns: 1fr; }
+  .dv-dash-side { position: static; flex-direction: row; flex-wrap: wrap; }
+  .dv-dash-logo { width: 100%; }
+  .dv-kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .dv-comp-form2 { grid-template-columns: 1fr; }
+  .dv-ed-body { padding: 1.2em 1.4em; }
+}

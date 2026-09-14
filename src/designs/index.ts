@@ -8,6 +8,12 @@ import { retroDesigns } from './retro'
 import { organicDesigns } from './organic'
 import { professionalDesigns } from './professional'
 import { creativeDesigns } from './creative'
+import { printDesigns } from './print'
+import { elementalDesigns } from './elemental'
+import { futuristicDesigns } from './futuristic'
+import { homestyleDesigns } from './homestyle'
+import { urbanDesigns } from './urban'
+import { historicalDesigns } from './historical'
 
 export const DESIGN_SYSTEMS: DesignSystem[] = [
   ...minimalismDesigns,
@@ -19,6 +25,12 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
   ...organicDesigns,
   ...professionalDesigns,
   ...creativeDesigns,
+  ...printDesigns,
+  ...elementalDesigns,
+  ...futuristicDesigns,
+  ...homestyleDesigns,
+  ...urbanDesigns,
+  ...historicalDesigns,
 ]
 
 export function getDesign(id: string): DesignSystem | undefined {

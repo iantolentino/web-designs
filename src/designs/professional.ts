@@ -57,7 +57,9 @@ export const professionalDesigns: DesignSystem[] = [
       '<header class="corporate">\n  <h1>Compliance, minus the headache.</h1>\n  <p>Audit-ready workflows for regulated teams.</p>\n  <div class="cta-row">\n    <button class="btn-primary">Request a demo</button>\n    <a class="text-link" href="#">Read the whitepaper</a>\n  </div>\n</header>',
     accent: '#1d4ed8',
     motif: 'big-stat-row',
-    signatureCss: `
+    layout: 'split-hero',
+    useCases: ['SaaS', 'Fintech', 'Real Estate'],
+signatureCss: `
 .dv-card { border-left: 4px solid #1d4ed8; }
 .dv-stat { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; color: #12284c; }
 .dv-nav { background: #12284c; }
@@ -122,7 +124,9 @@ export const professionalDesigns: DesignSystem[] = [
       '<section class="metrics">\n  <h1>Money, measured.</h1>\n  <div class="stats">\n    <div class="stat"><span class="value">$4.2M</span><span class="delta">▲ 18% MoM</span></div>\n  </div>\n  <button class="btn-primary">Open dashboard</button>\n</section>',
     accent: '#2563eb',
     motif: 'big-stat-row',
-    signatureCss: `
+    layout: 'dashboard',
+    useCases: ['Fintech', 'SaaS', 'AI/ML'],
+signatureCss: `
 .dv-stat .value { font-variant-numeric: tabular-nums; font-weight: 700; }
 .dv-stat .delta { color: #10b981; font-weight: 600; }
 .dv-card { box-shadow: 0 1px 3px rgba(15,23,42,.08); }
@@ -188,7 +192,9 @@ export const professionalDesigns: DesignSystem[] = [
       '<section class="infra">\n  <p class="spec">SLA 99.99% · 34 regions · 12ms p50</p>\n  <h1>Infrastructure for the ambitious.</h1>\n  <button class="btn-cyan">Start building</button>\n</section>',
     accent: '#0891b2',
     motif: 'mono-labels',
-    signatureCss: `
+    layout: 'dashboard',
+    useCases: ['AI/ML', 'SaaS', 'Crypto'],
+signatureCss: `
 .dv-spec { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #0891b2; }
 .dv-stage { background-image: linear-gradient(rgba(30,41,59,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(30,41,59,.04) 1px, transparent 1px); background-size: 24px 24px; }
 .dv-card .spechead { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #64748b; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }`,

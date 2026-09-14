@@ -1,11 +1,12 @@
 import { create } from 'zustand'
-import type { Category, DeviceMode, PreviewTab } from './types'
+import type { Category, DeviceMode, PreviewTab, UseCase } from './types'
 
 export type QuickFilter = 'popular' | 'latest' | 'trending'
 
 interface VaultState {
   searchQuery: string
   selectedCategory: Category | null
+  selectedUseCase: UseCase | null
   quickFilter: QuickFilter | null
   selectedId: string | null
   previewTab: PreviewTab
@@ -14,6 +15,7 @@ interface VaultState {
   toast: string | null
   setSearchQuery: (q: string) => void
   toggleCategory: (c: Category) => void
+  toggleUseCase: (u: UseCase) => void
   setQuickFilter: (f: QuickFilter | null) => void
   clearFilters: () => void
   openDesign: (id: string) => void
@@ -45,6 +47,7 @@ function persistFavorites(favs: string[]) {
 export const useStore = create<VaultState>((set, get) => ({
   searchQuery: '',
   selectedCategory: null,
+  selectedUseCase: null,
   quickFilter: null,
   selectedId: null,
   previewTab: 'live',
@@ -54,9 +57,12 @@ export const useStore = create<VaultState>((set, get) => ({
   setSearchQuery: (q) => set({ searchQuery: q }),
   toggleCategory: (c) =>
     set((s) => ({ selectedCategory: s.selectedCategory === c ? null : c })),
+  toggleUseCase: (u) =>
+    set((s) => ({ selectedUseCase: s.selectedUseCase === u ? null : u })),
   setQuickFilter: (f) =>
     set((s) => ({ quickFilter: s.quickFilter === f ? null : f })),
-  clearFilters: () => set({ searchQuery: '', selectedCategory: null, quickFilter: null }),
+  clearFilters: () =>
+    set({ searchQuery: '', selectedCategory: null, quickFilter: null, selectedUseCase: null }),
   openDesign: (id) => set({ selectedId: id, previewTab: 'live' }),
   closeDesign: () => set({ selectedId: null }),
   navigate: (dir, ids) => {

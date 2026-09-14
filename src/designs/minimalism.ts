@@ -60,7 +60,9 @@ export const minimalismDesigns: DesignSystem[] = [
       '<section class="hero">\n  <p class="eyebrow">New · v2.0</p>\n  <h1>Ship calm software.</h1>\n  <p class="lead">The metrics platform for teams that value focus.</p>\n  <div class="actions">\n    <button class="btn btn--primary">Start free</button>\n    <button class="btn btn--secondary">View demo</button>\n  </div>\n</section>',
     accent: '#0d9488',
     motif: 'underline-accent',
-    signatureCss: `
+    layout: 'split-hero',
+    useCases: ['SaaS', 'AI/ML', 'Fintech', 'Productivity'],
+signatureCss: `
 .dv-hero h1 { position: relative; display: inline-block; }
 .dv-hero h1::after { content: ''; position: absolute; left: 2px; right: 2px; bottom: 6px; height: 10px; background: rgba(94,234,212,.45); z-index: -1; transform: skewX(-8deg); }
 .dv-nav { backdrop-filter: blur(8px); }
@@ -126,7 +128,9 @@ export const minimalismDesigns: DesignSystem[] = [
       '<main class="zen">\n  <h1>Begin quietly.</h1>\n  <p class="lede">A journal for slower mornings.</p>\n  <a class="quiet-link" href="#">Read the first entry</a>\n</main>',
     accent: '#5a7263',
     motif: 'serif-italic-hero',
-    signatureCss: `
+    layout: 'centered',
+    useCases: ['Health', 'Education', 'Portfolio'],
+signatureCss: `
 .dv-hero h1 em { font-style: italic; font-weight: 400; color: #5a7263; }
 .dv-section + .dv-section { border-top: 1px solid rgba(43,43,39,.12); }
 .dv-nav a { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }`,
@@ -190,7 +194,9 @@ export const minimalismDesigns: DesignSystem[] = [
       '<section class="chapter">\n  <span class="index">01</span>\n  <h2>Grid &amp; Order</h2>\n  <div class="cols">\n    <p>Typography is the architecture of the page.</p>\n  </div>\n</section>',
     accent: '#e63317',
     motif: 'swiss-grid',
-    signatureCss: `
+    layout: 'magazine',
+    useCases: ['News', 'Agency', 'Education'],
+signatureCss: `
 .dv-index { font-weight: 900; font-size: clamp(4rem, 12vw, 9rem); line-height: .85; color: #e63317; }
 .dv-card { display: grid; grid-template-columns: 1fr 1px 1fr; }
 .dv-card > .rule { background: #111; }
@@ -255,7 +261,9 @@ export const minimalismDesigns: DesignSystem[] = [
       '<header class="topbar">\n  <span class="crumb">docs / quickstart</span>\n  <button class="btn-primary">GET API KEY</button>\n</header>\n<pre><code>curl -X POST https://api.dev/v1/run</code></pre>',
     accent: '#b45309',
     motif: 'mono-labels',
-    signatureCss: `
+    layout: 'dashboard',
+    useCases: ['AI/ML', 'SaaS', 'Productivity'],
+signatureCss: `
 .dv-label { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #71717a; }
 .dv-tertiary:hover::before { transform: translateX(2px); }
 .dv-card h4 { border-bottom: 1px solid #e4e4e7; padding-bottom: 8px; }`,

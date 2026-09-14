@@ -57,7 +57,9 @@ export const creativeDesigns: DesignSystem[] = [
       '<section class="canvas">\n  <div class="shape circle"></div>\n  <div class="shape bar"></div>\n  <h1>Form follows<br/><em>feeling.</em></h1>\n  <a class="btn-round" href="#">See the work</a>\n</section>',
     accent: '#e63946',
     motif: 'editorial-columns',
-    signatureCss: `
+    layout: 'hero-cards',
+    useCases: ['Portfolio', 'Agency', 'Events'],
+signatureCss: `
 .dv-shape { position: absolute; pointer-events: none; }
 .dv-shape.circle { width: 120px; height: 120px; border-radius: 50%; background: #e63946; }
 .dv-shape.tri { width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 104px solid #f1c40f; }
@@ -124,7 +126,9 @@ export const creativeDesigns: DesignSystem[] = [
       '<section class="tiles">\n  <h1>PATTERN ≠<br/>DECORATION.</h1>\n  <p>It’s structure you can feel.</p>\n  <button class="btn-tile">Enter the grid</button>\n</section>',
     accent: '#c65d3b',
     motif: 'pixel-grid',
-    signatureCss: `
+    layout: 'magazine',
+    useCases: ['Agency', 'E-commerce', 'Portfolio'],
+signatureCss: `
 .dv-scallop { height: 16px; background: radial-gradient(circle at 8px -4px, transparent 10px, #c65d3b 11px); background-size: 16px 16px; }
 .dv-checker { background-image: conic-gradient(#2b2724 25%, transparent 0 50%, #2b2724 0 75%, transparent 0); background-size: 16px 16px; }
 .dv-card { border: 1px solid #2b2724; }
@@ -189,7 +193,9 @@ export const creativeDesigns: DesignSystem[] = [
       '<section class="sketch">\n  <h1>big ideas, drawn first ✏️</h1>\n  <p>Every feature started as a margin doodle.</p>\n  <button class="btn-sketch">start sketching</button>\n</section>',
     accent: '#e76f51',
     motif: 'rotated-stickers',
-    signatureCss: `
+    layout: 'hero-cards',
+    useCases: ['Kids', 'Education', 'Nonprofit'],
+signatureCss: `
 .dv-sketchbox { border: 2px solid #33312c; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; }
 .dv-tape { position: absolute; top: -10px; left: 50%; width: 96px; height: 24px; background: rgba(233,196,106,.75); transform: translateX(-50%) rotate(-2deg); }
 .dv-hero h1 { font-family: 'Patrick Hand', cursive; }
@@ -255,7 +261,9 @@ export const creativeDesigns: DesignSystem[] = [
       '<section class="cozy">\n  <h1>Warm drinks, warm pixels.</h1>\n  <p>A reading app that feels like a blanket.</p>\n  <button class="btn-pebble">Pour a cup</button>\n</section>',
     accent: '#b3541e',
     motif: 'soft-shadows',
-    signatureCss: `
+    layout: 'split-hero',
+    useCases: ['Education', 'Restaurant', 'Nonprofit'],
+signatureCss: `
 .dv-blob { border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%; }
 .dv-btn-pebble { border-radius: 999px; box-shadow: 0 6px 16px rgba(179,84,30,.3); }
 .dv-btn-pebble:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(179,84,30,.4); }

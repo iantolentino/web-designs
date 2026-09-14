@@ -34,6 +34,50 @@ export type Motif =
 export type DeviceMode = 'desktop' | 'tablet' | 'mobile'
 export type PreviewTab = 'live' | 'code' | 'details'
 
+export type Layout =
+  | 'hero-cards'
+  | 'split-hero'
+  | 'magazine'
+  | 'dashboard'
+  | 'centered'
+  | 'editorial'
+
+export const LAYOUT_LABEL: Record<Layout, string> = {
+  'hero-cards': 'Hero + Feature Cards',
+  'split-hero': 'Split Hero',
+  magazine: 'Magazine',
+  dashboard: 'Dashboard',
+  centered: 'Centered',
+  editorial: 'Editorial',
+}
+
+export const USE_CASES = [
+  'SaaS',
+  'Agency',
+  'Portfolio',
+  'E-commerce',
+  'Restaurant',
+  'Music',
+  'Fintech',
+  'Health',
+  'Education',
+  'Real Estate',
+  'Travel',
+  'Gaming',
+  'News',
+  'Events',
+  'Nonprofit',
+  'AI/ML',
+  'Crypto',
+  'Fashion',
+  'Fitness',
+  'Kids',
+  'Productivity',
+  'Photography',
+] as const
+
+export type UseCase = (typeof USE_CASES)[number]
+
 export interface ComponentSpec {
   /** Main CTA button */
   primary: string
@@ -103,6 +147,10 @@ export interface DesignSystem {
   /** Optional deep background for the preview stage */
   stage?: string
   motif: Motif
+  /** Page layout archetype for the live preview */
+  layout: Layout
+  /** Website types this design suits */
+  useCases: UseCase[]
   /** Extra per-design CSS (signature effects); injected only in preview + thumbs */
   signatureCss: string
   author: string

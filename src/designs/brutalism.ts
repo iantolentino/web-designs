@@ -58,7 +58,9 @@ export const brutalismDesigns: DesignSystem[] = [
       '<section class="block">\n  <h1>NO FRILLS. ALL STRUCTURE.</h1>\n  <p>Built like a warehouse. Loads like one too.</p>\n  <button class="btn-acid">USE IT →</button>\n</section>',
     accent: '#f5e617',
     motif: M('hard-shadows'),
-    signatureCss: `
+    layout: 'hero-cards',
+    useCases: ['Agency', 'Music', 'Portfolio'],
+signatureCss: `
 .dv-card, .dv-btn { box-shadow: 4px 4px 0 #111 !important; border: 2px solid #111 !important; }
 .dv-card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #111 !important; }
 .dv-nav a::before { content: '['; opacity: 0; }
@@ -124,7 +126,9 @@ export const brutalismDesigns: DesignSystem[] = [
       '<section class="cell">\n  <span class="idx">02</span>\n  <h2>Load-bearing typography</h2>\n  <p>Every rule has a reason.</p>\n</section>',
     accent: '#e8590c',
     motif: M('swiss-grid'),
-    signatureCss: `
+    layout: 'magazine',
+    useCases: ['Agency', 'Portfolio', 'News'],
+signatureCss: `
 .dv-idx { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #e8590c; }
 .dv-btn { border-left: 4px solid #e8590c; transition: border-left-width .25s; }
 .dv-btn:hover { border-left-width: 8px; }
@@ -189,7 +193,9 @@ export const brutalismDesigns: DesignSystem[] = [
       '<div class="panel">\n  <div class="titlebar">welcome.htm</div>\n  <marquee>★ thanks for visiting ★ sign the guestbook ★</marquee>\n  <p>You are visitor #0001337</p>\n</div>',
     accent: '#ffcc00',
     motif: M('pixel-grid'),
-    signatureCss: `
+    layout: 'hero-cards',
+    useCases: ['Gaming', 'Music', 'Events'],
+signatureCss: `
 .dv-stage { background-image: radial-gradient(1px 1px at 20% 30%, #fff 50%, transparent 50%), radial-gradient(1px 1px at 60% 70%, #fff 50%, transparent 50%), radial-gradient(1px 1px at 80% 20%, #fff 50%, transparent 50%), radial-gradient(1px 1px at 40% 80%, #fff 50%, transparent 50%); background-size: 180px 180px; }
 .dv-panel { background: #c0c0c0; border: 3px outset #dfdfdf; color: #111; }
 .dv-panel .titlebar { background: linear-gradient(90deg, #000080, #1084d0); color: #fff; font-family: 'VT323', monospace; padding: 2px 8px; }
