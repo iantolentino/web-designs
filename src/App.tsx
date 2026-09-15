@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useStore, type QuickFilter } from './store'
 import { DESIGN_SYSTEMS } from './designs'
 import { CATEGORY_ORDER, sortSystems, categoryAccent } from './designs/theme'
@@ -37,6 +37,16 @@ export default function App() {
   const selectedId = useStore((s) => s.selectedId)
   const favorites = useStore((s) => s.favorites)
   const [favOnly, setFavOnly] = useState(false)
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('design-vault-theme')
+    if (saved === 'light' || saved === 'dark') return saved
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  })
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    localStorage.setItem('design-vault-theme', theme)
+  }, [theme])
 
   const filtered = useMemo(() => {
     const q = searchQuery.trim().toLowerCase()
@@ -70,6 +80,16 @@ export default function App() {
             <span className="brand-sub">
               {DESIGN_SYSTEMS.length} production-grade design systems · zero AI slop
             </span>
+            <button
+              className="theme-toggle"
+              type="button"
+              onClick={() => setTheme((current) => current === 'light' ? 'dark' : 'light')}
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+              aria-pressed={theme === 'dark'}
+            >
+              <span aria-hidden>{theme === 'light' ? '☾' : '☀'}</span>
+              {theme === 'light' ? 'Dark mode' : 'Light mode'}
+            </button>
           </div>
 
           <div className="search-wrap">
