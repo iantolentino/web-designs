@@ -41,6 +41,10 @@ export type Layout =
   | 'dashboard'
   | 'centered'
   | 'editorial'
+  | 'asymmetric'
+  | 'full-bleed'
+  | 'spotlight'
+  | 'manifesto'
 
 export const LAYOUT_LABEL: Record<Layout, string> = {
   'hero-cards': 'Hero + Feature Cards',
@@ -49,6 +53,10 @@ export const LAYOUT_LABEL: Record<Layout, string> = {
   dashboard: 'Dashboard',
   centered: 'Centered',
   editorial: 'Editorial',
+  asymmetric: 'Asymmetric',
+  'full-bleed': 'Full-bleed',
+  spotlight: 'Spotlight',
+  manifesto: 'Manifesto',
 }
 
 export const USE_CASES = [

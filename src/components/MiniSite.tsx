@@ -1,21 +1,30 @@
 import { useMemo, useState } from 'react'
-import type { DesignSystem } from '../types'
+import type { DesignSystem, Layout } from '../types'
+import { LAYOUT_LABEL } from '../types'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
+import { getBlockSet, getDashExtra, LAYOUT_SETS, type BlockId, type DashExtra } from '../designs/extras'
 
 /**
  * MiniSite renders a complete sample page — themed entirely from a DesignSystem.
- * Six layout archetypes keep previews distinct; shared sections showcase each
+ * Ten layout archetypes keep previews distinct; shared sections showcase each
  * design's full component vocabulary. Used scaled (thumbnails) and full (preview).
+ *
+ * Wave 2 (additive): a Blocks showcase tab (testimonials, stats, FAQ, CTA banner,
+ * pricing, card grid — per-design sets), one extra dashboard component for
+ * dashboard designs, a compact layout bar, and four new layout bodies
+ * (asymmetric, full-bleed, spotlight, manifesto). Everything ships styled ONLY
+ * from the design's own tokens via the .dv-* system + inline vars.
  */
 
 let dvScopeCounter = 0
 
-export function MiniSite({ d, compact = false }: { d: DesignSystem; compact?: boolean }) {
+export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSystem; compact?: boolean; layoutOverride?: Layout | null }) {
   const t = useMemo(() => themeOf(d), [d])
   const [modalOpen, setModalOpen] = useState(false)
   const [formMsg, setFormMsg] = useState<string | null>(null)
   const [tab, setTab] = useState(0)
   const [toggleOn, setToggleOn] = useState(true)
+  const [openFaq, setOpenFaq] = useState(0)
   const radiusBtn = extractRadius(d.components.radius)
   const scope = useMemo(() => `dv-s${++dvScopeCounter}`, [])
   const scopedCss = useMemo(() => scopeSignatureCss(d.signatureCss, scope), [d.signatureCss, scope])
@@ -34,6 +43,8 @@ export function MiniSite({ d, compact = false }: { d: DesignSystem; compact?: bo
     '--dv-r': radiusBtn,
   } as React.CSSProperties
 
+  const activeLayout = layoutOverride ?? d.layout
+
   return (
     <div className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} ${compact ? 'dv-compact' : ''}`} style={cssVars}>
       <style>{scopedCss}</style>
@@ -48,13 +59,32 @@ export function MiniSite({ d, compact = false }: { d: DesignSystem; compact?: bo
           <button className="dv-btn dv-btn-nav" style={btnStyle(t)}>Sign up</button>
         </nav>
 
-        {renderLayout(d, { setModalOpen })}
+        {!compact && (
+          <div className="dv-layout-bar" role="group" aria-label={`${d.name} layout arrangements`}>
+            <span className="dv-layout-bar-label">Arrangement</span>
+            {(LAYOUT_SETS[d.id] ?? [d.layout]).map((l) => (
+              <button
+                key={l}
+                className={`dv-layout-opt ${l === activeLayout ? 'dv-layout-opt-on' : ''}`}
+                style={l === activeLayout ? { background: t.primary, color: t.onPrimary, borderColor: t.primary } : {}}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  window.dispatchEvent(new CustomEvent('dv-layout-change', { detail: { id: d.id, layout: l } }))
+                }}
+              >
+                {LAYOUT_LABEL[l]}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {renderLayout(d, activeLayout, { setModalOpen, openFaq, setOpenFaq })}
 
         {/* COMPONENT SHOWCASE */}
         <section className="dv-section dv-comp-showcase">
           <h2 className="dv-h2">Components, in the flesh</h2>
           <div className="dv-comp-tabs">
-            {['Buttons', 'Cards', 'Form', 'Table'].map((label, i) => (
+            {['Buttons', 'Cards', 'Form', 'Table', 'Blocks'].map((label, i) => (
               <button
                 key={label}
                 className={`dv-comp-tab ${tab === i ? 'dv-comp-tab-on' : ''}`}
@@ -148,6 +178,11 @@ export function MiniSite({ d, compact = false }: { d: DesignSystem; compact?: bo
               </table>
             </div>
           )}
+          {tab === 4 && (
+            <div className="dv-blocks-pane">
+              {getBlockSet(d.id).map((b) => <BlockSection key={b} d={d} b={b} openFaq={openFaq} setOpenFaq={setOpenFaq} />)}
+            </div>
+          )}
         </section>
 
         {/* FOOTER */}
@@ -180,13 +215,21 @@ export function MiniSite({ d, compact = false }: { d: DesignSystem; compact?: bo
 
 /* ================= Layout bodies ================= */
 
-function renderLayout(d: DesignSystem, ctx: { setModalOpen: (v: boolean) => void }) {
-  switch (d.layout) {
+function renderLayout(
+  d: DesignSystem,
+  layout: Layout,
+  ctx: { setModalOpen: (v: boolean) => void; openFaq: number; setOpenFaq: (i: number) => void },
+) {
+  switch (layout) {
     case 'split-hero': return <SplitHero d={d} />
     case 'magazine': return <MagazineBody d={d} />
     case 'dashboard': return <DashboardBody d={d} />
     case 'centered': return <CenteredBody d={d} />
     case 'editorial': return <EditorialBody d={d} />
+    case 'asymmetric': return <AsymmetricBody d={d} />
+    case 'full-bleed': return <FullBleedBody d={d} />
+    case 'spotlight': return <SpotlightBody d={d} />
+    case 'manifesto': return <ManifestoBody d={d} />
     case 'hero-cards':
     default: return <HeroCards d={d} />
   }
@@ -357,6 +400,7 @@ function DashboardBody({ d }: { d: DesignSystem }) {
               <tr><td>Halcyon</td><td>Starter</td><td>$0</td><td><span className="dv-badge" style={{ background: withAlpha(t.text, 0.08), color: t.muted }}>Trial</span></td></tr>
             </tbody>
           </table>
+          <DashExtraSlot d={d} />
         </main>
       </div>
     </>
@@ -420,6 +464,358 @@ function EditorialBody({ d }: { d: DesignSystem }) {
   )
 }
 
+/* ===== Wave 2 layout bodies (same tokens, different arrangement) ===== */
+
+function AsymmetricBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  return (
+    <>
+      <section className="dv-asym-hero" style={{ borderColor: withAlpha(t.text, 0.16) }}>
+        <div className="dv-asym-main">
+          <p className="dv-kicker">{d.category} · offset arrangement</p>
+          <h1>{heroTitle(d)}</h1>
+          <p className="dv-sub dv-align-left">{d.description}</p>
+          <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Get started</button>
+            <button className="dv-btn dv-btn-secondary">See how</button>
+          </div>
+        </div>
+        <div className="dv-asym-side">
+          <div className="dv-stat-card" style={{ borderColor: withAlpha(t.text, 0.16) }}>
+            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>98%</strong>
+            <span>ship faster with {d.name}</span>
+          </div>
+          <div className="dv-stat-card" style={{ borderColor: withAlpha(t.text, 0.16), background: withAlpha(t.primary, 0.08) }}>
+            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>4.9★</strong>
+            <span>average rating</span>
+          </div>
+        </div>
+      </section>
+      <section className="dv-asym-feature">
+        <div className="dv-asym-media" style={{ background: `linear-gradient(150deg, ${t.primary}, ${t.secondary})` }} />
+        <div className="dv-asym-copy">
+          <h2 className="dv-h2">One column writes, one column proves</h2>
+          <p>{d.designPhilosophy.split('.')[0]}. The asymmetric arrangement keeps the argument and the evidence side by side — text left, proof right, whitespace doing the arguing in between.</p>
+          <div className="dv-comp-row">
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Read the method</button>
+            <span className="dv-badge" style={{ background: withAlpha(t.accent, 0.15), color: t.accent, borderRadius: extractRadius(d.components.radius) }}>New in 2026</span>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
+
+function FullBleedBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  return (
+    <>
+      <section className="dv-bleed-hero" style={{ background: `linear-gradient(160deg, ${t.primary}, ${t.secondary})` }}>
+        <p className="dv-kicker dv-on-dark">{d.category} · edge-to-edge</p>
+        <h1 className="dv-bleed-title" style={{ color: onColor(t.primary) }}>{heroTitle(d)}</h1>
+        <p className="dv-bleed-sub" style={{ color: onColor(t.primary) }}>{d.description}</p>
+        <div className="dv-cta-row">
+          <button className="dv-btn dv-btn-primary" style={{ background: onColor(t.primary), color: t.primary }}>Start now</button>
+          <button className="dv-btn dv-btn-ghost-on-dark" style={{ color: onColor(t.primary), borderColor: withAlpha(onColor(t.primary), 0.5) }}>Tour the system</button>
+        </div>
+      </section>
+      <section className="dv-bleed-band" style={{ borderColor: withAlpha(t.text, 0.14) }}>
+        <div className="dv-stat"><strong style={{ fontFamily: `'${t.display}', sans-serif` }}>12k+</strong><span>teams on board</span></div>
+        <div className="dv-stat"><strong style={{ fontFamily: `'${t.display}', sans-serif` }}>40%</strong><span>fewer review rounds</span></div>
+        <div className="dv-stat"><strong style={{ fontFamily: `'${t.display}', sans-serif` }}>6</strong><span>tokens to learn</span></div>
+      </section>
+      <section className="dv-section">
+        <h2 className="dv-h2">Nothing hides. Nothing shrinks.</h2>
+        <div className="dv-cards">
+          {features(d).map((f, i) => (
+            <article key={i} className="dv-card"><span className="dv-card-icon" aria-hidden>{f.icon}</span><h3>{f.title}</h3><p>{f.body}</p></article>
+          ))}
+        </div>
+      </section>
+    </>
+  )
+}
+
+function SpotlightBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  return (
+    <>
+      <section className="dv-spotlight">
+        <div className="dv-spotlight-stage" style={{ background: `radial-gradient(circle at 50% 38%, ${withAlpha(t.accent, 0.35)}, ${withAlpha(t.primary, 0.14)} 55%, transparent 75%)` }}>
+          <div className="dv-spotlight-object" style={{ background: `linear-gradient(145deg, ${t.primary}, ${t.secondary})`, boxShadow: `0 30px 60px ${withAlpha(t.primary, 0.35)}` }} />
+        </div>
+        <div className="dv-spotlight-caption">
+          <p className="dv-kicker">{d.category} · the object, centered</p>
+          <h1>{heroTitle(d)}</h1>
+          <p className="dv-sub dv-align-left">{d.description}</p>
+          <div className="dv-cta-row" style={{ justifyContent: 'center' }}>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Meet {d.name}</button>
+          </div>
+        </div>
+      </section>
+      <section className="dv-spotlight-row">
+        {[
+          { k: 'Spec', v: 'Every token named, every state drawn — nothing left to taste.' },
+          { k: 'Scale', v: 'Seven type steps, one spacing unit, zero exceptions granted.' },
+          { k: 'Stay', v: 'Teams still on it a year later: 94%. The churn is elsewhere.' },
+        ].map((x) => (
+          <div key={x.k} className="dv-card dv-spot-card">
+            <span className="dv-spot-key" style={{ color: t.primary, fontFamily: `'${t.display}', sans-serif` }}>{x.k}</span>
+            <p>{x.v}</p>
+          </div>
+        ))}
+      </section>
+      <section className="dv-quote-band" style={{ background: withAlpha(t.accent, 0.08) }}>
+        <blockquote>“You don't decorate {d.name}. You point a light at it.”<footer>— R. Osei, Creative Director</footer></blockquote>
+      </section>
+    </>
+  )
+}
+
+function ManifestoBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  const lines = manifestoLines(d)
+  return (
+    <>
+      <section className="dv-manifesto">
+        <p className="dv-kicker">{d.category} · manifesto arrangement</p>
+        <div className="dv-manifesto-lines">
+          {lines.map((line, i) => (
+            <p key={i} className="dv-manifesto-line" style={{ color: i === 1 ? t.primary : undefined }}>{line}</p>
+          ))}
+        </div>
+        <div className="dv-manifesto-sign">
+          <span>— {d.name}, a design system by {d.author}</span>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Adopt the whole argument</button>
+        </div>
+      </section>
+      <section className="dv-manifesto-proof">
+        {[['01', 'No filler'], ['02', 'No defaults'], ['03', 'No apologies']].map(([n, w]) => (
+          <div key={n} className="dv-manifesto-word">
+            <span className="dv-manifesto-num">{n}</span>
+            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{w}</strong>
+          </div>
+        ))}
+      </section>
+    </>
+  )
+}
+
+/* ================= Wave-2 content blocks (themed, placeholder copy) ================= */
+
+/**
+ * All quotes, names, and numbers below are GENERIC ILLUSTRATIVE PLACEHOLDERS —
+ * not real people, companies, or statistics. They demonstrate component styling
+ * per design system only.
+ */
+
+function BlockSection({ d, b, openFaq, setOpenFaq }: { d: DesignSystem; b: BlockId; openFaq: number; setOpenFaq: (i: number) => void }) {
+  const t = themeOf(d)
+  switch (b) {
+    case 'testimonials':
+      return (
+        <div className="dv-block">
+          <h3 className="dv-block-h">Testimonials</h3>
+          <div className="dv-testi-grid">
+            {[
+              { q: `Adopting ${d.name} ended our style debates. The rules are the referee now.`, a: 'Placeholder Person, Product Lead', i: 'P' },
+              { q: 'I shipped a marketing page in an afternoon and nobody asked which template it was.', a: 'Placeholder Person, Founder', i: 'Q' },
+              { q: 'The tokens hold up under real deadlines. That is the whole review.', a: 'Placeholder Person, Eng Manager', i: 'R' },
+            ].map((x, i) => (
+              <figure key={i} className="dv-card dv-testi">
+                <blockquote>“{x.q}”</blockquote>
+                <figcaption>
+                  <span className="dv-avatar" style={{ background: i === 1 ? t.secondary : t.primary }}>{x.i}</span>
+                  <span>{x.a}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      )
+    case 'stats':
+      return (
+        <div className="dv-block">
+          <h3 className="dv-block-h">Numbers</h3>
+          <div className="dv-stats-band dv-stats-inblock">
+            {[['98%', 'ship faster'], ['4.9★', 'avg. rating'], ['12k+', 'teams'], ['2×', 'release velocity']].map(([v, l]) => (
+              <div key={l} className="dv-stat"><strong>{v}</strong><span>{l}</span></div>
+            ))}
+          </div>
+        </div>
+      )
+    case 'faq':
+      return (
+        <div className="dv-block">
+          <h3 className="dv-block-h">Questions, answered</h3>
+          <div className="dv-faq">
+            {[
+              ['Is this system a theme or a framework?', 'A specification. Take the tokens, the components, and the rules — implement them in whatever stack you run.'],
+              ['Can I change the colors?', 'You can re-derive them, not swap them. Every accent here exists because a near neighbor failed contrast or mood.'],
+              ['How does it handle dark mode?', 'As a paired token set, not an afterthought — surfaces and text invert together so contrast never dips.'],
+              ['What does adoption cost a team?', 'A week to wire the tokens, a sprint to feel native. The docs assume a designer and an engineer pair on it.'],
+            ].map(([q, a], i) => (
+              <div key={i} className={`dv-faq-item ${openFaq === i ? 'dv-faq-open' : ''}`} style={{ borderColor: withAlpha(t.text, 0.14) }}>
+                <button className="dv-faq-q" onClick={() => setOpenFaq(openFaq === i ? -1 : i)} aria-expanded={openFaq === i}>
+                  <span>{q}</span>
+                  <span className="dv-faq-x" style={{ color: t.primary }}>{openFaq === i ? '−' : '+'}</span>
+                </button>
+                {openFaq === i && <p className="dv-faq-a">{a}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    case 'cta':
+      return (
+        <div className="dv-block">
+          <h3 className="dv-block-h">CTA banner</h3>
+          <div className="dv-cta-banner" style={{ background: `linear-gradient(120deg, ${t.primary}, ${t.secondary})`, borderRadius: extractRadius(d.components.radius) }}>
+            <div>
+              <strong>Bring {d.name} to your next build.</strong>
+              <span className="dv-cta-banner-sub">One prompt copies the whole system — tokens, components, rules.</span>
+            </div>
+            <button className="dv-btn" style={{ background: onColor(t.primary), color: t.primary }}>Copy the prompt</button>
+          </div>
+        </div>
+      )
+    case 'pricing':
+      return (
+        <div className="dv-block">
+          <h3 className="dv-block-h">Plans</h3>
+          <div className="dv-pricing-grid">
+            {[['Solo', '$0', ['1 workspace', 'Core token set', 'Community answers']], ['Studio', '$18', ['Unlimited workspaces', 'Every component spec', 'Prompt exports']], ['Org', '$49', ['Shared libraries', 'Review workflows', 'Onboarding kit']]].map(([name, price, items], pi) => (
+              <div key={name as string} className={`dv-card dv-mini-card dv-mini-card-price ${pi === 1 ? 'dv-price-hot' : ''}`} style={pi === 1 ? { borderColor: t.primary, borderWidth: 2 } : {}}>
+                {pi === 1 && <span className="dv-price-tag" style={{ background: withAlpha(t.accent, 0.15), color: t.accent }}>Most picked</span>}
+                <h3>{name}</h3>
+                <div className="dv-price">{price}<span>/mo</span></div>
+                <ul>{(items as string[]).map((li) => <li key={li}>{li}</li>)}</ul>
+                <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Choose {name as string}</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    case 'cards':
+      return (
+        <div className="dv-block">
+          <h3 className="dv-block-h">From the field</h3>
+          <div className="dv-cards">
+            {[
+              { i: '✦', h: 'Case study — Placeholder Co', p: 'A four-person team replaced three overlapping kits with this one and cut QA args to zero.' },
+              { i: '◇', h: 'Pattern — the quiet sticky nav', p: `${d.name} keeps navigation reachable without stealing attention from the page itself.` },
+              { i: '◈', h: 'Template — launch page in 6 blocks', p: 'Hero, proof, features, FAQ, banner, footer. Every block already speaks the same language.' },
+            ].map((x) => (
+              <article key={x.h} className="dv-card">
+                <span className="dv-card-icon" aria-hidden>{x.i}</span>
+                <h3>{x.h}</h3>
+                <p>{x.p}</p>
+                <span className="dv-link">Open →</span>
+              </article>
+            ))}
+          </div>
+        </div>
+      )
+  }
+}
+
+/* ================= Dashboard extras (one extra dashboard component) ================= */
+
+function DashExtraSlot({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  const extra: DashExtra | undefined = getDashExtra(d.id)
+  if (!extra) return null
+  const chip = { background: withAlpha(t.accent, 0.15), color: t.accent } as React.CSSProperties
+  const mutedChip = { background: withAlpha(t.text, 0.08), color: t.muted } as React.CSSProperties
+  switch (extra) {
+    case 'report-builder':
+      return (
+        <div className="dv-card dv-dash-extra">
+          <div className="dv-chart-head"><strong>Report builder</strong><span className="dv-label">Drag fields · placeholder data</span></div>
+          <div className="dv-report-cols">
+            <div className="dv-report-col">
+              <span className="dv-label">Fields</span>
+              {['Region', 'Channel', 'Quarter'].map((f) => <span key={f} className="dv-report-field" style={mutedChip}>{f}</span>)}
+            </div>
+            <div className="dv-report-col">
+              <span className="dv-label">Rows</span>
+              <span className="dv-report-field" style={chip}>Region</span>
+            </div>
+            <div className="dv-report-col">
+              <span className="dv-label">Values</span>
+              <span className="dv-report-field" style={chip}>Revenue</span>
+              <span className="dv-report-field" style={mutedChip}>Sessions</span>
+            </div>
+            <div className="dv-report-preview">
+              <span className="dv-label">Preview</span>
+              <table className="dv-table">
+                <thead><tr><th>Region</th><th>Revenue</th></tr></thead>
+                <tbody><tr><td>Placeholder North</td><td>$12,400</td></tr><tr><td>Placeholder South</td><td>$9,850</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )
+    case 'kanban':
+      return (
+        <div className="dv-card dv-dash-extra">
+          <div className="dv-chart-head"><strong>Delivery board</strong><span className="dv-label">Kanban · placeholder cards</span></div>
+          <div className="dv-kanban">
+            {[
+              ['Backlog', ['Spec review', 'Token audit']],
+              ['In progress', ['Chart states', 'Empty screens']],
+              ['Done', ['Nav tokens', 'Form focus']],
+            ].map(([col, cards]) => (
+              <div key={col as string} className="dv-kanban-col">
+                <span className="dv-label">{col as string}</span>
+                {(cards as string[]).map((c, i) => (
+                  <div key={c} className="dv-kanban-card" style={{ borderColor: withAlpha(t.text, 0.16), background: i === 0 ? withAlpha(t.primary, 0.06) : undefined }}>
+                    {c}
+                    <span className="dv-kanban-meta"><span className="dv-badge" style={i === 0 ? chip : mutedChip}>{i === 0 ? 'On track' : 'Queued'}</span></span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    case 'calendar':
+      return (
+        <div className="dv-card dv-dash-extra">
+          <div className="dv-chart-head"><strong>Release calendar</strong><span className="dv-label">Week 38 · placeholder events</span></div>
+          <div className="dv-cal">
+            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day, di) => (
+              <div key={day} className="dv-cal-day" style={{ borderColor: withAlpha(t.text, 0.12) }}>
+                <span className="dv-label">{day}</span>
+                {di === 1 && <span className="dv-cal-event" style={{ background: withAlpha(t.primary, 0.14), color: t.primary }}>Spec freeze</span>}
+                {di === 3 && <span className="dv-cal-event" style={{ background: withAlpha(t.accent, 0.14), color: t.accent }}>Design review</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    case 'activity':
+      return (
+        <div className="dv-card dv-dash-extra">
+          <div className="dv-chart-head"><strong>System feed</strong><span className="dv-label">Activity · placeholder events</span></div>
+          <div className="dv-activity">
+            {[
+              ['Deploy 0417 finished', '2m', chip],
+              ['Threshold warning cleared', '18m', mutedChip],
+              ['New member joined Placeholder Org', '1h', mutedChip],
+            ].map(([msg, when, style]) => (
+              <div key={msg as string} className="dv-activity-row" style={{ borderColor: withAlpha(t.text, 0.1) }}>
+                <span className="dv-activity-dot" style={{ background: t.primary }} />
+                <span className="dv-activity-msg">{msg as string}</span>
+                <span className="dv-badge" style={style as React.CSSProperties}>{when as string}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+  }
+}
+
 /* ================= Shared pieces ================= */
 
 function MiniForm({ d }: { d: DesignSystem }) {
@@ -447,6 +843,14 @@ function features(d: DesignSystem): { icon: string; title: string; body: string 
     { icon: '◆', title: 'Intentional by default', body: `Every token in ${n} exists for a reason — nothing is decorative filler.` },
     { icon: '◇', title: 'Ships production-ready', body: 'Spacing rhythm, shadows, and states are all specified. Copy, paste, publish.' },
     { icon: '◈', title: 'Documented to the px', body: 'Typography, color, motion, and a11y notes travel with the system.' },
+  ]
+}
+
+function manifestoLines(d: DesignSystem): string[] {
+  return [
+    `We refuse the default. ${d.name} is a full argument for one way of making pages:`,
+    `${d.designPhilosophy.split('.')[0]}.`,
+    'Every rule below is load-bearing. Remove one and the page explains why it missed it.',
   ]
 }
 
@@ -502,6 +906,56 @@ function heroTitle(d: DesignSystem): React.ReactNode {
     case 'dark-academia': return <>Study like it <em>matters.</em></>
     case 'clinical-care': return <>Care, <em>clearly.</em></>
     case 'festival-vivid': return <>Three days of <em>noise.</em></>
+    case 'graphite-focus': return <>Draw the line. <em>Keep it.</em></>
+    case 'linen-quiet': return <>Let the page <em>breathe.</em></>
+    case 'system-cool': return <>Order, with <em>opinion.</em></>
+    case 'ivory-gallery': return <>Hang the work. <em>Step back.</em></>
+    case 'baroque-punk': return <>Ornament is <em>ammunition.</em></>
+    case 'collision-course': return <>Everything, <em>at once.</em></>
+    case 'sticker-storm': return <>Peel. Stick. <em>Repeat.</em></>
+    case 'velvet-loud': return <>Whisper? <em>Never met her.</em></>
+    case 'mosaic-max': return <>A thousand <em>right answers.</em></>
+    case 'acid-garden': return <>Grow <em>wild.</em> Trim never.</>
+    case 'riso-flood': return <>Ink over <em>everything.</em></>
+    case 'concrete-slab': return <>POURED, NOT <em>DECORATED.</em></>
+    case 'riot-xerox': return <>COPY. TILE. <em>RIOT.</em></>
+    case 'steel-plant': return <>UPTIME IS THE <em>AESTHETIC.</em></>
+    case 'brut-sunbelt': return <>HEAT, CONCRETE, <em>HONESTY.</em></>
+    case 'monolith-black': return <>ONE SLAB. <em>NO WINDOWS.</em></>
+    case 'ledger-raw': return <>NUMBERS DON&rsquo;T <em>DECORATE.</em></>
+    case 'scaffold': return <>BUILT IN THE <em>OPEN.</em></>
+    case 'champagne-noir': return <>After dark, <em>everything glows.</em></>
+    case 'pearl-hotel': return <>Check in. <em>Slow down.</em></>
+    case 'opera-box': return <>The house lights <em>dim.</em></>
+    case 'obsidian-atelier': return <>Cut from <em>one stone.</em></>
+    case 'heritage-linen': return <>Woven, not <em>printed.</em></>
+    case 'gumball': return <>Turn the knob. <em>Get a color.</em></>
+    case 'doodle-desk': return <>Margin notes <em>welcome.</em></>
+    case 'bounce-house': return <>Serious? <em>We bounce.</em></>
+    case 'storybook-night': return <>One more <em>chapter.</em></>
+    case 'arcade-pop': return <>INSERT COIN. <em>MAKE PAGES.</em></>
+    case 'jelly-toy': return <>Squish, don&rsquo;t <em>stress.</em></>
+    case 'confetti-brew': return <>Brewed loud. <em>Poured loud.</em></>
+    case 'cassette-deck': return <>SIDE A: <em>YOUR WORK</em></>
+    case 'seventies-sunburst': return <>Good vibes, <em>thick strokes.</em></>
+    case 'dial-up': return <>You&rsquo;ve got <em>(design) mail.</em></>
+    case 'moss-and-stone': return <>Old ground, <em>new growth.</em></>
+    case 'tide-pool': return <>Look closer. <em>Life everywhere.</em></>
+    case 'canopy-lodge': return <>Under the <em>tall trees.</em></>
+    case 'glacier-air': return <>Cold, clear, <em>crisp.</em></>
+    case 'harvest-table': return <>Gather. Share. <em>Stay.</em></>
+    case 'ledger-fintech': return <>Every cent, <em>accounted.</em></>
+    case 'briefcase-slate': return <>Serious tools, <em>sober shell.</em></>
+    case 'campus-lms': return <>Learn, then <em>learn again.</em></>
+    case 'clinic-warm': return <>Medicine with <em>bedside manner.</em></>
+    case 'terminal-ops': return <>OPERATORS <em>ONLY.</em></>
+    case 'civic-trust': return <>Public services, <em>public trust.</em></>
+    case 'studio-noir': return <>Light the <em>subject.</em></>
+    case 'collage-cut': return <>Cut. Paste. <em>Mean it.</em></>
+    case 'foundry-type': return <>Letters are <em>architecture.</em></>
+    case 'puppet-theater': return <>All the world&rsquo;s <em>a stage.</em></>
+    case 'audio-wave': return <>Feel it in the <em>waveform.</em></>
+    case 'skate-zine': return <>Photocopy the <em>revolution.</em></>
     default: return <>{d.name}</>
   }
 }
@@ -549,3 +1003,4 @@ function scopeSignatureCss(css: string, scope: string): string {
     })
     .join('\n')
 }
+

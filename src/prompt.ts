@@ -63,7 +63,7 @@ USAGE EXAMPLE
 ${d.codeExample}
 
 LAYOUT GUIDANCE
-Structure the page as a "${d.layout}" layout: hero-cards = centered hero + 3 feature cards + stats band; split-hero = 50/50 text/visual hero + pricing tiers; magazine = masthead + article grid + cover story; dashboard = sidebar nav + KPI row + chart + data table; centered = single centered column with steps and final CTA; editorial = article head + long-form body with pull quotes.
+Structure the page as a "${d.layout}" layout: hero-cards = centered hero + 3 feature cards + stats band; split-hero = 50/50 text/visual hero + pricing tiers; magazine = masthead + article grid + cover story; dashboard = sidebar nav + KPI row + chart + data table; centered = single centered column with steps and final CTA; editorial = article head + long-form body with pull quotes; asymmetric = 70/30 offset hero with stat cards right and split proof section; full-bleed = edge-to-edge gradient hero + full-width stat band; spotlight = centered stage-lit object + 3 explanation cards; manifesto = large display-type statement block + numbered proof words.
 
 Deliver a complete, production-ready page that a designer would recognize instantly as "${d.name}".`
 }

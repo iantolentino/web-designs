@@ -1,8 +1,9 @@
-import { lazy, Suspense, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { useStore } from '../store'
 import { CATEGORY_ACCENT, LAYOUT_LABEL } from '../types'
-import type { DesignSystem, DeviceMode, PreviewTab } from '../types'
+import type { DesignSystem, DeviceMode, Layout, PreviewTab } from '../types'
 import { getDesign, DESIGN_SYSTEMS } from '../designs'
+import { LAYOUT_SETS } from '../designs/extras'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
 import { buildDesignPrompt } from '../prompt'
 import { copyDesignPrompt, copyText } from '../hooks'
@@ -10,6 +11,12 @@ import { copyDesignPrompt, copyText } from '../hooks'
 const MiniSite = lazy(() => import('./MiniSite').then((m) => ({ default: m.MiniSite })))
 
 const DEVICE_WIDTH: Record<DeviceMode, number> = { desktop: 1280, tablet: 834, mobile: 402 }
+
+/** Arrangements offered by the layout selector: the design's own set (2-3), its card layout first. */
+function getLayoutSet(d: DesignSystem): Layout[] {
+  const set = LAYOUT_SETS[d.id] ?? [d.layout]
+  return set
+}
 
 export function Preview({ ids }: { ids: string[] }) {
   const selectedId = useStore((s) => s.selectedId)
@@ -24,6 +31,20 @@ export function Preview({ ids }: { ids: string[] }) {
   if (!d) return null
 
   const copied = useCopiedState(d.id)
+  const [previewLayout, setPreviewLayout] = useState<Layout | null>(null)
+  useEffect(() => {
+    setPreviewLayout(null)
+  }, [d.id])
+  useEffect(() => {
+    const onLayoutChange = (e: Event) => {
+      const detail = (e as CustomEvent).detail as { id: string; layout: Layout } | undefined
+      if (detail && detail.id === d.id) setPreviewLayout(detail.layout)
+    }
+    window.addEventListener('dv-layout-change', onLayoutChange)
+    return () => window.removeEventListener('dv-layout-change', onLayoutChange)
+  }, [d.id])
+  const layoutOptions = getLayoutSet(d)
+  const activeLayout = previewLayout ?? d.layout
   const accent = d.accent
   const onAccent = onColor(accent)
 
@@ -61,6 +82,23 @@ export function Preview({ ids }: { ids: string[] }) {
               </button>
             ))}
           </div>
+          {previewTab === 'live' && (
+            <label className="layout-select-wrap" title="Switch arrangement — colors, fonts, and identity stay the same">
+              <span className="layout-select-label">Layout</span>
+              <select
+                className="layout-select"
+                value={activeLayout}
+                onChange={(e) => setPreviewLayout(e.target.value as Layout)}
+                aria-label="Layout arrangement"
+              >
+                {layoutOptions.map((l) => (
+                  <option key={l} value={l}>
+                    {LAYOUT_LABEL[l]}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           <button className="nav-btn" onClick={closeDesign} aria-label="Close preview (Esc)">✕</button>
         </header>
 
@@ -78,7 +116,7 @@ export function Preview({ ids }: { ids: string[] }) {
             <div className={`device-frame ${device}`} style={{ maxWidth: DEVICE_WIDTH[device] }}>
               <div className="preview-live">
                 <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: '#777' }}>Loading preview…</div>}>
-                  <MiniSite d={d} />
+                  <MiniSite d={d} layoutOverride={previewLayout} />
                 </Suspense>
               </div>
             </div>
