@@ -34,6 +34,9 @@
   flex-direction: column;
   gap: 12px;
   min-width: 0;
+  /* Wide children (tables, calendars) must never inflate the auto-fill track
+     and push neighboring specimens around — clip inside the card instead. */
+  overflow: hidden;
   transition: box-shadow 0.18s ease, transform 0.18s ease;
 }
 .kit-specimen:hover { box-shadow: 0 10px 26px rgba(0, 0, 0, 0.09); transform: translateY(-2px); }
@@ -43,7 +46,10 @@
   letter-spacing: 0.11em;
   text-transform: uppercase;
 }
-.kit-specimen-body { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+/* position:relative anchors the modal demo; everything inside shrinks, never
+   overflows, so one component cannot overlap the one next to it. */
+.kit-specimen-body { display: flex; flex-direction: column; gap: 10px; min-width: 0; position: relative; }
+.kit-specimen-body > * { min-width: 0; max-width: 100%; }
 
 /* ---------- primitives ---------- */
 .kit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
@@ -66,6 +72,9 @@
   line-height: 1.2;
   transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .kit-btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
 .kit-btn:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
@@ -97,7 +106,8 @@
   padding: 6px;
   border: 1px solid;
   min-width: 180px;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+  max-width: 100%;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -229,7 +239,7 @@
 .kit-alert-x { margin-left: auto; border: none; background: none; cursor: pointer; font-size: 12px; }
 
 .kit-toasts { display: flex; flex-direction: column; gap: 8px; }
-.kit-toast { display: flex; align-items: center; gap: 9px; padding: 10px 14px; font-size: 13px; box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18); }
+.kit-toast { display: flex; align-items: center; gap: 9px; padding: 10px 14px; font-size: 13px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14); max-width: 100%; }
 .kit-toast-btn { margin-left: auto; border: none; background: none; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: underline; }
 
 .kit-bar { height: 8px; overflow: hidden; position: relative; }
@@ -310,7 +320,7 @@
 .kit-spark i { width: 4px; border-radius: 1px; display: block; min-height: 3px; }
 
 .kit-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.kit-table-wrap { border: 1px solid; overflow-x: auto; }
+.kit-table-wrap { border: 1px solid; overflow-x: auto; max-width: 100%; }
 .kit-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 420px; }
 .kit-table th { text-align: left; padding: 9px 12px; font-size: 10.5px; font-weight: 750; letter-spacing: 0.09em; text-transform: uppercase; border-bottom: 1px solid; }
 .kit-table td { padding: 10px 12px; border-bottom: 1px solid; }
@@ -414,7 +424,7 @@
 }
 .kit-wiz-line { width: clamp(18px, 6vw, 46px); height: 2px; margin: 0 8px; }
 
-.kit-palette { border: 1px solid; overflow: hidden; box-shadow: 0 18px 44px rgba(0, 0, 0, 0.2); }
+.kit-palette { border: 1px solid; overflow: hidden; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12); }
 .kit-palette-group { font-size: 10.5px; font-weight: 750; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px 4px; }
 .kit-palette-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 14px; font-size: 13px; }
 
@@ -447,6 +457,7 @@
   font-size: 11.5px;
   font-weight: 600;
   white-space: nowrap;
+  max-width: 240px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.16s ease, transform 0.16s ease;
@@ -454,7 +465,7 @@
 }
 .kit-tip-host:hover .kit-tip { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-.kit-popover { position: relative; border: 1px solid; padding: 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18); }
+.kit-popover { position: relative; border: 1px solid; padding: 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 10px 26px rgba(0, 0, 0, 0.14); }
 .kit-popover-arrow {
   position: absolute;
   top: -6px;
@@ -466,17 +477,22 @@
   border-top: 1px solid;
 }
 
+/* The modal is a *specimen*, not a page takeover: it opens inside the card it
+   belongs to (`.kit-specimen-body` is the containing block). A fixed backdrop
+   would blanket the whole app — sidebar, gallery, everything — from inside a
+   thumbnail-sized demo. */
 .kit-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
+  position: absolute;
+  inset: -12px -14px -16px;
+  z-index: 30;
   background: rgba(10, 10, 14, 0.55);
   backdrop-filter: blur(3px);
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: 14px;
+  border-radius: inherit;
 }
-.kit-modal { border: 1px solid; padding: 18px 20px; width: min(420px, 100%); display: flex; flex-direction: column; gap: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); }
+.kit-modal { border: 1px solid; padding: 16px 18px; width: min(340px, 100%); display: flex; flex-direction: column; gap: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); }
 
 .kit-drawer { border: 1px solid; padding: 14px; display: flex; flex-direction: column; gap: 9px; transition: transform 0.25s ease, opacity 0.25s ease; }
 

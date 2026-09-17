@@ -389,6 +389,63 @@ export const RHYTHM: Record<string, [layout: string, extra?: string]> = {
     'display:grid; grid-template-columns:minmax(0,1fr); gap:24px; justify-items:center; text-align:center; padding:28px 20px;',
     '.pt-i2{width:100%;} .pt-i3,.pt-i4{width:100%; text-align:left;}',
   ],
+
+  /* ---------- wave 3 ---------- */
+  'webinar-registration': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:20px; padding:24px 22px; max-width:760px; margin:0 auto;',
+    '.pt-i2{border-color:var(--p-brand); border-width:2px;}',
+  ],
+  'app-download-banner': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:22px; padding:0 0 22px;',
+    '.pt-i0{border-radius:0;}',
+  ],
+  'gift-card-builder': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:20px; padding:22px 20px;',
+    '.pt-i2{border-radius:0; min-height:200px;}',
+  ],
+  'rental-availability': [
+    'display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,0.8fr); grid-template-areas:"month month" "units filters"; gap:18px; align-items:start; padding:20px;',
+    '.pt-i0{grid-area:month;} .pt-i1{grid-area:units;} .pt-i2{grid-area:filters; position:sticky; top:10px;}',
+  ],
+  'accessibility-statement': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:26px 22px; max-width:720px; margin:0 auto;',
+    '.pt-i2 .pt-list-row{align-items:flex-start;}',
+  ],
+  'feature-request-board': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:16px; padding:20px;',
+    '.pt-i0{border-bottom:none; padding-bottom:0;} .pt-i1{grid-template-columns:repeat(4,minmax(0,1fr));} .pt-i2{border-top:none;}',
+  ],
+  'glossary-index': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:16px; padding:22px 20px;',
+    '.pt-i2 td:first-child{font-weight:700;}',
+  ],
+  'transcript-reader': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:20px; padding:22px 20px; max-width:820px; margin:0 auto;',
+    '.pt-i1 .pt-list-row{border-left:2px solid transparent;} .pt-i1 .pt-list-row:first-child{border-left-color:var(--p-brand);}',
+  ],
+  'refund-request-flow': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:24px 22px; max-width:560px; margin:0 auto;',
+    '.pt-i3{position:sticky; bottom:0;}',
+  ],
+  'team-invitation': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:26px 22px; max-width:620px; margin:0 auto;',
+  ],
+  'ab-test-results': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:20px;',
+    '.pt-i2 td:nth-child(2), .pt-i2 td:nth-child(3){font-variant-numeric:tabular-nums; text-align:center;}',
+  ],
+  'dm-request-inbox': [
+    'display:grid; grid-template-columns:230px minmax(0,1fr) 210px; grid-template-areas:"requests convo info"; gap:14px; align-items:start; padding:18px;',
+    '.pt-i0{grid-area:requests; position:sticky; top:10px;} .pt-i1{grid-area:convo;} .pt-i2{grid-area:info;}',
+  ],
+  'event-photo-wall': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:20px;',
+    '.pt-i0{grid-template-columns:repeat(6,minmax(0,1fr));}',
+  ],
+  'keyboard-shortcuts-sheet': [
+    'display:grid; grid-template-columns:minmax(0,1fr); gap:16px; padding:24px 22px; max-width:640px; margin:0 auto;',
+    '.pt-i1 td:last-child{text-align:right; font-variant-numeric:tabular-nums;}',
+  ],
 }
 
 /** The canvas arrangement for a pattern, preferring the refined entry. */

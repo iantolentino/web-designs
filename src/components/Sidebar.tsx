@@ -110,7 +110,7 @@ export function Sidebar({
     view === 'designs'
       ? 'Search systems, tags, philosophy…'
       : view === 'patterns'
-        ? 'Search 110 layouts…'
+        ? 'Search 124 layouts…'
         : `Search ${KIT_SIZE} components…`
 
   return (
