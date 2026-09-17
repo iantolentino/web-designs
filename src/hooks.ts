@@ -89,7 +89,9 @@ export function useKeyboardShortcuts() {
 
       if (e.key === 'Escape') {
         if (s.selectedId) s.closeDesign()
-        else if (s.searchQuery || s.selectedCategory || s.quickFilter) s.clearFilters()
+        else if (s.sidebarOpen) s.toggleSidebar(false)
+        else if (s.searchQuery || s.selectedCategory || s.quickFilter || s.selectedUseCase || s.favOnly)
+          s.clearFilters()
         return
       }
 
@@ -109,7 +111,11 @@ export function useKeyboardShortcuts() {
 
       if (e.key === '/' && !inInput) {
         e.preventDefault()
-        document.querySelector<HTMLInputElement>('.search-input')?.focus()
+        // The search field lives in the sidebar — open it first on narrow screens.
+        s.toggleSidebar(true)
+        window.requestAnimationFrame(() => {
+          document.querySelector<HTMLInputElement>('.search-input')?.focus()
+        })
       }
     }
     window.addEventListener('keydown', onKey)

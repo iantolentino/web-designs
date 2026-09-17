@@ -5,7 +5,8 @@ import type { DesignSystem } from '../types'
 
 const MiniSite = lazy(() => import('./MiniSite').then((m) => ({ default: m.MiniSite })))
 
-const PAGE_SIZE = 12
+/** Four designs per row, so the first page is a clean 4-up block of rows. */
+const PAGE_SIZE = 16
 
 export function DesignCard({ d }: { d: DesignSystem }) {
   const openDesign = useStore((s) => s.openDesign)

@@ -1,13 +1,13 @@
-# The Design Vault — `web/`
+# The Design Vault
 
-A production-grade design-system showcase: **30 curated, intentionally distinct design
-systems** you can browse, preview live, and copy as ready-to-use AI design prompts.
+A production-grade design-system showcase: **100 curated, intentionally distinct design
+systems**, a **110-layout pattern library**, and a **53-component kit** — all browsable,
+previewable live, and copyable as ready-to-use AI design prompts.
 Built to kill AI design slop — no Inter, no purple-on-white, no generic layouts.
 
 ## Quick start
 
 ```bash
-cd web
 npm install
 npm run dev        # http://localhost:5180 (picks a free port if taken)
 ```
@@ -16,75 +16,152 @@ Other scripts:
 
 ```bash
 npm run typecheck  # strict TypeScript, no emit
+npm run verify     # expansion invariants (components, website types, patterns)
 npm run build      # typecheck + production build to dist/
 npm run preview    # serve the production build locally
 ```
 
+## The shell
+
+Everything is driven from a **persistent left sidebar** — search, website type, category,
+sort, and saved filters live there, so the main column is nothing but content.
+
+| View | What it shows |
+| --- | --- |
+| **Design systems** | 100 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
+| **Pattern library** | 110 production layouts with live previews, filterable by family and searchable by block. |
+| **Component kit** | The 53-component kit rendered for any design — with a side-by-side compare mode. |
+
+On narrow screens the sidebar becomes a drawer (hamburger in the top bar, `Esc` to close,
+`/` to open-and-focus search).
+
 ## What's inside
 
-- **Gallery** — 30 design cards with *live rendered thumbnails* (real components, scaled),
-  category badges with color coding, trend flags, popularity, and palette swatches.
-- **Live preview** — full page (hero, features, stats, forms, buttons, modal, footer)
-  rendered from each system's tokens, with Desktop / Tablet / Mobile framing
-  (container queries, so the design truly responds) and prev/next navigation.
-- **Code view** — simplified, readable HTML/CSS per design (tokens + one hero sample).
-- **Details view** — philosophy, click-to-copy palette, typography scale, all component
-  specs, an interactive themed playground, the full prompt, and JSON / CSS-variable export.
-- **Copy Design Prompt** — sticky button (top-right) that copies a comprehensive,
-  structured design prompt. Toast feedback, `Ctrl+Shift+C` shortcut, prompt cache flag.
-- **Search & filter** — instant search (name/category/tags/philosophy), 9 category chips
-  with counts, quick filters (Most Popular / Latest / Trending), favorites-only view,
-  result count, clear-all.
-- **Extras** — localStorage favorites, shareable URLs (`?design=slug`), keyboard
-  shortcuts (`/` search focus, `Esc` close/clear, `←/→` navigate), lazy-loaded preview
-  components, IntersectionObserver thumbnails + infinite scroll.
+### Design systems (100)
 
-## The 30 systems
+Every system ships: philosophy, typography (display + body fonts, scale, leading, tracking),
+6-color palette, component specs, spacing rhythm, motion rules, responsive rules,
+accessibility notes, and a themed live preview driven by those same tokens. Each card opens
+a full preview with:
 
-Minimalism (4): Minimalist Tech, Zen Minimal, Swiss Editorial, Soft Mono ·
-Maximalism (3): Neon Maximalist, Editorial Maximalist, Playful Maximalist ·
-Brutalism (3): Raw, Refined, Web1 · Luxury (3): Dark, Minimalist, Bold ·
-Playful (3): Pastel, Rainbow, Toybox Round · Retro (4): Y2K, Vintage Print,
-Cyberpunk, Memphis Pop · Organic (3): Nature-Inspired, Biophilic, Botanical ·
-Professional (3): Corporate Blue, Startup Serious, Tech Corporate ·
-Creative (4): Abstract Art, Geometric Art, Illustration-Heavy, Ink House.
+- **Live preview** — the complete page, plus the full component kit and per-design content
+  blocks, with Desktop / Tablet / Mobile framing (container queries, so the design truly
+  responds) and an arrangement switcher (2–3 layout archetypes per design).
+- **Components** — all 53 kit components themed by that design alone.
+- **Code** — a simplified, readable HTML/CSS sample (tokens + one hero).
+- **Details** — philosophy, click-to-copy palette, type scale, component specs, a themed
+  playground, the full prompt, and JSON / CSS-variable export.
 
-Every system ships: philosophy, typography (display + body fonts, scale, leading,
-tracking), 6-color palette, full component specs, spacing rhythm, motion rules,
-responsive rules, accessibility notes, and a usage snippet — plus a themed live
-preview driven by those same tokens.
+### The component kit (53 components, per design)
+
+`src/components/ComponentKit.tsx` implements one vocabulary — buttons, fields, selection
+controls, feedback, data display, navigation, and overlays — and renders it entirely from
+whatever tokens it is handed. Nothing is hard-coded, which is why the same kit reads as a
+different product in every one of the 100 systems. Groups:
+
+**Inputs & actions** (12) · **Selection & toggles** (6) · **Feedback & status** (8) ·
+**Data display** (9) · **Navigation** (7) · **Overlays & media** (11)
+
+### The pattern library (110 layouts)
+
+`src/patterns/` ships 110 genuinely distinct layout recipes: heroes, bento grids, filter
+rails, master–detail inboxes, kanban shells, checkout steppers, sticky-TOC articles,
+podcast pages, cohort grids, consent banners, 404s — the whole repertoire.
+Each pattern is a *recipe* rather than a screenshot:
+
+```ts
+{
+  id: 'analytics-dashboard',
+  name: 'Analytics dashboard',
+  family: 'app',
+  blurb: 'Sidebar shell, four KPIs, one large chart, and a customer table.',
+  blocks: [{ k: 'sidebar' }, { k: 'kpis' }, { k: 'chart' }, { k: 'table' }],
+}
+```
+
+- `blocks` is the **composition** — 48 shared, well-behaved block kinds (nav, split hero,
+  table, kanban, calendar, player, chat, dropzone…).
+- `layouts.ts` holds the **arrangement** — a named grid (`grid-template-areas`) plus
+  placement for each block, or a deliberately tuned stacked rhythm.
+- 66 of the 110 use a genuine multi-track arrangement (rails, splits, mosaics, DAGs);
+  the rest are stacked sections with rhythm chosen per pattern.
+
+No two patterns share both an arrangement and a composition, and per-pattern CSS is scoped
+so nothing leaks between them (`npm run verify` asserts both).
+
+### Extras
+
+Search across systems/patterns/components · 67 website types in a grouped, searchable
+picker · 9 category filters · quick sorts · localStorage favorites · shareable URLs
+(`?design=slug`) · keyboard shortcuts (`/` search, `Esc` close/clear, `←`/`→` navigate,
+`Ctrl+Shift+C` copy prompt) · lazy-loaded previews · IntersectionObserver thumbnails and
+infinite scroll · light/dark shell theme.
+
+## Website types
+
+The picker offers 67 website types across 11 groups, from the original 22 through
+Developer Tools, Data & Analytics, Banking, Legal, Project Management, Marketplace,
+Art Gallery, Podcast, E-learning, Hotel, Coffee Shop, Wedding, Mental Health, Architecture,
+Logistics, Energy, Sports, Government, and more.
+
+Designs author a handful of use cases each; `src/designs/usecases.ts` derives the rest by
+matching keyword rules against every design's id, name, category, tags, description, and
+philosophy, then tops up any thin bucket from the most popular designs in the categories
+that suit it. **Every option filters to a real, non-empty result set** — the smallest
+bucket is 5 designs, and `npm run verify` fails the build if that stops being true.
 
 ## Architecture
 
 ```
-web/src/
-├── types.ts              # DesignSystem model + category accents
-├── store.ts              # Zustand: search/filter/selection/favorites/toast
+src/
+├── types.ts              # DesignSystem model, 67 website types + groups + icons
+├── store.ts              # Zustand: view, search/filter/selection/favorites/toast
 ├── prompt.ts             # buildDesignPrompt() — the copyable prompt text
 ├── hooks.ts              # clipboard, toast, URL sync, keyboard shortcuts
-├── designs/              # 9 category files + registry + theming helpers
+├── App.tsx               # shell: sidebar + topbar + the three views
+├── designs/              # 15 category files + registry + theming + use-case index
 │   ├── theme.ts          #   themeOf(), contrast/onColor, withAlpha, sorting
-│   └── minimalism.ts …   #   one file per aesthetic family
+│   ├── usecases.ts       #   derived website-type index (rules + top-up)
+│   └── extras.ts         #   per-design layout sets, block sets, dashboard extras
+├── patterns/
+│   ├── patterns.ts       #   110 pattern recipes + the CSS builder
+│   ├── layouts.ts        #   canvas arrangements and stacked rhythms
+│   ├── PatternView.tsx   #   48 block renderers + the browsable board
+│   └── patterns.css      #   pattern primitives
 └── components/
-    ├── Gallery.tsx       # cards, lazy thumbnails, infinite scroll
-    ├── Preview.tsx       # overlay: live/code/details, device modes, copy
-    ├── MiniSite.tsx      # shared live renderer + per-instance CSS scoping
-    └── minisite.css      # themed layout, 20 motif variants, container queries
+    ├── Sidebar.tsx       #   navigation, filters, website-type picker
+    ├── Gallery.tsx       #   4-up cards, lazy thumbnails, infinite scroll
+    ├── Preview.tsx       #   overlay: live/components/code/details, device modes
+    ├── MiniSite.tsx      #   shared live renderer + per-instance CSS scoping
+    ├── ComponentKit.tsx  #   53 themed components + the kit board
+    ├── KitExplorer.tsx   #   kit-per-design view with compare mode
+    ├── minisite.css      #   themed layout, motif variants, container queries
+    └── kit.css           #   kit layout + motion
 ```
 
-Design thumbnails and previews are the **same component** (`MiniSite`) — cards render
-it scaled inside the thumb; the preview renders it full-size in a device frame. Each
-design's `signatureCss` is auto-scoped per instance so 30 previews can coexist
-without style bleed.
+Design thumbnails and previews are the **same component** (`MiniSite`) — cards render it
+scaled inside the thumb, the preview renders it full-size in a device frame. Each design's
+`signatureCss` is auto-scoped per instance so 100 previews can coexist without style bleed.
+Thumbnails use `compact` mode, which skips the kit and blocks sections so 100 scaled pages
+stay cheap.
 
 ## Adding a design system
 
 1. Add an object to the relevant `designs/*.ts` file (or a new file + import in
    `designs/index.ts`), matching the `DesignSystem` type.
-2. Pick a `motif` from the ~20 supported layout variants and add any bespoke
-   `signatureCss` (one rule per line — it gets auto-scoped).
-3. Add a hero line in `MiniSite.tsx`'s `heroTitle` switch (optional — falls back to
-   the design name).
+2. Pick a `layout` from the archetypes and add any bespoke `signatureCss` (one rule per
+   line — it gets auto-scoped).
+3. Add a hero line in `MiniSite.tsx`'s `heroTitle` switch (optional — falls back to the
+   design name).
+4. Add a `LAYOUT_SETS` entry in `designs/extras.ts` so the arrangement switcher has options.
 
-The card, thumbnail, preview, code sample, and prompt are all derived
+The card, thumbnail, preview, code sample, prompt, and component kit are all derived
 automatically from the data.
+
+## Adding a pattern
+
+1. Append a `PatternDef` to `PATTERNS` in `patterns/patterns.ts` — id, name, family,
+   blurb, tags, and the block composition.
+2. If it needs a multi-column arrangement, add an entry to `CANVAS` in `patterns/layouts.ts`
+   using `grid-template-areas` and `.pt-i{n}` placement; otherwise add a `RHYTHM` entry.
+3. Run `npm run verify` — it enforces unique recipes, unique arrangements, and scoped CSS.

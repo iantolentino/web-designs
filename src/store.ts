@@ -3,7 +3,12 @@ import type { Category, DeviceMode, PreviewTab, UseCase } from './types'
 
 export type QuickFilter = 'popular' | 'latest' | 'trending'
 
+/** The three top-level surfaces the sidebar switches between. */
+export type View = 'designs' | 'patterns' | 'components'
+
+/** Website types can be stacked — a design must satisfy every selected one. */
 interface VaultState {
+  view: View
   searchQuery: string
   selectedCategory: Category | null
   selectedUseCase: UseCase | null
@@ -12,7 +17,18 @@ interface VaultState {
   previewTab: PreviewTab
   device: DeviceMode
   favorites: string[]
+  favOnly: boolean
   toast: string | null
+  sidebarOpen: boolean
+  /** Pattern library filters */
+  patternSearch: string
+  patternFamily: string | null
+  /** Component kit explorer filters */
+  kitDesignId: string | null
+  kitGroup: string | null
+  kitSearch: string
+  setView: (v: View) => void
+  toggleSidebar: (v?: boolean) => void
   setSearchQuery: (q: string) => void
   toggleCategory: (c: Category) => void
   toggleUseCase: (u: UseCase) => void
@@ -25,6 +41,12 @@ interface VaultState {
   setDevice: (d: DeviceMode) => void
   toggleFavorite: (id: string) => void
   showToast: (msg: string) => void
+  toggleFavOnly: () => void
+  setPatternSearch: (q: string) => void
+  togglePatternFamily: (f: string) => void
+  setKitDesignId: (id: string) => void
+  toggleKitGroup: (g: string) => void
+  setKitSearch: (q: string) => void
 }
 
 const FAV_KEY = 'dv-favorites'
@@ -45,6 +67,7 @@ function persistFavorites(favs: string[]) {
 }
 
 export const useStore = create<VaultState>((set, get) => ({
+  view: 'designs',
   searchQuery: '',
   selectedCategory: null,
   selectedUseCase: null,
@@ -53,7 +76,23 @@ export const useStore = create<VaultState>((set, get) => ({
   previewTab: 'live',
   device: 'desktop',
   favorites: loadFavorites(),
+  favOnly: false,
   toast: null,
+  sidebarOpen: false,
+  patternSearch: '',
+  patternFamily: null,
+  kitDesignId: null,
+  kitGroup: null,
+  kitSearch: '',
+  setView: (v) => set({ view: v, sidebarOpen: false }),
+  toggleFavOnly: () => set((s) => ({ favOnly: !s.favOnly })),
+  toggleSidebar: (v) => set((s) => ({ sidebarOpen: v ?? !s.sidebarOpen })),
+  setPatternSearch: (q) => set({ patternSearch: q }),
+  togglePatternFamily: (f) =>
+    set((s) => ({ patternFamily: s.patternFamily === f ? null : f })),
+  setKitDesignId: (id) => set({ kitDesignId: id }),
+  toggleKitGroup: (g) => set((s) => ({ kitGroup: s.kitGroup === g ? null : g })),
+  setKitSearch: (q) => set({ kitSearch: q }),
   setSearchQuery: (q) => set({ searchQuery: q }),
   toggleCategory: (c) =>
     set((s) => ({ selectedCategory: s.selectedCategory === c ? null : c })),
@@ -62,7 +101,7 @@ export const useStore = create<VaultState>((set, get) => ({
   setQuickFilter: (f) =>
     set((s) => ({ quickFilter: s.quickFilter === f ? null : f })),
   clearFilters: () =>
-    set({ searchQuery: '', selectedCategory: null, quickFilter: null, selectedUseCase: null }),
+    set({ searchQuery: '', selectedCategory: null, quickFilter: null, selectedUseCase: null, favOnly: false }),
   openDesign: (id) => set({ selectedId: id, previewTab: 'live' }),
   closeDesign: () => set({ selectedId: null }),
   navigate: (dir, ids) => {

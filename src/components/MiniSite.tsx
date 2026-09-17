@@ -3,6 +3,7 @@ import type { DesignSystem, Layout } from '../types'
 import { LAYOUT_LABEL } from '../types'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
 import { getBlockSet, getDashExtra, LAYOUT_SETS, type BlockId, type DashExtra } from '../designs/extras'
+import { ComponentKit } from './ComponentKit'
 
 /**
  * MiniSite renders a complete sample page — themed entirely from a DesignSystem.
@@ -80,7 +81,26 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
 
         {renderLayout(d, activeLayout, { setModalOpen, openFaq, setOpenFaq })}
 
-        {/* COMPONENT SHOWCASE */}
+        {/*
+         * FULL COMPONENT KIT — the whole component vocabulary, themed by this
+         * design's tokens. Thumbnails skip it (compact) so 100 cards stay
+         * cheap to render; the live preview and Components tab show it.
+         */}
+        {!compact && <ComponentKit d={d} />}
+
+        {!compact && (
+          <section className="dv-section dv-blocks-section">
+            <h2 className="dv-h2">Content blocks, in this design's voice</h2>
+            <div className="dv-blocks-pane">
+              {getBlockSet(d.id).map((b) => (
+                <BlockSection key={b} d={d} b={b} openFaq={openFaq} setOpenFaq={setOpenFaq} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* COMPACT PRIMITIVES — a light taste for thumbnails only */}
+        {compact && (
         <section className="dv-section dv-comp-showcase">
           <h2 className="dv-h2">Components, in the flesh</h2>
           <div className="dv-comp-tabs">
@@ -184,6 +204,7 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
             </div>
           )}
         </section>
+        )}
 
         {/* FOOTER */}
         <footer className="dv-footer">

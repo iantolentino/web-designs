@@ -7,6 +7,8 @@ import { LAYOUT_SETS } from '../designs/extras'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
 import { buildDesignPrompt } from '../prompt'
 import { copyDesignPrompt, copyText } from '../hooks'
+import { useCasesOf } from '../designs/usecases'
+import { ComponentKit } from './ComponentKit'
 
 const MiniSite = lazy(() => import('./MiniSite').then((m) => ({ default: m.MiniSite })))
 
@@ -61,13 +63,13 @@ export function Preview({ ids }: { ids: string[] }) {
             {d.category}
           </span>
           <div className="preview-tabs">
-            {(['live', 'code', 'details'] as PreviewTab[]).map((t) => (
+            {(['live', 'components', 'code', 'details'] as PreviewTab[]).map((t) => (
               <button
                 key={t}
                 className={`tab-btn ${previewTab === t ? 'active' : ''}`}
                 onClick={() => setPreviewTab(t)}
               >
-                {t === 'live' ? 'Live preview' : t === 'code' ? 'Code' : 'Details'}
+                {t === 'live' ? 'Live preview' : t === 'components' ? 'Components' : t === 'code' ? 'Code' : 'Details'}
               </button>
             ))}
           </div>
@@ -123,6 +125,11 @@ export function Preview({ ids }: { ids: string[] }) {
           </div>
         )}
 
+        {previewTab === 'components' && (
+          <div className="preview-components">
+            <ComponentKit d={d} />
+          </div>
+        )}
         {previewTab === 'code' && <CodeView d={d} />}
         {previewTab === 'details' && <DetailsView d={d} />}
       </div>
@@ -259,7 +266,7 @@ function DetailsView({ d }: { d: DesignSystem }) {
                 Created {d.createdAt} · {d.tags.map((t) => `#${t}`).join(' ')}
               </div>
               <div className="creator-sub" style={{ marginTop: 4 }}>
-                <strong>Layout:</strong> {LAYOUT_LABEL[d.layout]} · <strong>Best for:</strong> {d.useCases.join(', ')}
+                <strong>Layout:</strong> {LAYOUT_LABEL[d.layout]} · <strong>Best for:</strong> {useCasesOf(d).slice(0, 8).join(', ')}
               </div>
             </div>
             <div className="stat-chips">

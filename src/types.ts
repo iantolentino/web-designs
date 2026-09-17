@@ -32,7 +32,7 @@ export type Motif =
   | 'editorial-columns'
 
 export type DeviceMode = 'desktop' | 'tablet' | 'mobile'
-export type PreviewTab = 'live' | 'code' | 'details'
+export type PreviewTab = 'live' | 'components' | 'code' | 'details'
 
 export type Layout =
   | 'hero-cards'
@@ -59,7 +59,14 @@ export const LAYOUT_LABEL: Record<Layout, string> = {
   manifesto: 'Manifesto',
 }
 
+/**
+ * Every website type the vault can filter by. The first block is the original
+ * 22; everything after it is the expanded catalog, grouped below for the
+ * sidebar dropdown. Keep this list flat and `as const` so `UseCase` stays a
+ * literal union the design data is checked against.
+ */
 export const USE_CASES = [
+  // — original set
   'SaaS',
   'Agency',
   'Portfolio',
@@ -82,9 +89,184 @@ export const USE_CASES = [
   'Kids',
   'Productivity',
   'Photography',
+  // — software & tech
+  'Developer Tools',
+  'DevOps & Cloud',
+  'Cybersecurity',
+  'Data & Analytics',
+  'No-Code',
+  'Design Tools',
+  // — business & money
+  'Banking',
+  'Insurance',
+  'Accounting',
+  'Legal',
+  'Consulting',
+  // — work & teams
+  'Project Management',
+  'CRM',
+  'HR & Recruiting',
+  'Remote Work',
+  'Startup',
+  // — commerce
+  'Marketplace',
+  'Grocery',
+  'Subscription Box',
+  // — creative & media
+  'Art Gallery',
+  'Podcast',
+  'Film & TV',
+  'Publishing',
+  // — learning & community
+  'E-learning',
+  'University',
+  'Community',
+  // — lifestyle
+  'Hotel',
+  'Booking',
+  'Coffee Shop',
+  'Beauty & Spa',
+  'Wedding',
+  'Pets',
+  // — health & wellness
+  'Clinic',
+  'Mental Health',
+  'Wellness',
+  // — industry & places
+  'Architecture',
+  'Construction',
+  'Automotive',
+  'Logistics',
+  'Manufacturing',
+  'Energy',
+  'Agriculture',
+  // — play & events
+  'Sports',
+  'Streaming',
+  // — civic
+  'Government',
 ] as const
 
 export type UseCase = (typeof USE_CASES)[number]
+
+/** Grouped layout of `USE_CASES` for the sidebar dropdown. */
+export const USE_CASE_GROUPS: { label: string; items: UseCase[] }[] = [
+  {
+    label: 'Software & tech',
+    items: ['SaaS', 'Developer Tools', 'AI/ML', 'DevOps & Cloud', 'Cybersecurity', 'Data & Analytics', 'No-Code', 'Design Tools'],
+  },
+  {
+    label: 'Business & money',
+    items: ['Fintech', 'Banking', 'Crypto', 'Insurance', 'Accounting', 'Legal', 'Consulting'],
+  },
+  {
+    label: 'Work & teams',
+    items: ['Productivity', 'Project Management', 'CRM', 'HR & Recruiting', 'Remote Work', 'Startup'],
+  },
+  {
+    label: 'Commerce',
+    items: ['E-commerce', 'Marketplace', 'Grocery', 'Subscription Box'],
+  },
+  {
+    label: 'Creative & media',
+    items: ['Portfolio', 'Agency', 'Photography', 'Art Gallery', 'Music', 'Podcast', 'Film & TV', 'Publishing'],
+  },
+  {
+    label: 'Learning & community',
+    items: ['Education', 'E-learning', 'University', 'Kids', 'Community', 'Nonprofit'],
+  },
+  {
+    label: 'Lifestyle & travel',
+    items: ['Travel', 'Hotel', 'Booking', 'Restaurant', 'Coffee Shop', 'Fashion', 'Beauty & Spa', 'Wedding', 'Pets'],
+  },
+  {
+    label: 'Health & wellness',
+    items: ['Health', 'Clinic', 'Mental Health', 'Fitness', 'Wellness'],
+  },
+  {
+    label: 'Industry & places',
+    items: ['Real Estate', 'Architecture', 'Construction', 'Automotive', 'Logistics', 'Manufacturing', 'Energy', 'Agriculture'],
+  },
+  {
+    label: 'Play & events',
+    items: ['Gaming', 'Sports', 'Events', 'Streaming', 'News'],
+  },
+  {
+    label: 'Civic',
+    items: ['Government'],
+  },
+]
+
+/** Compact glyph per website type — used by the picker and the result header. */
+export const USE_CASE_ICON: Record<UseCase, string> = {
+  SaaS: '⬡',
+  'Developer Tools': '⌘',
+  'AI/ML': '✦',
+  'DevOps & Cloud': '☁',
+  Cybersecurity: '⛨',
+  'Data & Analytics': '▤',
+  'No-Code': '⧉',
+  'Design Tools': '✎',
+  Fintech: '◈',
+  Banking: '$',
+  Crypto: '⬢',
+  Insurance: '⛉',
+  Accounting: '∑',
+  Legal: '§',
+  Consulting: '◎',
+  Productivity: '✓',
+  'Project Management': '▦',
+  CRM: '◔',
+  'HR & Recruiting': '☺',
+  'Remote Work': '⌂',
+  Startup: '▲',
+  'E-commerce': '◍',
+  Marketplace: '⊞',
+  Grocery: '❋',
+  'Subscription Box': '☑',
+  Portfolio: '◐',
+  Agency: '◈',
+  Photography: '◉',
+  'Art Gallery': '❖',
+  Music: '♪',
+  Podcast: '◍',
+  'Film & TV': '▷',
+  Publishing: '≡',
+  Education: '✎',
+  'E-learning': '◫',
+  University: '⌂',
+  Kids: '●',
+  Community: '❍',
+  Nonprofit: '♥',
+  Travel: '✈',
+  Hotel: '⌗',
+  Booking: '▣',
+  Restaurant: '✿',
+  'Coffee Shop': '☕',
+  Fashion: '✂',
+  'Beauty & Spa': '✧',
+  Wedding: '❥',
+  Pets: '❉',
+  Health: '✚',
+  Clinic: '✜',
+  'Mental Health': '☯',
+  Fitness: '✦',
+  Wellness: '❀',
+  'Real Estate': '⌂',
+  Architecture: '◲',
+  Construction: '▨',
+  Automotive: '◈',
+  Logistics: '⇄',
+  Manufacturing: '⚙',
+  Energy: '⚡',
+  Agriculture: '✿',
+  Gaming: '♟',
+  Sports: '◉',
+  Events: '★',
+  Streaming: '▶',
+  News: '❏',
+  Government: '⛨',
+}
 
 export interface ComponentSpec {
   /** Main CTA button */
