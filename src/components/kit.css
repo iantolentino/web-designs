@@ -451,19 +451,20 @@
 .kit-tip {
   position: absolute;
   bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
+  left: 0;
+  transform: translateY(4px);
   padding: 6px 10px;
   font-size: 11.5px;
   font-weight: 600;
-  white-space: nowrap;
-  max-width: 240px;
+  white-space: normal;
+  width: max-content;
+  max-width: 150px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.16s ease, transform 0.16s ease;
   z-index: 4;
 }
-.kit-tip-host:hover .kit-tip { opacity: 1; transform: translateX(-50%) translateY(0); }
+.kit-tip-host:hover .kit-tip { opacity: 1; transform: translateY(0); }
 
 .kit-popover { position: relative; border: 1px solid; padding: 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 10px 26px rgba(0, 0, 0, 0.14); }
 .kit-popover-arrow {
@@ -494,7 +495,9 @@
 }
 .kit-modal { border: 1px solid; padding: 16px 18px; width: min(340px, 100%); display: flex; flex-direction: column; gap: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); }
 
-.kit-drawer { border: 1px solid; padding: 14px; display: flex; flex-direction: column; gap: 9px; transition: transform 0.25s ease, opacity 0.25s ease; }
+.kit-drawer { border: 1px solid; padding: 14px; display: flex; flex-direction: column; gap: 9px; transition: transform 0.25s ease, opacity 0.25s ease; min-width: 0; max-width: 100%; box-sizing: border-box; }
+.kit-drawer > * { min-width: 0; overflow-wrap: anywhere; }
+.kit-row > *, .kit-stack > * { min-width: 0; }
 
 .kit-drop {
   border: 2px dashed;
@@ -561,3 +564,177 @@
   .kit-specimen:hover,
   .kit-icon-btn:hover { transform: none; }
 }
+
+/* ---- wave 4 additions: confirm dialog, filter chips, date range,
+       order summary, upload queue, search results, undo toast,
+       plan compare, diff review ---- */
+
+.kit-confirm {
+  display: grid;
+  gap: 8px;
+  border: 1px solid;
+  padding: 12px 14px;
+}
+
+.kit-chipf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.kit-chip b { font-weight: 600; }
+
+.kit-chip[aria-pressed="true"] b { opacity: 0.85; }
+
+.kit-drange { border: 1px solid; padding: 10px 12px; }
+
+.kit-cal-in { font-size: 11.5px; padding: 4px 0; }
+
+.kit-order {
+  display: grid;
+  gap: 2px;
+  border: 1px solid;
+  padding: 12px 14px;
+}
+
+.kit-order-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.kit-order-total {
+  border-top: 1px solid;
+  margin-top: 6px;
+  padding-top: 10px;
+  font-size: 14px;
+}
+
+.kit-upload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid;
+  padding: 9px 11px;
+}
+
+.kit-upload-ic {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  font-size: 13px;
+}
+
+.kit-upload-name {
+  font-size: 13px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kit-sr-row {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  border: 1px solid;
+  padding: 8px 11px;
+  background: none;
+  cursor: pointer;
+}
+
+.kit-sr-row strong { font-size: 13px; font-weight: 600; }
+
+.kit-sr-mark { border-radius: 2px; padding: 0 1px; }
+
+.kit-undo {
+  display: grid;
+  border: 1px solid;
+  padding: 10px 13px 12px;
+  position: relative;
+}
+
+.kit-undo-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  animation: kit-undo-count 8s linear forwards;
+}
+
+@keyframes kit-undo-count {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+.kit-plan {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid;
+  padding: 10px 13px;
+  background: none;
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+}
+
+.kit-plan:hover { border-color: color-mix(in srgb, currentColor 30%, transparent); }
+
+.kit-plan-name {
+  flex: 1;
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.kit-plan-name strong { font-size: 13.5px; }
+
+.kit-plan-name .kit-help { font-size: 11.5px; }
+
+.kit-radio-dot {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  border-radius: 999px;
+  border: 1.5px solid;
+}
+
+.kit-diff {
+  display: grid;
+  border: 1px solid;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.kit-diff-ln { padding: 0 12px; }
+
+.kit-diff-ln code {
+  font-family: ui-monospace, 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  white-space: pre;
+  display: block;
+  padding: 3px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kit-diff-n {
+  display: inline-block;
+  width: 22px;
+  margin-right: 8px;
+  opacity: 0.5;
+  font-size: 10.5px;
+}
+
+.kit-diff-del { background: color-mix(in srgb, #c04a4a 12%, transparent); }
+
+.kit-diff-add { background: color-mix(in srgb, #3f8f5f 13%, transparent); }

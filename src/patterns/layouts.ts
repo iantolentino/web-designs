@@ -285,6 +285,23 @@ export const CANVAS: Record<string, [layout: string, extra?: string]> = {
     'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:20px;',
     '.pt-i1{grid-template-columns:repeat(3,minmax(0,1fr));}',
   ],
+
+  /* ---- wave 5 arrangements: media-first PDP, release review, member directory ---- */
+
+  'product-detail-media': [
+    'display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,0.85fr); grid-template-areas:"media buy" "media specs" "media review"; gap:20px 24px; align-items:start; padding:22px;',
+    '.pt-i0{grid-area:media;} .pt-i1{grid-area:buy; position:sticky; top:12px;} .pt-i2{grid-area:specs;} .pt-i3{grid-area:review;}',
+  ],
+
+  'release-readiness': [
+    'display:grid; grid-template-columns:minmax(0,1.2fr) minmax(260px,0.8fr); grid-template-areas:"checks call" "buglist call"; gap:18px 22px; align-items:start; padding:20px;',
+    '.pt-i0{grid-area:checks;} .pt-i1{grid-area:buglist;} .pt-i2{grid-area:call; position:sticky; top:12px;}',
+  ],
+
+  'profiles-directory': [
+    'display:grid; grid-template-columns:220px minmax(0,1fr); grid-template-areas:"filters people" "filters invite"; gap:18px 24px; align-items:start; padding:20px;',
+    '.pt-i0{grid-area:filters; position:sticky; top:12px;} .pt-i1{grid-area:people; grid-template-columns:repeat(3,minmax(0,1fr));} .pt-i2{grid-area:invite;}',
+  ],
 }
 
 /**

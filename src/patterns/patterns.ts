@@ -1,5 +1,5 @@
 /**
- * Pattern library — 110 production-grade UI patterns.
+ * Pattern library — 136 production-grade UI patterns.
  *
  * Each entry is a *layout recipe*, not a screenshot: a unique canvas
  * arrangement (`layout`), optional unique flourishes (`extra`), and a
@@ -118,6 +118,7 @@ const M = 'marketing' as const
 const C = 'commerce' as const
 const A = 'app' as const
 const T = 'content' as const
+
 const F = 'forms' as const
 const D = 'data' as const
 const S = 'social' as const
@@ -1907,6 +1908,180 @@ export const PATTERNS: PatternDef[] = [
       { k: 'toolbar' },
       { k: 'table', title: 'Shortcuts', items: ['Action', 'Keys'], rows: [['Open command palette', '⌃ ⇧ C'], ['Save to favorites', 'F'], ['Toggle layout', 'L'], ['Export tokens', 'E']] },
       { k: 'toast', title: 'Press ? anywhere in the app' },
+    ],
+  },
+
+  /* ---------------- wave 5: twelve more (121 designs / 136 patterns wave) ---------------- */
+
+  {
+    id: 'plan-comparison-page',
+    name: 'Plan comparison page',
+    family: M,
+    blurb: 'Plans as columns, features as rows, checkmarks and deltas that scan fast.',
+    tags: ['pricing', 'comparison', 'features', 'plans'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:22px;',
+    extra: '.pt-i0{grid-template-columns:repeat(3,minmax(0,1fr));} .pt-i1 td:nth-child(n+2){text-align:center;} .pt-i2{display:grid; grid-template-columns:repeat(3,1fr);}',
+    blocks: [
+      { k: 'pricing', title: 'Plans', n: 3, v: 'grid' },
+      { k: 'table', title: 'Compare features', items: ['Feature', 'Free', 'Pro'], rows: [['Projects', '3', 'Unlimited'], ['Custom domains', '—', '✓'], ['Audit log', '—', '✓']] },
+      { k: 'faq', title: 'Billing questions', n: 3 },
+    ],
+  },
+  {
+    id: 'trust-and-safety-center',
+    name: 'Trust & safety center',
+    family: M,
+    blurb: 'Policy pillars, compliance badges, and a status strip — credibility as layout.',
+    tags: ['trust', 'security', 'compliance', 'policies'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:22px;',
+    extra: '.pt-i1{display:grid; grid-template-columns:repeat(2,minmax(0,1fr));}',
+    blocks: [
+      { k: 'hero', title: 'Trust is a feature.', sub: 'Encryption, retention, and review policies in plain language.', v: 'center' },
+      { k: 'cards', title: 'Policy pillars', cols: 2, n: 4, v: 'grid' },
+      { k: 'logos', sub: 'Audited and certified by' },
+      { k: 'status', title: 'System status · all green' },
+    ],
+  },
+  {
+    id: 'waitlist-teaser',
+    name: 'Waitlist teaser',
+    family: M,
+    blurb: 'One screen, one field, honest count — anticipation without fake urgency.',
+    tags: ['waitlist', 'launch', 'teaser', 'signup'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:20px; padding:28px 24px; max-width:620px; margin:0 auto;',
+    blocks: [
+      { k: 'hero', title: 'Something careful is coming.', sub: 'No fake countdown. Just a number.', v: 'center' },
+      { k: 'form', title: 'Join the waitlist', v: 'inline' },
+      { k: 'stats', title: '4,812 people ahead of you', items: ['Designers 41%', 'Engineers 33%', 'Founders 26%'] },
+      { k: 'faq', title: 'Questions people actually ask', n: 2 },
+    ],
+  },
+  {
+    id: 'product-detail-media',
+    name: 'Product detail · media first',
+    family: C,
+    blurb: 'Gallery dominant, buy-box sticky, and specs that read like a spec sheet.',
+    tags: ['pdp', 'product', 'gallery', 'purchase'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,0.85fr); gap:22px; padding:22px;',
+    extra: '.pt-i0{grid-area:media;} .pt-i1{grid-area:buy; position:sticky; top:12px;} .pt-i2{grid-area:specs;} .pt-i3{grid-area:review;}',
+    blocks: [
+      { k: 'gallery', cols: 4, n: 4 },
+      { k: 'form', title: 'Medium Oak · Queen', v: 'stack' },
+      { k: 'table', title: 'Specifications', items: ['Dimension', 'Value'], rows: [['Width', '162 cm'], ['Depth', '204 cm'], ['Assembly', 'Two people, 30 min']] },
+      { k: 'reviews', title: 'Verified reviews', n: 2 },
+    ],
+  },
+  {
+    id: 'inventory-alerts-board',
+    name: 'Inventory & restock board',
+    family: C,
+    blurb: 'Stock health, reorder queue, and supplier lead times on one wall.',
+    tags: ['inventory', 'restock', 'operations', 'commerce'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:20px;',
+    extra: '.pt-i0{display:grid; grid-template-columns:repeat(2,minmax(0,1fr));} .pt-i2 td:nth-child(n+2){text-align:center;}',
+    blocks: [
+      { k: 'kpis', cols: 2, n: 4, items: ['SKUs low 14', 'On order 38', 'Dead stock 6', 'Turnover 4.2×'] },
+      { k: 'kanban', title: 'Reorder queue', n: 3 },
+      { k: 'table', title: 'Supplier lead times', items: ['Supplier', 'Lead', 'Reliability'], rows: [['Northpine', '12 days', '98%'], ['Casco Metals', '21 days', '91%'], ['Loomworks', '9 days', '97%']] },
+    ],
+  },
+  {
+    id: 'daily-agenda',
+    name: 'Daily agenda',
+    family: A,
+    blurb: 'Today as a timeline, tomorrow as a preview — one day at a time.',
+    tags: ['agenda', 'calendar', 'day', 'planning'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:22px;',
+    extra: '.pt-i0{display:grid; grid-template-columns:200px minmax(0,1fr);}',
+    blocks: [
+      { k: 'calendar', title: 'Week strip' },
+      { k: 'timeline', title: 'Today · Sep 18', n: 4 },
+      { k: 'list', title: 'Up next', items: ['Design review 2pm', '1:1 with Sam 4pm', 'Draft release notes'] },
+    ],
+  },
+  {
+    id: 'metrics-annotations',
+    name: 'Metrics with annotations',
+    family: D,
+    blurb: 'Chart plus margin notes — the analysis lives next to the line.',
+    tags: ['analytics', 'annotations', 'chart', 'review'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:20px;',
+    extra: '.pt-i1{display:grid; grid-template-columns:repeat(2,minmax(0,1fr));}',
+    blocks: [
+      { k: 'kpis', cols: 4, n: 4, items: ['MRR $128k', 'NRR 114%', 'Churn 1.8%', 'Trials 312'] },
+      { k: 'chart', title: 'MRR, annotated' },
+      { k: 'list', title: 'Analyst notes', items: ['Sep 3 — pricing change shipped', 'Sep 9 — churn spike traced to onboarding step 3'], v: 'grid' },
+    ],
+  },
+  {
+    id: 'release-readiness',
+    name: 'Release readiness',
+    family: A,
+    blurb: 'Checklist, owners, and the go/no-go call in one review panel.',
+    tags: ['release', 'checklist', 'qa', 'launch'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1.2fr) minmax(260px,0.8fr); gap:18px; padding:20px;',
+    extra: '.pt-i2{grid-area:call; position:sticky; top:12px;} .pt-i0{grid-area:checks;} .pt-i1{grid-area:buglist;}',
+    blocks: [
+      { k: 'list', title: 'Pre-flight checklist', items: ['Migrations reviewed', 'Feature flags staged', 'Rollback rehearsed', 'Changelog drafted'] },
+      { k: 'table', title: 'Open blockers', items: ['Bug', 'Owner'], rows: [['Cart icon misaligned on Safari', 'K. Ito'], ['Rate limit on public API', 'R. Mensah']] },
+      { k: 'status', title: 'Go / no-go', items: ['Approve & ship', 'Hold 24h'] },
+    ],
+  },
+  {
+    id: 'syllabus-week',
+    name: 'Syllabus week view',
+    family: T,
+    blurb: 'Course week as a rhythm: lessons, labs, and a due-date rail.',
+    tags: ['course', 'syllabus', 'lms', 'education'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:22px;',
+    extra: '.pt-i2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr));} .pt-i0 td:nth-child(n+2){text-align:center;}',
+    blocks: [
+      { k: 'table', title: 'Week 4 · Organic chemistry', items: ['Day', 'Topic'], rows: [['Mon', 'Stereochemistry I'], ['Wed', 'Stereochemistry II'], ['Fri', 'Lab: enantiomers']] },
+      { k: 'media', title: 'Lecture recording', v: 'media-text' },
+      { k: 'cards', title: 'Labs & worksheets', cols: 2, n: 2, v: 'grid' },
+    ],
+  },
+  {
+    id: 'city-guide-card',
+    name: 'City guide card',
+    family: T,
+    blurb: 'Editorial guide: hero photo, curated stops, and a map teaser.',
+    tags: ['travel', 'guide', 'city', 'editorial'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:20px; max-width:860px; margin:0 auto;',
+    extra: '.pt-i1{display:grid; grid-template-columns:repeat(2,minmax(0,1fr));}',
+    blocks: [
+      { k: 'media', title: 'Lisbon in 48 hours', v: 'tall' },
+      { k: 'cards', title: 'Stops we swear by', cols: 2, n: 4, v: 'grid' },
+      { k: 'map', title: 'The route on one map' },
+      { k: 'comments', title: 'Reader tips', n: 2 },
+    ],
+  },
+  {
+    id: 'profiles-directory',
+    name: 'Member directory',
+    family: S,
+    blurb: 'Searchable people grid with groups, presence, and an invite rail.',
+    tags: ['directory', 'people', 'community', 'members'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:20px;',
+    extra: '.pt-i0{display:grid; grid-template-columns:220px minmax(0,1fr);} .pt-i1{grid-template-columns:repeat(3,minmax(0,1fr));}',
+    blocks: [
+      { k: 'filters', title: 'Groups', items: ['Core team', 'Designers', 'Moderators', 'Alumni'] },
+      { k: 'members', cols: 3, n: 6 },
+      { k: 'inbox', title: 'Invite rail', n: 2 },
+    ],
+  },
+  {
+    id: 'server-status-board',
+    name: 'Server status board',
+    family: S,
+    blurb: 'Status history table, live feed, and subscriber call in one board.',
+    tags: ['status', 'uptime', 'incidents', 'system'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:20px;',
+    extra: '.pt-i0 td:nth-child(n+2){text-align:center;} .pt-i1{display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);}',
+    blocks: [
+      { k: 'table', title: 'Uptime · last 90 days', items: ['Service', '30d', '90d'], rows: [['API', '99.99%', '99.98%'], ['Dashboard', '100%', '99.99%'], ['Webhooks', '99.95%', '99.96%']] },
+      { k: 'activity', title: 'Incident history', n: 3 },
+      { k: 'form', title: 'Subscribe to updates', v: 'inline' },
     ],
   },
 ]

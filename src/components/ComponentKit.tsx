@@ -9,7 +9,7 @@ import { themeOf, withAlpha, type Theme } from '../designs/theme'
  * design's own tokens (colors, type pairing, radius, border weight, motion).
  * That is what makes a design system a system: one kit, many identities.
  *
- * The kit is the answer to "20+ components for every design" — it ships 53
+ * The kit is the answer to "20+ components for every design" — it ships 62
  * distinct, interactive components grouped in six families, and each design
  * re-skins every one of them by changing nothing but its token block.
  */
@@ -1229,7 +1229,7 @@ function DrawerDemo() {
       <button className="kit-btn" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r }} onClick={() => setOpen((o) => !o)}>
         {open ? 'Close' : 'Open'} side sheet
       </button>
-      <div className="kit-drawer" style={{ background: t.surface, borderColor: line(t), borderRadius: r, transform: open ? 'translateX(0)' : 'translateX(12px)', opacity: open ? 1 : 0.35 }}>
+      <div className="kit-drawer" style={{ background: t.surface, borderColor: line(t), borderRadius: r, transform: 'translateX(0)', opacity: open ? 1 : 0.35 }}>
         <div className="kit-between">
           <strong style={{ color: t.text }}>Package details</strong>
           <span className="kit-help">v2.4.0</span>
@@ -1387,6 +1387,504 @@ function ColorSwatches() {
   )
 }
 
+/* ======================= STATES & UTILITIES ======================= */
+
+function ConfirmDialog() {
+  const { t, r } = useKit()
+  const [tone, setTone] = useState<'warn' | 'bad'>('bad')
+  const [word, setWord] = useState('')
+  const toneMap = {
+    warn: ['#c98a2b', 'Leave with unsaved changes?', 'Your draft is kept for 24 hours if you stay.'],
+    bad: ['#c04a4a', 'Delete this workspace?', 'This permanently removes 12 projects for every member.'],
+  } as const
+  const [c, label, text] = toneMap[tone]
+  const locked = tone === 'bad' && word.trim().toUpperCase() !== 'DELETE'
+  return (
+    <div className="kit-stack">
+      <div className="kit-row">
+        {(['warn', 'bad'] as const).map((k) => (
+          <button
+            key={k}
+            className="kit-chip"
+            style={
+              tone === k
+                ? { background: t.primary, color: t.onPrimary, borderColor: t.primary }
+                : { color: t.muted, borderColor: line(t, 0.3) }
+            }
+            onClick={() => {
+              setTone(k)
+              setWord('')
+            }}
+          >
+            {k === 'warn' ? 'Warning' : 'Destructive'}
+          </button>
+        ))}
+      </div>
+      <div className="kit-confirm" style={{ borderColor: withAlpha(c, 0.45), background: withAlpha(c, 0.07), borderRadius: r }}>
+        <div className="kit-between">
+          <strong style={{ color: t.text }}>{label}</strong>
+          <span className="kit-badge" style={{ color: c, borderColor: withAlpha(c, 0.4) }}>
+            {tone === 'bad' ? 'Irreversible' : 'Draft saved'}
+          </span>
+        </div>
+        <span className="kit-help">{text}</span>
+        {tone === 'bad' && (
+          <input
+            className="kit-input"
+            style={{ borderColor: line(t, 0.3), color: t.text, borderRadius: r }}
+            value={word}
+            onChange={(e) => setWord(e.target.value)}
+            placeholder="Type DELETE to confirm"
+            aria-label="Type DELETE to confirm"
+          />
+        )}
+        <div className="kit-row">
+          <button
+            className="kit-btn kit-btn-sm"
+            style={
+              locked
+                ? { border: `1px solid ${line(t, 0.3)}`, color: t.muted, borderRadius: r }
+                : { background: c, color: '#fff', borderRadius: r }
+            }
+            disabled={locked}
+          >
+            {tone === 'bad' ? 'Delete workspace' : 'Leave page'}
+          </button>
+          <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r }}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function FilterChips() {
+  const { t, r } = useKit()
+  const facets: [string, number][] = [
+    ['Open', 12],
+    ['In review', 4],
+    ['Blocked', 2],
+    ['Done', 30],
+    ['Archived', 8],
+  ]
+  const [on, setOn] = useState<string[]>(['Open', 'Blocked'])
+  const toggle = (f: string) => setOn((a) => (a.includes(f) ? a.filter((x) => x !== f) : [...a, f]))
+  return (
+    <div className="kit-stack">
+      <span className="kit-label">Filter · status</span>
+      <div className="kit-chipf">
+        {facets.map(([f, n]) => {
+          const active = on.includes(f)
+          return (
+            <button
+              key={f}
+              className="kit-chip"
+              style={
+                active
+                  ? { background: t.primary, color: t.onPrimary, borderColor: t.primary, borderRadius: r }
+                  : { color: t.muted, borderColor: line(t, 0.3), borderRadius: r }
+              }
+              onClick={() => toggle(f)}
+              aria-pressed={active}
+            >
+              {f} <b>{n}</b>
+            </button>
+          )
+        })}
+      </div>
+      <span className="kit-help">
+        {on.length ? `${on.length} active · ${on.join(', ')}` : 'No filters'}
+        {on.length > 0 && (
+          <button className="kit-text-btn" style={{ color: t.primary }} onClick={() => setOn([])}>
+            Clear all
+          </button>
+        )}
+      </span>
+    </div>
+  )
+}
+
+function DateRange() {
+  const { t, r } = useKit()
+  const dows = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+  const days = Array.from({ length: 30 }, (_, i) => i + 1)
+  const [range, setRange] = useState<[number, number]>([8, 12])
+  return (
+    <div className="kit-stack">
+      <div className="kit-between">
+        <strong style={{ color: t.text }}>Sep 8 – 12, 2026</strong>
+        <span className="kit-help">5 nights</span>
+      </div>
+      <div className="kit-drange" style={{ borderColor: line(t, 0.28), borderRadius: r }}>
+        <div className="kit-cal">
+          <div className="kit-between" style={{ marginBottom: 6 }}>
+            <strong style={{ color: t.text, fontSize: 12.5 }}>September 2026</strong>
+            <span className="kit-help">‹ ›</span>
+          </div>
+          <div className="kit-cal-grid">
+            {dows.map((d, i) => (
+              <span key={`d${i}`} className="kit-cal-dow" style={{ color: t.muted }}>
+                {d}
+              </span>
+            ))}
+            {days.map((d) => {
+              const [a, b] = range
+              const inRange = d >= a && d <= b
+              const edge = d === a || d === b
+              return (
+                <button
+                  key={d}
+                  className="kit-cal-day kit-cal-in"
+                  style={
+                    edge
+                      ? { background: t.primary, color: t.onPrimary, borderRadius: 6 }
+                      : inRange
+                        ? { background: withAlpha(t.primary, 0.16), color: t.text, borderRadius: 0 }
+                        : { color: t.muted, borderRadius: 6 }
+                  }
+                  onClick={() => setRange([d, Math.min(30, d + 4)])}
+                  aria-label={`September ${d}`}
+                >
+                  {d}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+      <div className="kit-chipf">
+        {[
+          ['Tonight', 18],
+          ['This weekend', 25],
+          ['Next week', 21],
+        ].map(([label, d]) => (
+          <button
+            key={label as string}
+            className="kit-chip"
+            style={{ color: t.muted, borderColor: line(t, 0.3), borderRadius: r }}
+            onClick={() => setRange([d as number, Math.min(30, (d as number) + 4)])}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function OrderSummary() {
+  const { t, r } = useKit()
+  const items: [string, string, string][] = [
+    ['Design system license', '× 1', '$249'],
+    ['Team seats', '× 5', '$375'],
+    ['Priority support', '× 1', '$90'],
+  ]
+  const [promo, setPromo] = useState('')
+  const applied = promo.trim().toUpperCase() === 'TOKEN20'
+  const money = (n: number) => `$${n.toFixed(2)}`
+  const sub = 714
+  const discount = applied ? sub * 0.2 : 0
+  return (
+    <div className="kit-stack">
+      <div className="kit-order" style={{ borderColor: line(t, 0.28), borderRadius: r }}>
+        {items.map(([name, qty, price]) => (
+          <div key={name} className="kit-order-row">
+            <span style={{ color: t.text }}>
+              {name} <em className="kit-help">{qty}</em>
+            </span>
+            <span style={{ color: t.text, fontVariantNumeric: 'tabular-nums' }}>{price}</span>
+          </div>
+        ))}
+        {applied && (
+          <div className="kit-order-row" style={{ color: '#3f8f5f' }}>
+            <span>TOKEN20 applied</span>
+            <span>−{money(discount)}</span>
+          </div>
+        )}
+        <div className="kit-order-row kit-order-total" style={{ borderColor: line(t, 0.18) }}>
+          <strong style={{ color: t.text }}>Total due today</strong>
+          <strong style={{ color: t.text, fontVariantNumeric: 'tabular-nums' }}>{money(sub - discount)}</strong>
+        </div>
+      </div>
+      <div className="kit-row">
+        <input
+          className="kit-input"
+          style={{ borderColor: line(t, 0.3), color: t.text, borderRadius: r, flex: 1 }}
+          value={promo}
+          onChange={(e) => setPromo(e.target.value)}
+          placeholder="Promo code (try TOKEN20)"
+          aria-label="Promo code"
+        />
+        <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r }}>
+          Apply
+        </button>
+      </div>
+      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }}>
+        Pay {money(sub - discount)}
+      </button>
+    </div>
+  )
+}
+
+function UploadQueue() {
+  const { t, r } = useKit()
+  const files: [string, string, number, 'up' | 'ok' | 'err'][] = [
+    ['brand-guidelines.pdf', '18.2 MB · 64%', 64, 'up'],
+    ['logo-mark.svg', '24 KB', 100, 'ok'],
+    ['hero-4k.png', '42.8 MB · failed', 0, 'err'],
+  ]
+  return (
+    <div className="kit-stack">
+      <div className="kit-between">
+        <strong style={{ color: t.text }}>Uploading 3 files</strong>
+        <span className="kit-help">1 done · 1 active · 1 failed</span>
+      </div>
+      {files.map(([name, meta, pct, state]) => (
+        <div key={name} className="kit-upload" style={{ borderColor: line(t, 0.25), borderRadius: r }}>
+          <span
+            className="kit-upload-ic"
+            aria-hidden
+            style={
+              state === 'ok'
+                ? { color: '#3f8f5f' }
+                : state === 'err'
+                  ? { color: '#c04a4a' }
+                  : { color: t.primary }
+            }
+          >
+            {state === 'ok' ? '✓' : state === 'err' ? '!' : '↑'}
+          </span>
+          <div className="kit-stack kit-stack-tight" style={{ flex: 1, minWidth: 0 }}>
+            <span className="kit-upload-name" style={{ color: t.text }}>{name}</span>
+            {state === 'up' && (
+              <div className="kit-bar" style={{ background: soft(t, 0.12) }}>
+                <div className="kit-bar-fill" style={{ width: `${pct}%`, background: t.primary }} />
+              </div>
+            )}
+            <span className="kit-help">{meta}</span>
+          </div>
+          <button className="kit-text-btn" style={{ color: state === 'err' ? t.primary : t.muted }}>
+            {state === 'err' ? 'Retry' : state === 'up' ? 'Cancel' : 'Show'}
+          </button>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function SearchResults() {
+  const { t, r } = useKit()
+  const [q, setQ] = useState('tok')
+  const docs: [string, string][] = [
+    ['Design tokens', 'Named decisions for color, spacing, and type'],
+    ['Token naming', 'Semantic names beat literal ones'],
+    ['Theme tokens', 'How dark mode re-maps the same tokens'],
+    ['Component specs', 'Every state a component ships with'],
+  ]
+  const hits = q ? docs.filter(([t_, d]) => (t_ + ' ' + d).toLowerCase().includes(q.toLowerCase())) : []
+  const mark = (s: string) => {
+    if (!q) return s
+    const i = s.toLowerCase().indexOf(q.toLowerCase())
+    if (i < 0) return s
+    return (
+      <>
+        {s.slice(0, i)}
+        <mark className="kit-sr-mark" style={{ background: withAlpha(t.primary, 0.28), color: 'inherit' }}>
+          {s.slice(i, i + q.length)}
+        </mark>
+        {s.slice(i + q.length)}
+      </>
+    )
+  }
+  return (
+    <div className="kit-stack">
+      <div className="kit-search" style={{ borderColor: line(t, 0.35), borderRadius: r }}>
+        <span className="kit-search-ic" aria-hidden style={{ color: t.muted }}>⌕</span>
+        <input
+          className="kit-search-input"
+          style={{ color: t.text }}
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search the docs…"
+          aria-label="Search the docs"
+        />
+        {q && (
+          <button className="kit-search-clear" style={{ color: t.muted }} onClick={() => setQ('')} aria-label="Clear search">
+            ✕
+          </button>
+        )}
+      </div>
+      {hits.length ? (
+        <>
+          <span className="kit-help">
+            {hits.length} result{hits.length === 1 ? '' : 's'} for “{q}”
+          </span>
+          <div className="kit-stack kit-stack-tight">
+            {hits.map(([title, desc]) => (
+              <button key={title} className="kit-sr-row" style={{ borderColor: line(t, 0.18), borderRadius: r }}>
+                <strong style={{ color: t.text }}>{mark(title)}</strong>
+                <span className="kit-help">{mark(desc)}</span>
+              </button>
+            ))}
+          </div>
+        </>
+      ) : (
+        <span className="kit-help">No matches — try “token”.</span>
+      )}
+    </div>
+  )
+}
+
+function UndoToast() {
+  const { t, r } = useKit()
+  const [state, setState] = useState<'open' | 'undone' | 'gone'>('open')
+  return (
+    <div className="kit-stack">
+      <div className="kit-between">
+        <strong style={{ color: t.text }}>Destructive with an escape hatch</strong>
+        <button
+          className="kit-chip"
+          style={{ color: t.muted, borderColor: line(t, 0.3), borderRadius: r }}
+          onClick={() => setState('open')}
+        >
+          Replay
+        </button>
+      </div>
+      {state !== 'gone' ? (
+        <div className="kit-undo" style={{ background: t.surface, borderColor: line(t, 0.3), borderRadius: r, overflow: 'hidden' }} role="status">
+          <div className="kit-between" style={{ position: 'relative', zIndex: 1 }}>
+            <span style={{ color: t.text }}>
+              <strong>Moved “Q3 roadmap” to trash.</strong>
+            </span>
+            <div className="kit-row">
+              <button className="kit-text-btn" style={{ color: t.primary }} onClick={() => setState('undone')}>
+                Undo
+              </button>
+              <button className="kit-text-btn" style={{ color: t.muted }} onClick={() => setState('gone')} aria-label="Dismiss">
+                ✕
+              </button>
+            </div>
+          </div>
+          {state === 'open' && <div className="kit-undo-bar" style={{ background: withAlpha(t.primary, 0.35) }} />}
+        </div>
+      ) : (
+        <span className="kit-help">Dismissed — the deletion completes after the countdown.</span>
+      )}
+      {state === 'undone' && (
+        <div className="kit-alert" style={{ borderColor: withAlpha('#3f8f5f', 0.4), background: withAlpha('#3f8f5f', 0.08), borderRadius: r }} role="status">
+          <span className="kit-alert-ic" style={{ color: '#3f8f5f' }}>✓</span>
+          <strong style={{ color: t.text }}>Restored — nothing was deleted.</strong>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function PlanCompare() {
+  const { t, r } = useKit()
+  const plans: [string, string, string[]][] = [
+    ['Free', '$0', ['3 projects', 'Community support']],
+    ['Pro', '$24/mo', ['Unlimited projects', 'Custom domains']],
+    ['Team', '$79/mo', ['Shared libraries', 'SSO + audit log']],
+  ]
+  const [pick, setPick] = useState(1)
+  return (
+    <div className="kit-stack">
+      <span className="kit-label">Choose a plan</span>
+      <div className="kit-stack kit-stack-tight" role="radiogroup" aria-label="Plans">
+        {plans.map(([name, price, feats], i) => {
+          const sel = pick === i
+          return (
+            <button
+              key={name}
+              className="kit-plan"
+              role="radio"
+              aria-checked={sel}
+              style={{
+                borderColor: sel ? t.primary : line(t, 0.25),
+                background: sel ? withAlpha(t.primary, 0.07) : 'transparent',
+                borderRadius: r,
+              }}
+              onClick={() => setPick(i)}
+            >
+              <span
+                className="kit-radio-dot"
+                aria-hidden
+                style={{
+                  borderColor: sel ? t.primary : line(t, 0.4),
+                  background: sel ? t.primary : 'transparent',
+                  boxShadow: sel ? `inset 0 0 0 3px ${t.bg}` : 'none',
+                }}
+              />
+              <span className="kit-plan-name" style={{ color: t.text }}>
+                <strong>{name}</strong>
+                <span className="kit-help">{feats.join(' · ')}</span>
+              </span>
+              <strong style={{ color: sel ? t.primary : t.text, fontVariantNumeric: 'tabular-nums' }}>{price}</strong>
+            </button>
+          )
+        })}
+      </div>
+      <span className="kit-help">Prices per editor · switch or cancel anytime</span>
+    </div>
+  )
+}
+
+function DiffReview() {
+  const { t, r } = useKit()
+  const [verdict, setVerdict] = useState<'none' | 'ok' | 'no'>('none')
+  return (
+    <div className="kit-stack">
+      <div className="kit-between">
+        <strong style={{ color: t.text }}>tokens.json</strong>
+        <span className="kit-help">
+          <span style={{ color: '#3f8f5f' }}>+2</span> <span style={{ color: '#c04a4a' }}>−1</span>
+        </span>
+      </div>
+      <div className="kit-diff" style={{ borderColor: line(t, 0.28), borderRadius: r, background: soft(t, 0.04) }}>
+        <div className="kit-diff-ln" style={{ color: t.muted }}>
+          <code style={{ color: t.text }}>
+            <span className="kit-diff-n">4</span> "radius-card": "10px",
+          </code>
+        </div>
+        <div className="kit-diff-ln kit-diff-del">
+          <code style={{ color: t.text }}>
+            <span className="kit-diff-n">5</span>- "radius-card": "8px",
+          </code>
+        </div>
+        <div className="kit-diff-ln kit-diff-add">
+          <code style={{ color: t.text }}>
+            <span className="kit-diff-n">5</span>+ "radius-card": "12px",
+          </code>
+        </div>
+        <div className="kit-diff-ln kit-diff-add">
+          <code style={{ color: t.text }}>
+            <span className="kit-diff-n">6</span>+ "radius-pill": "999px",
+          </code>
+        </div>
+      </div>
+      <div className="kit-row">
+        <button
+          className="kit-btn kit-btn-sm"
+          style={{ background: verdict === 'ok' ? '#3f8f5f' : 'transparent', border: `1px solid ${line(t, 0.35)}`, color: verdict === 'ok' ? '#fff' : t.text, borderRadius: r }}
+          onClick={() => setVerdict('ok')}
+        >
+          Approve
+        </button>
+        <button
+          className="kit-btn kit-btn-sm"
+          style={{ background: verdict === 'no' ? '#c04a4a' : 'transparent', border: `1px solid ${line(t, 0.35)}`, color: verdict === 'no' ? '#fff' : t.text, borderRadius: r }}
+          onClick={() => setVerdict('no')}
+        >
+          Request changes
+        </button>
+        {verdict !== 'none' && <span className="kit-help">Review recorded</span>}
+      </div>
+    </div>
+  )
+}
+
 /* ======================= REGISTRY ======================= */
 
 export type KitGroupId = 'actions' | 'selection' | 'feedback' | 'data' | 'nav' | 'overlays'
@@ -1461,6 +1959,15 @@ export const KIT_ITEMS: KitItem[] = [
   { id: 'chat', name: 'Chat thread', group: 'overlays', Comp: ChatThread },
   { id: 'media-card', name: 'Media card', group: 'overlays', Comp: MediaCard },
   { id: 'swatches', name: 'Color swatch picker', group: 'overlays', Comp: ColorSwatches },
+  { id: 'confirm-dialog', name: 'Confirmation dialog', group: 'overlays', Comp: ConfirmDialog },
+  { id: 'filter-chips', name: 'Filter chips · facets', group: 'selection', Comp: FilterChips },
+  { id: 'date-range', name: 'Date range picker', group: 'overlays', Comp: DateRange },
+  { id: 'order-summary', name: 'Order summary', group: 'actions', Comp: OrderSummary },
+  { id: 'upload-queue', name: 'Upload queue', group: 'feedback', Comp: UploadQueue },
+  { id: 'search-results', name: 'Search with results', group: 'actions', Comp: SearchResults },
+  { id: 'undo-toast', name: 'Undo toast · countdown', group: 'feedback', Comp: UndoToast },
+  { id: 'plan-compare', name: 'Plan comparison', group: 'selection', Comp: PlanCompare },
+  { id: 'diff-review', name: 'Diff review', group: 'data', Comp: DiffReview },
 ]
 
 /** How many components every design ships with. */
