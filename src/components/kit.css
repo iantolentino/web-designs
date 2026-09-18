@@ -738,3 +738,20 @@
 .kit-diff-del { background: color-mix(in srgb, #c04a4a 12%, transparent); }
 
 .kit-diff-add { background: color-mix(in srgb, #3f8f5f 13%, transparent); }
+
+/* Wave 6 — media gallery thumbnails, survey option rows. Contained: no
+   fixed-width children, long labels wrap instead of overflowing. */
+.kit-media-thumb {
+  min-width: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.kit-media-thumb:hover {
+  border-color: currentColor;
+}
+
+.kit-menu-item {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

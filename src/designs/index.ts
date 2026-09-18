@@ -16,6 +16,7 @@ import { urbanDesigns } from './urban'
 import { historicalDesigns } from './historical'
 import { craftDesigns } from './craft'
 import { wave4Designs } from './wave4'
+import { wave5Designs } from './wave5'
 
 export const DESIGN_SYSTEMS: DesignSystem[] = [
   ...minimalismDesigns,
@@ -35,6 +36,7 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
   ...historicalDesigns,
   ...craftDesigns,
   ...wave4Designs,
+  ...wave5Designs,
 ]
 
 export function getDesign(id: string): DesignSystem | undefined {

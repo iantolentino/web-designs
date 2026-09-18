@@ -9,7 +9,7 @@ import { themeOf, withAlpha, type Theme } from '../designs/theme'
  * design's own tokens (colors, type pairing, radius, border weight, motion).
  * That is what makes a design system a system: one kit, many identities.
  *
- * The kit is the answer to "20+ components for every design" — it ships 62
+ * The kit is the answer to "20+ components for every design" — it ships 70
  * distinct, interactive components grouped in six families, and each design
  * re-skins every one of them by changing nothing but its token block.
  */
@@ -17,8 +17,8 @@ import { themeOf, withAlpha, type Theme } from '../designs/theme'
 interface Kit {
   d: DesignSystem
   t: Theme
-  /** Button/card corner radius derived from the design's component spec. */
-  r: string
+  /** Corner radius scale derived from the design's component spec. */
+  r: RadiusScale
 }
 
 const KitCtx = createContext<Kit | null>(null)
@@ -29,12 +29,98 @@ export function useKit(): Kit {
   return k
 }
 
-/** Pull a pixel radius out of a free-text component spec like "12px, 999px for pills". */
-export function radiusOf(d: DesignSystem): string {
+/**
+ * Corner-radius scale parsed from a design's free-text radius spec.
+ *
+ * Specs come in every shape — "8px (buttons/inputs), 12px (cards), 999px
+ * (pills)", "Pills, arches (999px 999px 0 0), blobs (60% 40% 55% 45%)",
+ * "0", "Leaf: 999px 999px 999px 4px buttons; 18px cards" — and older code
+ * collapsed any spec that merely *mentioned* pills into 999px for every
+ * element, which turned whole kits into capsules. The kit instead asks for
+ * a role: `ctl` for interactive controls, `card` for surfaces and larger
+ * containers, `pill` only for things that are genuinely pill-shaped
+ * (chips, badges, dots, avatars).
+ */
+export interface RadiusScale {
+  ctl: string
+  card: string
+  pill: string
+}
+
+function clampRadius(n: number): string {
+  if (!Number.isFinite(n) || n <= 0) return '0'
+  // Above ~16px a small control starts to swallow its own content; large
+  // values still make sense for cards, so the cap is generous.
+  return `${Math.min(Math.round(n), 26)}px`
+}
+
+/** Parse a radius spec into the three-role scale. */
+export function radiusScaleOf(d: DesignSystem): RadiusScale {
   const spec = d.components.radius ?? ''
-  if (/999|pill/i.test(spec)) return '999px'
-  const m = spec.match(/(\d+)px/)
-  return m ? `${m[1]}px` : '8px'
+  const trimmed = spec.trim().toLowerCase()
+  if (trimmed === '0' || trimmed === 'none' || trimmed === '') return { ctl: '0', card: '0', pill: '0' }
+
+  // Every px/% value, plus standalone bare "0"s ("0 for structure, 999px for
+  // bloom pills"). Each value's role hint is scoped to the segment between
+  // the previous and next values, so "999px buttons, 24px cards" binds
+  // "buttons" to 999 and "cards" to 24 — hints never bleed across values.
+  const tokens = [...spec.matchAll(/(\d+(?:\.\d+)?)\s*(px|%)/g)]
+  for (const z of spec.matchAll(/(?<![\d.])0(?![.\dpx%])/g)) tokens.push(z)
+  tokens.sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
+  const px = tokens.map((m, i) => {
+    const start = m.index ?? 0
+    const end = start + m[0].length
+    const prevEnd = i > 0 ? (tokens[i - 1].index ?? 0) + tokens[i - 1][0].length : 0
+    const nextStart = i + 1 < tokens.length ? tokens[i + 1].index ?? spec.length : spec.length
+    // Leading prose attaches to the first value; trailing words up to the
+    // next value attach to this one.
+    return { n: parseFloat(m[1] ?? '0'), hint: spec.slice(i === 0 ? 0 : prevEnd, nextStart).toLowerCase() }
+  })
+
+  if (px.length === 0) {
+    // Prose-only spec. Negations ("Nothing is rounded", "sharp corners")
+    // mean square; "pills/circles/round" alone means round everywhere;
+    // anything else gets a gentle default scale.
+    if (/nothing|sharp|square|not rounded|no rounding|zero/i.test(spec)) return { ctl: '0', card: '0', pill: '0' }
+    if (/999|pill|circle|round/i.test(spec)) return { ctl: '999px', card: '999px', pill: '999px' }
+    return { ctl: '6px', card: '12px', pill: '999px' }
+  }
+
+  // Values explicitly tied to a role keyword win (first hit, in spec order).
+  // Exact "card(s)" beats synonyms ("2px surfaces, 4px cards" → 4), and shape
+  // motifs like "arched" never count as a surface radius.
+  const withRole = (re: RegExp) => px.find((p) => re.test(p.hint))
+  const ctlHit = withRole(/button|btn|control|input|field|chip\b|toggle|switch|action|pill/)
+  const cardHit = withRole(/\bcards?\b/) ?? withRole(/panel|surface|sheet|modal|container|box|frame|block/)
+  // Pills may be declared explicitly or simply be huge values (999, blobs).
+  const pillHit = px.find((p) => /999/.test(p.hint) || p.n >= 100)
+
+  const ctl = ctlHit?.n
+  const card = cardHit?.n
+  const pill = pillHit?.n
+
+  if (ctl === undefined && card === undefined) {
+    // One-value specs like "12px" — controls and cards share the smallest value.
+    const single = clampRadius(Math.min(...px.map((p) => p.n)))
+    return { ctl: single, card: single, pill: pill !== undefined ? '999px' : single }
+  }
+
+  // A design that declares pill controls ("999px buttons", "Pills for buttons")
+  // genuinely wants capsule controls — honor it instead of clamping.
+  const ctlPx = ctl !== undefined && ctl >= 100 ? '999px' : clampRadius(ctl ?? Math.min(...px.map((p) => p.n)))
+  const cardPx = clampRadius(card ?? (ctl !== undefined && ctl < 100 ? ctl + 4 : Math.min(...px.map((p) => p.n))))
+  return {
+    ctl: ctlPx,
+    card: cardPx,
+    // Pills stay 999px only when the spec calls for them; otherwise chips and
+    // badges follow the control radius.
+    pill: pill !== undefined ? '999px' : ctlPx,
+  }
+}
+
+/** Back-compat: the spec's control radius. */
+export function radiusOf(d: DesignSystem): string {
+  return radiusScaleOf(d).ctl
 }
 
 /** A hairline / filled surface derived from the design's text color. */
@@ -53,15 +139,15 @@ function BtnPrimary() {
   const [loading, setLoading] = useState(false)
   return (
     <div className="kit-row">
-      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }}>
+      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }}>
         Primary action
       </button>
-      <button className="kit-btn kit-btn-hover" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }}>
+      <button className="kit-btn kit-btn-hover" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }}>
         Hover
       </button>
       <button
         className="kit-btn"
-        style={{ background: t.primary, color: t.onPrimary, borderRadius: r }}
+        style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }}
         onClick={() => {
           setLoading(true)
           window.setTimeout(() => setLoading(false), 1400)
@@ -69,7 +155,7 @@ function BtnPrimary() {
       >
         {loading ? 'Working…' : 'Click to load'}
       </button>
-      <button className="kit-btn kit-btn-disabled" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }} disabled>
+      <button className="kit-btn kit-btn-disabled" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }} disabled>
         Disabled
       </button>
     </div>
@@ -80,13 +166,13 @@ function BtnSecondary() {
   const { t, r } = useKit()
   return (
     <div className="kit-row">
-      <button className="kit-btn" style={{ background: 'transparent', color: t.text, border: `1.5px solid ${line(t, 0.4)}`, borderRadius: r }}>
+      <button className="kit-btn" style={{ background: 'transparent', color: t.text, border: `1.5px solid ${line(t, 0.4)}`, borderRadius: r.ctl }}>
         Secondary
       </button>
-      <button className="kit-btn" style={{ background: withAlpha(t.primary, 0.12), color: t.primary, borderRadius: r }}>
+      <button className="kit-btn" style={{ background: withAlpha(t.primary, 0.12), color: t.primary, borderRadius: r.ctl }}>
         Soft tonal
       </button>
-      <button className="kit-btn kit-text-btn" style={{ color: t.primary, borderRadius: r }}>
+      <button className="kit-btn kit-text-btn" style={{ color: t.primary, borderRadius: r.ctl }}>
         Tertiary link →
       </button>
     </div>
@@ -97,13 +183,13 @@ function BtnDanger() {
   const { t, r } = useKit()
   return (
     <div className="kit-row">
-      <button className="kit-btn" style={{ background: '#c0392b', color: '#fff', borderRadius: r }}>
+      <button className="kit-btn" style={{ background: '#c0392b', color: '#fff', borderRadius: r.ctl }}>
         Delete project
       </button>
-      <button className="kit-btn" style={{ background: withAlpha('#c0392b', 0.12), color: '#c0392b', borderRadius: r }}>
+      <button className="kit-btn" style={{ background: withAlpha('#c0392b', 0.12), color: '#c0392b', borderRadius: r.ctl }}>
         Reverse
       </button>
-      <button className="kit-btn" style={{ background: 'transparent', color: t.muted, border: `1px dashed ${line(t, 0.3)}`, borderRadius: r }}>
+      <button className="kit-btn" style={{ background: 'transparent', color: t.muted, border: `1px dashed ${line(t, 0.3)}`, borderRadius: r.ctl }}>
         Neutral
       </button>
     </div>
@@ -115,7 +201,7 @@ function BtnSplit() {
   const [open, setOpen] = useState(false)
   return (
     <div className="kit-row">
-      <div className="kit-split" style={{ borderRadius: r, overflow: 'hidden', border: `1px solid ${t.primary}` }}>
+      <div className="kit-split" style={{ borderRadius: r.card, overflow: 'hidden', border: `1px solid ${t.primary}` }}>
         <button className="kit-btn kit-btn-flat" style={{ background: t.primary, color: t.onPrimary }}>
           Deploy to production
         </button>
@@ -130,7 +216,7 @@ function BtnSplit() {
         </button>
       </div>
       {open && (
-        <ul className="kit-menu" style={{ background: t.surface, borderColor: line(t), borderRadius: r }}>
+        <ul className="kit-menu" style={{ background: t.surface, borderColor: line(t), borderRadius: r.ctl }}>
           {['Deploy to staging', 'Deploy with rollback', 'Schedule for tonight'].map((x) => (
             <li key={x} className="kit-menu-item">
               {x}
@@ -150,7 +236,7 @@ function BtnIcons() {
         <button
           key={g}
           className="kit-icon-btn"
-          style={{ borderRadius: r, border: `1px solid ${line(t, 0.22)}`, background: i === 1 ? withAlpha(t.primary, 0.12) : 'transparent', color: i === 1 ? t.primary : t.text }}
+          style={{ borderRadius: r.ctl, border: `1px solid ${line(t, 0.22)}`, background: i === 1 ? withAlpha(t.primary, 0.12) : 'transparent', color: i === 1 ? t.primary : t.text }}
           aria-label={`Icon action ${i + 1}`}
         >
           {g}
@@ -168,7 +254,7 @@ function FieldText() {
       <label className="kit-label" htmlFor={id}>
         Workspace name
       </label>
-      <input id={id} className="kit-input" style={{ borderRadius: r, borderColor: line(t), background: t.bg, color: t.text }} defaultValue="Northwind Studio" />
+      <input id={id} className="kit-input" style={{ borderRadius: r.ctl, borderColor: line(t), background: t.bg, color: t.text }} defaultValue="Northwind Studio" />
       <span className="kit-help">Shown on invoices and share links.</span>
       <label className="kit-label" htmlFor={`${id}-err`}>
         API key
@@ -176,7 +262,7 @@ function FieldText() {
       <input
         id={`${id}-err`}
         className="kit-input"
-        style={{ borderRadius: r, borderColor: '#c0392b', background: withAlpha('#c0392b', 0.06), color: t.text }}
+        style={{ borderRadius: r.ctl, borderColor: '#c0392b', background: withAlpha('#c0392b', 0.06), color: t.text }}
         defaultValue="sk_live_…"
         aria-invalid
       />
@@ -193,7 +279,7 @@ function FieldTextarea() {
       <label className="kit-label">Release notes</label>
       <textarea
         className="kit-input kit-textarea"
-        style={{ borderRadius: r, borderColor: line(t), background: t.bg, color: t.text }}
+        style={{ borderRadius: r.ctl, borderColor: line(t), background: t.bg, color: t.text }}
         value={v}
         maxLength={160}
         onChange={(e) => setV(e.target.value)}
@@ -214,7 +300,7 @@ function FieldSelect() {
   return (
     <div className="kit-stack">
       <label className="kit-label">Visibility</label>
-      <div className="kit-select-wrap" style={{ borderRadius: r, borderColor: line(t), background: t.bg }}>
+      <div className="kit-select-wrap" style={{ borderRadius: r.ctl, borderColor: line(t), background: t.bg }}>
         <select className="kit-select" style={{ color: t.text }} value={v} onChange={(e) => setV(e.target.value)}>
           {['Public', 'Private', 'Invite only', 'Password protected'].map((o) => (
             <option key={o}>{o}</option>
@@ -232,7 +318,7 @@ function FieldSearch() {
   const [q, setQ] = useState('')
   return (
     <div className="kit-stack">
-      <div className="kit-search" style={{ borderRadius: r, borderColor: line(t), background: t.bg }}>
+      <div className="kit-search" style={{ borderRadius: r.ctl, borderColor: line(t), background: t.bg }}>
         <span className="kit-search-ic" style={{ color: t.muted }}>⌕</span>
         <input
           className="kit-search-input"
@@ -259,7 +345,7 @@ function FieldStepper() {
   const [n, setN] = useState(2)
   return (
     <div className="kit-row">
-      <div className="kit-stepper" style={{ borderRadius: r, borderColor: line(t) }}>
+      <div className="kit-stepper" style={{ borderRadius: r.ctl, borderColor: line(t) }}>
         <button className="kit-step" style={{ color: t.text }} onClick={() => setN((x) => Math.max(0, x - 1))} aria-label="Decrease">
           −
         </button>
@@ -308,12 +394,12 @@ function Segmented() {
   const [i, setI] = useState(1)
   const opts = ['Day', 'Week', 'Month', 'Year']
   return (
-    <div className="kit-segmented" style={{ borderRadius: r, borderColor: line(t), background: soft(t, 0.04) }}>
+    <div className="kit-segmented" style={{ borderRadius: r.ctl, borderColor: line(t), background: soft(t, 0.04) }}>
       {opts.map((o, n) => (
         <button
           key={o}
           className="kit-seg"
-          style={n === i ? { background: t.primary, color: t.onPrimary, borderRadius: `calc(${r === '999px' ? '999px' : r} - 2px)` } : { color: t.muted }}
+          style={n === i ? { background: t.primary, color: t.onPrimary, borderRadius: r.ctl === '999px' ? r.ctl : `calc(${r.ctl} - 2px)` } : { color: t.muted }}
           onClick={() => setI(n)}
         >
           {o}
@@ -342,7 +428,7 @@ function Checkboxes() {
               style={{ accentColor: t.primary }}
             />
             <span style={{ color: checked ? t.text : t.muted }}>{o}</span>
-            {checked && <span className="kit-badge" style={{ background: withAlpha(t.primary, 0.14), color: t.primary, borderRadius: r }}>on</span>}
+            {checked && <span className="kit-badge" style={{ background: withAlpha(t.primary, 0.14), color: t.primary, borderRadius: r.ctl }}>on</span>}
           </label>
         )
       })}
@@ -363,7 +449,7 @@ function Radios() {
         <label
           key={k}
           className="kit-radio-card"
-          style={{ borderColor: v === k ? t.primary : line(t), background: v === k ? withAlpha(t.primary, 0.06) : 'transparent', borderRadius: r }}
+          style={{ borderColor: v === k ? t.primary : line(t), background: v === k ? withAlpha(t.primary, 0.06) : 'transparent', borderRadius: r.ctl }}
         >
           <input type="radio" name="kit-plan" checked={v === k} onChange={() => setV(k)} style={{ accentColor: t.primary }} />
           <span>
@@ -430,9 +516,9 @@ function ChipsInput() {
   const add = (v: string) => setTags((s) => (s.includes(v) || !v ? s : [...s, v]))
   return (
     <div className="kit-stack">
-      <div className="kit-chipbox" style={{ borderColor: line(t), borderRadius: r, background: t.bg }}>
+      <div className="kit-chipbox" style={{ borderColor: line(t), borderRadius: r.pill, background: t.bg }}>
         {tags.map((x) => (
-          <span key={x} className="kit-chip" style={{ background: withAlpha(t.primary, 0.12), color: t.primary, borderRadius: r }}>
+          <span key={x} className="kit-chip" style={{ background: withAlpha(t.primary, 0.12), color: t.primary, borderRadius: r.pill }}>
             {x}
             <button className="kit-chip-x" onClick={() => setTags((s) => s.filter((y) => y !== x))} aria-label={`Remove ${x}`}>
               ✕
@@ -453,7 +539,7 @@ function ChipsInput() {
       </div>
       <div className="kit-row">
         {['brutalist', 'pastel', 'grid', 'retro'].map((s) => (
-          <button key={s} className="kit-suggest" style={{ color: t.muted, borderColor: line(t, 0.3), borderRadius: r }} onClick={() => add(s)}>
+          <button key={s} className="kit-suggest" style={{ color: t.muted, borderColor: line(t, 0.3), borderRadius: r.ctl }} onClick={() => add(s)}>
             + {s}
           </button>
         ))}
@@ -468,14 +554,14 @@ function ToggleGroup() {
   const opts = [['▦', 'Grid'], ['☰', 'List'], ['▤', 'Table'], ['◫', 'Cards']]
   return (
     <div className="kit-row">
-      <div className="kit-segmented" style={{ borderRadius: r, borderColor: line(t) }}>
+      <div className="kit-segmented" style={{ borderRadius: r.ctl, borderColor: line(t) }}>
         {opts.map(([ic, label]) => {
           const active = on.includes(label)
           return (
             <button
               key={label}
               className="kit-seg kit-seg-ic"
-              style={active ? { background: withAlpha(t.primary, 0.14), color: t.primary, borderRadius: r } : { color: t.muted }}
+              style={active ? { background: withAlpha(t.primary, 0.14), color: t.primary, borderRadius: r.ctl } : { color: t.muted }}
               onClick={() => setOn([label])}
               aria-pressed={active}
             >
@@ -505,7 +591,7 @@ function Alerts() {
         <div
           key={label}
           className="kit-alert"
-          style={{ borderColor: withAlpha(c, 0.4), background: withAlpha(c, 0.08), borderRadius: r }}
+          style={{ borderColor: withAlpha(c, 0.4), background: withAlpha(c, 0.08), borderRadius: r.card }}
           role="status"
         >
           <span className="kit-alert-ic" style={{ color: c }}>{ic}</span>
@@ -527,18 +613,18 @@ function Toasts() {
   const [seen, setSeen] = useState(true)
   return (
     <div className="kit-stack">
-      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }} onClick={() => setSeen((s) => !s)}>
+      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }} onClick={() => setSeen((s) => !s)}>
         {seen ? 'Hide toast stack' : 'Show toast stack'}
       </button>
       {seen && (
         <div className="kit-toasts">
-          <div className="kit-toast" style={{ background: t.text, color: t.bg, borderRadius: r }}>
+          <div className="kit-toast" style={{ background: t.text, color: t.bg, borderRadius: r.ctl }}>
             <span>✓</span> Prompt copied to clipboard
           </div>
-          <div className="kit-toast" style={{ background: t.surface, color: t.text, border: `1px solid ${line(t)}`, borderRadius: r }}>
+          <div className="kit-toast" style={{ background: t.surface, color: t.text, border: `1px solid ${line(t)}`, borderRadius: r.ctl }}>
             <span style={{ color: '#1a9a5c' }}>✓</span> 3 files uploaded
           </div>
-          <div className="kit-toast" style={{ background: t.surface, color: t.text, border: `1px solid ${withAlpha('#c0392b', 0.5)}`, borderRadius: r }}>
+          <div className="kit-toast" style={{ background: t.surface, color: t.text, border: `1px solid ${withAlpha('#c0392b', 0.5)}`, borderRadius: r.ctl }}>
             <span style={{ color: '#c0392b' }}>✕</span> Sync failed — retrying
             <button className="kit-toast-btn" style={{ color: t.primary }}>Retry</button>
           </div>
@@ -563,13 +649,13 @@ function ProgressBars() {
             <span className="kit-help" style={{ color: t.text }}>{label}</span>
             <span className="kit-help">{pct}%</span>
           </div>
-          <div className="kit-bar" style={{ background: soft(t, 0.1), borderRadius: r }}>
-            <div className="kit-bar-fill" style={{ width: `${pct}%`, background: c, borderRadius: r }} />
+          <div className="kit-bar" style={{ background: soft(t, 0.1), borderRadius: r.ctl }}>
+            <div className="kit-bar-fill" style={{ width: `${pct}%`, background: c, borderRadius: r.ctl }} />
           </div>
         </div>
       ))}
-      <div className="kit-bar kit-bar-striped" style={{ background: soft(t, 0.1), borderRadius: r }}>
-        <div className="kit-bar-fill" style={{ width: '45%', background: t.primary, borderRadius: r }} />
+      <div className="kit-bar kit-bar-striped" style={{ background: soft(t, 0.1), borderRadius: r.ctl }}>
+        <div className="kit-bar-fill" style={{ width: '45%', background: t.primary, borderRadius: r.ctl }} />
       </div>
     </div>
   )
@@ -606,12 +692,12 @@ function Skeleton() {
       <div className="kit-skel-row">
         <div className="kit-skel kit-skel-circle" style={{ background: soft(t, 0.12) }} />
         <div className="kit-stack kit-stack-tight" style={{ flex: 1 }}>
-          <div className="kit-skel" style={{ width: '45%', background: soft(t, 0.12), borderRadius: r }} />
-          <div className="kit-skel" style={{ width: '70%', background: soft(t, 0.08), borderRadius: r }} />
+          <div className="kit-skel" style={{ width: '45%', background: soft(t, 0.12), borderRadius: r.ctl }} />
+          <div className="kit-skel" style={{ width: '70%', background: soft(t, 0.08), borderRadius: r.ctl }} />
         </div>
       </div>
-      <div className="kit-skel" style={{ height: 84, background: soft(t, 0.07), borderRadius: r }} />
-      <div className="kit-skel kit-skel-shimmer" style={{ height: 14, width: '80%', borderRadius: r }} />
+      <div className="kit-skel" style={{ height: 84, background: soft(t, 0.07), borderRadius: r.ctl }} />
+      <div className="kit-skel kit-skel-shimmer" style={{ height: 14, width: '80%', borderRadius: r.ctl }} />
     </div>
   )
 }
@@ -619,13 +705,13 @@ function Skeleton() {
 function EmptyState() {
   const { t, r } = useKit()
   return (
-    <div className="kit-empty" style={{ borderColor: line(t, 0.28), borderRadius: r }}>
+    <div className="kit-empty" style={{ borderColor: line(t, 0.28), borderRadius: r.card }}>
       <div className="kit-empty-art" style={{ background: `radial-gradient(circle at 50% 40%, ${withAlpha(t.primary, 0.35)}, transparent 70%)` }} aria-hidden />
       <strong style={{ color: t.text }}>No designs here yet</strong>
       <p className="kit-help">Start from a template or import tokens from an existing brand.</p>
       <div className="kit-row">
-        <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }}>New design</button>
-        <button className="kit-btn" style={{ border: `1px solid ${line(t, 0.35)}`, borderRadius: r, color: t.text }}>Import</button>
+        <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }}>New design</button>
+        <button className="kit-btn" style={{ border: `1px solid ${line(t, 0.35)}`, borderRadius: r.ctl, color: t.text }}>Import</button>
       </div>
     </div>
   )
@@ -650,15 +736,15 @@ function Banner() {
   const [hidden, setHidden] = useState(false)
   if (hidden)
     return (
-      <button className="kit-btn" style={{ border: `1px solid ${line(t, 0.3)}`, color: t.text, borderRadius: r }} onClick={() => setHidden(false)}>
+      <button className="kit-btn" style={{ border: `1px solid ${line(t, 0.3)}`, color: t.text, borderRadius: r.ctl }} onClick={() => setHidden(false)}>
         Restore banner
       </button>
     )
   return (
-    <div className="kit-banner" style={{ background: t.text, color: t.bg, borderRadius: r }}>
+    <div className="kit-banner" style={{ background: t.text, color: t.bg, borderRadius: r.card }}>
       <span>We use two cookies. Both keep the preview alive.</span>
       <div className="kit-row">
-        <button className="kit-btn" style={{ background: t.bg, color: t.text, borderRadius: r }}>Accept</button>
+        <button className="kit-btn" style={{ background: t.bg, color: t.text, borderRadius: r.ctl }}>Accept</button>
         <button className="kit-text-btn" style={{ color: t.bg }} onClick={() => setHidden(true)}>
           Only essential
         </button>
@@ -679,11 +765,11 @@ function StatCards() {
   return (
     <div className="kit-grid-3">
       {cards.map(([k, v, d, spark]) => (
-        <div key={k} className="kit-card" style={{ borderColor: line(t), background: t.surface, borderRadius: r }}>
+        <div key={k} className="kit-card" style={{ borderColor: line(t), background: t.surface, borderRadius: r.card }}>
           <span className="kit-help">{k}</span>
           <strong className="kit-stat-v" style={{ color: t.text }}>{v}</strong>
           <div className="kit-between">
-            <span className="kit-badge" style={{ background: d.startsWith('−') ? withAlpha('#1a9a5c', 0.15) : withAlpha(t.accent, 0.16), color: d.startsWith('−') ? '#1a9a5c' : t.accent, borderRadius: r }}>
+            <span className="kit-badge" style={{ background: d.startsWith('−') ? withAlpha('#1a9a5c', 0.15) : withAlpha(t.accent, 0.16), color: d.startsWith('−') ? '#1a9a5c' : t.accent, borderRadius: r.ctl }}>
               {d}
             </span>
             <span className="kit-spark" aria-hidden>
@@ -710,17 +796,17 @@ function TableToolbar() {
   return (
     <div className="kit-stack">
       <div className="kit-toolbar">
-        <div className="kit-search kit-search-sm" style={{ borderColor: line(t), borderRadius: r, background: t.bg }}>
+        <div className="kit-search kit-search-sm" style={{ borderColor: line(t), borderRadius: r.ctl, background: t.bg }}>
           <span className="kit-search-ic" style={{ color: t.muted }}>⌕</span>
           <input className="kit-search-input" placeholder="Filter projects…" style={{ color: t.text }} />
         </div>
-        <button className="kit-suggest" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r }}>Status ▾</button>
-        <button className="kit-suggest" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r }}>Owner ▾</button>
-        <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r, marginLeft: 'auto' }}>
+        <button className="kit-suggest" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r.ctl }}>Status ▾</button>
+        <button className="kit-suggest" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r.ctl }}>Owner ▾</button>
+        <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl, marginLeft: 'auto' }}>
           ＋ New
         </button>
       </div>
-      <div className="kit-table-wrap" style={{ borderColor: line(t), borderRadius: r }}>
+      <div className="kit-table-wrap" style={{ borderColor: line(t), borderRadius: r.card }}>
         <table className="kit-table">
           <thead>
             <tr style={{ background: soft(t, 0.05) }}>
@@ -735,7 +821,7 @@ function TableToolbar() {
                 <td style={{ color: t.text, borderColor: line(t, 0.1) }}>{r0[0]}</td>
                 <td style={{ color: t.muted, borderColor: line(t, 0.1) }}>{r0[1]}</td>
                 <td style={{ borderColor: line(t, 0.1) }}>
-                  <span className="kit-badge" style={{ background: withAlpha(tone(r0[2]), 0.14), color: tone(r0[2]), borderRadius: r }}>{r0[2]}</span>
+                  <span className="kit-badge" style={{ background: withAlpha(tone(r0[2]), 0.14), color: tone(r0[2]), borderRadius: r.ctl }}>{r0[2]}</span>
                 </td>
                 <td style={{ color: t.muted, borderColor: line(t, 0.1) }}>{r0[3]}</td>
                 <td style={{ borderColor: line(t, 0.1), color: t.muted }}>⋯</td>
@@ -758,7 +844,7 @@ function DataList() {
   return (
     <div className="kit-stack">
       {items.map(([name, meta, price], i) => (
-        <div key={name} className="kit-list-row" style={{ borderColor: line(t, 0.12), borderRadius: r }}>
+        <div key={name} className="kit-list-row" style={{ borderColor: line(t, 0.12), borderRadius: r.ctl }}>
           <span className="kit-avatar" style={{ background: i === 1 ? t.accent : t.primary, color: i === 1 ? '#111' : t.onPrimary }}>
             {name[0]}
           </span>
@@ -767,7 +853,7 @@ function DataList() {
             <span className="kit-help">{meta}</span>
           </span>
           <span className="kit-help" style={{ color: t.text, fontVariantNumeric: 'tabular-nums' }}>{price}</span>
-          <button className="kit-suggest" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r }}>Open</button>
+          <button className="kit-suggest" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r.ctl }}>Open</button>
         </div>
       ))}
     </div>
@@ -808,14 +894,14 @@ function Badges() {
   return (
     <div className="kit-row">
       {set.map(([label, c]) => (
-        <span key={label} className="kit-badge" style={{ background: withAlpha(c, 0.15), color: c, borderRadius: r }}>
+        <span key={label} className="kit-badge" style={{ background: withAlpha(c, 0.15), color: c, borderRadius: r.ctl }}>
           ● {label}
         </span>
       ))}
-      <span className="kit-badge kit-badge-solid" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }}>
+      <span className="kit-badge kit-badge-solid" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }}>
         12 unread
       </span>
-      <span className="kit-badge" style={{ border: `1px solid ${line(t, 0.3)}`, color: t.muted, borderRadius: r }}>
+      <span className="kit-badge" style={{ border: `1px solid ${line(t, 0.3)}`, color: t.muted, borderRadius: r.ctl }}>
         outline
       </span>
     </div>
@@ -863,7 +949,7 @@ function CodeBlock() {
   const { t, r } = useKit()
   const [copied, setCopied] = useState(false)
   return (
-    <div className="kit-code" style={{ background: t.text, color: t.bg, borderRadius: r }}>
+    <div className="kit-code" style={{ background: t.text, color: t.bg, borderRadius: r.card }}>
       <div className="kit-code-head">
         <span style={{ opacity: 0.7 }}>terminal</span>
         <button
@@ -929,10 +1015,10 @@ function Meters() {
   return (
     <div className="kit-stack">
       {rows.map(([label, val, pct, c]) => (
-        <div key={label} className="kit-meter" style={{ borderColor: line(t, 0.12), borderRadius: r }}>
+        <div key={label} className="kit-meter" style={{ borderColor: line(t, 0.12), borderRadius: r.ctl }}>
           <span className="kit-help" style={{ color: t.text, minWidth: 150 }}>{label}</span>
-          <div className="kit-bar" style={{ background: soft(t, 0.1), borderRadius: r, flex: 1 }}>
-            <div className="kit-bar-fill" style={{ width: `${pct}%`, background: c, borderRadius: r }} />
+          <div className="kit-bar" style={{ background: soft(t, 0.1), borderRadius: r.ctl, flex: 1 }}>
+            <div className="kit-bar-fill" style={{ width: `${pct}%`, background: c, borderRadius: r.ctl }} />
           </div>
           <span className="kit-help" style={{ minWidth: 72, textAlign: 'right' }}>{val}</span>
         </div>
@@ -975,7 +1061,7 @@ function Tabs() {
             onClick={() => setI(n)}
           >
             {x}
-            {n === 2 && <span className="kit-tab-n" style={{ background: withAlpha(t.accent, 0.18), color: t.accent, borderRadius: r }}>46</span>}
+            {n === 2 && <span className="kit-tab-n" style={{ background: withAlpha(t.accent, 0.18), color: t.accent, borderRadius: r.ctl }}>46</span>}
           </button>
         ))}
       </div>
@@ -989,14 +1075,14 @@ function Pagination() {
   const [p, setP] = useState(3)
   return (
     <div className="kit-row">
-      <button className="kit-page" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r }} onClick={() => setP((x) => Math.max(1, x - 1))}>
+      <button className="kit-page" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r.ctl }} onClick={() => setP((x) => Math.max(1, x - 1))}>
         ‹ Prev
       </button>
       {[1, 2, 3, 4, 5].map((n) => (
         <button
           key={n}
           className="kit-page"
-          style={n === p ? { background: t.primary, color: t.onPrimary, borderColor: t.primary, borderRadius: r } : { color: t.muted, borderColor: line(t, 0.3), borderRadius: r }}
+          style={n === p ? { background: t.primary, color: t.onPrimary, borderColor: t.primary, borderRadius: r.ctl } : { color: t.muted, borderColor: line(t, 0.3), borderRadius: r.ctl }}
           onClick={() => setP(n)}
           aria-current={n === p}
         >
@@ -1004,7 +1090,7 @@ function Pagination() {
         </button>
       ))}
       <span className="kit-help">… 42</span>
-      <button className="kit-page" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r }} onClick={() => setP((x) => Math.min(42, x + 1))}>
+      <button className="kit-page" style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r.ctl }} onClick={() => setP((x) => Math.min(42, x + 1))}>
         Next ›
       </button>
     </div>
@@ -1022,17 +1108,17 @@ function SideNav() {
     ['⚙', 'Settings'],
   ]
   return (
-    <div className="kit-sidenav" style={{ borderColor: line(t, 0.16), borderRadius: r, background: soft(t, 0.03) }}>
+    <div className="kit-sidenav" style={{ borderColor: line(t, 0.16), borderRadius: r.card, background: soft(t, 0.03) }}>
       {items.map(([ic, label], n) => (
         <button
           key={label}
           className="kit-sidenav-item"
-          style={n === i ? { background: withAlpha(t.primary, 0.14), color: t.primary, borderRadius: r } : { color: t.muted }}
+          style={n === i ? { background: withAlpha(t.primary, 0.14), color: t.primary, borderRadius: r.ctl } : { color: t.muted }}
           onClick={() => setI(n)}
         >
           <span className="kit-sidenav-ic">{ic}</span>
           {label}
-          {n === 2 && <span className="kit-badge" style={{ background: withAlpha(t.accent, 0.18), color: t.accent, borderRadius: r }}>3</span>}
+          {n === 2 && <span className="kit-badge" style={{ background: withAlpha(t.accent, 0.18), color: t.accent, borderRadius: r.ctl }}>3</span>}
         </button>
       ))}
     </div>
@@ -1052,7 +1138,7 @@ function Wizard() {
               className="kit-wiz-dot"
               style={
                 n <= step
-                  ? { background: t.primary, color: t.onPrimary, borderRadius: r }
+                  ? { background: t.primary, color: t.onPrimary, borderRadius: r.ctl }
                   : { background: 'transparent', borderColor: line(t, 0.35), color: t.muted }
               }
             >
@@ -1064,10 +1150,10 @@ function Wizard() {
         ))}
       </div>
       <div className="kit-row">
-        <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r }} onClick={() => setStep((s) => Math.max(0, s - 1))}>
+        <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r.ctl }} onClick={() => setStep((s) => Math.max(0, s - 1))}>
           Back
         </button>
-        <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }} onClick={() => setStep((s) => Math.min(3, s + 1))}>
+        <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }} onClick={() => setStep((s) => Math.min(3, s + 1))}>
           Continue
         </button>
         <span className="kit-help">Step {step + 1} of {steps.length}</span>
@@ -1085,7 +1171,7 @@ function CommandPalette() {
     ['⤓ Export CSS variables', 'E'],
   ]
   return (
-    <div className="kit-palette" style={{ background: t.surface, borderColor: line(t), borderRadius: r }}>
+    <div className="kit-palette" style={{ background: t.surface, borderColor: line(t), borderRadius: r.ctl }}>
       <div className="kit-search kit-search-flat" style={{ borderColor: line(t, 0.16) }}>
         <span className="kit-search-ic" style={{ color: t.muted }}>⌘</span>
         <input className="kit-search-input" placeholder="Type a command or search…" style={{ color: t.text }} />
@@ -1106,11 +1192,11 @@ function DropdownMenu() {
   const [open, setOpen] = useState(false)
   return (
     <div className="kit-stack">
-      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }} onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }} onClick={() => setOpen((o) => !o)} aria-expanded={open}>
         Project actions ▾
       </button>
       {open && (
-        <ul className="kit-menu kit-menu-wide" style={{ background: t.surface, borderColor: line(t), borderRadius: r }}>
+        <ul className="kit-menu kit-menu-wide" style={{ background: t.surface, borderColor: line(t), borderRadius: r.ctl }}>
           {['Duplicate', 'Move to…', 'Export tokens'].map((x) => (
             <li key={x} className="kit-menu-item" style={{ color: t.text }}>{x}</li>
           ))}
@@ -1152,14 +1238,14 @@ function Tooltip() {
   return (
     <div className="kit-row">
       <span className="kit-tip-host">
-        <button className="kit-suggest" style={{ color: t.text, borderColor: line(t, 0.35), borderRadius: r }}>Hover me</button>
-        <span className="kit-tip" style={{ background: t.text, color: t.bg, borderRadius: r }}>
+        <button className="kit-suggest" style={{ color: t.text, borderColor: line(t, 0.35), borderRadius: r.ctl }}>Hover me</button>
+        <span className="kit-tip" style={{ background: t.text, color: t.bg, borderRadius: r.ctl }}>
           Tokens stay in sync
         </span>
       </span>
       <span className="kit-tip-host">
         <span className="kit-help" style={{ borderBottom: `1px dashed ${line(t, 0.4)}` }}>Definition</span>
-        <span className="kit-tip" style={{ background: t.text, color: t.bg, borderRadius: r }}>
+        <span className="kit-tip" style={{ background: t.text, color: t.bg, borderRadius: r.ctl }}>
           A reusable value, named once.
         </span>
       </span>
@@ -1172,16 +1258,16 @@ function Popover() {
   const [open, setOpen] = useState(true)
   return (
     <div className="kit-stack">
-      <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r }} onClick={() => setOpen((o) => !o)}>
+      <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r.ctl }} onClick={() => setOpen((o) => !o)}>
         {open ? 'Hide' : 'Show'} popover
       </button>
       {open && (
-        <div className="kit-popover" style={{ background: t.surface, borderColor: line(t), borderRadius: r }}>
+        <div className="kit-popover" style={{ background: t.surface, borderColor: line(t), borderRadius: r.ctl }}>
           <span className="kit-popover-arrow" style={{ background: t.surface, borderColor: line(t) }} />
           <strong style={{ color: t.text }}>Share this design</strong>
           <p className="kit-help">Anyone with the link sees the live preview and can copy the prompt.</p>
           <div className="kit-row">
-            <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }}>Copy link</button>
+            <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }}>Copy link</button>
             <button className="kit-text-btn kit-btn-sm" style={{ color: t.muted }}>Manage access</button>
           </div>
         </div>
@@ -1195,22 +1281,22 @@ function ModalDemo() {
   const [open, setOpen] = useState(false)
   return (
     <div className="kit-stack">
-      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }} onClick={() => setOpen(true)}>
+      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }} onClick={() => setOpen(true)}>
         Open modal
       </button>
       {open && (
         <div className="kit-modal-backdrop" onClick={() => setOpen(false)}>
-          <div className="kit-modal" style={{ background: t.bg, borderColor: line(t), borderRadius: r }} onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
+          <div className="kit-modal" style={{ background: t.bg, borderColor: line(t), borderRadius: r.card }} onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
             <div className="kit-between">
               <strong style={{ color: t.text }}>Publish this design system?</strong>
               <button className="kit-alert-x" style={{ color: t.muted }} onClick={() => setOpen(false)} aria-label="Close">✕</button>
             </div>
             <p className="kit-help">Publishing writes tokens to the registry and notifies 24 members.</p>
             <div className="kit-row">
-              <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }} onClick={() => setOpen(false)}>
+              <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }} onClick={() => setOpen(false)}>
                 Publish
               </button>
-              <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r }} onClick={() => setOpen(false)}>
+              <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r.ctl }} onClick={() => setOpen(false)}>
                 Cancel
               </button>
             </div>
@@ -1226,16 +1312,16 @@ function DrawerDemo() {
   const [open, setOpen] = useState(false)
   return (
     <div className="kit-stack">
-      <button className="kit-btn" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r }} onClick={() => setOpen((o) => !o)}>
+      <button className="kit-btn" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r.ctl }} onClick={() => setOpen((o) => !o)}>
         {open ? 'Close' : 'Open'} side sheet
       </button>
-      <div className="kit-drawer" style={{ background: t.surface, borderColor: line(t), borderRadius: r, transform: 'translateX(0)', opacity: open ? 1 : 0.35 }}>
+      <div className="kit-drawer" style={{ background: t.surface, borderColor: line(t), borderRadius: r.card, transform: 'translateX(0)', opacity: open ? 1 : 0.35 }}>
         <div className="kit-between">
           <strong style={{ color: t.text }}>Package details</strong>
           <span className="kit-help">v2.4.0</span>
         </div>
         {['tokens.css — 148 vars', 'kit.jsx — 46 components', 'prompt.md — copyable spec'].map((x) => (
-          <div key={x} className="kit-list-row" style={{ borderColor: line(t, 0.12), borderRadius: r }}>
+          <div key={x} className="kit-list-row" style={{ borderColor: line(t, 0.12), borderRadius: r.ctl }}>
             <span className="kit-help" style={{ color: t.text, flex: 1 }}>{x}</span>
             <span className="kit-help">⤓</span>
           </div>
@@ -1250,16 +1336,16 @@ function Dropzone() {
   const [files, setFiles] = useState<string[]>(['brand-guide.pdf'])
   return (
     <div className="kit-stack">
-      <div className="kit-drop" style={{ borderColor: line(t, 0.35), borderRadius: r, background: soft(t, 0.03) }} onClick={() => setFiles((f) => [...f, `asset-${f.length + 1}.svg`])}>
+      <div className="kit-drop" style={{ borderColor: line(t, 0.35), borderRadius: r.card, background: soft(t, 0.03) }} onClick={() => setFiles((f) => [...f, `asset-${f.length + 1}.svg`])}>
         <span style={{ color: t.primary, fontSize: 20 }}>⤒</span>
         <strong style={{ color: t.text }}>Drop files to upload</strong>
         <span className="kit-help">SVG, PNG, PDF up to 20 MB · click to simulate</span>
       </div>
       {files.map((f, i) => (
-        <div key={f} className="kit-list-row" style={{ borderColor: line(t, 0.12), borderRadius: r }}>
+        <div key={f} className="kit-list-row" style={{ borderColor: line(t, 0.12), borderRadius: r.ctl }}>
           <span className="kit-help" style={{ color: t.text, flex: 1 }}>◫ {f}</span>
-          <div className="kit-bar" style={{ width: 90, background: soft(t, 0.1), borderRadius: r }}>
-            <div className="kit-bar-fill" style={{ width: `${90 - i * 20}%`, background: t.primary, borderRadius: r }} />
+          <div className="kit-bar" style={{ width: 90, background: soft(t, 0.1), borderRadius: r.ctl }}>
+            <div className="kit-bar-fill" style={{ width: `${90 - i * 20}%`, background: t.primary, borderRadius: r.ctl }} />
           </div>
           <button className="kit-alert-x" style={{ color: t.muted }} onClick={() => setFiles((s) => s.filter((x) => x !== f))} aria-label={`Remove ${f}`}>
             ✕
@@ -1275,7 +1361,7 @@ function MiniCalendar() {
   const [sel, setSel] = useState(17)
   const days = Array.from({ length: 35 }, (_, i) => i - 2)
   return (
-    <div className="kit-cal" style={{ borderColor: line(t), borderRadius: r }}>
+    <div className="kit-cal" style={{ borderColor: line(t), borderRadius: r.card }}>
       <div className="kit-between">
         <strong style={{ color: t.text }}>September 2026</strong>
         <span className="kit-help">‹ ›</span>
@@ -1292,8 +1378,8 @@ function MiniCalendar() {
               className="kit-cal-day"
               style={
                 n === sel
-                  ? { background: t.primary, color: t.onPrimary, borderRadius: r }
-                  : { color: inMonth ? t.text : line(t, 0.35), borderRadius: r }
+                  ? { background: t.primary, color: t.onPrimary, borderRadius: r.ctl }
+                  : { color: inMonth ? t.text : line(t, 0.35), borderRadius: r.ctl }
               }
               onClick={() => inMonth && setSel(n)}
               disabled={!inMonth}
@@ -1318,7 +1404,7 @@ function Notifications() {
   return (
     <div className="kit-stack">
       {items.map(([msg, when, c], i) => (
-        <div key={msg} className="kit-note" style={{ borderColor: line(t, 0.12), borderRadius: r, background: i === 0 ? withAlpha(t.primary, 0.05) : 'transparent' }}>
+        <div key={msg} className="kit-note" style={{ borderColor: line(t, 0.12), borderRadius: r.ctl, background: i === 0 ? withAlpha(t.primary, 0.05) : 'transparent' }}>
           <span className="kit-note-dot" style={{ background: c }} />
           <span style={{ color: t.text, flex: 1 }}>{msg}</span>
           <span className="kit-help">{when}</span>
@@ -1333,13 +1419,13 @@ function ChatThread() {
   const { t, r } = useKit()
   return (
     <div className="kit-chat">
-      <div className="kit-bubble kit-bubble-in" style={{ background: soft(t, 0.08), color: t.text, borderRadius: r }}>
+      <div className="kit-bubble kit-bubble-in" style={{ background: soft(t, 0.08), color: t.text, borderRadius: r.ctl }}>
         Can we make the hero type a step larger?
       </div>
-      <div className="kit-bubble kit-bubble-out" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }}>
+      <div className="kit-bubble kit-bubble-out" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }}>
         Done — 72px, tracking tightened by 0.02em.
       </div>
-      <div className="kit-bubble kit-bubble-in kit-typing" style={{ background: soft(t, 0.08), color: t.muted, borderRadius: r }}>
+      <div className="kit-bubble kit-bubble-in kit-typing" style={{ background: soft(t, 0.08), color: t.muted, borderRadius: r.pill }}>
         <i /><i /><i />
       </div>
     </div>
@@ -1349,9 +1435,9 @@ function ChatThread() {
 function MediaCard() {
   const { t, r } = useKit()
   return (
-    <div className="kit-media-card" style={{ borderColor: line(t), borderRadius: r, background: t.surface }}>
+    <div className="kit-media-card" style={{ borderColor: line(t), borderRadius: r.card, background: t.surface }}>
       <div className="kit-media" style={{ background: `linear-gradient(150deg, ${t.primary}, ${t.secondary})` }}>
-        <span className="kit-media-tag" style={{ background: withAlpha('#000', 0.45), color: '#fff', borderRadius: r }}>6 min read</span>
+        <span className="kit-media-tag" style={{ background: withAlpha('#000', 0.45), color: '#fff', borderRadius: r.ctl }}>6 min read</span>
       </div>
       <div className="kit-stack kit-stack-tight kit-media-body">
         <strong style={{ color: t.text }}>The quiet case for one spacing scale</strong>
@@ -1376,7 +1462,7 @@ function ColorSwatches() {
           <button
             key={h + i}
             className="kit-swatch"
-            style={{ background: h, borderRadius: r, outline: i === on ? `2px solid ${t.text}` : 'none', outlineOffset: 2 }}
+            style={{ background: h, borderRadius: r.ctl, outline: i === on ? `2px solid ${t.text}` : 'none', outlineOffset: 2 }}
             onClick={() => setOn(i)}
             aria-label={`Color ${i + 1}`}
           />
@@ -1420,7 +1506,7 @@ function ConfirmDialog() {
           </button>
         ))}
       </div>
-      <div className="kit-confirm" style={{ borderColor: withAlpha(c, 0.45), background: withAlpha(c, 0.07), borderRadius: r }}>
+      <div className="kit-confirm" style={{ borderColor: withAlpha(c, 0.45), background: withAlpha(c, 0.07), borderRadius: r.card }}>
         <div className="kit-between">
           <strong style={{ color: t.text }}>{label}</strong>
           <span className="kit-badge" style={{ color: c, borderColor: withAlpha(c, 0.4) }}>
@@ -1431,7 +1517,7 @@ function ConfirmDialog() {
         {tone === 'bad' && (
           <input
             className="kit-input"
-            style={{ borderColor: line(t, 0.3), color: t.text, borderRadius: r }}
+            style={{ borderColor: line(t, 0.3), color: t.text, borderRadius: r.ctl }}
             value={word}
             onChange={(e) => setWord(e.target.value)}
             placeholder="Type DELETE to confirm"
@@ -1443,14 +1529,14 @@ function ConfirmDialog() {
             className="kit-btn kit-btn-sm"
             style={
               locked
-                ? { border: `1px solid ${line(t, 0.3)}`, color: t.muted, borderRadius: r }
-                : { background: c, color: '#fff', borderRadius: r }
+                ? { border: `1px solid ${line(t, 0.3)}`, color: t.muted, borderRadius: r.ctl }
+                : { background: c, color: '#fff', borderRadius: r.ctl }
             }
             disabled={locked}
           >
             {tone === 'bad' ? 'Delete workspace' : 'Leave page'}
           </button>
-          <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r }}>
+          <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r.ctl }}>
             Cancel
           </button>
         </div>
@@ -1482,8 +1568,8 @@ function FilterChips() {
               className="kit-chip"
               style={
                 active
-                  ? { background: t.primary, color: t.onPrimary, borderColor: t.primary, borderRadius: r }
-                  : { color: t.muted, borderColor: line(t, 0.3), borderRadius: r }
+                  ? { background: t.primary, color: t.onPrimary, borderColor: t.primary, borderRadius: r.pill }
+                  : { color: t.muted, borderColor: line(t, 0.3), borderRadius: r.pill }
               }
               onClick={() => toggle(f)}
               aria-pressed={active}
@@ -1516,7 +1602,7 @@ function DateRange() {
         <strong style={{ color: t.text }}>Sep 8 – 12, 2026</strong>
         <span className="kit-help">5 nights</span>
       </div>
-      <div className="kit-drange" style={{ borderColor: line(t, 0.28), borderRadius: r }}>
+      <div className="kit-drange" style={{ borderColor: line(t, 0.28), borderRadius: r.ctl }}>
         <div className="kit-cal">
           <div className="kit-between" style={{ marginBottom: 6 }}>
             <strong style={{ color: t.text, fontSize: 12.5 }}>September 2026</strong>
@@ -1562,7 +1648,7 @@ function DateRange() {
           <button
             key={label as string}
             className="kit-chip"
-            style={{ color: t.muted, borderColor: line(t, 0.3), borderRadius: r }}
+            style={{ color: t.muted, borderColor: line(t, 0.3), borderRadius: r.pill }}
             onClick={() => setRange([d as number, Math.min(30, (d as number) + 4)])}
           >
             {label}
@@ -1587,7 +1673,7 @@ function OrderSummary() {
   const discount = applied ? sub * 0.2 : 0
   return (
     <div className="kit-stack">
-      <div className="kit-order" style={{ borderColor: line(t, 0.28), borderRadius: r }}>
+      <div className="kit-order" style={{ borderColor: line(t, 0.28), borderRadius: r.ctl }}>
         {items.map(([name, qty, price]) => (
           <div key={name} className="kit-order-row">
             <span style={{ color: t.text }}>
@@ -1610,17 +1696,17 @@ function OrderSummary() {
       <div className="kit-row">
         <input
           className="kit-input"
-          style={{ borderColor: line(t, 0.3), color: t.text, borderRadius: r, flex: 1 }}
+          style={{ borderColor: line(t, 0.3), color: t.text, borderRadius: r.ctl, flex: 1 }}
           value={promo}
           onChange={(e) => setPromo(e.target.value)}
           placeholder="Promo code (try TOKEN20)"
           aria-label="Promo code"
         />
-        <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r }}>
+        <button className="kit-btn kit-btn-sm" style={{ border: `1px solid ${line(t, 0.35)}`, color: t.text, borderRadius: r.ctl }}>
           Apply
         </button>
       </div>
-      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r }}>
+      <button className="kit-btn" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }}>
         Pay {money(sub - discount)}
       </button>
     </div>
@@ -1641,7 +1727,7 @@ function UploadQueue() {
         <span className="kit-help">1 done · 1 active · 1 failed</span>
       </div>
       {files.map(([name, meta, pct, state]) => (
-        <div key={name} className="kit-upload" style={{ borderColor: line(t, 0.25), borderRadius: r }}>
+        <div key={name} className="kit-upload" style={{ borderColor: line(t, 0.25), borderRadius: r.card }}>
           <span
             className="kit-upload-ic"
             aria-hidden
@@ -1699,7 +1785,7 @@ function SearchResults() {
   }
   return (
     <div className="kit-stack">
-      <div className="kit-search" style={{ borderColor: line(t, 0.35), borderRadius: r }}>
+      <div className="kit-search" style={{ borderColor: line(t, 0.35), borderRadius: r.ctl }}>
         <span className="kit-search-ic" aria-hidden style={{ color: t.muted }}>⌕</span>
         <input
           className="kit-search-input"
@@ -1722,7 +1808,7 @@ function SearchResults() {
           </span>
           <div className="kit-stack kit-stack-tight">
             {hits.map(([title, desc]) => (
-              <button key={title} className="kit-sr-row" style={{ borderColor: line(t, 0.18), borderRadius: r }}>
+              <button key={title} className="kit-sr-row" style={{ borderColor: line(t, 0.18), borderRadius: r.ctl }}>
                 <strong style={{ color: t.text }}>{mark(title)}</strong>
                 <span className="kit-help">{mark(desc)}</span>
               </button>
@@ -1745,14 +1831,14 @@ function UndoToast() {
         <strong style={{ color: t.text }}>Destructive with an escape hatch</strong>
         <button
           className="kit-chip"
-          style={{ color: t.muted, borderColor: line(t, 0.3), borderRadius: r }}
+          style={{ color: t.muted, borderColor: line(t, 0.3), borderRadius: r.ctl }}
           onClick={() => setState('open')}
         >
           Replay
         </button>
       </div>
       {state !== 'gone' ? (
-        <div className="kit-undo" style={{ background: t.surface, borderColor: line(t, 0.3), borderRadius: r, overflow: 'hidden' }} role="status">
+        <div className="kit-undo" style={{ background: t.surface, borderColor: line(t, 0.3), borderRadius: r.ctl, overflow: 'hidden' }} role="status">
           <div className="kit-between" style={{ position: 'relative', zIndex: 1 }}>
             <span style={{ color: t.text }}>
               <strong>Moved “Q3 roadmap” to trash.</strong>
@@ -1772,7 +1858,7 @@ function UndoToast() {
         <span className="kit-help">Dismissed — the deletion completes after the countdown.</span>
       )}
       {state === 'undone' && (
-        <div className="kit-alert" style={{ borderColor: withAlpha('#3f8f5f', 0.4), background: withAlpha('#3f8f5f', 0.08), borderRadius: r }} role="status">
+        <div className="kit-alert" style={{ borderColor: withAlpha('#3f8f5f', 0.4), background: withAlpha('#3f8f5f', 0.08), borderRadius: r.card }} role="status">
           <span className="kit-alert-ic" style={{ color: '#3f8f5f' }}>✓</span>
           <strong style={{ color: t.text }}>Restored — nothing was deleted.</strong>
         </div>
@@ -1804,7 +1890,7 @@ function PlanCompare() {
               style={{
                 borderColor: sel ? t.primary : line(t, 0.25),
                 background: sel ? withAlpha(t.primary, 0.07) : 'transparent',
-                borderRadius: r,
+                borderRadius: r.ctl,
               }}
               onClick={() => setPick(i)}
             >
@@ -1842,7 +1928,7 @@ function DiffReview() {
           <span style={{ color: '#3f8f5f' }}>+2</span> <span style={{ color: '#c04a4a' }}>−1</span>
         </span>
       </div>
-      <div className="kit-diff" style={{ borderColor: line(t, 0.28), borderRadius: r, background: soft(t, 0.04) }}>
+      <div className="kit-diff" style={{ borderColor: line(t, 0.28), borderRadius: r.card, background: soft(t, 0.04) }}>
         <div className="kit-diff-ln" style={{ color: t.muted }}>
           <code style={{ color: t.text }}>
             <span className="kit-diff-n">4</span> "radius-card": "10px",
@@ -1867,14 +1953,14 @@ function DiffReview() {
       <div className="kit-row">
         <button
           className="kit-btn kit-btn-sm"
-          style={{ background: verdict === 'ok' ? '#3f8f5f' : 'transparent', border: `1px solid ${line(t, 0.35)}`, color: verdict === 'ok' ? '#fff' : t.text, borderRadius: r }}
+          style={{ background: verdict === 'ok' ? '#3f8f5f' : 'transparent', border: `1px solid ${line(t, 0.35)}`, color: verdict === 'ok' ? '#fff' : t.text, borderRadius: r.ctl }}
           onClick={() => setVerdict('ok')}
         >
           Approve
         </button>
         <button
           className="kit-btn kit-btn-sm"
-          style={{ background: verdict === 'no' ? '#c04a4a' : 'transparent', border: `1px solid ${line(t, 0.35)}`, color: verdict === 'no' ? '#fff' : t.text, borderRadius: r }}
+          style={{ background: verdict === 'no' ? '#c04a4a' : 'transparent', border: `1px solid ${line(t, 0.35)}`, color: verdict === 'no' ? '#fff' : t.text, borderRadius: r.ctl }}
           onClick={() => setVerdict('no')}
         >
           Request changes
@@ -1897,6 +1983,251 @@ export const KIT_GROUPS: { id: KitGroupId; label: string; blurb: string }[] = [
   { id: 'nav', label: 'Navigation', blurb: 'Wayfinding from breadcrumb to command palette.' },
   { id: 'overlays', label: 'Overlays & media', blurb: 'Modals, sheets, popovers, uploads, and chat.' },
 ]
+
+/* ------------------------------------------------------------------ */
+/* Wave 6 — forms, media, commerce, reading, onboarding, 2FA, survey. */
+/* ------------------------------------------------------------------ */
+
+/** Settings form: labeled inputs with an inline save bar. */
+function SettingsForm() {
+  const { t, r } = useKit()
+  const id = useId()
+  const [saved, setSaved] = useState(false)
+  return (
+    <div className="kit-stack">
+      <label className="kit-label" htmlFor={id}>
+        Billing email
+      </label>
+      <input id={id} className="kit-input" style={{ borderRadius: r.ctl, borderColor: line(t), background: t.bg, color: t.text }} defaultValue="billing@acme.co" />
+      <label className="kit-label" htmlFor={`${id}-2`}>
+        Support phone
+      </label>
+      <input id={`${id}-2`} className="kit-input" style={{ borderRadius: r.ctl, borderColor: line(t), background: t.bg, color: t.text }} placeholder="Optional" />
+      {saved ? (
+        <span className="kit-help" style={{ color: t.primary }}>✓ Saved</span>
+      ) : (
+        <span className="kit-between">
+          <span className="kit-help">Changes apply instantly.</span>
+          <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.bg, borderRadius: r.ctl }} onClick={() => setSaved(true)}>
+            Save
+          </button>
+        </span>
+      )}
+    </div>
+  )
+}
+
+/** Read-validated sign-in form with error + recovery link. */
+function SignInForm() {
+  const { t, r } = useKit()
+  const [email, setEmail] = useState('')
+  const [err, setErr] = useState('')
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setErr(!email.includes('@') ? 'Enter a valid email to continue.' : '')
+  }
+  return (
+    <form className="kit-stack" onSubmit={submit}>
+      <label className="kit-label" htmlFor="kf-si-e">
+        Email
+      </label>
+      <input
+        id="kf-si-e"
+        className="kit-input"
+        style={{ borderRadius: r.ctl, borderColor: err ? '#c0392b' : line(t), background: t.bg, color: t.text }}
+        type="email"
+        value={email}
+        onChange={(e) => { setEmail(e.target.value); setErr('') }}
+        placeholder="you@work.com"
+      />
+      <label className="kit-label" htmlFor="kf-si-p">
+        Password
+      </label>
+      <input id="kf-si-p" className="kit-input" style={{ borderRadius: r.ctl, borderColor: line(t), background: t.bg, color: t.text }} type="password" defaultValue="••••••••••" />
+      {err && <span className="kit-error">{err}</span>}
+      <button className="kit-btn" style={{ background: t.primary, color: t.bg, borderRadius: r.ctl }} type="submit">
+        Sign in
+      </button>
+      <span className="kit-help">Forgot your password?</span>
+    </form>
+  )
+}
+
+/** Image gallery with selection state and counter. */
+function MediaGallery() {
+  const { t, r } = useKit()
+  const [active, setActive] = useState(1)
+  return (
+    <div className="kit-stack">
+      <div className="kit-media" style={{ borderRadius: r.card, background: withAlpha(t.primary, 0.1), color: t.primary, display: 'grid', placeItems: 'center', height: 76 }}>
+        <span className="kit-help" style={{ color: t.primary }}>Preview {active + 1} / 4</span>
+      </div>
+      <div className="kit-row kit-row-tight">
+        {[0, 1, 2, 3].map((i) => (
+          <button
+            key={i}
+            className="kit-media-thumb"
+            style={{
+              flex: 1, height: 40, borderRadius: r.ctl,
+              border: `2px solid ${i === active ? t.primary : line(t, 0.14)}`,
+              background: withAlpha(t.primary, i === active ? 0.18 : 0.06),
+            }}
+            onClick={() => setActive(i)}
+            aria-label={`Image ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** Product card with price, rating, and add-to-cart. */
+function ProductCard() {
+  const { t, r } = useKit()
+  const [added, setAdded] = useState(false)
+  return (
+    <div className="kit-card" style={{ borderColor: line(t, 0.14), borderRadius: r.card, background: t.bg }}>
+      <div style={{ height: 64, borderRadius: r.card, background: `linear-gradient(135deg, ${withAlpha(t.primary, 0.25)}, ${withAlpha(t.accent, 0.25)})` }} />
+      <div className="kit-stack kit-stack-tight" style={{ padding: '10px 12px' }}>
+        <div className="kit-between">
+          <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>Alpine Runner</strong>
+          <strong>$128</strong>
+        </div>
+        <span className="kit-stars" style={{ color: t.accent }}>★★★★<span style={{ opacity: 0.3 }}>★</span></span>
+        <button
+          className="kit-btn kit-btn-sm"
+          style={{ background: added ? withAlpha(t.primary, 0.15) : t.primary, color: added ? t.primary : t.bg, borderRadius: r.ctl }}
+          onClick={() => setAdded(!added)}
+        >
+          {added ? '✓ In cart' : 'Add to cart'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/** Article card with kicker, headline, and reading time. */
+function ArticleCard() {
+  const { t, r } = useKit()
+  return (
+    <div className="kit-card" style={{ borderColor: line(t, 0.14), borderRadius: r.card, background: t.bg }}>
+      <div className="kit-stack kit-stack-tight" style={{ padding: '12px 14px' }}>
+        <span className="kit-help" style={{ color: t.primary, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Engineering</span>
+        <strong style={{ fontFamily: `'${t.display}', sans-serif`, fontSize: 15, lineHeight: 1.35 }}>
+          Why design tokens outlive every framework
+        </strong>
+        <span className="kit-help">6 min read · Feb 12</span>
+      </div>
+    </div>
+  )
+}
+
+/** Multi-choice survey block with progress. */
+function SurveyQuestion() {
+  const { t, r } = useKit()
+  const [picked, setPicked] = useState<string | null>(null)
+  const opts = ['Simple', 'Fast', 'Beautiful', 'All of it']
+  return (
+    <div className="kit-stack">
+      <span className="kit-help">Question 2 of 5</span>
+      <div className="kit-bar" style={{ background: withAlpha(t.text, 0.1), borderRadius: r.ctl }}>
+        <span className="kit-bar-fill" style={{ width: '40%', background: t.primary, borderRadius: r.ctl }} />
+      </div>
+      <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>What matters most to you?</strong>
+      <div className="kit-stack kit-stack-tight">
+        {opts.map((o) => (
+          <button
+            key={o}
+            className="kit-menu-item"
+            style={{ borderRadius: r.ctl, background: picked === o ? withAlpha(t.primary, 0.12) : 'transparent', borderColor: line(t, 0.12), justifyContent: 'flex-start' }}
+            onClick={() => setPicked(o)}
+          >
+            <span className="kit-radio-dot" style={{ borderColor: picked === o ? t.primary : line(t, 0.4), background: picked === o ? t.primary : 'transparent' }} />
+            {o}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** Two-factor code input with verify state. */
+function OtpInput() {
+  const { t, r } = useKit()
+  const [code, setCode] = useState('')
+  const full = code.length >= 6
+  return (
+    <div className="kit-stack">
+      <span className="kit-help">Enter the 6-digit code from your authenticator.</span>
+      <div className="kit-row kit-row-tight">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <input
+            key={i}
+            className="kit-input"
+            style={{
+              width: 34, height: 42, textAlign: 'center', padding: 0,
+              borderRadius: r.ctl, borderColor: code.length === i ? t.primary : line(t),
+              background: t.bg, color: t.text, fontSize: 15,
+            }}
+            maxLength={1}
+            inputMode="numeric"
+            value={code[i] ?? ''}
+            onChange={(e) => {
+              const v = code.split('')
+              v[i] = e.target.value.slice(-1)
+              setCode(v.join('').slice(0, 6))
+            }}
+            aria-label={`Digit ${i + 1}`}
+          />
+        ))}
+      </div>
+      <button className="kit-btn" style={{ background: full ? t.primary : withAlpha(t.primary, 0.35), color: t.bg, borderRadius: r.ctl }}>
+        Verify code
+      </button>
+    </div>
+  )
+}
+
+/** Onboarding checklist with completion state. */
+function OnboardingChecklist() {
+  const { t, r } = useKit()
+  const [done, setDone] = useState([true, true, false, false])
+  const steps = ['Create your workspace', 'Invite two teammates', 'Connect a data source', 'Publish your first board']
+  const n = done.filter(Boolean).length
+  return (
+    <div className="kit-stack">
+      <div className="kit-between">
+        <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>Get started</strong>
+        <span className="kit-help">{n} of {steps.length} done</span>
+      </div>
+      <div className="kit-bar" style={{ background: withAlpha(t.text, 0.1), borderRadius: r.ctl }}>
+        <span className="kit-bar-fill" style={{ width: `${(n / steps.length) * 100}%`, background: t.primary, borderRadius: r.ctl }} />
+      </div>
+      {steps.map((s, i) => (
+        <button
+          key={s}
+          className="kit-list-row"
+          style={{ borderRadius: r.ctl, borderColor: line(t, 0.1), justifyContent: 'flex-start', gap: 10 }}
+          onClick={() => setDone((d) => d.map((v, j) => (j === i ? !v : v)))}
+        >
+          <span
+            className="kit-chip"
+            style={{
+              width: 18, height: 18, padding: 0, display: 'grid', placeItems: 'center', fontSize: 10,
+              background: done[i] ? t.primary : 'transparent',
+              color: done[i] ? t.bg : 'transparent',
+              border: `1.5px solid ${done[i] ? t.primary : line(t, 0.4)}`,
+              borderRadius: r.pill,
+            }}
+          >
+            ✓
+          </span>
+          <span style={{ textDecoration: done[i] ? 'line-through' : 'none', opacity: done[i] ? 0.55 : 1 }}>{s}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
 
 export interface KitItem {
   id: string
@@ -1968,6 +2299,14 @@ export const KIT_ITEMS: KitItem[] = [
   { id: 'undo-toast', name: 'Undo toast · countdown', group: 'feedback', Comp: UndoToast },
   { id: 'plan-compare', name: 'Plan comparison', group: 'selection', Comp: PlanCompare },
   { id: 'diff-review', name: 'Diff review', group: 'data', Comp: DiffReview },
+  { id: 'settings-form', name: 'Settings form', group: 'actions', Comp: SettingsForm },
+  { id: 'sign-in-form', name: 'Sign-in form', group: 'actions', Comp: SignInForm },
+  { id: 'media-gallery', name: 'Media gallery', group: 'overlays', Comp: MediaGallery },
+  { id: 'product-card', name: 'Product card', group: 'selection', Comp: ProductCard },
+  { id: 'article-card', name: 'Article card', group: 'data', Comp: ArticleCard },
+  { id: 'survey-question', name: 'Survey question', group: 'selection', Comp: SurveyQuestion },
+  { id: 'otp-input', name: 'Two-factor code', group: 'actions', Comp: OtpInput },
+  { id: 'onboarding-checklist', name: 'Onboarding checklist', group: 'feedback', Comp: OnboardingChecklist },
 ]
 
 /** How many components every design ships with. */
@@ -1980,7 +2319,7 @@ export const KIT_SIZE = KIT_ITEMS.length
  */
 export function ComponentKit({ d, group, search }: { d: DesignSystem; group?: KitGroupId | null; search?: string }) {
   const t = useMemo(() => themeOf(d), [d])
-  const r = useMemo(() => radiusOf(d), [d])
+  const r = useMemo(() => radiusScaleOf(d), [d])
   const ctx = useMemo<Kit>(() => ({ d, t, r }), [d, t, r])
 
   const q = (search ?? '').trim().toLowerCase()
@@ -1991,7 +2330,7 @@ export function ComponentKit({ d, group, search }: { d: DesignSystem; group?: Ki
     <KitCtx.Provider value={ctx}>
       <div className="kit-root" style={{ background: t.bg, color: t.text }}>
         <header className="kit-head">
-          <span className="kit-badge" style={{ background: withAlpha(t.primary, 0.14), color: t.primary, borderRadius: r }}>
+          <span className="kit-badge" style={{ background: withAlpha(t.primary, 0.14), color: t.primary, borderRadius: r.ctl }}>
             {KIT_SIZE} components
           </span>
           <h2 className="kit-h2" style={{ fontFamily: `'${t.display}', sans-serif`, color: t.text }}>
@@ -2015,7 +2354,7 @@ export function ComponentKit({ d, group, search }: { d: DesignSystem; group?: Ki
               {shown
                 .filter((i) => i.group === g.id)
                 .map(({ id, name, Comp }) => (
-                  <div key={id} className="kit-specimen" style={{ borderColor: line(t, 0.14), borderRadius: r, background: t.surface }}>
+                  <div key={id} className="kit-specimen" style={{ borderColor: line(t, 0.14), borderRadius: r.card, background: t.surface }}>
                     <span className="kit-specimen-name" style={{ color: t.muted }}>{name}</span>
                     <div className="kit-specimen-body">
                       <Comp />

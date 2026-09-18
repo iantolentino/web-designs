@@ -1,7 +1,7 @@
 # The Design Vault
 
-A production-grade design-system showcase: **121 curated, intentionally distinct design
-systems**, a **136-layout pattern library**, and a **62-component kit** — all browsable,
+A production-grade design-system showcase: **134 curated, intentionally distinct design
+systems**, a **148-layout pattern library**, and a **70-component kit** — all browsable,
 previewable live, and copyable as ready-to-use AI design prompts.
 Built to kill AI design slop — no Inter, no purple-on-white, no generic layouts.
 
@@ -28,8 +28,8 @@ sort, and saved filters live there, so the main column is nothing but content.
 
 | View | What it shows |
 | --- | --- |
-| **Design systems** | 121 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
-| **Pattern library** | 136 production layouts with live previews, filterable by family and searchable by block. |
+| **Design systems** | 134 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
+| **Pattern library** | 148 production layouts with live previews, filterable by family and searchable by block. |
 | **Component kit** | The 53-component kit rendered for any design — with a side-by-side compare mode. |
 
 On narrow screens the sidebar becomes a drawer (hamburger in the top bar, `Esc` to close,
@@ -52,19 +52,19 @@ a full preview with:
 - **Details** — philosophy, click-to-copy palette, type scale, component specs, a themed
   playground, the full prompt, and JSON / CSS-variable export.
 
-### The component kit (62 components, per design)
+### The component kit (70 components, per design)
 
 `src/components/ComponentKit.tsx` implements one vocabulary — buttons, fields, selection
 controls, feedback, data display, navigation, and overlays — and renders it entirely from
 whatever tokens it is handed. Nothing is hard-coded, which is why the same kit reads as a
-different product in every one of the 121 systems. Groups:
+different product in every one of the 134 systems. Groups:
 
 **Inputs & actions** (13) · **Selection & toggles** (8) · **Feedback & status** (10) ·
 **Data display** (10) · **Navigation** (7) · **Overlays & media** (14)
 
-### The pattern library (136 layouts)
+### The pattern library (148 layouts)
 
-`src/patterns/` ships 136 genuinely distinct layout recipes: heroes, bento grids, filter
+`src/patterns/` ships 148 genuinely distinct layout recipes: heroes, bento grids, filter
 rails, master–detail inboxes, kanban shells, checkout steppers, sticky-TOC articles,
 podcast pages, cohort grids, consent banners, 404s — the whole repertoire.
 Each pattern is a *recipe* rather than a screenshot:
@@ -83,7 +83,7 @@ Each pattern is a *recipe* rather than a screenshot:
   table, kanban, calendar, player, chat, dropzone…).
 - `layouts.ts` holds the **arrangement** — a named grid (`grid-template-areas`) plus
   placement for each block, or a deliberately tuned stacked rhythm.
-- 80 of the 136 use a genuine multi-track arrangement (rails, splits, mosaics, DAGs);
+- 91 of the 148 use a genuine multi-track arrangement (rails, splits, mosaics, DAGs);
   the rest are stacked sections with rhythm chosen per pattern.
 
 No two patterns share both an arrangement and a composition, and per-pattern CSS is scoped
@@ -124,7 +124,7 @@ src/
 │   ├── usecases.ts       #   derived website-type index (rules + top-up)
 │   └── extras.ts         #   per-design layout sets, block sets, dashboard extras
 ├── patterns/
-│   ├── patterns.ts       #   136 pattern recipes + the CSS builder
+│   ├── patterns.ts       #   148 pattern recipes + the CSS builder
 │   ├── layouts.ts        #   canvas arrangements and stacked rhythms
 │   ├── PatternView.tsx   #   48 block renderers + the browsable board
 │   └── patterns.css      #   pattern primitives

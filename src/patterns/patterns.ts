@@ -1,5 +1,5 @@
 /**
- * Pattern library — 136 production-grade UI patterns.
+ * Pattern library — 148 production-grade UI patterns.
  *
  * Each entry is a *layout recipe*, not a screenshot: a unique canvas
  * arrangement (`layout`), optional unique flourishes (`extra`), and a
@@ -2082,6 +2082,196 @@ export const PATTERNS: PatternDef[] = [
       { k: 'table', title: 'Uptime · last 90 days', items: ['Service', '30d', '90d'], rows: [['API', '99.99%', '99.98%'], ['Dashboard', '100%', '99.99%'], ['Webhooks', '99.95%', '99.96%']] },
       { k: 'activity', title: 'Incident history', n: 3 },
       { k: 'form', title: 'Subscribe to updates', v: 'inline' },
+    ],
+  },
+
+  /* ---------------- wave 6: twelve more (133 designs / 148 patterns wave) ---------------- */
+
+  {
+    id: 'waitlist-confirmation',
+    name: 'Waitlist confirmation',
+    family: F,
+    blurb: 'The screen after the form: position, referral, and what happens next.',
+    tags: ['waitlist', 'confirmation', 'referral', 'onboarding'],
+    layout: 'display:grid; grid-template-columns:minmax(0,560px); justify-content:center; gap:14px; padding:28px 22px;',
+    extra: '.pt-i0{padding:20px; text-align:center;} .pt-i3{flex-direction:row;}',
+    blocks: [
+      { k: 'banner', title: 'You’re on the list — #1,284', tone: 'ok' },
+      { k: 'head', title: 'Welcome aboard', sub: 'We onboard in small cohorts every Tuesday.' },
+      { k: 'stats', title: 'Your invite power', items: ['1,284 position', '3 friends = skip 400', '~2 weeks to go'] },
+      { k: 'form', title: 'Share your link', v: 'inline' },
+      { k: 'cta', title: 'Read how cohorts work' },
+    ],
+  },
+
+  {
+    id: 'shipping-tracker',
+    name: 'Shipping tracker',
+    family: C,
+    blurb: 'Milestone timeline beside the shipment facts, with a delivery window that stays honest.',
+    tags: ['shipping', 'tracking', 'delivery', 'order'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:18px; padding:22px; align-items:start;',
+    extra: '.pt-i1{grid-template-columns:minmax(0,1fr);}',
+    blocks: [
+      { k: 'timeline', title: 'Parcel RB-40182', n: 4, items: ['Label created · Mon 09:12', 'Picked up · Mon 16:40', 'Departed hub · Tue 03:55', 'Out for delivery · Thu 07:30'] },
+      { k: 'form', title: 'Delivery details', sub: 'Thu before 8pm · Signature not required' },
+      { k: 'list', title: 'In this parcel', n: 3 },
+    ],
+  },
+
+  {
+    id: 'pos-terminal',
+    name: 'POS terminal',
+    family: C,
+    blurb: 'Counter checkout: product pad left, tender pane right, nothing else.',
+    tags: ['pos', 'retail', 'checkout', 'counter'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr); gap:14px; padding:16px; align-items:stretch;',
+    extra: '.pt-i0{--pt-cols:3;} .pt-i1{justify-content:space-between;}',
+    blocks: [
+      { k: 'products', title: 'Open tab · Table 6', n: 9, v: 'grid' },
+      { k: 'form', title: 'Tender', sub: 'Cash · Card · Split' },
+    ],
+  },
+
+  {
+    id: 'split-payment',
+    name: 'Split payment flow',
+    family: F,
+    blurb: 'Three-party split with per-party amounts, reminders, and a settle button that adds up.',
+    tags: ['payments', 'split', 'invoices', 'money'],
+    layout: 'display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; padding:20px; align-items:start;',
+    extra: '.pt-i3{grid-column:1 / -1;}',
+    blocks: [
+      { k: 'head', title: 'Dinner at Neruda — $184.50', sub: 'Split three ways, tips included' },
+      { k: 'form', title: 'Ada — $61.50' },
+      { k: 'form', title: 'Grace — $61.50' },
+      { k: 'form', title: 'Lin — $61.50' },
+      { k: 'cta', title: 'Send reminders to 2 unpaid' },
+    ],
+  },
+
+  {
+    id: 'release-notes-timeline',
+    name: 'Release notes timeline',
+    family: A,
+    blurb: 'Versioned changelog as a readable timeline with codenames and upgrade calls.',
+    tags: ['changelog', 'release', 'versions', 'product'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:20px; padding:22px; align-items:start;',
+    extra: '.pt-i1{grid-template-columns:minmax(0,1fr);}',
+    blocks: [
+      { k: 'changelog', title: 'v2.6 “Kestrel”', n: 3 },
+      { k: 'head', title: 'Upgrade path', sub: 'One breaking change: /v1 webhooks.' },
+      { k: 'code', title: 'Migration' },
+      { k: 'list', title: 'Also in this release', n: 4 },
+    ],
+  },
+
+  {
+    id: 'data-quality-report',
+    name: 'Data quality report',
+    family: D,
+    blurb: 'Freshness, nulls, and anomalies as a scannable report with owners attached.',
+    tags: ['data', 'quality', 'monitoring', 'pipelines'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr); gap:16px; padding:20px; align-items:start;',
+    extra: '.pt-i0 td:nth-child(n+2){text-align:center;} .pt-i1{grid-template-columns:minmax(0,1fr);}',
+    blocks: [
+      { k: 'stats', title: 'Health · 7 tables', items: ['99.2% fresh', '3 anomalies', '1 stale table'] },
+      { k: 'table', title: 'Findings', items: ['Table', 'Issue', 'Owner'], rows: [['orders', 'null rate 4.1%', 'maya'], ['events', 'late arrivals', 'jun'], ['users', 'stale 26h', 'ada']] },
+      { k: 'chart', title: 'Freshness trend', n: 14 },
+    ],
+  },
+
+  {
+    id: 'comment-moderation',
+    name: 'Comment moderation queue',
+    family: S,
+    blurb: 'Reports, context, and one-click actions for the person keeping the place civil.',
+    tags: ['moderation', 'community', 'safety', 'queue'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1.5fr) minmax(240px,1fr); gap:16px; padding:20px; align-items:start;',
+    extra: '.pt-i0{grid-template-columns:minmax(0,1fr);} .pt-i1{flex-direction:column; align-items:stretch;}',
+    blocks: [
+      { k: 'comments', title: 'Reported comments', n: 3 },
+      { k: 'list', title: 'Reporter history', n: 3 },
+      { k: 'form', title: 'Action', v: 'inline' },
+    ],
+  },
+
+  {
+    id: 'seed-round-tracker',
+    name: 'Seed round tracker',
+    family: D,
+    blurb: 'Raise progress with allocations, SAFEs, and the number founders actually watch.',
+    tags: ['startup', 'fundraising', 'investors', 'finance'],
+    layout: 'display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto auto; gap:16px; padding:20px; align-items:start;',
+    extra: '.pt-i0{grid-column:1 / -1;} .pt-i3{grid-column:1 / -1;}',
+    blocks: [
+      { k: 'kpis', title: 'Raise', items: ['$740k of $1M', '9 investors', 'SAFE ×4'] },
+      { k: 'table', title: 'Commitments', items: ['Investor', 'Type', 'Amount'], rows: [['First Weeks', 'SAFE', '$150k'], ['Angel syndicate', 'SAFE', '$320k'], ['Seed fund', 'Priced', '$270k']] },
+      { k: 'chart', title: 'Committed over time', n: 12 },
+      { k: 'cta', title: 'Open the data room' },
+    ],
+  },
+
+  {
+    id: 'print-stylesheet',
+    name: 'Print stylesheet',
+    family: Y,
+    blurb: 'What the page becomes on paper: masthead, body, footnotes, no chrome.',
+    tags: ['print', 'paper', 'documents', 'utility'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px; padding:24px; background:#fff;',
+    extra: '.pt-i1{grid-template-columns:minmax(0,1fr);}',
+    blocks: [
+      { k: 'head', title: 'Meeting minutes — 14 Sep', sub: 'Distributed for the record' },
+      { k: 'list', title: 'Attendees', items: ['R. Achebe (chair)', 'M. Deluca', 'S. Lindqvist', 'K. Tanaka'] },
+      { k: 'quote', title: 'Resolution 4', sub: 'Carried, 5–0, with one abstention noted.' },
+      { k: 'table', title: 'Actions', items: ['Who', 'What', 'When'], rows: [['maya', 'Draft policy', 'Oct 1'], ['jun', 'Book venue', 'Sep 22']] },
+    ],
+  },
+
+  {
+    id: 'order-issue-report',
+    name: 'Order issue report',
+    family: C,
+    blurb: 'A support flow that starts by believing the customer: item, problem, remedy.',
+    tags: ['support', 'returns', 'refunds', 'commerce'],
+    layout: 'display:grid; grid-template-columns:minmax(0,520px); justify-content:center; gap:14px; padding:24px 22px;',
+    extra: '.pt-i0{grid-template-columns:minmax(0,1fr);} .pt-i2{flex-direction:row;}',
+    blocks: [
+      { k: 'head', title: 'Something wrong with order #5821?', sub: 'Two minutes, no phone call.' },
+      { k: 'list', title: 'What arrived', n: 3 },
+      { k: 'form', title: 'What happened', sub: 'Damaged · Missing · Wrong item' },
+      { k: 'cta', title: 'Refund or replace — you pick' },
+    ],
+  },
+
+  {
+    id: 'session-catalog',
+    name: 'Session catalog',
+    family: T,
+    blurb: 'Conference program as a schedule rail plus track filters and speaker cards.',
+    tags: ['conference', 'schedule', 'agenda', 'events'],
+    layout: 'display:grid; grid-template-columns:minmax(240px,0.8fr) minmax(0,1.6fr); gap:18px; padding:22px; align-items:start;',
+    extra: '.pt-i0{position:sticky; top:0;} .pt-i1{grid-template-columns:repeat(2,minmax(0,1fr));}',
+    blocks: [
+      { k: 'filters', title: 'Tracks' },
+      { k: 'list', title: 'Thursday · Main stage', n: 4 },
+      { k: 'profile', title: 'Keynote — Ada Duval', sub: 'Systems that outlive their frameworks' },
+      { k: 'pager', title: 'Day 2 · Day 3' },
+    ],
+  },
+
+  {
+    id: 'api-webhook-log',
+    name: 'API webhook log',
+    family: D,
+    blurb: 'Delivery attempts with status, latency, and a replay button at arm’s length.',
+    tags: ['api', 'webhooks', 'logs', 'developer'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:0; padding:0; border:1px solid #e4e2dc; border-radius:10px; overflow:hidden;',
+    extra: '.pt-i0 td:nth-child(4){text-align:right; font-variant-numeric:tabular-nums;}',
+    blocks: [
+      { k: 'table', title: 'Deliveries · last hour', items: ['Event', 'Endpoint', 'Status', 'Latency'], rows: [['order.paid', 'hooks.acme.co', '200', '82ms'], ['order.refund', 'hooks.acme.co', '200', '95ms'], ['invoice.open', 'hooks.acme.co', 'timeout', '—']] },
+      { k: 'code', title: 'Failed payload' },
+      { k: 'toast', title: 'Replay sends the exact original payload' },
     ],
   },
 ]
