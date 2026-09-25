@@ -2274,6 +2274,83 @@ export const PATTERNS: PatternDef[] = [
       { k: 'toast', title: 'Replay sends the exact original payload' },
     ],
   },
+
+  {
+    id: 'harbour-tide-table',
+    name: 'Harbour tide table',
+    family: D,
+    blurb: 'Station rail, a full-width height curve, and the extremes table ruled beneath it.',
+    tags: ['tide', 'chart', 'table', 'stations', 'operations'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:16px; padding:20px;',
+    blocks: [
+      { k: 'filters', title: 'Stations', items: ['Port Erin', 'Douglas', 'Peel', 'Ramsey'] },
+      { k: 'chart', title: 'Height · next 24 h', sub: 'Datum MLLW · metres' },
+      { k: 'table', title: 'Extremes', items: ['Time', 'Height', 'Type'], rows: [['04:12', '2.6 m', 'High'], ['10:38', '0.4 m', 'Low'], ['16:44', '2.4 m', 'High']] },
+      { k: 'status', title: 'Buoy 4 reporting normally', sub: 'Last sample 41 s ago', tone: 'ok' },
+    ],
+  },
+
+  {
+    id: 'kiln-firing-schedule',
+    name: 'Kiln firing schedule',
+    family: A,
+    blurb: 'Firing calendar pinned beside the cone curve and the ramp controls for one load.',
+    tags: ['kiln', 'schedule', 'curve', 'batch', 'ceramics'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:16px; padding:20px;',
+    blocks: [
+      { k: 'toolbar', title: 'Kiln 2 · firing 14', sub: 'Cone 8 · reduction · 11 h elapsed' },
+      { k: 'calendar', title: 'Firing week' },
+      { k: 'chart', title: 'Cone curve', sub: '°C per hour, target vs actual' },
+      { k: 'settings', title: 'Ramp controls', sub: 'Soak 40 min · cool 300 °C/h' },
+    ],
+  },
+
+  {
+    id: 'underwriting-worksheet',
+    name: 'Underwriting worksheet',
+    family: F,
+    blurb: 'Clause-by-clause worksheet with a loading register and a pinned decline notice.',
+    tags: ['insurance', 'risk', 'clauses', 'worksheet', 'compliance'],
+    layout: 'display:grid; grid-template-columns:minmax(0,780px); justify-content:center; gap:18px; padding:24px 20px 34px;',
+    blocks: [
+      { k: 'head', title: 'Section 4 · Flood exposure', sub: 'Every answer carries the loading it produces.' },
+      { k: 'form', title: '4.2 River and coastal', sub: 'Nested clauses 4.2.1 through 4.2.6' },
+      { k: 'table', title: 'Loading register', items: ['Clause', 'Loading'], rows: [['4.2.1.a', '+18.5%'], ['4.2.3.c', '−2.0%'], ['4.2.6', '+4.0%']] },
+      { k: 'banner', title: 'Declined at 4.2.1.a', sub: 'River within 200 m of the risk address.', tone: 'bad' },
+    ],
+  },
+
+  {
+    id: 'accession-registry',
+    name: 'Accession registry',
+    family: D,
+    blurb: 'Alphabet rail, a dense accession table, and the record card that follows the chosen row.',
+    tags: ['registry', 'accessions', 'archive', 'specimens', 'cold-store'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:16px; padding:20px;',
+    blocks: [
+      { k: 'toolbar', title: 'Registry · 12,480 accessions', sub: 'Cold store holding at −18.0 °C' },
+      { k: 'filters', title: 'A–Z', items: ['A–F', 'G–L', 'M–R', 'S–Z'] },
+      { k: 'table', title: 'Accessions', items: ['Accession', 'Species', 'Viability'], rows: [['0044712', 'Barley', '94.2%'], ['0044713', 'Barley', '96.8%'], ['0044721', 'Oat', '91.5%']] },
+      { k: 'profile', title: 'ACC 0044712', sub: 'Barley, high-latitude line · logged 2026-09-24' },
+    ],
+  },
+
+  {
+    id: 'night-market-aisles',
+    name: 'Night market aisles',
+    family: C,
+    blurb: 'Aisle chips over a stall mosaic, with tonight’s closing offers held in a side column.',
+    tags: ['market', 'stalls', 'aisles', 'offers', 'night'],
+    layout: 'display:grid; grid-template-columns:minmax(0,1fr); gap:16px; padding:20px;',
+    blocks: [
+      { k: 'head', title: 'Aisle 3 · 42 stalls tonight', sub: 'Offers close at midnight.' },
+      { k: 'filters', title: 'Aisles', items: ['All', 'Food', 'Fabric', 'Tools', 'Books'] },
+      { k: 'products', title: 'Tonight', cols: 3, n: 6, v: 'grid' },
+      { k: 'pricing', title: 'Offers ending soon', sub: 'Three stalls below reserve' },
+      { k: 'cta', title: 'Make an offer', sub: 'Sellers answer within the hour.' },
+    ],
+  },
+
 ]
 
 /** Patterns grouped by family, in family order. */
