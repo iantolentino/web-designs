@@ -977,6 +977,45 @@ function heroTitle(d: DesignSystem): React.ReactNode {
     case 'puppet-theater': return <>All the world&rsquo;s <em>a stage.</em></>
     case 'audio-wave': return <>Feel it in the <em>waveform.</em></>
     case 'skate-zine': return <>Photocopy the <em>revolution.</em></>
+    case 'tide-clock': return <>High water <em>arrives 04:12.</em></>
+    case 'wafer-line': return <>Etch depth, <em>in control.</em></>
+    case 'marble-run': return <>Where does the <em>ball go?</em></>
+    case 'watch-room': return <>Twelve jewels, <em>one owner.</em></>
+    case 'quarry-face': return <>HONED GREY, <em>3.4 TONNES.</em></>
+    case 'contour-sheet': return <>Slope <em>18%</em>, drainage east.</>
+    case 'tare-weight': return <>248.61 <em>G.</em></>
+    case 'null-set': return <>—</>
+    case 'brick-course': return <>Running bond, <em>no cuts wasted.</em></>
+    case 'aphelion': return <>Burn complete, <em>aphelion rising.</em></>
+    case 'footnote-press': return <>On the <em>quiet</em> parts. <sup>[42]</sup></>
+    case 'haggle-market': return <>BRASS POTS, <em>MAKE ME AN OFFER</em></>
+    case 'overprint': return <>Ink lands <em>where it lands.</em></>
+    case 'all-of-it': return <>Continued from <em>page twelve.</em></>
+    case 'sirens-parade': return <>THE BRASS <em>DISTRICT</em></>
+    case 'clutter-core': return <>Still <em>mid-idea.</em></>
+    case 'bell-foundry': return <>POUR, THEN <em>WAIT.</em></>
+    case 'wind-tunnel': return <>1.42 kN of <em>drag.</em></>
+    case 'concrete-pour': return <>Slump <em>75 mm.</em></>
+    case 'static-fence': return <>PER METRE, <em>NOT PER PANEL.</em></>
+    case 'private-vault': return <>Deposited <em>1998.</em> Never opened.</>
+    case 'vault-of-letters': return <>Edition <em>ninety</em> of ninety.</>
+    case 'cellar-index': return <>Barolo, <em>one case left.</em></>
+    case 'goldsmiths-lane': return <>Nine carat, <em>set by hand.</em></>
+    case 'mud-kitchen': return <>Mud pie, <em>five stars.</em></>
+    case 'pigeon-post': return <>Dear Sam, <em>meet at the shed.</em></>
+    case 'slime-lab': return <>Stretch it to <em>400%.</em></>
+    case 'kart-klub': return <>Lap <em>41.28</em>, then the argument starts.</>
+    case 'dino-dig': return <>A tooth, and <em>half a jaw.</em></>
+    case 'fax-machine': return <>Order 4471: <em>received.</em></>
+    case 'betamax-rental': return <>Two nights, <em>be kind, rewind.</em></>
+    case 'diner-placemat': return <>Two eggs, <em>any way.</em></>
+    case 'soviet-control': return <>PLAN <em>118%</em> MET.</>
+    case 'cb-radio': return <>Channel <em>19</em>, you got a copy?</>
+    case 'mycelium-net': return <>Everything is <em>connected underground.</em></>
+    case 'seed-vault': return <>Barley, <em>stored at −18.0 °C.</em></>
+    case 'lichen-index': return <>Count the <em>lichen</em>, read the air.</>
+    case 'abyssal-drift': return <>Four thousand metres, <em>no sunlight.</em></>
+    case 'termite-mound': return <>Cooled by <em>chimneys.</em></>
     default: return <>{d.name}</>
   }
 }

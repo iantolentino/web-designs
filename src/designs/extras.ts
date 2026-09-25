@@ -127,6 +127,116 @@ export const LAYOUT_SETS: Record<string, Layout[]> = {
   // — first: manifesto (2)
   'concrete-slab': ['manifesto', 'centered', 'hero-cards'],
   'skate-zine': ['manifesto', 'full-bleed', 'hero-cards'],
+  /* — later waves (added by scripts/wave6-wire.cjs) — */
+  // first: hero-cards (8)
+  'tondo-ceramics': ['hero-cards', 'split-hero'],
+  'poster-press': ['hero-cards', 'magazine'],
+  'ever-current': ['hero-cards', 'split-hero', 'magazine', 'dashboard'],
+  'async-rally': ['hero-cards', 'split-hero', 'magazine', 'centered'],
+  'kennel-and-co': ['hero-cards', 'split-hero', 'magazine', 'editorial'],
+  'parcel-and-key': ['hero-cards', 'split-hero', 'magazine', 'asymmetric'],
+  'cosmo-explorers': ['hero-cards', 'split-hero', 'magazine', 'full-bleed'],
+  'quarry-face': ['hero-cards', 'split-hero', 'magazine', 'manifesto'],
+  // first: split-hero (3)
+  'punto-playcafe': ['split-hero', 'centered'],
+  'atlas-waypoints': ['split-hero', 'asymmetric'],
+  'marble-run': ['split-hero', 'hero-cards', 'magazine', 'spotlight'],
+  // first: magazine (3)
+  'film-journal': ['magazine', 'split-hero'],
+  'meridian-will': ['magazine', 'centered'],
+  'deadline-gazette': ['magazine', 'spotlight'],
+  // first: dashboard (5)
+  'lunar-climate': ['dashboard', 'hero-cards'],
+  'arco-grid': ['dashboard', 'split-hero'],
+  'cartogrid': ['dashboard', 'magazine'],
+  'signal-spire': ['dashboard', 'centered'],
+  'wafer-line': ['dashboard', 'spotlight'],
+  // first: centered (2)
+  'quiet-hours': ['centered', 'hero-cards'],
+  'gilded-hour': ['centered', 'asymmetric'],
+  // first: editorial (6)
+  'blau-index': ['editorial', 'hero-cards'],
+  'scriptorium-sips': ['editorial', 'split-hero'],
+  'echo-loft': ['editorial', 'magazine'],
+  'maison-mode': ['editorial', 'dashboard'],
+  'studio-copperplate': ['editorial', 'centered'],
+  'tensor-atlas': ['editorial', 'asymmetric'],
+  // first: asymmetric (3)
+  'inkwell-zine': ['asymmetric', 'hero-cards'],
+  'bounty-yard': ['asymmetric', 'magazine'],
+  'aperture-notes': ['asymmetric', 'dashboard'],
+  // first: full-bleed (4)
+  'sable-supper': ['full-bleed', 'hero-cards'],
+  'undercroft-games': ['full-bleed', 'split-hero'],
+  'iron-cadence': ['full-bleed', 'magazine'],
+  'tide-clock': ['full-bleed', 'dashboard'],
+  // first: spotlight (3)
+  'neon-arcade': ['spotlight', 'hero-cards'],
+  'vow-and-verse': ['spotlight', 'split-hero'],
+  'watch-room': ['spotlight', 'centered'],
+  // first: manifesto (2)
+  'beacon-petition': ['manifesto', 'hero-cards'],
+  'mutual-aid-press': ['manifesto', 'split-hero'],
+  /* — later waves (added by scripts/wave6-wire.cjs) — */
+  // first: magazine (1)
+  'haggle-market': ['magazine', 'spotlight', 'manifesto'],
+  // first: dashboard (1)
+  'aphelion': ['dashboard', 'manifesto'],
+  // first: centered (1)
+  'tare-weight': ['centered', 'full-bleed'],
+  // first: editorial (2)
+  'contour-sheet': ['editorial', 'full-bleed'],
+  'footnote-press': ['editorial', 'spotlight'],
+  // first: asymmetric (2)
+  'brick-course': ['asymmetric', 'full-bleed'],
+  'clutter-core': ['asymmetric', 'manifesto'],
+  // first: full-bleed (1)
+  'overprint': ['full-bleed', 'spotlight'],
+  // first: spotlight (1)
+  'sirens-parade': ['spotlight', 'asymmetric'],
+  // first: manifesto (2)
+  'null-set': ['manifesto', 'magazine'],
+  'all-of-it': ['manifesto', 'centered'],
+  /* — later waves (added by scripts/wave6-wire.cjs) — */
+  // first: hero-cards (1)
+  'static-fence': ['hero-cards', 'split-hero', 'dashboard', 'editorial'],
+  // first: split-hero (2)
+  'concrete-pour': ['split-hero', 'hero-cards', 'dashboard', 'centered'],
+  'pigeon-post': ['split-hero', 'hero-cards', 'dashboard', 'asymmetric'],
+  // first: magazine (1)
+  'cellar-index': ['magazine', 'hero-cards', 'dashboard', 'centered'],
+  // first: dashboard (1)
+  'bell-foundry': ['dashboard', 'spotlight', 'manifesto'],
+  // first: centered (2)
+  'vault-of-letters': ['centered', 'editorial', 'spotlight'],
+  'slime-lab': ['centered', 'editorial', 'manifesto'],
+  // first: editorial (1)
+  'private-vault': ['editorial', 'manifesto'],
+  // first: full-bleed (2)
+  'wind-tunnel': ['full-bleed', 'manifesto'],
+  'mud-kitchen': ['full-bleed', 'centered', 'asymmetric'],
+  // first: spotlight (1)
+  'goldsmiths-lane': ['spotlight', 'manifesto'],
+  /* — later waves (added by scripts/wave6-wire.cjs) — */
+  // first: hero-cards (3)
+  'dino-dig': ['hero-cards', 'split-hero', 'dashboard', 'spotlight'],
+  'betamax-rental': ['hero-cards', 'split-hero', 'dashboard', 'manifesto'],
+  'lichen-index': ['hero-cards', 'split-hero', 'centered', 'editorial'],
+  // first: magazine (1)
+  'diner-placemat': ['magazine', 'hero-cards', 'dashboard', 'editorial'],
+  // first: dashboard (2)
+  'kart-klub': ['dashboard', 'hero-cards', 'split-hero', 'full-bleed'],
+  'seed-vault': ['dashboard', 'hero-cards', 'magazine', 'asymmetric'],
+  // first: editorial (2)
+  'fax-machine': ['editorial', 'asymmetric', 'full-bleed'],
+  'mycelium-net': ['editorial', 'asymmetric', 'spotlight'],
+  // first: full-bleed (2)
+  'abyssal-drift': ['full-bleed', 'centered', 'spotlight'],
+  'termite-mound': ['full-bleed', 'centered', 'manifesto'],
+  // first: spotlight (1)
+  'cb-radio': ['spotlight', 'centered', 'asymmetric'],
+  // first: manifesto (1)
+  'soviet-control': ['manifesto', 'centered', 'asymmetric'],
 }
 
 /* ---------- Extra content blocks (FAQ always present) ---------- */
@@ -232,6 +342,11 @@ export const DASH_EXTRAS: Record<string, DashExtra> = {
   'graffiti-street': 'activity',
   'foundry-type': 'report-builder',
   'audio-wave': 'calendar',
+  'wafer-line': 'activity',
+  'aphelion': 'report-builder',
+  'bell-foundry': 'kanban',
+  'kart-klub': 'calendar',
+  'seed-vault': 'activity',
 }
 
 export function getDashExtra(id: string): DashExtra | undefined {
