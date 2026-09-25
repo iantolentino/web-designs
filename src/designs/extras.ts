@@ -237,6 +237,26 @@ export const LAYOUT_SETS: Record<string, Layout[]> = {
   'cb-radio': ['spotlight', 'centered', 'asymmetric'],
   // first: manifesto (1)
   'soviet-control': ['manifesto', 'centered', 'asymmetric'],
+  /* — later waves (added by scripts/wave6-wire.cjs) — */
+  // first: split-hero (2)
+  'cold-chain': ['split-hero', 'hero-cards', 'centered', 'asymmetric'],
+  'stop-motion-bench': ['split-hero', 'hero-cards', 'centered', 'full-bleed'],
+  // first: magazine (2)
+  'deed-office': ['magazine', 'hero-cards', 'dashboard', 'spotlight'],
+  'zoetrope': ['magazine', 'hero-cards', 'dashboard', 'manifesto'],
+  // first: dashboard (1)
+  'grid-dispatch': ['dashboard', 'hero-cards', 'magazine', 'full-bleed'],
+  // first: centered (1)
+  'binaural-room': ['centered', 'hero-cards', 'split-hero', 'spotlight'],
+  // first: editorial (1)
+  'underwriter-desk': ['editorial', 'asymmetric', 'manifesto'],
+  // first: asymmetric (1)
+  'grid-paper': ['asymmetric', 'full-bleed', 'spotlight'],
+  // first: full-bleed (2)
+  'tower-approach': ['full-bleed', 'editorial', 'spotlight'],
+  'cyanotype-lab': ['full-bleed', 'editorial', 'manifesto'],
+  // first: spotlight (1)
+  'letterpress-crash': ['spotlight', 'centered', 'manifesto'],
 }
 
 /* ---------- Extra content blocks (FAQ always present) ---------- */
@@ -347,6 +367,7 @@ export const DASH_EXTRAS: Record<string, DashExtra> = {
   'bell-foundry': 'kanban',
   'kart-klub': 'calendar',
   'seed-vault': 'activity',
+  'grid-dispatch': 'report-builder',
 }
 
 export function getDashExtra(id: string): DashExtra | undefined {

@@ -60,6 +60,52 @@ const HERO = {
   'lichen-index': 'Count the <em>lichen</em>, read the air.',
   'abyssal-drift': 'Four thousand metres, <em>no sunlight.</em>',
   'termite-mound': 'Cooled by <em>chimneys.</em>',
+  'grid-dispatch': 'Frequency <em>50.01 Hz.</em>',
+  'tower-approach': 'Strips in, <em>sequence out.</em>',
+  'underwriter-desk': 'Flood loading <em>+18.5%.</em>',
+  'cold-chain': 'Excursions <em>0 of 214.</em>',
+  'deed-office': 'Parcel 4471, <em>on record.</em>',
+  'cyanotype-lab': 'Reverse-out, <em>no silver.</em>',
+  'letterpress-crash': 'Ink too deep, <em>press it anyway.</em>',
+  'stop-motion-bench': 'Twelve frames, <em>one second.</em>',
+  'grid-paper': 'Sketch first, <em>then the vector.</em>',
+  'binaural-room': 'Left and right, <em>forty degrees apart.</em>',
+  'zoetrope': 'One revolution, <em>fourteen frames.</em>',
+  // Backfill for pre-existing designs that fell back to their name.
+  'lunar-climate': 'Earth science, <em>measured calmly.</em>',
+  'arco-grid': 'Ruled by the <em>grid.</em>',
+  'tondo-ceramics': 'Thrown on the <em>wheel.</em>',
+  'sable-supper': 'Supper, <em>after dark.</em>',
+  'blau-index': 'Indexes, tables, <em>trust.</em>',
+  'beacon-petition': 'SIGN IT, THEN <em>SHOUT IT.</em>',
+  'poster-press': 'Deep ink bite, <em>heavy slab.</em>',
+  'inkwell-zine': 'Photocopied, <em>stapled, out.</em>',
+  'scriptorium-sips': 'Monastery rules, <em>modern pours.</em>',
+  'film-journal': 'Frames drawn <em>by hand.</em>',
+  'punto-playcafe': 'Coffee, and <em>nobody minds.</em>',
+  'neon-arcade': 'One more <em>coin.</em>',
+  'cartogrid': 'Records as <em>terrain.</em>',
+  'echo-loft': 'Recorded <em>after midnight.</em>',
+  'quiet-hours': 'Permission to <em>slow down.</em>',
+  'ever-current': 'Wet noses, <em>warm welcomes.</em>',
+  'meridian-will': 'Estate law, <em>without the dust.</em>',
+  'undercroft-games': 'Roll for <em>initiative.</em>',
+  'atlas-waypoints': 'Booked, <em>charted, calm.</em>',
+  'bounty-yard': 'Traded like a <em>market stall.</em>',
+  'vow-and-verse': 'Two names, <em>one line.</em>',
+  'signal-spire': 'On-chain, <em>on the record.</em>',
+  'maison-mode': 'One garment <em>per breath.</em>',
+  'iron-cadence': 'Heavy type, <em>one short whistle.</em>',
+  'aperture-notes': 'A contact sheet <em>you can read.</em>',
+  'async-rally': 'Distributed work, <em>no beige.</em>',
+  'kennel-and-co': 'Wet noses, <em>zero baby-talk.</em>',
+  'mutual-aid-press': 'Grassroots, <em>zero gloss.</em>',
+  'studio-copperplate': 'Stations, <em>not sections.</em>',
+  'parcel-and-key': 'Listings with a <em>surveyor’s patience.</em>',
+  'deadline-gazette': 'Filed at <em>midnight.</em>',
+  'cosmo-explorers': 'Learning at <em>escape velocity.</em>',
+  'tensor-atlas': 'Papers shipped as <em>products.</em>',
+  'gilded-hour': 'An invitation, <em>weighed in the hand.</em>',
 }
 
 const read = (p) => fs.readFileSync(p, 'utf8')
@@ -244,7 +290,7 @@ wireExtras()
   const raw = read(p)
   const nl = nlOf(raw)
   const have = new Set([...raw.matchAll(/case '([a-z0-9-]+)':/g)].map((m) => m[1]))
-  const missing = wave6.filter((d) => !have.has(d.id) && HERO[d.id])
+  const missing = designs.filter((d) => !have.has(d.id) && HERO[d.id])
   if (missing.length) {
     const lines = missing.map((d) => `    case '${d.id}': return <>${HERO[d.id]}</>`)
     const anchor = `${nl}    default: return <>{d.name}</>`

@@ -1016,6 +1016,51 @@ function heroTitle(d: DesignSystem): React.ReactNode {
     case 'lichen-index': return <>Count the <em>lichen</em>, read the air.</>
     case 'abyssal-drift': return <>Four thousand metres, <em>no sunlight.</em></>
     case 'termite-mound': return <>Cooled by <em>chimneys.</em></>
+    case 'grid-dispatch': return <>Frequency <em>50.01 Hz.</em></>
+    case 'tower-approach': return <>Strips in, <em>sequence out.</em></>
+    case 'underwriter-desk': return <>Flood loading <em>+18.5%.</em></>
+    case 'cold-chain': return <>Excursions <em>0 of 214.</em></>
+    case 'deed-office': return <>Parcel 4471, <em>on record.</em></>
+    case 'cyanotype-lab': return <>Reverse-out, <em>no silver.</em></>
+    case 'letterpress-crash': return <>Ink too deep, <em>press it anyway.</em></>
+    case 'stop-motion-bench': return <>Twelve frames, <em>one second.</em></>
+    case 'grid-paper': return <>Sketch first, <em>then the vector.</em></>
+    case 'binaural-room': return <>Left and right, <em>forty degrees apart.</em></>
+    case 'zoetrope': return <>One revolution, <em>fourteen frames.</em></>
+    case 'lunar-climate': return <>Earth science, <em>measured calmly.</em></>
+    case 'arco-grid': return <>Ruled by the <em>grid.</em></>
+    case 'tondo-ceramics': return <>Thrown on the <em>wheel.</em></>
+    case 'sable-supper': return <>Supper, <em>after dark.</em></>
+    case 'blau-index': return <>Indexes, tables, <em>trust.</em></>
+    case 'beacon-petition': return <>SIGN IT, THEN <em>SHOUT IT.</em></>
+    case 'poster-press': return <>Deep ink bite, <em>heavy slab.</em></>
+    case 'inkwell-zine': return <>Photocopied, <em>stapled, out.</em></>
+    case 'scriptorium-sips': return <>Monastery rules, <em>modern pours.</em></>
+    case 'film-journal': return <>Frames drawn <em>by hand.</em></>
+    case 'punto-playcafe': return <>Coffee, and <em>nobody minds.</em></>
+    case 'neon-arcade': return <>One more <em>coin.</em></>
+    case 'cartogrid': return <>Records as <em>terrain.</em></>
+    case 'echo-loft': return <>Recorded <em>after midnight.</em></>
+    case 'quiet-hours': return <>Permission to <em>slow down.</em></>
+    case 'ever-current': return <>Wet noses, <em>warm welcomes.</em></>
+    case 'meridian-will': return <>Estate law, <em>without the dust.</em></>
+    case 'undercroft-games': return <>Roll for <em>initiative.</em></>
+    case 'atlas-waypoints': return <>Booked, <em>charted, calm.</em></>
+    case 'bounty-yard': return <>Traded like a <em>market stall.</em></>
+    case 'vow-and-verse': return <>Two names, <em>one line.</em></>
+    case 'signal-spire': return <>On-chain, <em>on the record.</em></>
+    case 'maison-mode': return <>One garment <em>per breath.</em></>
+    case 'iron-cadence': return <>Heavy type, <em>one short whistle.</em></>
+    case 'aperture-notes': return <>A contact sheet <em>you can read.</em></>
+    case 'async-rally': return <>Distributed work, <em>no beige.</em></>
+    case 'kennel-and-co': return <>Wet noses, <em>zero baby-talk.</em></>
+    case 'mutual-aid-press': return <>Grassroots, <em>zero gloss.</em></>
+    case 'studio-copperplate': return <>Stations, <em>not sections.</em></>
+    case 'parcel-and-key': return <>Listings with a <em>surveyor’s patience.</em></>
+    case 'deadline-gazette': return <>Filed at <em>midnight.</em></>
+    case 'cosmo-explorers': return <>Learning at <em>escape velocity.</em></>
+    case 'tensor-atlas': return <>Papers shipped as <em>products.</em></>
+    case 'gilded-hour': return <>An invitation, <em>weighed in the hand.</em></>
     default: return <>{d.name}</>
   }
 }
