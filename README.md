@@ -2,7 +2,7 @@
 
 A production-grade design-system showcase: **184 curated, intentionally distinct design
 systems**, a **148-layout pattern library**, and a **70-component kit** — all browsable,
-previewable live, and copyable as ready-to-use AI design prompts.
+previewable live, and copyable as ready-to-use AI design prompts. 
 Built to kill AI design slop — no Inter, no purple-on-white, no generic layouts.
 
 ## Quick start
