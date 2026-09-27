@@ -365,6 +365,75 @@
 /* Editorial columns */
 .dv-m-editorial-columns .dv-hero h1 { font-style: italic; font-weight: 850; }
 
+/* Outline type: display headings rendered as outlined letterforms */
+.dv-m-outline-type .dv-hero h1,
+.dv-m-outline-type .dv-poster-title,
+.dv-m-outline-type .dv-masthead-title {
+  color: transparent;
+  -webkit-text-stroke: 1.6px var(--dv-text);
+  font-weight: 800;
+}
+.dv-m-outline-type .dv-hero h1 em,
+.dv-m-outline-type .dv-poster-title em { -webkit-text-stroke-color: var(--dv-primary); }
+.dv-m-outline-type .dv-btn-primary { background: transparent; color: var(--dv-primary); border: 2px solid var(--dv-primary); }
+
+/* Corner brackets: bracketed card corners */
+.dv-m-corner-brackets .dv-card { position: relative; border-radius: 0 !important; }
+.dv-m-corner-brackets .dv-card::before,
+.dv-m-corner-brackets .dv-card::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--dv-primary);
+  pointer-events: none;
+}
+.dv-m-corner-brackets .dv-card::before { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+.dv-m-corner-brackets .dv-card::after { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+
+/* Scanlines: CRT overlay, reserved for screens that want to look 1987 */
+.dv-m-scanlines .dv-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.55;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.10) 0 1px, transparent 1px 3px);
+}
+.dv-m-scanlines .dv-hero h1 { text-shadow: 0 0 14px color-mix(in srgb, var(--dv-primary) 55%, transparent); }
+
+/* Duotone media: brand-tinted imagery */
+.dv-m-duotone-media .dv-media,
+.dv-m-duotone-media .dv-feature-media,
+.dv-m-duotone-media .dv-asym-media,
+.dv-m-duotone-media .dv-media-tall {
+  background-image: linear-gradient(135deg, var(--dv-primary), var(--dv-accent));
+  filter: saturate(1.1) contrast(1.06);
+  position: relative;
+  overflow: hidden;
+}
+.dv-m-duotone-media .dv-media::after,
+.dv-m-duotone-media .dv-feature-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 60% at 30% 30%, color-mix(in srgb, var(--dv-accent) 45%, transparent), transparent 72%);
+}
+
+
+/* Tape labels: translucent tape strips on kickers and badges */
+.dv-m-tape-labels .dv-kicker {
+  display: inline-block;
+  background: color-mix(in srgb, var(--dv-primary) 22%, transparent);
+  color: var(--dv-text);
+  padding: 0.25em 0.7em;
+  transform: rotate(-1.5deg);
+  letter-spacing: 0.14em;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--dv-text) 20%, transparent);
+}
+.dv-m-tape-labels .dv-badge { transform: rotate(-1deg); }
+
 /* Per-design signature overrides land after these rules because
    signatureCss is injected inside the MiniSite container. */
 

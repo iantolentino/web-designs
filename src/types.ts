@@ -30,6 +30,11 @@ export type Motif =
   | 'glow-pulse'
   | 'dashed-borders'
   | 'editorial-columns'
+  | 'outline-type'
+  | 'corner-brackets'
+  | 'scanlines'
+  | 'duotone-media'
+  | 'tape-labels'
 
 export type DeviceMode = 'desktop' | 'tablet' | 'mobile'
 export type PreviewTab = 'live' | 'components' | 'colors' | 'code' | 'details'

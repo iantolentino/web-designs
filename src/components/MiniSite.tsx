@@ -1196,6 +1196,22 @@ function heroTitle(d: DesignSystem): React.ReactNode {
     case 'async-rally': return <>Distributed work, <em>no beige.</em></>
     case 'kennel-and-co': return <>Wet noses, <em>zero baby-talk.</em></>
     case 'mutual-aid-press': return <>Grassroots, <em>zero gloss.</em></>
+    case 'solar-punk': return <>Power the block, <em>not just the building.</em></>
+    case 'quantum-lab': return <>Measure the <em>impossible,</em> calmly.</>
+    case 'terrazzo-cafe': return <>A little of <em>everything.</em></>
+    case 'noir-dossier': return <>The quiet <em>disappearance.</em></>
+    case 'op-art-aperture': return <>Your eyes move <em>first.</em></>
+    case 'vhs-rental': return <>Tonight&rsquo;s <em>double feature.</em></>
+    case 'riso-atelier': return <>Two inks. <em>No apologies.</em></>
+    case 'circuit-foundry': return <>Rev C, <em>fab-ready.</em></>
+    case 'paper-craft-club': return <>Make something <em>slightly wonky.</em></>
+    case 'glacier-spa': return <>Come in from the <em>cold.</em></>
+    case 'cosmic-observatory': return <>There is a <em>planet</em> there.</>
+    case 'weather-bureau': return <>Clear, then <em>turning.</em></>
+    case 'pulp-anthology': return <>The <em>Midnight</em> Line</>
+    case 'bakery-window': return <>Baked <em>this morning,</em> gone by noon.</>
+    case 'espionage-console': return <>Two attempts, <em>one origin.</em></>
+    case 'marble-atelier': return <>Stone, light, and <em>proportion.</em></>
     case 'studio-copperplate': return <>Stations, <em>not sections.</em></>
     case 'parcel-and-key': return <>Listings with a <em>surveyor’s patience.</em></>
     case 'deadline-gazette': return <>Filed at <em>midnight.</em></>

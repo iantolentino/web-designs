@@ -15,6 +15,13 @@ const path = require('path')
 const { execSync } = require('child_process')
 
 const read = (p) => fs.readFileSync(p, 'utf8')
+
+/* Hero lines live in MiniSite's heroTitle switch, not in the design data. */
+const heroMap = new Map(
+  [...read('src/components/MiniSite.tsx').matchAll(/case '([^']+)': return <>([\s\S]*?)<\/\>/g)].map(
+    (m) => [m[1], m[2].replace(/&rsquo;/g, '’').replace(/&amp;/g, '&').trim()],
+  ),
+)
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'dv-audit-'))
 const entry = path.join(tmp, 'entry.ts')
 const bundle = path.join(tmp, 'bundle.cjs')
@@ -24,6 +31,8 @@ fs.writeFileSync(
   entry,
   `import { DESIGN_SYSTEMS } from '${abs('src/designs/index')}'
 import { primaryLayout } from '${abs('src/designs/extras')}'
+
+const HERO = ${JSON.stringify(Object.fromEntries(heroMap))}
 
 const radiusNum = (r) => {
   const m = (r || '').match(/(\\d+)px/)
@@ -43,7 +52,7 @@ console.log(JSON.stringify({
   designs: DESIGN_SYSTEMS.map((d) => ({
     id: d.id,
     name: d.name,
-    hero: d.hero ?? '',
+    hero: HERO[d.id] ?? '',
     display: d.typography.displayFont,
     body: d.typography.bodyFont,
     motif: d.motif,

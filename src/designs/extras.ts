@@ -257,6 +257,23 @@ export const LAYOUT_SETS: Record<string, Layout[]> = {
   'cyanotype-lab': ['full-bleed', 'editorial', 'manifesto'],
   // first: spotlight (1)
   'letterpress-crash': ['spotlight', 'centered', 'manifesto'],
+  /* — wave 8 (new aesthetics + verticals) — */
+  'solar-punk': ['hero-cards', 'bento', 'split-hero', 'centered'],
+  'quantum-lab': ['dashboard', 'bento', 'magazine'],
+  'terrazzo-cafe': ['catalog', 'hero-cards', 'spotlight'],
+  'noir-dossier': ['magazine', 'editorial', 'poster'],
+  'op-art-aperture': ['poster', 'full-bleed', 'manifesto'],
+  'vhs-rental': ['hero-cards', 'poster', 'dashboard'],
+  'riso-atelier': ['asymmetric', 'magazine', 'poster'],
+  'circuit-foundry': ['bento', 'dashboard', 'catalog'],
+  'paper-craft-club': ['centered', 'catalog', 'spotlight'],
+  'glacier-spa': ['spotlight', 'centered', 'full-bleed'],
+  'cosmic-observatory': ['full-bleed', 'spotlight', 'poster'],
+  'weather-bureau': ['dashboard', 'bento', 'editorial'],
+  'pulp-anthology': ['editorial', 'magazine', 'poster'],
+  'bakery-window': ['catalog', 'centered', 'hero-cards'],
+  'espionage-console': ['bento', 'dashboard', 'manifesto'],
+  'marble-atelier': ['poster', 'editorial', 'spotlight'],
 }
 
 /**
