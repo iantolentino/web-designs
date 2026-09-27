@@ -659,7 +659,7 @@ export const wave5Designs: DesignSystem[] = [
     codeExample:
       '<section class="front">\n  <h1 class="lead">Council votes to <em>save</em> the arcade.</h1>\n  <p class="deck">Narrow win follows six-hour session; owners pledge repairs by spring.</p>\n  <button class="btn-gazette">Read the full story</button>\n</section>',
     accent: '#b3271e',
-    motif: 'editorial-columns',
+    motif: 'ticker-marquee',
     layout: 'magazine',
     useCases: ['News', 'Publishing', 'Podcast'],
     signatureCss: `.dv-card { background: #fbf8ef; border: 1px solid #19171322; }

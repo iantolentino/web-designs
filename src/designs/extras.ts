@@ -1,4 +1,4 @@
-import type { Layout } from '../types'
+import type { DesignSystem, Layout } from '../types'
 
 /**
  * Wave-2 configuration layer — PURE ADDITION.
@@ -257,6 +257,63 @@ export const LAYOUT_SETS: Record<string, Layout[]> = {
   'cyanotype-lab': ['full-bleed', 'editorial', 'manifesto'],
   // first: spotlight (1)
   'letterpress-crash': ['spotlight', 'centered', 'manifesto'],
+}
+
+/**
+ * Modern arrangements (wave-2b). A curated subset of designs adopts one of the
+ * three fresher, structurally distinct openers as their default arrangement, so
+ * the catalog reads as many *designs* — not one layout recolored 184 times.
+ */
+export const PRIMARY_OVERRIDE: Record<string, Layout> = {
+  // bento — technical / professional / creative systems
+  'soft-mono': 'bento',
+  'briefcase-slate': 'bento',
+  'system-cool': 'bento',
+  'graphite-focus': 'bento',
+  'tensor-atlas': 'bento',
+  'signal-spire': 'bento',
+  'blau-index': 'bento',
+  'campus-lms': 'bento',
+  // poster — brutalist / luxury / retro / maximalist systems
+  'bold-luxury': 'poster',
+  'concrete-slab': 'poster',
+  'null-set': 'poster',
+  'vaporwave': 'poster',
+  'festival-vivid': 'poster',
+  'graffiti-street': 'poster',
+  'monolith-black': 'poster',
+  'private-vault': 'poster',
+  // catalog — commerce / organic / playful systems
+  'haggle-market': 'catalog',
+  'bounty-yard': 'catalog',
+  'harvest-table': 'catalog',
+  'jelly-toy': 'catalog',
+  'arcade-pop': 'catalog',
+  'ink-house': 'catalog',
+  'tondo-ceramics': 'catalog',
+  'kennel-and-co': 'catalog',
+}
+
+/** Arrangements appended to every design so the selector always offers a fresh one. */
+const EXTRA_LAYOUTS: Layout[] = ['bento', 'poster', 'catalog']
+
+export const LAYOUT_SETS_FULL: Record<string, Layout[]> = Object.fromEntries(
+  Object.entries(LAYOUT_SETS).map(([id, set], i) => {
+    const add = EXTRA_LAYOUTS[i % EXTRA_LAYOUTS.length]
+    return [id, set.includes(add) ? set : [...set, add]]
+  }),
+)
+
+/** The design's effective default arrangement (a curated override, else its own). */
+export function primaryLayout(d: DesignSystem): Layout {
+  return PRIMARY_OVERRIDE[d.id] ?? d.layout
+}
+
+/** Arrangements offered for a design: its default first, then the rest, deduped. */
+export function layoutSetFor(d: DesignSystem): Layout[] {
+  const primary = primaryLayout(d)
+  const base = LAYOUT_SETS_FULL[d.id] ?? LAYOUT_SETS[d.id] ?? [d.layout]
+  return [primary, ...base.filter((l) => l !== primary)]
 }
 
 /* ---------- Extra content blocks (FAQ always present) ---------- */

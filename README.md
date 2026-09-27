@@ -29,6 +29,7 @@ sort, and saved filters live there, so the main column is nothing but content.
 | View | What it shows |
 | --- | --- |
 | **Design systems** | 184 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
+| **Layout arrangements** | 13 archetypes (incl. Bento, Poster, Catalog); each design offers its own set so previews differ structurally, not just by color. |
 | **Pattern library** | 148 production layouts with live previews, filterable by family and searchable by block. |
 | **Component kit** | The 70-component kit rendered for any design — with a side-by-side compare mode. |
 
@@ -47,12 +48,12 @@ a full preview with:
 - **Live preview** — the complete page, plus the full component kit and per-design content
   blocks, with Desktop / Tablet / Mobile framing (container queries, so the design truly
   responds) and an arrangement switcher (2–4 layout archetypes per design).
-- **Components** — all 70 kit components themed by that design alone.
+- **Colors** — a Color Studio: keep the design, swap the ink. Apply a curated palette, harmonize a full palette from any single color, or edit each of the six tokens; overrides save per design.
 - **Code** — a simplified, readable HTML/CSS sample (tokens + one hero).
 - **Details** — philosophy, click-to-copy palette, type scale, component specs, a themed
   playground, the full prompt, and JSON / CSS-variable export.
 
-### The component kit (70 components, per design)
+### The component kit (78 components, per design)
 
 `src/components/ComponentKit.tsx` implements one vocabulary — buttons, fields, selection
 controls, feedback, data display, navigation, and overlays — and renders it entirely from

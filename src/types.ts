@@ -32,7 +32,7 @@ export type Motif =
   | 'editorial-columns'
 
 export type DeviceMode = 'desktop' | 'tablet' | 'mobile'
-export type PreviewTab = 'live' | 'components' | 'code' | 'details'
+export type PreviewTab = 'live' | 'components' | 'colors' | 'code' | 'details'
 
 export type Layout =
   | 'hero-cards'
@@ -45,6 +45,9 @@ export type Layout =
   | 'full-bleed'
   | 'spotlight'
   | 'manifesto'
+  | 'bento'
+  | 'poster'
+  | 'catalog'
 
 export const LAYOUT_LABEL: Record<Layout, string> = {
   'hero-cards': 'Hero + Feature Cards',
@@ -57,6 +60,9 @@ export const LAYOUT_LABEL: Record<Layout, string> = {
   'full-bleed': 'Full-bleed',
   spotlight: 'Spotlight',
   manifesto: 'Manifesto',
+  bento: 'Bento Grid',
+  poster: 'Poster',
+  catalog: 'Catalog',
 }
 
 /**

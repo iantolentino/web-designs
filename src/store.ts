@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Category, DeviceMode, PreviewTab, UseCase } from './types'
+import type { Category, Colors, DeviceMode, PreviewTab, UseCase } from './types'
 
 export type QuickFilter = 'popular' | 'latest' | 'trending'
 
@@ -27,6 +27,8 @@ interface VaultState {
   kitDesignId: string | null
   kitGroup: string | null
   kitSearch: string
+  /** Per-design color overrides — the design keeps its structure, you keep the ink. */
+  paletteOverrides: Record<string, Partial<Colors>>
   setView: (v: View) => void
   toggleSidebar: (v?: boolean) => void
   setSearchQuery: (q: string) => void
@@ -47,6 +49,9 @@ interface VaultState {
   setKitDesignId: (id: string) => void
   toggleKitGroup: (g: string) => void
   setKitSearch: (q: string) => void
+  setPaletteToken: (id: string, key: keyof Colors, value: string) => void
+  mergePalette: (id: string, colors: Partial<Colors>) => void
+  resetPalette: (id: string) => void
 }
 
 const FAV_KEY = 'dv-favorites'
@@ -61,6 +66,23 @@ function loadFavorites(): string[] {
 function persistFavorites(favs: string[]) {
   try {
     localStorage.setItem(FAV_KEY, JSON.stringify(favs))
+  } catch {
+    /* ignore */
+  }
+}
+
+const PALETTE_KEY = 'dv-palettes'
+function loadPalettes(): Record<string, Partial<Colors>> {
+  try {
+    const raw = localStorage.getItem(PALETTE_KEY)
+    return raw ? (JSON.parse(raw) as Record<string, Partial<Colors>>) : {}
+  } catch {
+    return {}
+  }
+}
+function persistPalettes(palettes: Record<string, Partial<Colors>>) {
+  try {
+    localStorage.setItem(PALETTE_KEY, JSON.stringify(palettes))
   } catch {
     /* ignore */
   }
@@ -84,6 +106,7 @@ export const useStore = create<VaultState>((set, get) => ({
   kitDesignId: null,
   kitGroup: null,
   kitSearch: '',
+  paletteOverrides: loadPalettes(),
   setView: (v) => set({ view: v, sidebarOpen: false }),
   toggleFavOnly: () => set((s) => ({ favOnly: !s.favOnly })),
   toggleSidebar: (v) => set((s) => ({ sidebarOpen: v ?? !s.sidebarOpen })),
@@ -93,6 +116,26 @@ export const useStore = create<VaultState>((set, get) => ({
   setKitDesignId: (id) => set({ kitDesignId: id }),
   toggleKitGroup: (g) => set((s) => ({ kitGroup: s.kitGroup === g ? null : g })),
   setKitSearch: (q) => set({ kitSearch: q }),
+  setPaletteToken: (id, key, value) =>
+    set((s) => {
+      const palettes = { ...s.paletteOverrides, [id]: { ...s.paletteOverrides[id], [key]: value } }
+      persistPalettes(palettes)
+      return { paletteOverrides: palettes }
+    }),
+  mergePalette: (id, colors) =>
+    set((s) => {
+      const palettes = { ...s.paletteOverrides, [id]: { ...s.paletteOverrides[id], ...colors } }
+      persistPalettes(palettes)
+      return { paletteOverrides: palettes }
+    }),
+  resetPalette: (id) =>
+    set((s) => {
+      if (!s.paletteOverrides[id]) return s
+      const palettes = { ...s.paletteOverrides }
+      delete palettes[id]
+      persistPalettes(palettes)
+      return { paletteOverrides: palettes }
+    }),
   setSearchQuery: (q) => set({ searchQuery: q }),
   toggleCategory: (c) =>
     set((s) => ({ selectedCategory: s.selectedCategory === c ? null : c })),

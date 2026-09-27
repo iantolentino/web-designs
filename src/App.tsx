@@ -27,7 +27,7 @@ const VIEW_TITLE = {
   },
   patterns: {
     h: 'Pattern library',
-    p: '124 production-grade layouts and styles. Each is a unique arrangement of shared, practical UI blocks.',
+    p: `${PATTERNS.length} production-grade layouts and styles. Each is a unique arrangement of shared, practical UI blocks.`,
   },
   components: {
     h: 'Component kit',

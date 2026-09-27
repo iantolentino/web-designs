@@ -3,21 +3,30 @@ import { useStore } from '../store'
 import { CATEGORY_ACCENT, LAYOUT_LABEL } from '../types'
 import type { DesignSystem, DeviceMode, Layout, PreviewTab } from '../types'
 import { getDesign, DESIGN_SYSTEMS } from '../designs'
-import { LAYOUT_SETS } from '../designs/extras'
+import { layoutSetFor, primaryLayout } from '../designs/extras'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
 import { buildDesignPrompt } from '../prompt'
 import { copyDesignPrompt, copyText } from '../hooks'
 import { useCasesOf } from '../designs/usecases'
+import { applyPalette } from '../designs/palette'
 import { ComponentKit } from './ComponentKit'
+import { PaletteStudio } from './PaletteStudio'
+
+const TAB_LABEL: Record<PreviewTab, string> = {
+  live: 'Live preview',
+  components: 'Components',
+  colors: 'Colors',
+  code: 'Code',
+  details: 'Details',
+}
 
 const MiniSite = lazy(() => import('./MiniSite').then((m) => ({ default: m.MiniSite })))
 
 const DEVICE_WIDTH: Record<DeviceMode, number> = { desktop: 1280, tablet: 834, mobile: 402 }
 
-/** Arrangements offered by the layout selector: the design's own set (2-3), its card layout first. */
+/** Arrangements offered by the layout selector: the design's set, its default first. */
 function getLayoutSet(d: DesignSystem): Layout[] {
-  const set = LAYOUT_SETS[d.id] ?? [d.layout]
-  return set
+  return layoutSetFor(d)
 }
 
 export function Preview({ ids }: { ids: string[] }) {
@@ -46,8 +55,12 @@ export function Preview({ ids }: { ids: string[] }) {
     return () => window.removeEventListener('dv-layout-change', onLayoutChange)
   }, [d.id])
   const layoutOptions = getLayoutSet(d)
-  const activeLayout = previewLayout ?? d.layout
-  const accent = d.accent
+  const activeLayout = previewLayout ?? primaryLayout(d)
+  // The palette can be overridden per design; every surface below uses the
+  // effective design so structure stays fixed while the ink is yours.
+  const override = useStore((s) => s.paletteOverrides[d.id])
+  const view = applyPalette(d, override)
+  const accent = view.accent
   const onAccent = onColor(accent)
 
   return (
@@ -63,13 +76,16 @@ export function Preview({ ids }: { ids: string[] }) {
             {d.category}
           </span>
           <div className="preview-tabs">
-            {(['live', 'components', 'code', 'details'] as PreviewTab[]).map((t) => (
+            {(['live', 'components', 'colors', 'code', 'details'] as PreviewTab[]).map((t) => (
               <button
                 key={t}
                 className={`tab-btn ${previewTab === t ? 'active' : ''}`}
                 onClick={() => setPreviewTab(t)}
               >
-                {t === 'live' ? 'Live preview' : t === 'components' ? 'Components' : t === 'code' ? 'Code' : 'Details'}
+                {TAB_LABEL[t]}
+                {t === 'colors' && override && Object.keys(override).length > 0 && (
+                  <span className="tab-dot" aria-label="custom palette active" />
+                )}
               </button>
             ))}
           </div>
@@ -118,7 +134,7 @@ export function Preview({ ids }: { ids: string[] }) {
             <div className={`device-frame ${device}`} style={{ maxWidth: DEVICE_WIDTH[device] }}>
               <div className="preview-live">
                 <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: '#777' }}>Loading preview…</div>}>
-                  <MiniSite d={d} layoutOverride={previewLayout} />
+                  <MiniSite d={view} layoutOverride={previewLayout} />
                 </Suspense>
               </div>
             </div>
@@ -127,11 +143,16 @@ export function Preview({ ids }: { ids: string[] }) {
 
         {previewTab === 'components' && (
           <div className="preview-components">
-            <ComponentKit d={d} />
+            <ComponentKit d={view} />
           </div>
         )}
-        {previewTab === 'code' && <CodeView d={d} />}
-        {previewTab === 'details' && <DetailsView d={d} />}
+        {previewTab === 'colors' && (
+          <div className="preview-colors">
+            <PaletteStudio d={d} />
+          </div>
+        )}
+        {previewTab === 'code' && <CodeView d={view} />}
+        {previewTab === 'details' && <DetailsView d={view} />}
       </div>
     </div>
   )

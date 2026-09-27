@@ -7,6 +7,7 @@ import {
   type PatternFamily,
   type PtBlock,
 } from './patterns'
+import { buildPatternGuide } from './patternGuide'
 
 /**
  * Renders the pattern library. Every block is a real, self-contained slice of
@@ -960,6 +961,43 @@ function BlockWrapper({ children }: { children: React.ReactElement }) {
   return children
 }
 
+/** Derived build notes — anatomy, states, responsive and a11y for a pattern. */
+function PatternGuidePanel({ p }: { p: PatternDef }) {
+  const g = useMemo(() => buildPatternGuide(p), [p])
+  const Section = ({ title, items }: { title: string; items: React.ReactNode[] }) => (
+    <section className="pg-section">
+      <h3 className="pg-h">{title}</h3>
+      <ul className="pg-list">
+        {items.map((it, i) => (
+          <li key={i}>{it}</li>
+        ))}
+      </ul>
+    </section>
+  )
+  return (
+    <div className="pattern-guide">
+      <p className="pg-lede">{g.handoff}</p>
+      <div className="pg-cols">
+        <Section
+          title={`Anatomy — ${g.anatomy.length} sections, top to bottom`}
+          items={g.anatomy.map((a, i) => (
+            <span key={i} className="pg-anatomy">
+              <span className="pg-step">{String(i + 1).padStart(2, '0')}</span>
+              <span>
+                <b>{a.label}</b> — {a.note}
+              </span>
+            </span>
+          ))}
+        />
+        <Section title="When to use it" items={g.whenToUse} />
+        <Section title="States to design" items={g.states} />
+        <Section title="Responsive behaviour" items={g.responsive} />
+        <Section title="Accessibility checklist" items={g.a11y} />
+      </div>
+    </div>
+  )
+}
+
 /* ================= board ================= */
 
 const FAMILY_ACCENT: Record<PatternFamily, string> = {
@@ -975,6 +1013,7 @@ const FAMILY_ACCENT: Record<PatternFamily, string> = {
 
 export function PatternBoard({ search, family }: { search: string; family: PatternFamily | null }) {
   const [openId, setOpenId] = useState<string | null>(null)
+  const [modalTab, setModalTab] = useState<'preview' | 'guide'>('preview')
   const [limit, setLimit] = useState(24)
   const sentinel = useRef<HTMLDivElement>(null)
 
@@ -1003,6 +1042,10 @@ export function PatternBoard({ search, family }: { search: string; family: Patte
   }, [list.length])
 
   const open = openId ? PATTERNS.find((p) => p.id === openId) : undefined
+
+  useEffect(() => {
+    setModalTab('preview')
+  }, [openId])
 
   useEffect(() => {
     if (!open) return
@@ -1076,13 +1119,35 @@ export function PatternBoard({ search, family }: { search: string; family: Patte
               </span>
               <h2>{open.name}</h2>
               <span className="pattern-modal-blurb">{open.blurb}</span>
+              <div className="pattern-modal-tabs" role="tablist">
+                <button
+                  role="tab"
+                  aria-selected={modalTab === 'preview'}
+                  className={`pattern-modal-tab ${modalTab === 'preview' ? 'on' : ''}`}
+                  onClick={() => setModalTab('preview')}
+                >
+                  Preview
+                </button>
+                <button
+                  role="tab"
+                  aria-selected={modalTab === 'guide'}
+                  className={`pattern-modal-tab ${modalTab === 'guide' ? 'on' : ''}`}
+                  onClick={() => setModalTab('guide')}
+                >
+                  Build guide
+                </button>
+              </div>
               <button className="nav-btn" onClick={() => setOpenId(null)} aria-label="Close pattern (Esc)">✕</button>
             </header>
-            <div className="pattern-modal-stage">
-              <div className="pattern-modal-frame">
-                <PatternView p={open} />
+            {modalTab === 'preview' ? (
+              <div className="pattern-modal-stage">
+                <div className="pattern-modal-frame">
+                  <PatternView p={open} />
+                </div>
               </div>
-            </div>
+            ) : (
+              <PatternGuidePanel p={open} />
+            )}
             <footer className="pattern-modal-foot">
               <span>Blocks: {open.blocks.map((b) => b.k).join(' · ')}</span>
               <span>Tags: {open.tags.join(', ')}</span>

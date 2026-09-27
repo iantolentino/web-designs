@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import type { DesignSystem, Layout } from '../types'
 import { LAYOUT_LABEL } from '../types'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
-import { getBlockSet, getDashExtra, LAYOUT_SETS, type BlockId, type DashExtra } from '../designs/extras'
+import { getBlockSet, getDashExtra, layoutSetFor, primaryLayout, type BlockId, type DashExtra } from '../designs/extras'
 import { ComponentKit } from './ComponentKit'
 
 /**
@@ -44,7 +44,7 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
     '--dv-r': radiusBtn,
   } as React.CSSProperties
 
-  const activeLayout = layoutOverride ?? d.layout
+  const activeLayout = layoutOverride ?? primaryLayout(d)
 
   return (
     <div className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} ${compact ? 'dv-compact' : ''}`} style={cssVars}>
@@ -63,7 +63,7 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
         {!compact && (
           <div className="dv-layout-bar" role="group" aria-label={`${d.name} layout arrangements`}>
             <span className="dv-layout-bar-label">Arrangement</span>
-            {(LAYOUT_SETS[d.id] ?? [d.layout]).map((l) => (
+            {layoutSetFor(d).map((l) => (
               <button
                 key={l}
                 className={`dv-layout-opt ${l === activeLayout ? 'dv-layout-opt-on' : ''}`}
@@ -251,6 +251,9 @@ function renderLayout(
     case 'full-bleed': return <FullBleedBody d={d} />
     case 'spotlight': return <SpotlightBody d={d} />
     case 'manifesto': return <ManifestoBody d={d} />
+    case 'bento': return <BentoBody d={d} />
+    case 'poster': return <PosterBody d={d} />
+    case 'catalog': return <CatalogBody d={d} />
     case 'hero-cards':
     default: return <HeroCards d={d} />
   }
@@ -619,6 +622,144 @@ function ManifestoBody({ d }: { d: DesignSystem }) {
         ))}
       </section>
     </>
+  )
+}
+
+/* ===== Wave-2b layout bodies: structurally distinct openers ===== */
+
+function BentoBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  return (
+    <>
+      <section className="dv-bento">
+        <header className="dv-bento-head">
+          <p className="dv-kicker">{d.category} · bento arrangement</p>
+          <h1>{heroTitle(d)}</h1>
+          <p className="dv-sub dv-align-left">{d.description}</p>
+          <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Start free</button>
+            <button className="dv-btn dv-btn-secondary">See plans</button>
+          </div>
+        </header>
+        <div className="dv-bento-grid">
+          <div className="dv-bento-tile dv-bento-tile-lg" style={{ background: `linear-gradient(150deg, ${t.primary}, ${t.secondary})` }}>
+            <span className="dv-bento-cap" style={{ color: onColor(t.primary) }}>Live in four minutes</span>
+          </div>
+          <div className="dv-bento-tile dv-bento-tile-stat" style={{ background: withAlpha(t.primary, 0.1) }}>
+            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>98%</strong>
+            <span>ship faster with {d.name}</span>
+          </div>
+          <div className="dv-bento-tile">
+            <span className="dv-card-icon" aria-hidden>◆</span>
+            <h3>Tokens first</h3>
+            <p>Everything derives from six named colors.</p>
+          </div>
+          <div className="dv-bento-tile">
+            <span className="dv-card-icon" aria-hidden>◇</span>
+            <h3>States included</h3>
+            <p>Hover, focus, empty, and error, all drawn.</p>
+          </div>
+          <div className="dv-bento-tile dv-bento-tile-wide" style={{ borderColor: withAlpha(t.text, 0.16) }}>
+            <span className="dv-badge" style={{ background: withAlpha(t.accent, 0.16), color: t.accent }}>Accent</span>
+            <h3>One accent, placed with intent</h3>
+            <p>{d.designPhilosophy.split('.')[0]}.</p>
+          </div>
+        </div>
+      </section>
+      <section className="dv-stats-band">
+        <div className="dv-stat"><strong>12k+</strong><span>teams on board</span></div>
+        <div className="dv-stat"><strong>4.9★</strong><span>average rating</span></div>
+        <div className="dv-stat"><strong>6</strong><span>tokens to learn</span></div>
+      </section>
+    </>
+  )
+}
+
+function PosterBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  const meta: [string, string][] = [
+    ['Type', d.typography.displayFont],
+    ['Ink', d.colors.primary],
+    ['Layout', d.layout],
+  ]
+  return (
+    <>
+      <section className="dv-poster">
+        <p className="dv-kicker">{d.category} · poster arrangement</p>
+        <h1 className="dv-poster-title">{heroTitle(d)}</h1>
+        <div className="dv-poster-meta">
+          {meta.map(([k, v]) => (
+            <div key={k}>
+              <span className="dv-label">{k}</span>
+              <span>{v}</span>
+            </div>
+          ))}
+        </div>
+        <button className="dv-btn dv-btn-primary dv-poster-cta" style={btnStyle(t)}>Hang it up</button>
+      </section>
+      <section className="dv-poster-list">
+        {features(d).map((f, i) => (
+          <article key={i} className="dv-poster-row" style={{ borderColor: withAlpha(t.text, 0.14) }}>
+            <span className="dv-poster-num" style={{ color: t.primary, fontFamily: `'${t.display}', sans-serif` }}>
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </div>
+          </article>
+        ))}
+      </section>
+    </>
+  )
+}
+
+function CatalogBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  const items = ['Series 01', 'Series 02', 'Series 03', 'Series 04', 'Series 05', 'Series 06']
+  return (
+    <section className="dv-catalog">
+      <aside className="dv-catalog-rail">
+        <span className="dv-label">Collection</span>
+        {['All', 'New in', 'Archive', 'Collab'].map((x, i) => (
+          <span key={x} className={`dv-catalog-filter ${i === 0 ? 'dv-catalog-on' : ''}`} style={i === 0 ? { color: t.primary, borderColor: t.primary } : undefined}>
+            {x}
+          </span>
+        ))}
+        <span className="dv-label" style={{ marginTop: 14 }}>Price</span>
+        {['Under $50', '$50–150', '$150+'].map((x) => (
+          <span key={x} className="dv-catalog-filter">{x}</span>
+        ))}
+      </aside>
+      <div className="dv-catalog-main">
+        <div className="dv-catalog-bar">
+          <span className="dv-label">{items.length} items</span>
+          <span className="dv-badge" style={{ background: withAlpha(t.text, 0.08), color: t.muted }}>Sort: newest</span>
+        </div>
+        <div className="dv-catalog-grid">
+          {items.map((name, i) => (
+            <article key={name} className="dv-card dv-catalog-item">
+              <div
+                className="dv-media dv-catalog-media"
+                style={{ background: i % 2 ? `linear-gradient(150deg, ${t.secondary}, ${t.primary})` : withAlpha(t.primary, 0.16) }}
+              />
+              <div className="dv-catalog-item-row">
+                <h3>{name}</h3>
+                <span className="dv-label">${40 + i * 17}</span>
+              </div>
+              <span className="dv-badge" style={{ background: withAlpha(i === 0 ? t.accent : t.text, 0.16), color: i === 0 ? t.accent : t.muted }}>
+                {i === 0 ? 'New' : i % 3 === 1 ? 'Low stock' : 'In stock'}
+              </span>
+            </article>
+          ))}
+        </div>
+        <div className="dv-catalog-pager">
+          <button className="dv-btn dv-btn-secondary">‹ Prev</button>
+          <span className="dv-label">Page 1 of 6</span>
+          <button className="dv-btn dv-btn-secondary">Next ›</button>
+        </div>
+      </div>
+    </section>
   )
 }
 

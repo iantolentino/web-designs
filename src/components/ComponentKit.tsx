@@ -9,7 +9,7 @@ import { themeOf, withAlpha, type Theme } from '../designs/theme'
  * design's own tokens (colors, type pairing, radius, border weight, motion).
  * That is what makes a design system a system: one kit, many identities.
  *
- * The kit is the answer to "20+ components for every design" — it ships 70
+ * The kit is the answer to "20+ components for every design" — it ships 78
  * distinct, interactive components grouped in six families, and each design
  * re-skins every one of them by changing nothing but its token block.
  */
@@ -1971,6 +1971,274 @@ function DiffReview() {
   )
 }
 
+/* ======================= Wave 8 — round out the kit ======================= */
+
+/** Primary action with async idle → loading → done feedback. */
+function LoadingButton() {
+  const { t, r } = useKit()
+  const [state, setState] = useState<'idle' | 'loading' | 'done'>('idle')
+  const run = () => {
+    if (state === 'loading') return
+    setState('loading')
+    window.setTimeout(() => setState('done'), 1100)
+    window.setTimeout(() => setState('idle'), 2400)
+  }
+  return (
+    <div className="kit-stack">
+      <button
+        className="kit-btn"
+        style={{ background: t.primary, color: t.bg, borderRadius: r.ctl, opacity: state === 'loading' ? 0.85 : 1, cursor: state === 'loading' ? 'progress' : 'pointer' }}
+        onClick={run}
+        disabled={state === 'loading'}
+      >
+        {state === 'loading' ? (
+          <span className="kit-row kit-row-tight" style={{ justifyContent: 'center' }}>
+            <span className="kit-spin" style={{ borderColor: withAlpha(t.bg, 0.35), borderTopColor: t.bg }} /> Saving…
+          </span>
+        ) : state === 'done' ? '✓ Saved' : 'Save changes'}
+      </button>
+      <span className="kit-help">{state === 'done' ? 'Synced just now.' : 'Guards against a double submit while in flight.'}</span>
+    </div>
+  )
+}
+
+/** Read-only value with one-tap copy and confirmation. */
+function CopyField() {
+  const { t, r } = useKit()
+  const [copied, setCopied] = useState(false)
+  return (
+    <div className="kit-stack">
+      <span className="kit-label">Webhook signing secret</span>
+      <div className="kit-row kit-row-tight">
+        <span
+          className="kit-input"
+          style={{
+            borderRadius: r.ctl, borderColor: line(t), background: t.bg, color: t.muted,
+            flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+          }}
+        >
+          whsec_9f2c7a41d0e8
+        </span>
+        <button
+          className="kit-btn kit-btn-sm"
+          style={{ background: copied ? withAlpha(t.primary, 0.15) : t.primary, color: copied ? t.primary : t.bg, borderRadius: r.ctl }}
+          onClick={() => { setCopied(true); window.setTimeout(() => setCopied(false), 1500) }}
+        >
+          {copied ? '✓ Copied' : 'Copy'}
+        </button>
+      </div>
+      <span className="kit-help">Rotating the secret invalidates the old one immediately.</span>
+    </div>
+  )
+}
+
+/** Password field with a live strength meter and requirement list. */
+function PasswordStrength() {
+  const { t, r } = useKit()
+  const id = useId()
+  const [v, setV] = useState('Hunter2!')
+  const reqs = [
+    { label: '8+ characters', ok: v.length >= 8 },
+    { label: 'a number', ok: /\d/.test(v) },
+    { label: 'uppercase', ok: /[A-Z]/.test(v) },
+    { label: 'a symbol', ok: /[^A-Za-z0-9]/.test(v) },
+  ]
+  const score = reqs.filter((x) => x.ok).length
+  const tone = score <= 1 ? '#c0392b' : score === 2 ? '#c77d00' : score === 3 ? '#2f855a' : '#1a9a5c'
+  return (
+    <div className="kit-stack">
+      <label className="kit-label" htmlFor={id}>Password</label>
+      <input
+        id={id}
+        className="kit-input"
+        style={{ borderRadius: r.ctl, borderColor: line(t), background: t.bg, color: t.text }}
+        value={v}
+        onChange={(e) => setV(e.target.value)}
+      />
+      <div className="kit-bar" style={{ background: soft(t, 0.12), borderRadius: r.ctl }}>
+        <div className="kit-bar-fill" style={{ width: `${(score / reqs.length) * 100}%`, background: tone, borderRadius: r.ctl }} />
+      </div>
+      <div className="kit-row kit-row-tight" style={{ flexWrap: 'wrap', gap: 8 }}>
+        {reqs.map((x) => (
+          <span key={x.label} className="kit-help" style={{ color: x.ok ? t.text : t.muted, opacity: x.ok ? 1 : 0.7 }}>
+            {x.ok ? '✓' : '○'} {x.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** Combobox holding several selections as chips. */
+function MultiSelect() {
+  const { t, r } = useKit()
+  const options = ['Product', 'Marketing', 'Engineering', 'Support']
+  const [sel, setSel] = useState<string[]>(['Product', 'Engineering'])
+  const [open, setOpen] = useState(false)
+  const toggle = (o: string) => setSel((s) => (s.includes(o) ? s.filter((x) => x !== o) : [...s, o]))
+  return (
+    <div className="kit-stack">
+      <span className="kit-label">Teams with access</span>
+      <div
+        className="kit-chipbox"
+        style={{ borderColor: line(t), borderRadius: r.ctl, background: t.bg, cursor: 'pointer' }}
+        onClick={() => setOpen((o) => !o)}
+        role="button"
+        aria-expanded={open}
+      >
+        {sel.map((s) => (
+          <span key={s} className="kit-chip" style={{ background: withAlpha(t.primary, 0.12), color: t.primary, borderRadius: r.pill }}>
+            {s}
+            <button className="kit-chip-x" aria-label={`Remove ${s}`} onClick={(e) => { e.stopPropagation(); toggle(s) }}>×</button>
+          </span>
+        ))}
+        <span className="kit-help" style={{ marginLeft: 'auto' }}>{open ? '▲' : '▾'}</span>
+      </div>
+      {open && (
+        <div className="kit-menu" style={{ borderColor: line(t), borderRadius: r.card, background: t.bg }}>
+          {options.map((o) => (
+            <button key={o} className="kit-menu-item" style={{ color: t.text }} onClick={() => toggle(o)}>
+              <span style={{ width: 14, display: 'inline-block', color: t.primary }}>{sel.includes(o) ? '✓' : ''}</span>
+              {o}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/** Billing-period switch that recomputes the price in place. */
+function PricingToggle() {
+  const { t, r } = useKit()
+  const [annual, setAnnual] = useState(true)
+  return (
+    <div className="kit-stack">
+      <div className="kit-segmented" style={{ borderColor: line(t), borderRadius: r.ctl, background: soft(t, 0.06) }}>
+        {(['Monthly', 'Annual'] as const).map((label, i) => {
+          const on = (i === 1) === annual
+          return (
+            <button
+              key={label}
+              className="kit-seg"
+              style={on ? { background: t.primary, color: t.bg, borderRadius: r.ctl } : { color: t.muted }}
+              onClick={() => setAnnual(i === 1)}
+            >
+              {label}
+            </button>
+          )
+        })}
+      </div>
+      <div className="kit-card" style={{ borderColor: t.primary, borderRadius: r.card, background: t.bg, textAlign: 'center', padding: 14 }}>
+        <strong style={{ fontSize: 26, fontFamily: `'${t.display}', sans-serif` }}>
+          ${annual ? 18 : 24}<span className="kit-help">/mo</span>
+        </strong>
+        <span className="kit-help" style={{ display: 'block' }}>{annual ? 'Billed yearly · save 25%' : 'Billed monthly'}</span>
+      </div>
+    </div>
+  )
+}
+
+/** Order / delivery progress with completed, current, and upcoming steps. */
+function OrderTracker() {
+  const { t, r } = useKit()
+  const steps = [
+    { label: 'Ordered', at: 'Sep 21' },
+    { label: 'Packed', at: 'Sep 22' },
+    { label: 'Shipped', at: 'Sep 24' },
+    { label: 'Delivered', at: 'Est. Sep 27' },
+  ]
+  const active = 2
+  return (
+    <div className="kit-stack">
+      <div className="kit-between">
+        <span className="kit-label">Order #4471</span>
+        <span className="kit-help">{steps[active].label} · {steps[active].at}</span>
+      </div>
+      <div className="kit-row" style={{ alignItems: 'flex-start' }}>
+        {steps.map((s, i) => (
+          <div key={s.label} className="kit-stack kit-stack-tight" style={{ flex: 1, alignItems: 'center', textAlign: 'center' }}>
+            <span
+              style={{
+                width: 26, height: 26, borderRadius: r.pill, display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 700,
+                background: i <= active ? t.primary : soft(t, 0.12),
+                color: i <= active ? t.bg : t.muted,
+              }}
+            >
+              {i < active ? '✓' : i + 1}
+            </span>
+            <span className="kit-help" style={{ color: i <= active ? t.text : t.muted }}>{s.label}</span>
+            <span className="kit-help">{s.at}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** Comment box with author avatar, attachment affordances, and submit guard. */
+function CommentComposer() {
+  const { t, r } = useKit()
+  const [v, setV] = useState('')
+  return (
+    <div className="kit-card" style={{ borderColor: line(t, 0.14), borderRadius: r.card, background: t.bg }}>
+      <div className="kit-row" style={{ alignItems: 'flex-start' }}>
+        <span className="kit-avatar" style={{ background: withAlpha(t.primary, 0.18), color: t.primary }}>AD</span>
+        <div className="kit-stack kit-stack-tight" style={{ flex: 1 }}>
+          <textarea
+            className="kit-textarea"
+            placeholder="Add a comment…"
+            value={v}
+            onChange={(e) => setV(e.target.value)}
+            style={{ borderColor: line(t), borderRadius: r.ctl, background: t.bg, color: t.text }}
+            rows={2}
+          />
+          <div className="kit-between">
+            <span className="kit-row kit-row-tight">
+              {['@', '☺', '📎'].map((x) => (
+                <button key={x} className="kit-text-btn" style={{ color: t.muted }} aria-label={`Insert ${x}`}>{x}</button>
+              ))}
+            </span>
+            <button
+              className="kit-btn kit-btn-sm"
+              style={{ background: v ? t.primary : soft(t, 0.2), color: v ? t.bg : t.muted, borderRadius: r.ctl }}
+              disabled={!v}
+            >
+              Comment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/** Profile-photo control with upload, preview, and remove states. */
+function AvatarUpload() {
+  const { t, r } = useKit()
+  const [has, setHas] = useState(false)
+  return (
+    <div className="kit-row">
+      <span
+        className="kit-avatar kit-avatar-lg"
+        style={{ background: has ? withAlpha(t.primary, 0.2) : soft(t, 0.12), color: has ? t.primary : t.muted }}
+      >
+        {has ? 'AD' : '＋'}
+      </span>
+      <div className="kit-stack kit-stack-tight">
+        <span className="kit-label">Profile photo</span>
+        <div className="kit-row kit-row-tight">
+          <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.bg, borderRadius: r.ctl }} onClick={() => setHas(true)}>
+            Upload
+          </button>
+          <button className="kit-text-btn" style={{ color: t.muted }} onClick={() => setHas(false)}>Remove</button>
+        </div>
+        <span className="kit-help">PNG or JPG, at least 400×400.</span>
+      </div>
+    </div>
+  )
+}
+
 /* ======================= REGISTRY ======================= */
 
 export type KitGroupId = 'actions' | 'selection' | 'feedback' | 'data' | 'nav' | 'overlays'
@@ -2307,6 +2575,14 @@ export const KIT_ITEMS: KitItem[] = [
   { id: 'survey-question', name: 'Survey question', group: 'selection', Comp: SurveyQuestion },
   { id: 'otp-input', name: 'Two-factor code', group: 'actions', Comp: OtpInput },
   { id: 'onboarding-checklist', name: 'Onboarding checklist', group: 'feedback', Comp: OnboardingChecklist },
+  { id: 'loading-button', name: 'Async loading button', group: 'actions', Comp: LoadingButton },
+  { id: 'copy-field', name: 'Copyable secret field', group: 'actions', Comp: CopyField },
+  { id: 'password-strength', name: 'Password strength meter', group: 'actions', Comp: PasswordStrength },
+  { id: 'multi-select', name: 'Multi-select combobox', group: 'selection', Comp: MultiSelect },
+  { id: 'pricing-toggle', name: 'Billing period toggle', group: 'selection', Comp: PricingToggle },
+  { id: 'order-tracker', name: 'Order progress tracker', group: 'feedback', Comp: OrderTracker },
+  { id: 'comment-composer', name: 'Comment composer', group: 'overlays', Comp: CommentComposer },
+  { id: 'avatar-upload', name: 'Avatar upload', group: 'overlays', Comp: AvatarUpload },
 ]
 
 /** How many components every design ships with. */
