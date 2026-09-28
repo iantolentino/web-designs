@@ -1,18 +1,24 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { useStore, type QuickFilter } from './store'
 import { DESIGN_SYSTEMS } from './designs'
 import { sortSystems } from './designs/theme'
 import { matchesUseCase, useCasesOf } from './designs/usecases'
 import { USE_CASE_ICON, type UseCase } from './types'
 import { Gallery } from './components/Gallery'
-import { Preview } from './components/Preview'
 import { Sidebar } from './components/Sidebar'
-import { KitExplorer } from './components/KitExplorer'
-import { KIT_SIZE } from './components/ComponentKit'
-import { PatternBoard } from './patterns/PatternView'
-import { PATTERNS, PATTERN_FAMILIES } from './patterns/patterns'
-import type { PatternFamily } from './patterns/patterns'
+import { PATTERN_COUNT, KIT_COUNT, PATTERN_FAMILIES, type PatternFamily } from './meta'
 import { useToast, useUrlSync, useKeyboardShortcuts } from './hooks'
+
+// Each of these is a full surface (or a ~110 kB component library) that the
+// gallery-first landing page has no use for — split them out of the initial
+// bundle and fetch only when the user actually opens them.
+const Preview = lazy(() => import('./components/Preview').then((m) => ({ default: m.Preview })))
+const PatternBoard = lazy(() => import('./patterns/PatternView').then((m) => ({ default: m.PatternBoard })))
+const KitExplorer = lazy(() => import('./components/KitExplorer').then((m) => ({ default: m.KitExplorer })))
+
+const ViewFallback = ({ label }: { label: string }) => (
+  <div style={{ padding: 60, textAlign: 'center', color: '#777' }}>Loading {label}…</div>
+)
 
 const QUICK_LABEL: Record<QuickFilter, string> = {
   popular: 'Most popular',
@@ -27,11 +33,11 @@ const VIEW_TITLE = {
   },
   patterns: {
     h: 'Pattern library',
-    p: `${PATTERNS.length} production-grade layouts and styles. Each is a unique arrangement of shared, practical UI blocks.`,
+    p: `${PATTERN_COUNT} production-grade layouts and styles. Each is a unique arrangement of shared, practical UI blocks.`,
   },
   components: {
     h: 'Component kit',
-    p: `${KIT_SIZE} interactive components, re-skinned for every design system by nothing but its tokens.`,
+    p: `${KIT_COUNT} interactive components, re-skinned for every design system by nothing but its tokens.`,
   },
 } as const
 
@@ -132,8 +138,7 @@ export default function App() {
             {view === 'patterns' && (
               <>
                 <span className="result-count">
-                  <strong>{PATTERNS.length}</strong> layouts ·{' '}
-                  {new Set(PATTERNS.map((p) => p.family)).size} families
+                  <strong>{PATTERN_COUNT}</strong> layouts · {PATTERN_FAMILIES.length} families
                 </span>
                 {patternFamily && (
                   <span className="meta-chip">
@@ -144,7 +149,7 @@ export default function App() {
             )}
             {view === 'components' && (
               <span className="result-count">
-                <strong>{KIT_SIZE}</strong> components × {DESIGN_SYSTEMS.length} designs
+                <strong>{KIT_COUNT}</strong> components × {DESIGN_SYSTEMS.length} designs
               </span>
             )}
           </div>
@@ -152,9 +157,15 @@ export default function App() {
 
         {view === 'designs' && <Gallery systems={filtered} />}
         {view === 'patterns' && (
-          <PatternBoard search={patternSearch} family={patternFamily as PatternFamily | null} />
+          <Suspense fallback={<ViewFallback label="pattern library" />}>
+            <PatternBoard search={patternSearch} family={patternFamily as PatternFamily | null} />
+          </Suspense>
         )}
-        {view === 'components' && <KitExplorer />}
+        {view === 'components' && (
+          <Suspense fallback={<ViewFallback label="component kit" />}>
+            <KitExplorer />
+          </Suspense>
+        )}
 
         <footer className="app-footer">
           <strong>The Design Vault</strong> — reference real systems, borrow real layouts, copy the prompt, kill
@@ -165,7 +176,11 @@ export default function App() {
         </footer>
       </div>
 
-      {selectedId && <Preview ids={previewIds} />}
+      {selectedId && (
+        <Suspense fallback={<ViewFallback label="preview" />}>
+          <Preview ids={previewIds} />
+        </Suspense>
+      )}
 
       {toast && (
         <div className="toast" role="status" aria-live="polite">

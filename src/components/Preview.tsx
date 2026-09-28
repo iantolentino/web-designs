@@ -9,8 +9,10 @@ import { buildDesignPrompt } from '../prompt'
 import { copyDesignPrompt, copyText } from '../hooks'
 import { useCasesOf } from '../designs/usecases'
 import { applyPalette } from '../designs/palette'
-import { ComponentKit } from './ComponentKit'
-import { PaletteStudio } from './PaletteStudio'
+// Tab-level splits: the default Live tab must not pay for the 110 kB kit or
+// the palette studio — they only matter once the user clicks those tabs.
+const ComponentKit = lazy(() => import('./ComponentKit').then((m) => ({ default: m.ComponentKit })))
+const PaletteStudio = lazy(() => import('./PaletteStudio').then((m) => ({ default: m.PaletteStudio })))
 
 const TAB_LABEL: Record<PreviewTab, string> = {
   live: 'Live preview',
@@ -143,12 +145,16 @@ export function Preview({ ids }: { ids: string[] }) {
 
         {previewTab === 'components' && (
           <div className="preview-components">
-            <ComponentKit d={view} />
+            <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: '#777' }}>Loading component kit…</div>}>
+              <ComponentKit d={view} />
+            </Suspense>
           </div>
         )}
         {previewTab === 'colors' && (
           <div className="preview-colors">
-            <PaletteStudio d={d} />
+            <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: '#777' }}>Loading color studio…</div>}>
+              <PaletteStudio d={d} />
+            </Suspense>
           </div>
         )}
         {previewTab === 'code' && <CodeView d={view} />}

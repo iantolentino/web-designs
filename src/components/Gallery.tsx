@@ -18,18 +18,16 @@ export function DesignCard({ d }: { d: DesignSystem }) {
   const thumbRef = useRef<HTMLDivElement>(null)
   const scaleRef = useRef<HTMLDivElement>(null)
 
+  // Mount the thumbnail when it nears the viewport, unmount it once it has
+  // left again. With 216 designs the gallery can hold every card, but the
+  // full-page MiniSite inside each one is expensive — keeping only the
+  // near-viewport handful mounted bounds both DOM size and scroll cost.
   useEffect(() => {
     const el = thumbRef.current
     if (!el) return
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setVisible(true)
-          io.disconnect()
-        }
-      },
-      { rootMargin: '400px' },
-    )
+    const io = new IntersectionObserver((entries) => setVisible(entries[0].isIntersecting), {
+      rootMargin: '400px',
+    })
     io.observe(el)
     return () => io.disconnect()
   }, [])

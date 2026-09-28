@@ -1,6 +1,13 @@
 import { createContext, useContext, useId, useMemo, useState } from 'react'
+import './kit.css'
 import type { DesignSystem } from '../types'
 import { themeOf, withAlpha, type Theme } from '../designs/theme'
+import { KIT_GROUPS, type KitGroupId } from '../meta'
+
+// Group descriptions live in `src/meta.ts` so the sidebar can render them
+// without importing this module into the initial bundle.
+export { KIT_GROUPS }
+export type { KitGroupId }
 
 /**
  * ComponentKit — the shared production component vocabulary.
@@ -2240,17 +2247,7 @@ function AvatarUpload() {
 }
 
 /* ======================= REGISTRY ======================= */
-
-export type KitGroupId = 'actions' | 'selection' | 'feedback' | 'data' | 'nav' | 'overlays'
-
-export const KIT_GROUPS: { id: KitGroupId; label: string; blurb: string }[] = [
-  { id: 'actions', label: 'Inputs & actions', blurb: 'Buttons, fields, and every entry point a page needs.' },
-  { id: 'selection', label: 'Selection & toggles', blurb: 'Choices, preferences, and rating controls.' },
-  { id: 'feedback', label: 'Feedback & status', blurb: 'Progress, alerts, loading, and empty states.' },
-  { id: 'data', label: 'Data display', blurb: 'Tables, lists, metrics, and code surfaces.' },
-  { id: 'nav', label: 'Navigation', blurb: 'Wayfinding from breadcrumb to command palette.' },
-  { id: 'overlays', label: 'Overlays & media', blurb: 'Modals, sheets, popovers, uploads, and chat.' },
-]
+/* KIT_GROUPS + KitGroupId live in src/meta.ts (kept out of this bundle). */
 
 /* ------------------------------------------------------------------ */
 /* Wave 6 — forms, media, commerce, reading, onboarding, 2FA, survey. */

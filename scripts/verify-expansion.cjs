@@ -31,6 +31,38 @@ const kitIds = kitItems.map((i) => i.match(/id: '([^']+)'/)[1])
 if (new Set(kitIds).size === kitIds.length) ok('kit component ids are unique')
 else flag('kit component ids contain duplicates')
 
+/* ---------- 1b. shell counts (src/meta.ts) stay truthful ---------- */
+
+// meta.ts lets the sidebar/header render counts without pulling the 123 kB
+// pattern library or the 110 kB kit into the initial bundle — so these
+// numbers must be asserted against the registries they summarize.
+const metaSrc = read('src/meta.ts')
+const metaKitCount = Number((metaSrc.match(/KIT_COUNT = (\d+)/) || [])[1])
+if (metaKitCount === kitItems.length)
+  ok(`meta.ts KIT_COUNT (${metaKitCount}) matches the kit registry`)
+else
+  flag(`meta.ts KIT_COUNT = ${metaKitCount} but the kit ships ${kitItems.length} components`)
+
+const metaPatternCount = Number((metaSrc.match(/PATTERN_COUNT = (\d+)/) || [])[1])
+const metaFamilyCounts = Object.fromEntries(
+  [...metaSrc.matchAll(/\b(marketing|commerce|app|content|forms|data|social|system): (\d+)/g)].map((m) => [m[1], Number(m[2])]),
+)
+const metaFamilyTotal = Object.values(metaFamilyCounts).reduce((a, b) => a + b, 0)
+if (metaPatternCount === metaFamilyTotal)
+  ok(`meta.ts PATTERN_COUNT (${metaPatternCount}) equals the sum of its family counts`)
+else
+  flag(`meta.ts PATTERN_COUNT = ${metaPatternCount} but family counts sum to ${metaFamilyTotal}`)
+
+const familiesBlock = metaSrc.slice(
+  metaSrc.indexOf('export const PATTERN_FAMILIES'),
+  metaSrc.indexOf('export const KIT_GROUPS'),
+)
+const metaFamilies = [...familiesBlock.matchAll(/\{ id: '(\w+)', label:/g)].map((m) => m[1])
+if (metaFamilies.length === Object.keys(metaFamilyCounts).length)
+  ok(`meta.ts lists ${metaFamilies.length} pattern families with counts`)
+else
+  flag(`meta.ts has ${metaFamilies.length} families but ${Object.keys(metaFamilyCounts).length} family counts`)
+
 /* ---------- 2. website-type wiring ---------- */
 
 const typesSrc = read('src/types.ts')
@@ -104,6 +136,7 @@ console.log(JSON.stringify({
   stats: useCaseStats(),
   patternCount: PATTERNS.length,
   patternIds: PATTERNS.map((p) => p.id),
+  familyCounts: PATTERNS.reduce((acc, p) => ((acc[p.family] = (acc[p.family] || 0) + 1), acc), {}),
   recipes: PATTERNS.map((p, i) => canvas[i] + ' || ' + p.blocks.map((b) => b.k).join('>')),
   canvases: canvas,
   extras: PATTERNS.map((p) => canvasFor(p).extra ?? ''),
@@ -117,7 +150,18 @@ try {
     { stdio: ['ignore', 'ignore', 'inherit'] },
   )
   const data = JSON.parse(execSync(`node "${bundle}"`, { encoding: 'utf8' }))
-  const { stats, patternCount, patternIds, recipes, canvases, extras, css, designCount } = data
+  const { stats, patternCount, patternIds, recipes, canvases, extras, css, designCount, familyCounts } = data
+
+  if (metaPatternCount === patternCount)
+    ok(`meta.ts PATTERN_COUNT (${metaPatternCount}) matches PATTERNS.length`)
+  else
+    flag(`meta.ts PATTERN_COUNT = ${metaPatternCount} but PATTERNS.length = ${patternCount}`)
+
+  const drifted = Object.keys(metaFamilyCounts).filter((f) => metaFamilyCounts[f] !== (familyCounts[f] ?? 0))
+  if (!drifted.length && Object.keys(familyCounts).length === Object.keys(metaFamilyCounts).length)
+    ok('meta.ts per-family pattern counts match the registry')
+  else
+    flag(`meta.ts family counts drifted: ${drifted.join(', ') || 'missing families'}`)
 
   const empty = stats.filter((s) => s.count === 0)
   if (!empty.length) ok(`every website type filters to designs (smallest bucket: ${Math.min(...stats.map((s) => s.count))})`)

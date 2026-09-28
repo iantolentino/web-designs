@@ -274,6 +274,23 @@ export const LAYOUT_SETS: Record<string, Layout[]> = {
   'bakery-window': ['catalog', 'centered', 'hero-cards'],
   'espionage-console': ['bento', 'dashboard', 'manifesto'],
   'marble-atelier': ['poster', 'editorial', 'spotlight'],
+  /* — wave 9 (new aesthetics) — */
+  'constructivist': ['poster', 'manifesto', 'full-bleed'],
+  'pop-print': ['bento', 'hero-cards', 'catalog'],
+  'zellige-palace': ['spotlight', 'centered', 'split-hero'],
+  'murano-glass': ['split-hero', 'spotlight', 'asymmetric'],
+  'mirrorball': ['full-bleed', 'spotlight', 'poster'],
+  'fm-dial': ['catalog', 'hero-cards', 'dashboard'],
+  'woodblock-wave': ['editorial', 'magazine', 'centered'],
+  'apothecary-counter': ['catalog', 'editorial', 'hero-cards'],
+  'apiary': ['hero-cards', 'bento', 'centered'],
+  'big-top': ['magazine', 'poster', 'hero-cards'],
+  'auction-house': ['spotlight', 'editorial', 'magazine'],
+  'flight-deck': ['dashboard', 'bento', 'split-hero'],
+  'bioluminescent-reef': ['full-bleed', 'spotlight', 'centered'],
+  'philatelic-album': ['magazine', 'catalog', 'asymmetric'],
+  'tapestry-weave': ['magazine', 'editorial', 'split-hero'],
+  'outsider-art': ['asymmetric', 'manifesto', 'hero-cards'],
 }
 
 /**

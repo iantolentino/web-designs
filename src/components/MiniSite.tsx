@@ -1,9 +1,11 @@
-import { useMemo, useState } from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import type { DesignSystem, Layout } from '../types'
 import { LAYOUT_LABEL } from '../types'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
 import { getBlockSet, getDashExtra, layoutSetFor, primaryLayout, type BlockId, type DashExtra } from '../designs/extras'
-import { ComponentKit } from './ComponentKit'
+// The kit is only used by the full-page render (never by thumbnails), so it
+// must not ride along in this chunk — every gallery thumbnail loads MiniSite.
+const ComponentKit = lazy(() => import('./ComponentKit').then((m) => ({ default: m.ComponentKit })))
 
 /**
  * MiniSite renders a complete sample page — themed entirely from a DesignSystem.
@@ -86,7 +88,11 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
          * design's tokens. Thumbnails skip it (compact) so 100 cards stay
          * cheap to render; the live preview and Components tab show it.
          */}
-        {!compact && <ComponentKit d={d} />}
+        {!compact && (
+          <Suspense fallback={<div style={{ padding: 24, color: '#777', fontSize: 13 }}>Loading component kit…</div>}>
+            <ComponentKit d={d} />
+          </Suspense>
+        )}
 
         {!compact && (
           <section className="dv-section dv-blocks-section">
@@ -1212,6 +1218,22 @@ function heroTitle(d: DesignSystem): React.ReactNode {
     case 'bakery-window': return <>Baked <em>this morning,</em> gone by noon.</>
     case 'espionage-console': return <>Two attempts, <em>one origin.</em></>
     case 'marble-atelier': return <>Stone, light, and <em>proportion.</em></>
+    case 'constructivist': return <>Act, do not <em>decorate.</em></>
+    case 'pop-print': return <>Great items at <em>loud</em> prices.</>
+    case 'zellige-palace': return <>Eight points, <em>one room.</em></>
+    case 'murano-glass': return <>Colour, <em>caught mid-air.</em></>
+    case 'mirrorball': return <>Start the <em>weekend</em> early.</>
+    case 'fm-dial': return <>Find your <em>station.</em></>
+    case 'woodblock-wave': return <>Ink, paper, and one <em>clean pull.</em></>
+    case 'apothecary-counter': return <>For the <em>long winter.</em></>
+    case 'apiary': return <>Twelve hives, <em>one meadow.</em></>
+    case 'big-top': return <>Three rings, <em>no rules.</em></>
+    case 'auction-house': return <>A pair of <em>marmalade</em> urns.</>
+    case 'flight-deck': return <>On time, <em>every time.</em></>
+    case 'bioluminescent-reef': return <>Turn off the lights, <em>and look.</em></>
+    case 'philatelic-album': return <>Three pence, <em>imperforate.</em></>
+    case 'tapestry-weave': return <>Two threads, one <em>long pattern.</em></>
+    case 'outsider-art': return <>Not <em>finished,</em> just honest.</>
     case 'studio-copperplate': return <>Stations, <em>not sections.</em></>
     case 'parcel-and-key': return <>Listings with a <em>surveyor’s patience.</em></>
     case 'deadline-gazette': return <>Filed at <em>midnight.</em></>

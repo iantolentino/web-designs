@@ -434,6 +434,35 @@
 }
 .dv-m-tape-labels .dv-badge { transform: rotate(-1deg); }
 
+/* Diagonal bars: constructivist bands running behind the hero */
+.dv-m-diagonal-bars .dv-hero { position: relative; overflow: hidden; }
+.dv-m-diagonal-bars .dv-hero::before {
+  content: '';
+  position: absolute;
+  inset: -30% -12%;
+  pointer-events: none;
+  background: repeating-linear-gradient(112deg, color-mix(in srgb, var(--dv-primary) 22%, transparent) 0 16px, transparent 16px 74px);
+}
+.dv-m-diagonal-bars .dv-hero > * { position: relative; }
+.dv-m-diagonal-bars .dv-kicker {
+  display: inline-block;
+  transform: skewX(-8deg);
+  padding: 0.2em 0.6em;
+  background: var(--dv-primary);
+  color: var(--dv-on-primary);
+}
+
+/* Halftone dots: a print-screen colour field behind the hero */
+.dv-m-halftone-dots .dv-hero {
+  background-image: radial-gradient(color-mix(in srgb, var(--dv-primary) 34%, transparent) 3px, transparent 3px);
+  background-size: 16px 16px;
+}
+.dv-m-halftone-dots .dv-card {
+  border-width: 3px;
+  border-color: color-mix(in srgb, var(--dv-text) 88%, transparent);
+}
+.dv-m-halftone-dots .dv-card:hover { box-shadow: 5px 5px 0 color-mix(in srgb, var(--dv-text) 88%, transparent); }
+
 /* Per-design signature overrides land after these rules because
    signatureCss is injected inside the MiniSite container. */
 

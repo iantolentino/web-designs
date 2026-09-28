@@ -4,8 +4,13 @@ import { DESIGN_SYSTEMS } from '../designs'
 import { CATEGORY_ORDER, categoryAccent } from '../designs/theme'
 import { useCaseStats } from '../designs/usecases'
 import { USE_CASE_GROUPS, USE_CASE_ICON, type Category, type UseCase } from '../types'
-import { PATTERNS, PATTERN_FAMILIES } from '../patterns/patterns'
-import { KIT_GROUPS, KIT_SIZE } from './ComponentKit'
+import {
+  PATTERN_COUNT,
+  PATTERN_FAMILIES,
+  PATTERN_FAMILY_COUNTS,
+  KIT_COUNT,
+  KIT_GROUPS,
+} from '../meta'
 
 const QUICK_FILTERS: { key: QuickFilter; label: string }[] = [
   { key: 'popular', label: 'Most popular' },
@@ -15,8 +20,8 @@ const QUICK_FILTERS: { key: QuickFilter; label: string }[] = [
 
 const VIEWS: { id: View; label: string; icon: string; blurb: string }[] = [
   { id: 'designs', label: 'Design systems', icon: '◈', blurb: `${DESIGN_SYSTEMS.length} complete systems` },
-  { id: 'patterns', label: 'Pattern library', icon: '▤', blurb: `${PATTERNS.length} production layouts` },
-  { id: 'components', label: 'Component kit', icon: '⬡', blurb: `${KIT_SIZE} components per design` },
+  { id: 'patterns', label: 'Pattern library', icon: '▤', blurb: `${PATTERN_COUNT} production layouts` },
+  { id: 'components', label: 'Component kit', icon: '⬡', blurb: `${KIT_COUNT} components per design` },
 ]
 
 export function Sidebar({
@@ -67,7 +72,7 @@ export function Sidebar({
 
   const patternCounts = useMemo(() => {
     const m = new Map<string, number>()
-    for (const p of PATTERNS) m.set(p.family, (m.get(p.family) ?? 0) + 1)
+    for (const [family, n] of Object.entries(PATTERN_FAMILY_COUNTS)) m.set(family, n)
     return m
   }, [])
 
@@ -110,8 +115,8 @@ export function Sidebar({
     view === 'designs'
       ? 'Search systems, tags, philosophy…'
       : view === 'patterns'
-        ? `Search ${PATTERNS.length} layouts…`
-        : `Search ${KIT_SIZE} components…`
+        ? `Search ${PATTERN_COUNT} layouts…`
+        : `Search ${KIT_COUNT} components…`
 
   return (
     <>
@@ -134,7 +139,7 @@ export function Sidebar({
           </button>
         </div>
         <p className="sidebar-tag">
-          {DESIGN_SYSTEMS.length} design systems · {PATTERNS.length} patterns · zero AI slop
+          {DESIGN_SYSTEMS.length} design systems · {PATTERN_COUNT} patterns · zero AI slop
         </p>
 
         <label className="sidebar-search">

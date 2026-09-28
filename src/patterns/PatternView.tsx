@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import './patterns.css'
 import {
   PATTERNS,
   PATTERN_FAMILIES,

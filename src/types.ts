@@ -35,6 +35,8 @@ export type Motif =
   | 'scanlines'
   | 'duotone-media'
   | 'tape-labels'
+  | 'diagonal-bars'
+  | 'halftone-dots'
 
 export type DeviceMode = 'desktop' | 'tablet' | 'mobile'
 export type PreviewTab = 'live' | 'components' | 'colors' | 'code' | 'details'

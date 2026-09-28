@@ -13,8 +13,12 @@
  */
 
 import { canvasFor } from './layouts'
+import { PATTERN_FAMILIES, type PatternFamily } from '../meta'
 
-export type PatternFamily = 'marketing' | 'commerce' | 'app' | 'content' | 'forms' | 'data' | 'social' | 'system'
+// Descriptions and counts live in `src/meta.ts` so the always-on shell can
+// render them without pulling this 123 kB module into the initial bundle.
+export { PATTERN_FAMILIES }
+export type { PatternFamily }
 
 export type PtKind =
   | 'nav'
@@ -102,17 +106,6 @@ export interface PatternDef {
   extra?: string
   blocks: PtBlock[]
 }
-
-export const PATTERN_FAMILIES: { id: PatternFamily; label: string; blurb: string }[] = [
-  { id: 'marketing', label: 'Landing & marketing', blurb: 'Heroes, proof, pricing, and conversion surfaces.' },
-  { id: 'commerce', label: 'Commerce & product', blurb: 'Catalogs, product detail, cart, and checkout flows.' },
-  { id: 'app', label: 'Product & dashboard', blurb: 'Application shells, admin tables, and settings.' },
-  { id: 'content', label: 'Content & editorial', blurb: 'Articles, galleries, media, and long reads.' },
-  { id: 'forms', label: 'Forms & flows', blurb: 'Auth, booking, surveys, and multi-step capture.' },
-  { id: 'data', label: 'Tables & data', blurb: 'Matrices, pipelines, schedules, and reports.' },
-  { id: 'social', label: 'Social & community', blurb: 'Feeds, threads, members, and messaging.' },
-  { id: 'system', label: 'System & utility', blurb: 'Empty, error, loading, and consent screens.' },
-]
 
 const M = 'marketing' as const
 const C = 'commerce' as const

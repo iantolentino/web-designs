@@ -1,7 +1,7 @@
 # The Design Vault
 
-A production-grade design-system showcase: **200 curated, intentionally distinct design
-systems**, a **148-layout pattern library**, and a **70-component kit** — all browsable,
+A production-grade design-system showcase: **216 curated, intentionally distinct design
+systems**, a **153-layout pattern library**, and a **78-component kit** — all browsable,
 previewable live, and copyable as ready-to-use AI design prompts. 
 Built to kill AI design slop — no Inter, no purple-on-white, no generic layouts.
 
@@ -28,17 +28,17 @@ sort, and saved filters live there, so the main column is nothing but content.
 
 | View | What it shows |
 | --- | --- |
-| **Design systems** | 200 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
+| **Design systems** | 216 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
 | **Layout arrangements** | 13 archetypes (incl. Bento, Poster, Catalog); each design offers its own set so previews differ structurally, not just by color. |
-| **Pattern library** | 148 production layouts with live previews, filterable by family and searchable by block. |
-| **Component kit** | The 70-component kit rendered for any design — with a side-by-side compare mode. |
+| **Pattern library** | 153 production layouts with live previews, filterable by family and searchable by block. |
+| **Component kit** | The 78-component kit rendered for any design — with a side-by-side compare mode. |
 
 On narrow screens the sidebar becomes a drawer (hamburger in the top bar, `Esc` to close,
 `/` to open-and-focus search).
 
 ## What's inside
 
-### Design systems (200)
+### Design systems (216)
 
 Every system ships: philosophy, typography (display + body fonts, scale, leading, tracking),
 6-color palette, component specs, spacing rhythm, motion rules, responsive rules,
@@ -58,14 +58,14 @@ a full preview with:
 `src/components/ComponentKit.tsx` implements one vocabulary — buttons, fields, selection
 controls, feedback, data display, navigation, and overlays — and renders it entirely from
 whatever tokens it is handed. Nothing is hard-coded, which is why the same kit reads as a
-different product in every one of the 200 systems. Groups:
+different product in every one of the 216 systems. Groups:
 
 **Inputs & actions** (17) · **Selection & toggles** (10) · **Feedback & status** (11) ·
 **Data display** (11) · **Navigation** (7) · **Overlays & media** (14)
 
-### The pattern library (148 layouts)
+### The pattern library (153 layouts)
 
-`src/patterns/` ships 148 genuinely distinct layout recipes: heroes, bento grids, filter
+`src/patterns/` ships 153 genuinely distinct layout recipes: heroes, bento grids, filter
 rails, master–detail inboxes, kanban shells, checkout steppers, sticky-TOC articles,
 podcast pages, cohort grids, consent banners, 404s — the whole repertoire.
 Each pattern is a *recipe* rather than a screenshot:
@@ -84,7 +84,7 @@ Each pattern is a *recipe* rather than a screenshot:
   table, kanban, calendar, player, chat, dropzone…).
 - `layouts.ts` holds the **arrangement** — a named grid (`grid-template-areas`) plus
   placement for each block, or a deliberately tuned stacked rhythm.
-- 91 of the 148 use a genuine multi-track arrangement (rails, splits, mosaics, DAGs);
+- 91 of the 153 use a genuine multi-track arrangement (rails, splits, mosaics, DAGs);
   the rest are stacked sections with rhythm chosen per pattern.
 
 No two patterns share both an arrangement and a composition, and per-pattern CSS is scoped
@@ -125,7 +125,7 @@ src/
 │   ├── usecases.ts       #   derived website-type index (rules + top-up)
 │   └── extras.ts         #   per-design layout sets, block sets, dashboard extras
 ├── patterns/
-│   ├── patterns.ts       #   148 pattern recipes + the CSS builder
+│   ├── patterns.ts       #   153 pattern recipes + the CSS builder
 │   ├── layouts.ts        #   canvas arrangements and stacked rhythms
 │   ├── PatternView.tsx   #   48 block renderers + the browsable board
 │   └── patterns.css      #   pattern primitives
@@ -142,8 +142,8 @@ src/
 
 Design thumbnails and previews are the **same component** (`MiniSite`) — cards render it
 scaled inside the thumb, the preview renders it full-size in a device frame. Each design's
-`signatureCss` is auto-scoped per instance so 200 previews can coexist without style bleed.
-Thumbnails use `compact` mode, which skips the kit and blocks sections so 200 scaled pages
+`signatureCss` is auto-scoped per instance so 216 previews can coexist without style bleed.
+Thumbnails use `compact` mode, which skips the kit and blocks sections so 216 scaled pages
 stay cheap.
 
 ## Adding a design system
