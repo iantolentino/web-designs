@@ -1,4 +1,9 @@
 /* ============ App shell ============ */
+/* Shell fonts are self-hosted: Bricolage Grotesque + IBM Plex Mono (latin,
+   woff2, ~124KB total) ship in the bundle, so first paint never waits on
+   fonts.googleapis.com. The big 216-design font sheet loads async. */
+@import './assets/fonts/fontfaces.css';
+
 :root {
   --ink: #141118;
   --paper: #f7f4ef;
@@ -254,7 +259,15 @@ a { color: inherit; }
   border-bottom: 1px solid var(--line);
   background: var(--surface-muted);
 }
-.thumb-scroll { position: absolute; inset: 0; overflow: hidden; }
+.thumb-scroll {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* The scaled MiniSite subtree is huge (1000px-wide page); skipping style
+     and paint work for offscreen cards keeps scroll cost near zero. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
 .thumb-scale {
   width: 1000px;
   transform-origin: 0 0;
