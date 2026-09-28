@@ -6,5 +6,5 @@ export default defineConfig({
   // Relative base so the build works at https://<user>.github.io/web-designs/
   base: './',
   server: { port: 5180, strictPort: false, host: true },
-  build: { chunkSizeWarningLimit: 1600 },
+  build: { chunkSizeWarningLimit: 1600, sourcemap: true },
 })

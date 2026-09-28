@@ -108,7 +108,7 @@ export default function App() {
     <div className="app-shell">
       <Sidebar theme={theme} onToggleTheme={() => setTheme((c) => (c === 'light' ? 'dark' : 'light'))} />
 
-      <div className="app-main">
+      <main className="app-main">
         <header className="topbar">
           <button className="sidebar-toggle" onClick={() => toggleSidebar(true)} aria-label="Open navigation">
             ☰
@@ -174,7 +174,7 @@ export default function App() {
           Shortcuts: <kbd>/</kbd> search · <kbd>Esc</kbd> close/clear · <kbd>←</kbd>/<kbd>→</kbd> navigate ·{' '}
           <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> copy prompt
         </footer>
-      </div>
+      </main>
 
       {selectedId && (
         <Suspense fallback={<ViewFallback label="preview" />}>

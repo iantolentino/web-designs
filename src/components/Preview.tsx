@@ -74,7 +74,7 @@ export function Preview({ ids }: { ids: string[] }) {
             <button className="nav-btn" onClick={() => navigate(1, ids)} aria-label="Next design">→</button>
           </div>
           <h2 className="preview-title">{d.name}</h2>
-          <span className="preview-cat" style={{ background: CATEGORY_ACCENT[d.category] }}>
+          <span className="preview-cat" style={{ background: CATEGORY_ACCENT[d.category], color: onColor(CATEGORY_ACCENT[d.category]) }}>
             {d.category}
           </span>
           <div className="preview-tabs">
