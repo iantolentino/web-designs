@@ -1,7 +1,7 @@
 import { createContext, useContext, useId, useMemo, useState } from 'react'
 import './kit.css'
 import type { DesignSystem } from '../types'
-import { themeOf, withAlpha, type Theme } from '../designs/theme'
+import { themeOf, withAlpha, contrast, onColor, type Theme } from '../designs/theme'
 import { KIT_GROUPS, type KitGroupId } from '../meta'
 
 // Group descriptions live in `src/meta.ts` so the sidebar can render them
@@ -2494,6 +2494,492 @@ function OnboardingChecklist() {
   )
 }
 
+/* ======================= WAVE-10 COMPONENTS =======================
+ *
+ * Twelve components the kit did not have: three navigation and data surfaces
+ * a developer actually reaches for (a token table, a hue scale generator, a
+ * collapsible tree), four input patterns with no earlier equivalent (click-to-
+ * edit, a touch keypad, a sortable column header, an action rail), and five
+ * media/announcement pieces. Each one is still rendered from the design's own
+ * tokens — nothing below hard-codes a colour, radius, or font.
+ */
+
+function ActionRail() {
+  const { t, r } = useKit()
+  const [on, setOn] = useState(1)
+  const items = [['◈', 'Overview'], ['▤', 'Library'], ['✦', 'Insights'], ['⚙', 'Settings']] as const
+  return (
+    <div className="kit-rail-wrap">
+      <div className="kit-rail" style={{ borderColor: line(t), borderRadius: r.pill, background: t.surface }}>
+        {items.map(([ic, label], i) => (
+          <button
+            key={label}
+            className="kit-rail-btn"
+            aria-label={label}
+            title={label}
+            onClick={() => setOn(i)}
+            style={{
+              color: on === i ? t.onPrimary : t.muted,
+              background: on === i ? t.primary : 'transparent',
+              borderRadius: r.pill,
+            }}
+          >
+            {ic}
+          </button>
+        ))}
+      </div>
+      <div className="kit-rail-main">
+        <span className="kit-label" style={{ color: t.muted }}>{items[on][1]}</span>
+        <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>Rail keeps its place</strong>
+        <span className="kit-help" style={{ color: t.muted }}>
+          A vertical icon rail with a single active marker — the cheapest way to hold four destinations without a sidebar.
+        </span>
+      </div>
+    </div>
+  )
+}
+
+function TreeView() {
+  const { t, r } = useKit()
+  const tree = [
+    { name: 'src', depth: 0, open: true, kind: 'dir' },
+    { name: 'tokens.css', depth: 1, open: false, kind: 'css' },
+    { name: 'components', depth: 1, open: true, kind: 'dir' },
+    { name: 'Button.tsx', depth: 2, open: false, kind: 'tsx', active: true },
+    { name: 'Modal.tsx', depth: 2, open: false, kind: 'tsx' },
+    { name: 'index.ts', depth: 1, open: false, kind: 'ts' },
+  ]
+  const [collapsed, setCollapsed] = useState(false)
+  return (
+    <div className="kit-stack">
+      <div className="kit-between">
+        <span className="kit-help" style={{ color: t.muted }}>6 items</span>
+        <button
+          className="kit-suggest"
+          style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r.ctl }}
+          onClick={() => setCollapsed((c) => !c)}
+        >
+          {collapsed ? 'Expand all' : 'Collapse all'}
+        </button>
+      </div>
+      <ul className="kit-tree" style={{ borderColor: line(t, 0.14), borderRadius: r.card }}>
+        {tree.map((n) => (
+          <li
+            key={n.name + n.depth}
+            className="kit-tree-row"
+            style={{
+              paddingLeft: 10 + n.depth * 16,
+              background: n.active ? withAlpha(t.primary, 0.1) : 'transparent',
+              color: n.active ? t.primary : t.text,
+              opacity: collapsed && n.depth > 0 ? 0.35 : 1,
+            }}
+          >
+            <span aria-hidden style={{ color: t.muted }}>
+              {n.kind === 'dir' ? (collapsed ? '▸' : '▾') : '·'}
+            </span>
+            <span>{n.name}</span>
+            <span className="kit-tree-kind" style={{ color: t.muted }}>{n.kind}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+function TokenTable() {
+  const { t, r, d } = useKit()
+  const rows: [string, string, string][] = [
+    ['color.primary', d.colors.primary, 'on background'],
+    ['color.accent', d.colors.accent, 'on background'],
+    ['color.text', d.colors.text, 'on background'],
+    ['color.neutral', d.colors.neutral, 'surface'],
+  ]
+  const ratio = (a: string, b: string) => contrast(a, b)
+  return (
+    <div className="kit-table-wrap" style={{ borderColor: line(t), borderRadius: r.card }}>
+      <table className="kit-table">
+        <thead>
+          <tr style={{ background: soft(t, 0.05) }}>
+            {['Token', 'Value', 'Contrast'].map((h) => (
+              <th key={h} style={{ color: t.muted, borderColor: line(t, 0.12) }}>{h}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([name, hex, note]) => {
+            const cr = ratio(hex, d.colors.background)
+            const pass = cr >= 4.5
+            return (
+              <tr key={name}>
+                <td style={{ color: t.text, borderColor: line(t, 0.1) }}>
+                  <code className="kit-code-inline">{name}</code>
+                </td>
+                <td style={{ color: t.muted, borderColor: line(t, 0.1) }}>
+                  <span className="kit-swatch-dot" style={{ background: hex, borderRadius: r.pill }} />
+                  {hex}
+                </td>
+                <td style={{ borderColor: line(t, 0.1) }}>
+                  <span
+                    className="kit-badge"
+                    style={{
+                      background: withAlpha(pass ? '#1a9a5c' : '#c0392b', 0.14),
+                      color: pass ? '#1a9a5c' : '#c0392b',
+                      borderRadius: r.ctl,
+                    }}
+                    title={`${note}: ${cr.toFixed(2)}:1`}
+                  >
+                    {cr.toFixed(2)}:1 {pass ? 'AA' : 'fail'}
+                  </span>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+      <p className="kit-help" style={{ padding: '0 12px 12px', color: t.muted }}>
+        Contrast is computed live against <code className="kit-code-inline">color.background</code>.
+      </p>
+    </div>
+  )
+}
+
+function ColorScale() {
+  const { t, r, d } = useKit()
+  const steps = [0.9, 0.75, 0.6, 0.45, 0.3, 0.15, 0]
+  return (
+    <div className="kit-stack">
+      <span className="kit-help" style={{ color: t.muted }}>
+        One hue (<code className="kit-code-inline">color.primary</code>), seven steps — mixed toward{' '}
+        {contrast(d.colors.primary, '#ffffff') > 3 ? 'white' : 'black'} and back.
+      </span>
+      <div className="kit-scale">
+        {steps.map((a, i) => (
+          <div key={i} className="kit-scale-step" style={{ background: withAlpha(t.primary, a), borderRadius: r.ctl }}>
+            <span style={{ color: a > 0.45 ? d.colors.primary : t.text }}>{100 + i * 100}</span>
+          </div>
+        ))}
+      </div>
+      <div className="kit-row">
+        {[['--primary-100', withAlpha(t.primary, 0.9)], ['--primary-400', withAlpha(t.primary, 0.45)], ['--primary-700', withAlpha(t.primary, 0)]].map(([name, c]) => (
+          <button
+            key={name}
+            className="kit-suggest"
+            style={{ color: t.text, borderColor: line(t, 0.3), borderRadius: r.ctl, display: 'inline-flex', gap: 6, alignItems: 'center' }}
+            onClick={() => navigator.clipboard?.writeText(String(name))}
+          >
+            <span className="kit-swatch-dot" style={{ background: c as string, borderRadius: r.pill }} />
+            {name}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function HeatmapCalendar() {
+  const { t, r } = useKit()
+  // Deterministic pseudo-noise: same pattern for every design, no Math.random in render.
+  const weeks = 18
+  const cells = Array.from({ length: weeks * 7 }, (_, i) => (i * 37) % 11)
+  return (
+    <div className="kit-stack">
+      <div className="kit-between">
+        <span className="kit-label" style={{ color: t.muted }}>Activity, last 18 weeks</span>
+        <span className="kit-help" style={{ color: t.muted }}>412 events</span>
+      </div>
+      <div className="kit-heat" role="img" aria-label="Activity heatmap, 18 weeks">
+        {cells.map((v, i) => (
+          <span
+            key={i}
+            className="kit-heat-cell"
+            style={{ background: v === 0 ? soft(t, 0.06) : withAlpha(t.primary, 0.2 + Math.min(v, 8) * 0.1), borderRadius: Math.max(2, parseInt(r.ctl) / 2 || 2) }}
+            title={`${v} events`}
+          />
+        ))}
+      </div>
+      <div className="kit-heat-legend">
+        <span className="kit-help" style={{ color: t.muted }}>less</span>
+        {[0, 0.3, 0.6, 1].map((a) => (
+          <span key={a} className="kit-heat-cell" style={{ background: a === 0 ? soft(t, 0.06) : withAlpha(t.primary, a), borderRadius: 3 }} />
+        ))}
+        <span className="kit-help" style={{ color: t.muted }}>more</span>
+      </div>
+    </div>
+  )
+}
+
+function SortableHead() {
+  const { t, r } = useKit()
+  const [dir, setDir] = useState<'asc' | 'desc'>('asc')
+  const [grabbed, setGrabbed] = useState(false)
+  return (
+    <div className="kit-stack">
+      <div className="kit-table-wrap" style={{ borderColor: line(t), borderRadius: r.card }}>
+        <table className="kit-table">
+          <thead>
+            <tr style={{ background: soft(t, 0.05) }}>
+              <th style={{ color: t.muted, borderColor: line(t, 0.12), width: 32 }} aria-label="Reorder" />
+              <th style={{ color: t.text, borderColor: line(t, 0.12) }}>
+                <button
+                  className="kit-sortable"
+                  style={{ color: t.text }}
+                  onClick={() => setDir((v) => (v === 'asc' ? 'desc' : 'asc'))}
+                  aria-sort={dir === 'asc' ? 'ascending' : 'descending'}
+                >
+                  Revenue <span style={{ color: t.primary }}>{dir === 'asc' ? '↑' : '↓'}</span>
+                </button>
+              </th>
+              <th style={{ color: t.muted, borderColor: line(t, 0.12) }}>Region</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[['$48.2k', 'North'], ['$31.9k', 'South'], ['$12.4k', 'West']]
+              .sort((a, b) => (dir === 'asc' ? a[0].localeCompare(b[0]) : b[0].localeCompare(a[0])))
+              .map(([rev, region], i) => (
+                <tr key={region}>
+                  <td
+                    style={{ borderColor: line(t, 0.1), color: t.muted, cursor: 'grab' }}
+                    onMouseDown={() => setGrabbed(true)}
+                    onMouseUp={() => setGrabbed(false)}
+                    title="Drag to reorder"
+                  >
+                    <span style={{ opacity: grabbed && i === 0 ? 1 : 0.5 }}>⠿</span>
+                  </td>
+                  <td style={{ color: t.text, borderColor: line(t, 0.1) }}>{rev}</td>
+                  <td style={{ color: t.muted, borderColor: line(t, 0.1) }}>{region}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>Click the header to sort; the handle column is draggable.</span>
+    </div>
+  )
+}
+
+function InlineEdit() {
+  const { t, r } = useKit()
+  const [value, setValue] = useState('Q3 launch')
+  const [draft, setDraft] = useState(value)
+  const [editing, setEditing] = useState(false)
+  return (
+    <div className="kit-stack">
+      <span className="kit-label" style={{ color: t.muted }}>Project name</span>
+      {editing ? (
+        <div className="kit-row" style={{ gap: 6 }}>
+          <input
+            className="kit-input"
+            autoFocus
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            style={{ color: t.text, borderColor: t.primary, borderRadius: r.ctl, background: t.bg, flex: 1, minWidth: 0 }}
+          />
+          <button className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }} onClick={() => { setValue(draft); setEditing(false) }}>
+            Save
+          </button>
+          <button className="kit-btn kit-btn-sm" style={{ background: 'transparent', color: t.muted, border: `1px solid ${line(t, 0.3)}`, borderRadius: r.ctl }} onClick={() => { setDraft(value); setEditing(false) }}>
+            Cancel
+          </button>
+        </div>
+      ) : (
+        <button
+          className="kit-inline-edit"
+          style={{ color: t.text, borderRadius: r.ctl, borderColor: 'transparent' }}
+          onClick={() => setEditing(true)}
+        >
+          <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{value}</strong>
+          <span style={{ color: t.muted }}>✎ edit</span>
+        </button>
+      )}
+      <span className="kit-help" style={{ color: t.muted }}>Escape-safe: cancel restores the previous value.</span>
+    </div>
+  )
+}
+
+function TouchKeypad() {
+  const { t, r } = useKit()
+  const [code, setCode] = useState('')
+  const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', '✓']
+  return (
+    <div className="kit-stack kit-keypad-wrap">
+      <div className="kit-keypad-code">
+        {[0, 1, 2, 3].map((i) => (
+          <span
+            key={i}
+            style={{
+              background: code.length > i ? t.primary : 'transparent',
+              borderColor: line(t, 0.4),
+              borderRadius: r.ctl,
+            }}
+          />
+        ))}
+      </div>
+      <div className="kit-keypad">
+        {keys.map((k) => (
+          <button
+            key={k}
+            className="kit-keypad-key"
+            style={{ color: k === '✓' ? t.onPrimary : t.text, background: k === '✓' ? t.primary : soft(t, 0.06), borderRadius: r.ctl, borderColor: line(t, 0.12) }}
+            onClick={() => {
+              if (k === '⌫') setCode((c) => c.slice(0, -1))
+              else if (k === '✓') setCode('')
+              else setCode((c) => (c.length < 4 ? c + k : c))
+            }}
+          >
+            {k}
+          </button>
+        ))}
+      </div>
+      <span className="kit-help" style={{ color: t.muted, textAlign: 'center' }}>
+        {code.length === 4 ? 'Code complete' : 'Enter a 4-digit code'}
+      </span>
+    </div>
+  )
+}
+
+function Carousel() {
+  const { t, r } = useKit()
+  const [i, setI] = useState(0)
+  const slides = [['Series 01', t.primary], ['Series 02', t.secondary], ['Series 03', t.accent], ['Series 04', t.text]] as const
+  return (
+    <div className="kit-stack">
+      <div className="kit-carousel" style={{ borderRadius: r.card }}>
+        {slides.map(([label, c], si) => (
+          <div
+            key={label}
+            className={`kit-carousel-slide ${si === i ? 'on' : ''}`}
+            style={{
+              background: `linear-gradient(150deg, ${c}, ${withAlpha(t.text, 0.25)})`,
+              transform: `translateX(${(si - i) * 104}%)`,
+              borderRadius: r.card,
+              color: onColor(String(c)),
+            }}
+          >
+            <span>{label}</span>
+          </div>
+        ))}
+      </div>
+      <div className="kit-between">
+        <div className="kit-row" style={{ gap: 6 }}>
+          {slides.map(([label], si) => (
+            <button
+              key={label}
+              aria-label={`Go to ${label}`}
+              className="kit-dot"
+              onClick={() => setI(si)}
+              style={{ background: si === i ? t.primary : line(t, 0.35), borderRadius: r.pill }}
+            />
+          ))}
+        </div>
+        <div className="kit-row" style={{ gap: 6 }}>
+          <button className="kit-icon-btn" aria-label="Previous slide" style={{ border: `1px solid ${line(t, 0.3)}`, borderRadius: r.ctl, color: t.text, background: 'transparent' }} onClick={() => setI((v) => (v - 1 + slides.length) % slides.length)}>
+            ‹
+          </button>
+          <button className="kit-icon-btn" aria-label="Next slide" style={{ border: `1px solid ${line(t, 0.3)}`, borderRadius: r.ctl, color: t.text, background: 'transparent' }} onClick={() => setI((v) => (v + 1) % slides.length)}>
+            ›
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ComparisonSlider() {
+  const { t, r } = useKit()
+  const [pos, setPos] = useState(52)
+  return (
+    <div className="kit-stack">
+      <div className="kit-compare-slider" style={{ borderRadius: r.card, borderColor: line(t, 0.16) }}>
+        <div className="kit-compare-before" style={{ background: withAlpha(t.text, 0.14) }}>
+          <span style={{ color: t.muted }}>Before</span>
+        </div>
+        <div
+          className="kit-compare-after"
+          style={{ background: `linear-gradient(140deg, ${t.primary}, ${t.secondary})`, width: `${pos}%` }}
+        >
+          <span style={{ color: onColor(t.primary) }}>After</span>
+        </div>
+        <span className="kit-compare-handle" style={{ left: `${pos}%`, background: t.bg, borderColor: t.primary }} aria-hidden />
+      </div>
+      <input
+        type="range"
+        min={8}
+        max={92}
+        value={pos}
+        aria-label="Reveal the after state"
+        onChange={(e) => setPos(Number(e.target.value))}
+        className="kit-compare-range"
+        style={{ accentColor: t.primary }}
+      />
+    </div>
+  )
+}
+
+function SpeedDial() {
+  const { t, r } = useKit()
+  const [open, setOpen] = useState(false)
+  const actions = [['✎', 'New doc'], ['⇪', 'Upload'], ['✦', 'Invite'], ['⇄', 'Move']] as const
+  return (
+    <div className="kit-speeddial-wrap">
+      <div className="kit-speeddial" style={{ pointerEvents: open ? 'auto' : 'none' }}>
+        {actions.map(([ic, label], i) => (
+          <button
+            key={label}
+            className="kit-speeddial-item"
+            title={label}
+            aria-label={label}
+            style={{
+              background: t.surface,
+              color: t.text,
+              borderColor: line(t, 0.2),
+              borderRadius: r.pill,
+              opacity: open ? 1 : 0,
+              transform: `translateY(${open ? -(i + 1) * 46 : 0}px) scale(${open ? 1 : 0.8})`,
+            }}
+          >
+            {ic}
+          </button>
+        ))}
+        <button
+          className="kit-speeddial-fab"
+          aria-expanded={open}
+          aria-label="More actions"
+          onClick={() => setOpen((o) => !o)}
+          style={{ background: t.primary, color: t.onPrimary, borderRadius: r.pill, transform: open ? 'rotate(45deg)' : 'none' }}
+        >
+          +
+        </button>
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>One floating action that fans out — for touch, not for menus.</span>
+    </div>
+  )
+}
+
+function MarqueeTicker() {
+  const { t, r } = useKit()
+  const [paused, setPaused] = useState(false)
+  return (
+    <div className="kit-stack">
+      <div
+        className="kit-ticker"
+        style={{ borderColor: line(t, 0.16), background: withAlpha(t.accent, 0.1), borderRadius: r.ctl, color: t.text }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <span className="kit-ticker-tag" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl }}>
+          Live
+        </span>
+        <div className="kit-ticker-track">
+          <span className={paused ? 'paused' : ''}>
+            Release 4.2 ships today · downtime window 02:00–02:30 UTC · new tokens in the palette studio · three new arrangements in the preview ·
+          </span>
+        </div>
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>Hover pauses the scroll; motion stops entirely under prefers-reduced-motion.</span>
+    </div>
+  )
+}
+
 export interface KitItem {
   id: string
   name: string
@@ -2580,6 +3066,19 @@ export const KIT_ITEMS: KitItem[] = [
   { id: 'order-tracker', name: 'Order progress tracker', group: 'feedback', Comp: OrderTracker },
   { id: 'comment-composer', name: 'Comment composer', group: 'overlays', Comp: CommentComposer },
   { id: 'avatar-upload', name: 'Avatar upload', group: 'overlays', Comp: AvatarUpload },
+  // — wave 10: navigation, data and input surfaces the kit was missing —
+  { id: 'action-rail', name: 'Icon action rail', group: 'nav', Comp: ActionRail },
+  { id: 'tree-view', name: 'File tree', group: 'nav', Comp: TreeView },
+  { id: 'token-table', name: 'Design token table', group: 'data', Comp: TokenTable },
+  { id: 'color-scale', name: 'Hue scale generator', group: 'data', Comp: ColorScale },
+  { id: 'heatmap-calendar', name: 'Activity heatmap', group: 'data', Comp: HeatmapCalendar },
+  { id: 'sortable-head', name: 'Sortable column header', group: 'data', Comp: SortableHead },
+  { id: 'inline-edit', name: 'Inline edit field', group: 'actions', Comp: InlineEdit },
+  { id: 'touch-keypad', name: 'Touch keypad', group: 'actions', Comp: TouchKeypad },
+  { id: 'carousel', name: 'Snap carousel', group: 'overlays', Comp: Carousel },
+  { id: 'comparison-slider', name: 'Before / after slider', group: 'overlays', Comp: ComparisonSlider },
+  { id: 'speed-dial', name: 'Speed dial', group: 'overlays', Comp: SpeedDial },
+  { id: 'marquee-ticker', name: 'Announcement ticker', group: 'feedback', Comp: MarqueeTicker },
 ]
 
 /** How many components every design ships with. */

@@ -1,7 +1,7 @@
 # The Design Vault
 
-A production-grade design-system showcase: **216 curated, intentionally distinct design
-systems**, a **153-layout pattern library**, and a **78-component kit** — all browsable,
+A production-grade design-system showcase: **226 curated, intentionally distinct design
+systems**, a **153-layout pattern library**, and a **90-component kit** — all browsable,
 previewable live, and copyable as ready-to-use AI design prompts. 
 Built to kill AI design slop — no Inter, no purple-on-white, no generic layouts.
 
@@ -28,17 +28,24 @@ sort, and saved filters live there, so the main column is nothing but content.
 
 | View | What it shows |
 | --- | --- |
-| **Design systems** | 216 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
+| **Design systems** | 226 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
 | **Layout arrangements** | 13 archetypes (incl. Bento, Poster, Catalog); each design offers its own set so previews differ structurally, not just by color. |
 | **Pattern library** | 153 production layouts with live previews, filterable by family and searchable by block. |
-| **Component kit** | The 78-component kit rendered for any design — with a side-by-side compare mode. |
+| **Component kit** | The 90-component kit rendered for any design — with a side-by-side compare mode. |
 
 On narrow screens the sidebar becomes a drawer (hamburger in the top bar, `Esc` to close,
 `/` to open-and-focus search).
 
 ## What's inside
 
-### Design systems (216)
+### Design systems (226)
+
+Sixteen arrangements ship today: the original thirteen (hero + cards, split hero, magazine,
+dashboard, centered, editorial, asymmetric, full-bleed, spotlight, manifesto, bento, poster,
+catalog) plus wave 10's **mosaic**, **timeline**, and **split-scroll**. Thirty-three
+motifs are available, six of them new in wave 10 (moiré rings, isometric lattice, paper cut,
+oil slick, ledger rules, stencil mask). `scripts/audit-designs.cjs` asserts that no two systems
+share an identity (type pair + motif + radius + depth), a palette, a name, or a hero line.
 
 Every system ships: philosophy, typography (display + body fonts, scale, leading, tracking),
 6-color palette, component specs, spacing rhythm, motion rules, responsive rules,
@@ -53,12 +60,12 @@ a full preview with:
 - **Details** — philosophy, click-to-copy palette, type scale, component specs, a themed
   playground, the full prompt, and JSON / CSS-variable export.
 
-### The component kit (78 components, per design)
+### The component kit (90 components, per design)
 
 `src/components/ComponentKit.tsx` implements one vocabulary — buttons, fields, selection
 controls, feedback, data display, navigation, and overlays — and renders it entirely from
 whatever tokens it is handed. Nothing is hard-coded, which is why the same kit reads as a
-different product in every one of the 216 systems. Groups:
+different product in every one of the 226 systems. Groups:
 
 **Inputs & actions** (17) · **Selection & toggles** (10) · **Feedback & status** (11) ·
 **Data display** (11) · **Navigation** (7) · **Overlays & media** (14)
@@ -84,7 +91,7 @@ Each pattern is a *recipe* rather than a screenshot:
   table, kanban, calendar, player, chat, dropzone…).
 - `layouts.ts` holds the **arrangement** — a named grid (`grid-template-areas`) plus
   placement for each block, or a deliberately tuned stacked rhythm.
-- 91 of the 153 use a genuine multi-track arrangement (rails, splits, mosaics, DAGs);
+- 95 of the 153 use a genuine multi-track arrangement (rails, splits, mosaics, DAGs);
   the rest are stacked sections with rhythm chosen per pattern.
 
 No two patterns share both an arrangement and a composition, and per-pattern CSS is scoped
@@ -110,6 +117,34 @@ matching keyword rules against every design's id, name, category, tags, descript
 philosophy, then tops up any thin bucket from the most popular designs in the categories
 that suit it. **Every option filters to a real, non-empty result set** — the smallest
 bucket is 5 designs, and `npm run verify` fails the build if that stops being true.
+
+## Speed
+
+Three things keep the vault fast as the catalog grows past 200 systems:
+
+- **The catalog loads lazily.** `src/designs/*` is more than two thirds of the app's
+  JavaScript, so the shell (topbar, sidebar, search, theme) paints from its own markup while
+  the design data streams in behind it through a dynamic import. The entry chunk is ~85 kB
+  gzipped, the catalog ~228 kB, and the gallery shows shimmer cards — never an empty page —
+  for the frames in between. `src/catalog.ts` is the only module that touches the data
+  module directly.
+- **Everything else is prefetched on intent.** Hovering a card, a view button, or a palette
+  result warms the chunk the click will need, so the preview, pattern board, and kit open
+  with no loading state (`src/prefetch.ts`).
+- **Repeat visits are offline-first.** `public/sw.js` is a hand-rolled service worker: a
+  build-time manifest (`vite.config.ts` → `closeBundle`) precaches the shell, the catalog,
+  the fonts, and every hashed asset; navigation is stale-while-revalidate and `/assets/`
+  plus the font CDN are cache-first, so a second visit renders from disk with no network.
+
+## Command palette (⌘K)
+
+One field over the whole vault: designs, patterns, components, and actions (`Surprise me`,
+`Copy a link`, `Clear all filters`, `Copy this design's prompt`). Arrow keys move, Enter
+runs, Escape closes. `/` still focuses the sidebar's per-view filter, and `Esc` closes the
+palette, the preview, or the filters in that order.
+
+Every piece of state is in the URL — `view`, `q`, `cat`, `type`, `pattern`, `family`,
+`kit`, `group`, `kitDesign`, and `design` — so any view can be sent to a teammate.
 
 ## Architecture
 
@@ -142,8 +177,8 @@ src/
 
 Design thumbnails and previews are the **same component** (`MiniSite`) — cards render it
 scaled inside the thumb, the preview renders it full-size in a device frame. Each design's
-`signatureCss` is auto-scoped per instance so 216 previews can coexist without style bleed.
-Thumbnails use `compact` mode, which skips the kit and blocks sections so 216 scaled pages
+`signatureCss` is auto-scoped per instance so 226 previews can coexist without style bleed.
+Thumbnails use `compact` mode, which skips the kit and blocks sections so 226 scaled pages
 stay cheap.
 
 ## Adding a design system

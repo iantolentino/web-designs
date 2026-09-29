@@ -1,5 +1,5 @@
 import type { Category, DesignSystem, UseCase } from '../types'
-import { DESIGN_SYSTEMS } from './index'
+import { systemsOf } from '../catalog'
 
 /**
  * Website-type index.
@@ -139,8 +139,6 @@ function derive(d: DesignSystem): UseCase[] {
 
 /* ---------------- Index + deterministic top-up ---------------- */
 
-const byPopularity = [...DESIGN_SYSTEMS].sort((a, b) => b.popularity - a.popularity)
-
 const memo = new Map<string, UseCase[]>()
 function derivedFor(d: DesignSystem): UseCase[] {
   let hit = memo.get(d.id)
@@ -151,11 +149,21 @@ function derivedFor(d: DesignSystem): UseCase[] {
   return hit
 }
 
-const INDEX: Map<UseCase, string[]> = (() => {
+/**
+ * Built on first use, from whatever the catalog store currently holds. The
+ * catalog now arrives through a dynamic import (src/catalog.ts), so a
+ * module-scope IIFE here would index an empty array — and worse, would pull
+ * the whole design data set straight back into the entry chunk.
+ */
+let INDEX: Map<UseCase, string[]> | null = null
+
+function buildIndex(): Map<UseCase, string[]> {
+  const designs = systemsOf()
+  const byPopularity = [...designs].sort((a, b) => b.popularity - a.popularity)
   const index = new Map<UseCase, string[]>()
   const all = RULES.map(([u]) => u)
   for (const u of all) index.set(u, [])
-  for (const d of DESIGN_SYSTEMS) {
+  for (const d of designs) {
     for (const u of derivedFor(d)) {
       const list = index.get(u)
       if (list) list.push(d.id)
@@ -179,14 +187,28 @@ const INDEX: Map<UseCase, string[]> = (() => {
     }
     // Keep the derived list honest: reflect the top-up back onto the design.
     for (const id of ids) {
-      const d = DESIGN_SYSTEMS.find((x) => x.id === id)
+      const d = designs.find((x) => x.id === id)
       if (!d) continue
       const list = derivedFor(d)
       if (!list.includes(useCase)) list.push(useCase)
     }
   }
   return index
-})()
+}
+
+function getIndex(): Map<UseCase, string[]> {
+  if (!INDEX) INDEX = buildIndex()
+  return INDEX
+}
+
+/**
+ * Build the index ahead of first use. Called by the catalog loader the moment
+ * the designs arrive, so the first filter click is a table lookup, not a scan
+ * over 200+ designs and 45 keyword rules.
+ */
+export function primeUseCaseIndex(): void {
+  getIndex()
+}
 
 /** All website types that apply to a design (authored + derived + topped-up). */
 export function useCasesOf(d: DesignSystem): UseCase[] {
@@ -195,22 +217,26 @@ export function useCasesOf(d: DesignSystem): UseCase[] {
 
 /** Number of designs that satisfy a website type. */
 export function countForUseCase(u: UseCase): number {
-  return INDEX.get(u)?.length ?? 0
+  return getIndex().get(u)?.length ?? 0
 }
 
 /** Ids of the designs that satisfy a website type. */
 export function idsForUseCase(u: UseCase): string[] {
-  return INDEX.get(u) ?? []
+  return getIndex().get(u) ?? []
 }
 
 /** True when a design satisfies a website type. */
 export function matchesUseCase(d: DesignSystem, u: UseCase): boolean {
+  // Before the catalog lands there is no index to consult (and the published
+  // top-up rules cannot run) — fall back to the design's authored types rather
+  // than memoising a half-derived list.
+  if (systemsOf().length === 0) return d.useCases.includes(u)
   return derivedFor(d).includes(u)
 }
 
 /** Every website type in the catalog, with its match count (sorted by count desc). */
 export function useCaseStats(): { useCase: UseCase; count: number }[] {
-  return [...INDEX.entries()]
+  return [...getIndex().entries()]
     .map(([useCase, ids]) => ({ useCase, count: ids.length }))
     .sort((a, b) => b.count - a.count || a.useCase.localeCompare(b.useCase))
 }

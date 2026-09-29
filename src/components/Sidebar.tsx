@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useStore, type QuickFilter, type View } from '../store'
-import { DESIGN_SYSTEMS } from '../designs'
+import { useCatalog } from '../catalog'
+import { prefetchView } from '../prefetch'
 import { CATEGORY_ORDER, categoryAccent } from '../designs/theme'
 import { useCaseStats } from '../designs/usecases'
 import { USE_CASE_GROUPS, USE_CASE_ICON, type Category, type UseCase } from '../types'
@@ -9,6 +10,7 @@ import {
   PATTERN_FAMILIES,
   PATTERN_FAMILY_COUNTS,
   KIT_COUNT,
+  DESIGN_COUNT,
   KIT_GROUPS,
 } from '../meta'
 
@@ -19,7 +21,7 @@ const QUICK_FILTERS: { key: QuickFilter; label: string }[] = [
 ]
 
 const VIEWS: { id: View; label: string; icon: string; blurb: string }[] = [
-  { id: 'designs', label: 'Design systems', icon: '◈', blurb: `${DESIGN_SYSTEMS.length} complete systems` },
+  { id: 'designs', label: 'Design systems', icon: '◈', blurb: `${DESIGN_COUNT} complete systems` },
   { id: 'patterns', label: 'Pattern library', icon: '▤', blurb: `${PATTERN_COUNT} production layouts` },
   { id: 'components', label: 'Component kit', icon: '⬡', blurb: `${KIT_COUNT} components per design` },
 ]
@@ -61,6 +63,9 @@ export function Sidebar({
 
   const favOnly = useStore((s) => s.favOnly)
   const toggleFavOnly = useStore((s) => s.toggleFavOnly)
+  // Design data loads lazily (src/catalog.ts) — read it from the store.
+  const systems = useCatalog((s) => s.systems)
+  const designCount = systems.length || DESIGN_COUNT
   const [typePickerOpen, setTypePickerOpen] = useState(false)
   const [typeQuery, setTypeQuery] = useState('')
   const typeRef = useRef<HTMLDivElement>(null)
@@ -68,7 +73,7 @@ export function Sidebar({
   const stats = useMemo(() => {
     const map = new Map(useCaseStats().map((s) => [s.useCase, s.count]))
     return map
-  }, [])
+  }, [systems])
 
   const patternCounts = useMemo(() => {
     const m = new Map<string, number>()
@@ -139,7 +144,7 @@ export function Sidebar({
           </button>
         </div>
         <p className="sidebar-tag">
-          {DESIGN_SYSTEMS.length} design systems · {PATTERN_COUNT} patterns · zero AI slop
+          {designCount} design systems · {PATTERN_COUNT} patterns · zero AI slop
         </p>
 
         <label className="sidebar-search">
@@ -165,6 +170,10 @@ export function Sidebar({
               key={v.id}
               className={`sidebar-view ${view === v.id ? 'on' : ''}`}
               onClick={() => setView(v.id)}
+              // Warm the surface's chunk before the click lands, so switching
+              // views never shows a loading state.
+              onPointerEnter={() => prefetchView(v.id)}
+              onFocus={() => prefetchView(v.id)}
               aria-current={view === v.id}
             >
               <span className="sidebar-view-ic" aria-hidden>{v.icon}</span>
@@ -276,7 +285,7 @@ export function Sidebar({
                 <h2 className="sidebar-h">Categories</h2>
                 <div className="sidebar-list">
                   {CATEGORY_ORDER.map((c: Category) => {
-                    const count = DESIGN_SYSTEMS.filter((d) => d.category === c).length
+                    const count = systems.filter((d) => d.category === c).length
                     return (
                       <button
                         key={c}
@@ -343,13 +352,13 @@ export function Sidebar({
                 <h2 className="sidebar-h">Design</h2>
                 <select
                   className="sidebar-select"
-                  value={kitDesignId ?? DESIGN_SYSTEMS[0].id}
+                  value={kitDesignId ?? systems[0]?.id ?? ''}
                   onChange={(e) => setKitDesignId(e.target.value)}
                   aria-label="Design system for the component kit"
                 >
                   {CATEGORY_ORDER.map((c) => (
                     <optgroup key={c} label={c}>
-                      {DESIGN_SYSTEMS.filter((d) => d.category === c).map((d) => (
+                      {systems.filter((d) => d.category === c).map((d) => (
                         <option key={d.id} value={d.id}>{d.name}</option>
                       ))}
                     </optgroup>

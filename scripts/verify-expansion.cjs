@@ -43,6 +43,8 @@ if (metaKitCount === kitItems.length)
 else
   flag(`meta.ts KIT_COUNT = ${metaKitCount} but the kit ships ${kitItems.length} components`)
 
+const metaDesignCount = Number((metaSrc.match(/DESIGN_COUNT = (\d+)/) || [])[1])
+
 const metaPatternCount = Number((metaSrc.match(/PATTERN_COUNT = (\d+)/) || [])[1])
 const metaFamilyCounts = Object.fromEntries(
   [...metaSrc.matchAll(/\b(marketing|commerce|app|content|forms|data|social|system): (\d+)/g)].map((m) => [m[1], Number(m[2])]),
@@ -123,7 +125,13 @@ fs.writeFileSync(
   entry,
   `import { USE_CASES } from '${abs('src/types')}'
 import { DESIGN_SYSTEMS } from '${abs('src/designs/index')}'
+import { registerCatalog } from '${abs('src/catalog')}'
 import { useCaseStats } from '${abs('src/designs/usecases')}'
+
+// The browser loads the catalog through a dynamic import (src/catalog.ts). These
+// checks run outside a browser, so install it directly before asking for the
+// derived website-type index.
+registerCatalog(DESIGN_SYSTEMS)
 import { PATTERNS, buildPatternCss } from '${abs('src/patterns/patterns')}'
 import { canvasFor } from '${abs('src/patterns/layouts')}'
 
@@ -151,6 +159,11 @@ try {
   )
   const data = JSON.parse(execSync(`node "${bundle}"`, { encoding: 'utf8' }))
   const { stats, patternCount, patternIds, recipes, canvases, extras, css, designCount, familyCounts } = data
+
+  if (metaDesignCount === designCount)
+    ok(`meta.ts DESIGN_COUNT (${metaDesignCount}) matches DESIGN_SYSTEMS.length`)
+  else
+    flag(`meta.ts DESIGN_COUNT = ${metaDesignCount} but DESIGN_SYSTEMS.length = ${designCount}`)
 
   if (metaPatternCount === patternCount)
     ok(`meta.ts PATTERN_COUNT (${metaPatternCount}) matches PATTERNS.length`)

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useStore } from '../store'
-import { DESIGN_SYSTEMS, getDesign } from '../designs'
+import { useCatalog } from '../catalog'
 import { CATEGORY_ACCENT } from '../types'
 import { themeOf, onColor } from '../designs/theme'
 import { useCasesOf } from '../designs/usecases'
@@ -24,10 +24,13 @@ export function KitExplorer() {
 
   const [compareId, setCompareId] = useState<string | null>(null)
 
-  const design = (kitDesignId ? getDesign(kitDesignId) : undefined) ?? DESIGN_SYSTEMS[0]
-  const compare = compareId ? getDesign(compareId) : undefined
+  // The catalog is loaded lazily (src/catalog.ts); until it lands this view
+  // renders a small waiting state instead of throwing on an empty list.
+  const systems = useCatalog((s) => s.systems)
+  const design = (kitDesignId ? systems.find((x) => x.id === kitDesignId) : undefined) ?? systems[0]
+  const compare = compareId ? systems.find((x) => x.id === compareId) : undefined
 
-  const t = useMemo(() => themeOf(design), [design])
+  const t = useMemo(() => (design ? themeOf(design) : null), [design])
   const counts = useMemo(() => {
     const m = new Map<string, number>()
     for (const item of KIT_ITEMS) m.set(item.group, (m.get(item.group) ?? 0) + 1)
@@ -39,6 +42,10 @@ export function KitExplorer() {
     const byGroup = KIT_ITEMS.filter((i) => !kitGroup || i.group === kitGroup)
     return q ? byGroup.filter((i) => i.name.toLowerCase().includes(q) || i.id.includes(q)) : byGroup
   }, [kitSearch, kitGroup])
+
+  if (!design || !t) {
+    return <div className="view-fallback">Loading the component kit…</div>
+  }
 
   return (
     <div className="kit-explorer">
@@ -64,7 +71,7 @@ export function KitExplorer() {
           <label className="kit-explorer-select">
             <span>Design</span>
             <select value={design.id} onChange={(e) => setKitDesignId(e.target.value)} aria-label="Design system">
-              {DESIGN_SYSTEMS.map((d) => (
+              {systems.map((d) => (
                 <option key={d.id} value={d.id}>{d.name}</option>
               ))}
             </select>
@@ -78,7 +85,7 @@ export function KitExplorer() {
               aria-label="Compare with another design system"
             >
               <option value="">None</option>
-              {DESIGN_SYSTEMS.map((d) => (
+              {systems.map((d) => (
                 <option key={d.id} value={d.id}>{d.name}</option>
               ))}
             </select>

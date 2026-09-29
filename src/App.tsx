@@ -1,13 +1,20 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { useStore, type QuickFilter } from './store'
-import { DESIGN_SYSTEMS } from './designs'
+import { useCatalog } from './catalog'
 import { sortSystems } from './designs/theme'
 import { matchesUseCase, useCasesOf } from './designs/usecases'
 import { USE_CASE_ICON, type UseCase } from './types'
 import { Gallery } from './components/Gallery'
 import { Sidebar } from './components/Sidebar'
-import { PATTERN_COUNT, KIT_COUNT, PATTERN_FAMILIES, type PatternFamily } from './meta'
+import {
+  PATTERN_COUNT,
+  KIT_COUNT,
+  DESIGN_COUNT,
+  PATTERN_FAMILIES,
+  type PatternFamily,
+} from './meta'
 import { useToast, useUrlSync, useKeyboardShortcuts } from './hooks'
+import { CommandPalette } from './components/CommandPalette'
 
 // Each of these is a full surface (or a ~110 kB component library) that the
 // gallery-first landing page has no use for — split them out of the initial
@@ -17,7 +24,28 @@ const PatternBoard = lazy(() => import('./patterns/PatternView').then((m) => ({ 
 const KitExplorer = lazy(() => import('./components/KitExplorer').then((m) => ({ default: m.KitExplorer })))
 
 const ViewFallback = ({ label }: { label: string }) => (
-  <div style={{ padding: 60, textAlign: 'center', color: '#777' }}>Loading {label}…</div>
+  <div className="view-fallback">Loading {label}…</div>
+)
+
+/**
+ * First paint holds the shell while the catalog streams in. Twelve shimmer
+ * cards keep the page honest about what is coming — the alternative, an empty
+ * gallery that pops in, reads as a bug.
+ */
+const GallerySkeleton = ({ count = 12 }: { count?: number }) => (
+  <div className="gallery gallery-skeleton" aria-busy="true" aria-label="Loading design systems">
+    {Array.from({ length: count }, (_, i) => (
+      <div className="design-card skeleton-card" key={i}>
+        <div className="skeleton-thumb" />
+        <div className="card-body">
+          <div className="skeleton-line skeleton-line-sm" />
+          <div className="skeleton-line skeleton-line-lg" />
+          <div className="skeleton-line" />
+          <div className="skeleton-line skeleton-line-sm" />
+        </div>
+      </div>
+    ))}
+  </div>
 )
 
 const QUICK_LABEL: Record<QuickFilter, string> = {
@@ -48,6 +76,12 @@ export default function App() {
 
   const view = useStore((s) => s.view)
   const toggleSidebar = useStore((s) => s.toggleSidebar)
+  const setPalette = useStore((s) => s.setPalette)
+  // The catalog arrives through a dynamic import (src/catalog.ts), so every
+  // count and filter below reads it from the store rather than a static import.
+  const systems = useCatalog((s) => s.systems)
+  const catalogReady = useCatalog((s) => s.ready)
+  const catalogFailed = useCatalog((s) => s.failed)
 
   const searchQuery = useStore((s) => s.searchQuery)
   const selectedCategory = useStore((s) => s.selectedCategory)
@@ -77,7 +111,7 @@ export default function App() {
    */
   const filtered = useMemo(() => {
     const q = searchQuery.trim().toLowerCase()
-    const list = DESIGN_SYSTEMS.filter((d) => {
+    const list = systems.filter((d) => {
       if (selectedCategory && d.category !== selectedCategory) return false
       if (selectedUseCase && !matchesUseCase(d, selectedUseCase)) return false
       if (favOnly && !favorites.includes(d.id)) return false
@@ -97,7 +131,7 @@ export default function App() {
       return haystack.includes(q)
     })
     return sortSystems(list, quickFilter)
-  }, [searchQuery, selectedCategory, quickFilter, favOnly, favorites, selectedUseCase])
+  }, [systems, searchQuery, selectedCategory, quickFilter, favOnly, favorites, selectedUseCase])
 
   const previewIds = useMemo(() => filtered.map((d) => d.id), [filtered])
   const hasActiveFilters =
@@ -119,10 +153,19 @@ export default function App() {
           </div>
 
           <div className="topbar-meta">
+            <button
+              className="palette-open"
+              onClick={() => setPalette(true)}
+              aria-label="Search designs, patterns and components (Ctrl+K)"
+            >
+              <span aria-hidden>⌕</span>
+              <span className="palette-open-label">Search everything</span>
+              <kbd>⌘K</kbd>
+            </button>
             {view === 'designs' && (
               <>
                 <span className="result-count">
-                  <strong>{filtered.length}</strong> of {DESIGN_SYSTEMS.length} designs
+                  <strong>{filtered.length}</strong> of {systems.length || DESIGN_COUNT} designs
                 </span>
                 {selectedCategory && <span className="meta-chip">{selectedCategory}</span>}
                 {selectedUseCase && (
@@ -149,13 +192,14 @@ export default function App() {
             )}
             {view === 'components' && (
               <span className="result-count">
-                <strong>{KIT_COUNT}</strong> components × {DESIGN_SYSTEMS.length} designs
+                <strong>{KIT_COUNT}</strong> components × {systems.length || DESIGN_COUNT} designs
               </span>
             )}
           </div>
         </header>
 
-        {view === 'designs' && <Gallery systems={filtered} />}
+        {view === 'designs' && (catalogReady || catalogFailed) && <Gallery systems={filtered} />}
+        {view === 'designs' && !catalogReady && !catalogFailed && <GallerySkeleton />}
         {view === 'patterns' && (
           <Suspense fallback={<ViewFallback label="pattern library" />}>
             <PatternBoard search={patternSearch} family={patternFamily as PatternFamily | null} />
@@ -171,8 +215,9 @@ export default function App() {
           <strong>The Design Vault</strong> — reference real systems, borrow real layouts, copy the prompt, kill
           AI slop.
           <br />
-          Shortcuts: <kbd>/</kbd> search · <kbd>Esc</kbd> close/clear · <kbd>←</kbd>/<kbd>→</kbd> navigate ·{' '}
-          <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> copy prompt
+          Shortcuts: <kbd>⌘K</kbd>/<kbd>Ctrl</kbd>+<kbd>K</kbd> search everything · <kbd>/</kbd> filter ·{' '}
+          <kbd>Esc</kbd> close/clear · <kbd>←</kbd>/<kbd>→</kbd> navigate · <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>{' '}
+          copy prompt
         </footer>
       </main>
 
@@ -181,6 +226,8 @@ export default function App() {
           <Preview ids={previewIds} />
         </Suspense>
       )}
+
+      <CommandPalette />
 
       {toast && (
         <div className="toast" role="status" aria-live="polite">

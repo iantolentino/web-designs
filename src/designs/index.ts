@@ -20,6 +20,7 @@ import { wave5Designs } from './wave5'
 import { wave6Designs } from './wave6'
 import { wave8Designs } from './wave8'
 import { wave9Designs } from './wave9'
+import { wave10Designs } from './wave10'
 
 export const DESIGN_SYSTEMS: DesignSystem[] = [
   ...minimalismDesigns,
@@ -43,6 +44,7 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
   ...wave6Designs,
   ...wave8Designs,
   ...wave9Designs,
+  ...wave10Designs,
 ]
 
 export function getDesign(id: string): DesignSystem | undefined {

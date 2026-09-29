@@ -260,6 +260,9 @@ function renderLayout(
     case 'bento': return <BentoBody d={d} />
     case 'poster': return <PosterBody d={d} />
     case 'catalog': return <CatalogBody d={d} />
+    case 'mosaic': return <MosaicBody d={d} />
+    case 'timeline': return <TimelineBody d={d} />
+    case 'split-scroll': return <SplitScrollBody d={d} />
     case 'hero-cards':
     default: return <HeroCards d={d} />
   }
@@ -769,6 +772,169 @@ function CatalogBody({ d }: { d: DesignSystem }) {
   )
 }
 
+/* ===== Wave-10 layout bodies: structure itself as the identity ===== */
+
+/**
+ * Mosaic — no hero block at all. The page opens on a grid of unequal tiles
+ * (2×2, wide, tall, single) stitched edge to edge, the way a moodboard or a
+ * magazine spread opens. Copy rides inside the tiles instead of above them.
+ */
+function MosaicBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  return (
+    <>
+      <section className="dv-mosaic">
+        <header className="dv-mos-tile dv-mos-lead">
+          <p className="dv-kicker">{d.category} · mosaic</p>
+          <h1>{heroTitle(d)}</h1>
+          <p className="dv-sub dv-align-left">{d.description}</p>
+          <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Start free</button>
+            <button className="dv-btn dv-btn-secondary">See the method</button>
+          </div>
+        </header>
+        <div
+          className="dv-mos-tile dv-mos-media"
+          style={{ background: `linear-gradient(150deg, ${t.primary}, ${t.secondary})` }}
+        >
+          <span className="dv-mos-cap" style={{ color: onColor(t.primary) }}>In production since 2021</span>
+        </div>
+        <div className="dv-mos-tile dv-mos-stat" style={{ background: withAlpha(t.primary, 0.1) }}>
+          <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>98%</strong>
+          <span>of teams keep the tokens untouched</span>
+        </div>
+        <div className="dv-mos-tile">
+          <span className="dv-card-icon" aria-hidden>◆</span>
+          <h3>Six colors, no exceptions</h3>
+          <p>Every surface, border, and accent in {d.name} derives from the same six tokens.</p>
+        </div>
+        <div className="dv-mos-tile">
+          <span className="dv-card-icon" aria-hidden>◇</span>
+          <h3>States, drawn</h3>
+          <p>Hover, focus, disabled, empty, error — nothing is left to improvisation.</p>
+        </div>
+        <div className="dv-mos-tile dv-mos-tall" style={{ borderColor: withAlpha(t.text, 0.18) }}>
+          <span className="dv-label">Method</span>
+          {['Decide the type pairing', 'Fix the spacing unit', 'Name every token', 'Write the rules down'].map((li, i) => (
+            <p key={li} className="dv-mos-step">
+              <span style={{ color: t.primary, fontFamily: `'${t.display}', sans-serif` }}>{String(i + 1).padStart(2, '0')}</span>
+              {li}
+            </p>
+          ))}
+        </div>
+        <div className="dv-mos-tile dv-mos-quote" style={{ background: withAlpha(t.accent, 0.1) }}>
+          <blockquote>“{d.designPhilosophy.split('.')[0]}.”</blockquote>
+          <span className="dv-label">— {d.author}</span>
+        </div>
+      </section>
+      <section className="dv-stats-band">
+        <div className="dv-stat"><strong>12k+</strong><span>teams on board</span></div>
+        <div className="dv-stat"><strong>4.9★</strong><span>average rating</span></div>
+        <div className="dv-stat"><strong>6</strong><span>tokens to learn</span></div>
+      </section>
+    </>
+  )
+}
+
+/**
+ * Timeline — the catalog's first chronological arrangement: a single spine with
+ * alternating entries, year markers, and a running record down the page.
+ */
+function TimelineBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  const entries: [string, string, string][] = [
+    ['2019', 'The first rule', `A single spacing unit, committed to before the first component existed. It is still the one thing nobody in ${d.name} argues about.`],
+    ['2021', 'Type becomes the system', `${d.typography.displayFont} for display, ${d.typography.bodyFont} for everything else — chosen for contrast, not for trend.`],
+    ['2023', 'The palette narrows', 'Six tokens. Two of them do all the work, and the accent is rationed so it still means something.'] as [string, string, string],
+    ['2026', 'It ships every day', 'Four hundred pages later, the system has not needed a rewrite — only additions that follow the original rules.'],
+  ]
+  return (
+    <>
+      <header className="dv-tl-head">
+        <p className="dv-kicker">{d.category} · timeline</p>
+        <h1>{heroTitle(d)}</h1>
+        <p className="dv-sub dv-align-left">{d.description}</p>
+        <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Start the record</button>
+          <button className="dv-btn dv-btn-secondary">Read the changelog</button>
+        </div>
+      </header>
+      <ol className="dv-tl">
+        {entries.map(([year, title, body], i) => (
+          <li key={year} className={`dv-tl-entry ${i % 2 ? 'dv-tl-right' : 'dv-tl-left'}`}>
+            <span className="dv-tl-node" style={{ background: t.primary }} aria-hidden />
+            <div className="dv-tl-card dv-card">
+              <span className="dv-tl-year" style={{ color: t.primary, fontFamily: `'${t.display}', sans-serif` }}>{year}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <section className="dv-quote-band" style={{ background: withAlpha(t.primary, 0.08) }}>
+        <blockquote>“The record is the proof. Everything else is marketing.”<footer>— {d.name}, internal memo</footer></blockquote>
+      </section>
+    </>
+  )
+}
+
+/**
+ * Split Scroll — a sticky rail on the left that never leaves (identity, meta
+ * facts, anchor list) beside a long, quiet reading column on the right.
+ */
+function SplitScrollBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  return (
+    <section className="dv-ss">
+      <aside className="dv-ss-rail" style={{ borderColor: withAlpha(t.text, 0.16) }}>
+        <p className="dv-kicker">{d.category} · split scroll</p>
+        <h1>{heroTitle(d)}</h1>
+        <p className="dv-ss-lede">{d.description}</p>
+        <div className="dv-ss-facts">
+          {[
+            ['Display type', d.typography.displayFont],
+            ['Body type', d.typography.bodyFont],
+            ['Radius', d.components.radius.split(',')[0]],
+            ['Ships with', '20+ components'],
+          ].map(([k, v]) => (
+            <div key={k} className="dv-ss-fact">
+              <span className="dv-label">{k}</span>
+              <span>{v}</span>
+            </div>
+          ))}
+        </div>
+        <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Use {d.name}</button>
+      </aside>
+      <div className="dv-ss-main">
+        <section className="dv-ss-block">
+          <h2 className="dv-h2">Why the rail stays put</h2>
+          <p>{d.designPhilosophy.split('.')[0]}. Keeping the identity pinned means the reading column can be as long as the argument needs — no repeated headers, no lost context.</p>
+          <div className="dv-cards">
+            {features(d).map((f, i) => (
+              <article key={i} className="dv-card"><span className="dv-card-icon" aria-hidden>{f.icon}</span><h3>{f.title}</h3><p>{f.body}</p></article>
+            ))}
+          </div>
+        </section>
+        <section className="dv-ss-block dv-ss-rule" style={{ borderColor: withAlpha(t.text, 0.14) }}>
+          <h2 className="dv-h2">The numbers, in line</h2>
+          <div className="dv-ss-rows">
+            {[['Adoption after one quarter', '94%'], ['Review rounds saved', '40%'], ['Tokens a new hire learns', '6'], ['Pages shipped on the system', '412']].map(([k, v]) => (
+              <div key={k} className="dv-ss-row">
+                <span>{k}</span>
+                <strong style={{ fontFamily: `'${t.display}', sans-serif`, color: t.primary }}>{v}</strong>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className="dv-ss-block">
+          <h2 className="dv-h2">Get the first file</h2>
+          <MiniForm d={d} />
+        </section>
+      </div>
+    </section>
+  )
+}
+
 /* ================= Wave-2 content blocks (themed, placeholder copy) ================= */
 
 /**
@@ -1232,6 +1398,16 @@ function heroTitle(d: DesignSystem): React.ReactNode {
     case 'flight-deck': return <>On time, <em>every time.</em></>
     case 'bioluminescent-reef': return <>Turn off the lights, <em>and look.</em></>
     case 'philatelic-album': return <>Three pence, <em>imperforate.</em></>
+    case 'tidemark': return <>Every number has a <em>tide line.</em></>
+    case 'salt-flat': return <>A hundred miles of <em>nothing,</em> measured.</>
+    case 'velvet-static': return <>Turn the <em>noise up.</em></>
+    case 'kiln-works': return <>FIRE, CLAY, <em>REPEAT.</em></>
+    case 'lantern-district': return <>Ten thousand lights, <em>one street.</em></>
+    case 'fog-signal': return <>The message arrives <em>either way.</em></>
+    case 'culture-jar': return <>Time does the <em>cooking.</em></>
+    case 'orbital-registry': return <>Everything in orbit is <em>on the record.</em></>
+    case 'sugar-rush': return <>GO FASTER, <em>GIGGLE LOUDER.</em></>
+    case 'night-market': return <>Open till the <em>last night bus.</em></>
     case 'tapestry-weave': return <>Two threads, one <em>long pattern.</em></>
     case 'outsider-art': return <>Not <em>finished,</em> just honest.</>
     case 'studio-copperplate': return <>Stations, <em>not sections.</em></>

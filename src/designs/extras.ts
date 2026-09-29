@@ -291,6 +291,17 @@ export const LAYOUT_SETS: Record<string, Layout[]> = {
   'philatelic-album': ['magazine', 'catalog', 'asymmetric'],
   'tapestry-weave': ['magazine', 'editorial', 'split-hero'],
   'outsider-art': ['asymmetric', 'manifesto', 'hero-cards'],
+  /* — wave 10 (new arrangements: mosaic, timeline, split-scroll) — */
+  'tidemark': ['split-scroll', 'timeline', 'dashboard', 'editorial'],
+  'salt-flat': ['split-scroll', 'mosaic', 'centered', 'editorial'],
+  'velvet-static': ['spotlight', 'mosaic', 'split-scroll', 'poster'],
+  'kiln-works': ['bento', 'mosaic', 'dashboard', 'poster'],
+  'lantern-district': ['mosaic', 'catalog', 'spotlight', 'timeline'],
+  'fog-signal': ['timeline', 'split-scroll', 'editorial', 'catalog'],
+  'culture-jar': ['timeline', 'mosaic', 'editorial', 'catalog'],
+  'orbital-registry': ['mosaic', 'dashboard', 'bento', 'split-scroll'],
+  'sugar-rush': ['hero-cards', 'mosaic', 'catalog', 'split-scroll'],
+  'night-market': ['catalog', 'mosaic', 'poster', 'full-bleed'],
 }
 
 /**
@@ -329,7 +340,7 @@ export const PRIMARY_OVERRIDE: Record<string, Layout> = {
 }
 
 /** Arrangements appended to every design so the selector always offers a fresh one. */
-const EXTRA_LAYOUTS: Layout[] = ['bento', 'poster', 'catalog']
+const EXTRA_LAYOUTS: Layout[] = ['bento', 'poster', 'catalog', 'mosaic', 'timeline', 'split-scroll']
 
 export const LAYOUT_SETS_FULL: Record<string, Layout[]> = Object.fromEntries(
   Object.entries(LAYOUT_SETS).map(([id, set], i) => {
@@ -384,23 +395,23 @@ const BLOCK_PATTERNS: BlockId[][] = [
  */
 const FAMILY_IDS: string[][] = [
   // Minimalism
-  ['minimalist-tech', 'zen-minimal', 'swiss-editorial', 'soft-mono', 'ink-wash', 'nordic-hygge', 'wabi-sabi', 'graphite-focus', 'linen-quiet', 'system-cool', 'ivory-gallery'],
+  ['minimalist-tech', 'zen-minimal', 'swiss-editorial', 'soft-mono', 'ink-wash', 'nordic-hygge', 'wabi-sabi', 'graphite-focus', 'linen-quiet', 'system-cool', 'ivory-gallery', 'salt-flat'],
   // Maximalism
-  ['playful-maximalist', 'neon-maximalist', 'editorial-maximalist', 'festival-vivid', 'baroque-punk', 'collision-course', 'sticker-storm', 'velvet-loud', 'mosaic-max', 'acid-garden', 'riso-flood'],
+  ['playful-maximalist', 'neon-maximalist', 'editorial-maximalist', 'festival-vivid', 'baroque-punk', 'collision-course', 'sticker-storm', 'velvet-loud', 'mosaic-max', 'acid-garden', 'riso-flood', 'night-market'],
   // Brutalism
-  ['raw-brutalism', 'refined-brutalism', 'web1-brutalism', 'tactical-hud', 'concrete-slab', 'riot-xerox', 'steel-plant', 'brut-sunbelt', 'monolith-black', 'ledger-raw', 'scaffold'],
+  ['raw-brutalism', 'refined-brutalism', 'web1-brutalism', 'tactical-hud', 'concrete-slab', 'riot-xerox', 'steel-plant', 'brut-sunbelt', 'monolith-black', 'ledger-raw', 'scaffold', 'kiln-works'],
   // Luxury
-  ['minimalist-luxury', 'dark-luxury', 'bold-luxury', 'neo-gothic', 'art-deco', 'dark-academia', 'champagne-noir', 'pearl-hotel', 'opera-box', 'obsidian-atelier', 'heritage-linen'],
+  ['minimalist-luxury', 'dark-luxury', 'bold-luxury', 'neo-gothic', 'art-deco', 'dark-academia', 'champagne-noir', 'pearl-hotel', 'opera-box', 'obsidian-atelier', 'heritage-linen', 'lantern-district'],
   // Playful
-  ['pastel-playful', 'rainbow-playful', 'toybox-round', 'pop-comics', 'gumball', 'doodle-desk', 'bounce-house', 'storybook-night', 'arcade-pop', 'jelly-toy', 'confetti-brew'],
+  ['pastel-playful', 'rainbow-playful', 'toybox-round', 'pop-comics', 'gumball', 'doodle-desk', 'bounce-house', 'storybook-night', 'arcade-pop', 'jelly-toy', 'confetti-brew', 'sugar-rush'],
   // Retro
-  ['vintage-print', 'memphis-pop', 'y2k-retro', 'cyberpunk-retro', 'broadsheet-press', 'atompunk', 'vaporwave', 'frontier-western', 'cassette-deck', 'seventies-sunburst', 'dial-up'],
+  ['vintage-print', 'memphis-pop', 'y2k-retro', 'cyberpunk-retro', 'broadsheet-press', 'atompunk', 'vaporwave', 'frontier-western', 'cassette-deck', 'seventies-sunburst', 'dial-up', 'fog-signal'],
   // Organic
-  ['nature-inspired', 'biophilic', 'botanical', 'deep-current', 'desert-modern', 'cottagecore', 'moss-and-stone', 'tide-pool', 'canopy-lodge', 'glacier-air', 'harvest-table'],
+  ['nature-inspired', 'biophilic', 'botanical', 'deep-current', 'desert-modern', 'cottagecore', 'moss-and-stone', 'tide-pool', 'canopy-lodge', 'glacier-air', 'harvest-table', 'culture-jar'],
   // Professional
-  ['corporate-blue', 'startup-serious', 'tech-corporate', 'blueprint-tech', 'clinical-care', 'ledger-fintech', 'briefcase-slate', 'campus-lms', 'clinic-warm', 'terminal-ops', 'civic-trust'],
+  ['corporate-blue', 'startup-serious', 'tech-corporate', 'blueprint-tech', 'clinical-care', 'ledger-fintech', 'briefcase-slate', 'campus-lms', 'clinic-warm', 'terminal-ops', 'civic-trust', 'tidemark', 'orbital-registry'],
   // Creative
-  ['abstract-art', 'geometric-art', 'illustration-heavy', 'ink-house', 'graffiti-street', 'art-nouveau', 'studio-noir', 'collage-cut', 'foundry-type', 'puppet-theater', 'audio-wave', 'skate-zine'],
+  ['abstract-art', 'geometric-art', 'illustration-heavy', 'ink-house', 'graffiti-street', 'art-nouveau', 'studio-noir', 'collage-cut', 'foundry-type', 'puppet-theater', 'audio-wave', 'skate-zine', 'velvet-static'],
 ]
 
 const BLOCK_SETS: Record<string, BlockId[]> = {}
@@ -459,6 +470,10 @@ export const DASH_EXTRAS: Record<string, DashExtra> = {
   'kart-klub': 'calendar',
   'seed-vault': 'activity',
   'grid-dispatch': 'report-builder',
+  // Wave-10 additions (rotation rule re-checked: no repeat within 3 rows)
+  'tidemark': 'report-builder',
+  'orbital-registry': 'kanban',
+  'kiln-works': 'calendar',
 }
 
 export function getDashExtra(id: string): DashExtra | undefined {

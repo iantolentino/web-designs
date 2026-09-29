@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, lazy, Suspense }
 import { useStore } from '../store'
 import { CATEGORY_ACCENT, LAYOUT_LABEL } from '../types'
 import { onColor } from '../designs/theme'
+import { prefetchPreview } from '../prefetch'
 import type { DesignSystem } from '../types'
 
 const MiniSite = lazy(() => import('./MiniSite').then((m) => ({ default: m.MiniSite })))
@@ -106,7 +107,13 @@ export function DesignCard({ d }: { d: DesignSystem }) {
   }, [])
 
   return (
-    <div className="design-card">
+    <div
+      className="design-card"
+      // Hovering (or keyboard-focusing) a card is a strong signal the preview
+      // is next — warm its chunk now so opening it is instant.
+      onPointerEnter={prefetchPreview}
+      onFocus={prefetchPreview}
+    >
       <div className="thumb" ref={thumbRef}>
         {visible && (
           <div className="thumb-scroll" aria-hidden ref={(el) => el?.setAttribute('inert', '')}>

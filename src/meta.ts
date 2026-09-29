@@ -26,11 +26,18 @@ export type PatternFamily =
 
 export type KitGroupId = 'actions' | 'selection' | 'feedback' | 'data' | 'nav' | 'overlays'
 
+/** Total designs in the catalog — asserted against DESIGN_SYSTEMS.length.
+ *
+ * The catalog itself is loaded lazily (src/catalog.ts), so the shell renders
+ * counts from here until the data lands.
+ */
+export const DESIGN_COUNT = 226
+
 /** Total patterns in the library — asserted against PATTERNS.length. */
 export const PATTERN_COUNT = 153
 
 /** Total components in the kit — asserted against KIT_ITEMS.length. */
-export const KIT_COUNT = 78
+export const KIT_COUNT = 90
 
 /**
  * Patterns per family — asserted against PATTERNS at build time. The sidebar

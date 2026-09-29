@@ -1,5 +1,5 @@
 /* ============================================================
-   ComponentKit — layout + behaviour for the 46-component kit.
+   ComponentKit — layout + behaviour for the 90-component kit.
    All color/type values arrive as inline styles from each design's
    tokens, so this file only handles rhythm, arrangement, and motion.
    ============================================================ */
@@ -754,4 +754,238 @@
 .kit-menu-item {
   min-width: 0;
   overflow-wrap: anywhere;
+}
+
+/* ============================================================
+   Wave-10 components
+   ============================================================ */
+
+/* --- Icon action rail --- */
+.kit-rail-wrap { display: flex; gap: 14px; align-items: flex-start; }
+.kit-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid;
+  flex: none;
+}
+.kit-rail-btn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+}
+.kit-rail-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+/* --- File tree --- */
+.kit-tree { list-style: none; margin: 0; padding: 6px; border: 1px solid; display: flex; flex-direction: column; }
+.kit-tree-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  font-size: 13px;
+  transition: background 120ms ease, opacity 120ms ease;
+}
+.kit-tree-kind { margin-left: auto; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* --- Token table extras --- */
+.kit-code-inline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: currentColor;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+.kit-swatch-dot {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  vertical-align: -1px;
+  margin-right: 6px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14);
+}
+
+/* --- Hue scale --- */
+.kit-scale { display: flex; gap: 4px; }
+.kit-scale-step {
+  flex: 1;
+  min-width: 0;
+  height: 54px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Heatmap --- */
+.kit-heat {
+  display: grid;
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+  gap: 3px;
+}
+.kit-heat-cell { aspect-ratio: 1; width: 100%; display: block; }
+.kit-heat-legend { display: flex; align-items: center; gap: 5px; justify-content: flex-end; }
+.kit-heat-legend .kit-heat-cell { width: 12px; aspect-ratio: 1; }
+
+/* --- Sortable header --- */
+.kit-sortable {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.kit-sortable:hover span { transform: translateY(-1px); }
+
+/* --- Inline edit --- */
+.kit-inline-edit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 15px;
+  border: 1px dashed;
+  border-color: currentColor;
+  background: none;
+  cursor: text;
+}
+.kit-inline-edit:hover { border-style: solid; }
+.kit-inline-edit span { font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* --- Touch keypad --- */
+.kit-keypad-wrap { align-items: center; }
+.kit-keypad-code { display: flex; gap: 10px; justify-content: center; }
+.kit-keypad-code span {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid;
+  display: block;
+  transition: background 140ms ease;
+}
+.kit-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: 100%; max-width: 260px; }
+.kit-keypad-key {
+  min-height: 42px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 650;
+  border: 1px solid;
+  cursor: pointer;
+  transition: transform 100ms ease, background 120ms ease;
+}
+.kit-keypad-key:active { transform: scale(0.94); }
+
+/* --- Carousel --- */
+.kit-carousel { position: relative; height: 132px; overflow: hidden; }
+.kit-carousel-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--dv-display, inherit);
+  font-size: 19px;
+  font-weight: 700;
+  transition: transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.kit-dot {
+  width: 8px;
+  height: 8px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* --- Comparison slider --- */
+.kit-compare-slider { position: relative; height: 130px; overflow: hidden; border: 1px solid; }
+.kit-compare-before,
+.kit-compare-after {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.kit-compare-after { overflow: hidden; }
+.kit-compare-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  transform: translateX(-50%);
+  border-inline: 1px solid;
+}
+.kit-compare-range { width: 100%; cursor: ew-resize; }
+
+/* --- Speed dial --- */
+.kit-speeddial-wrap { display: flex; flex-direction: column; gap: 10px; align-items: center; min-height: 210px; justify-content: flex-end; }
+.kit-speeddial { position: relative; display: grid; place-items: center; padding: 8px; }
+.kit-speeddial-fab {
+  width: 48px;
+  height: 48px;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 200ms ease;
+}
+.kit-speeddial-item {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border: 1px solid;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 180ms ease;
+}
+
+/* --- Announcement ticker --- */
+.kit-ticker { display: flex; align-items: center; gap: 8px; border: 1px solid; padding: 6px 8px; overflow: hidden; }
+.kit-ticker-tag {
+  flex: none;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+}
+.kit-ticker-track { position: relative; overflow: hidden; flex: 1; min-width: 0; height: 18px; }
+.kit-ticker-track span {
+  position: absolute;
+  white-space: nowrap;
+  font-size: 12.5px;
+  animation: kit-ticker-scroll 22s linear infinite;
+}
+.kit-ticker-track span.paused { animation-play-state: paused; }
+@keyframes kit-ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kit-carousel-slide,
+  .kit-speeddial-item,
+  .kit-compare-handle { transition: none; }
+  .kit-ticker-track span { animation: none; }
 }

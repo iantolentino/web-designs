@@ -20,6 +20,9 @@ interface VaultState {
   favOnly: boolean
   toast: string | null
   sidebarOpen: boolean
+  /** Global command palette (⌘K / Ctrl+K) */
+  paletteOpen: boolean
+  setPalette: (v: boolean) => void
   /** Pattern library filters */
   patternSearch: string
   patternFamily: string | null
@@ -101,6 +104,8 @@ export const useStore = create<VaultState>((set, get) => ({
   favOnly: false,
   toast: null,
   sidebarOpen: false,
+  paletteOpen: false,
+  setPalette: (v) => set({ paletteOpen: v }),
   patternSearch: '',
   patternFamily: null,
   kitDesignId: null,

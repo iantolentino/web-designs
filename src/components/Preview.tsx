@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { useStore } from '../store'
 import { CATEGORY_ACCENT, LAYOUT_LABEL } from '../types'
 import type { DesignSystem, DeviceMode, Layout, PreviewTab } from '../types'
-import { getDesign, DESIGN_SYSTEMS } from '../designs'
+import { useCatalog } from '../catalog'
 import { layoutSetFor, primaryLayout } from '../designs/extras'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
 import { buildDesignPrompt } from '../prompt'
@@ -40,7 +40,9 @@ export function Preview({ ids }: { ids: string[] }) {
   const setPreviewTab = useStore((s) => s.setPreviewTab)
   const setDevice = useStore((s) => s.setDevice)
 
-  const d = selectedId ? getDesign(selectedId) : undefined
+  // Lazy catalog: the selected design is looked up in the store, which is
+  // already warm by the time a preview can be opened from the gallery.
+  const d = useCatalog((s) => (selectedId ? s.byId.get(selectedId) : undefined))
   if (!d) return null
 
   const copied = useCopiedState(d.id)
@@ -119,6 +121,19 @@ export function Preview({ ids }: { ids: string[] }) {
               </select>
             </label>
           )}
+          <button
+            className="nav-btn"
+            onClick={async () => {
+              const url = new URL(window.location.href)
+              url.searchParams.set('design', d.id)
+              const ok = await copyText(url.toString())
+              useStore.getState().showToast(ok ? '✓ Link to this design copied' : '✗ Copy failed')
+            }}
+            aria-label={`Copy a link to ${d.name}`}
+            title="Copy a shareable link to this design"
+          >
+            ⧉
+          </button>
           <button className="nav-btn" onClick={closeDesign} aria-label="Close preview (Esc)">✕</button>
         </header>
 
@@ -266,6 +281,60 @@ function DetailsView({ d }: { d: DesignSystem }) {
 
   const prompt = buildDesignPrompt(d)
   const cssVars = `:root {\n  --dv-primary: ${d.colors.primary};\n  --dv-secondary: ${d.colors.secondary};\n  --dv-accent: ${d.colors.accent};\n  --dv-neutral: ${d.colors.neutral};\n  --dv-background: ${d.colors.background};\n  --dv-text: ${d.colors.text};\n  --dv-font-display: '${d.typography.displayFont}', sans-serif;\n  --dv-font-body: '${d.typography.bodyFont}', sans-serif;\n}\n`
+  // Token exports a developer can paste straight into a project: a Tailwind v4
+  // `@theme` block and the raw token JSON.
+  const radius = extractRadius(d)
+  const STEP_NAMES = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl']
+  const scaleLines = d.typography.scale
+    .split('/')
+    .map((s, i) => `  --text-${STEP_NAMES[i] ?? `step-${i}`}: ${s.trim()}px;`)
+  const tailwindTheme = [
+    `/* ${d.name} — ${d.category} tokens */`,
+    "@import 'tailwindcss';",
+    '',
+    '@theme {',
+    `  --color-primary: ${d.colors.primary};`,
+    `  --color-secondary: ${d.colors.secondary};`,
+    `  --color-accent: ${d.colors.accent};`,
+    `  --color-neutral: ${d.colors.neutral};`,
+    `  --color-background: ${d.colors.background};`,
+    `  --color-text: ${d.colors.text};`,
+    '',
+    `  --font-display: '${d.typography.displayFont}', serif;`,
+    `  --font-body: '${d.typography.bodyFont}', sans-serif;`,
+    '',
+    `  --radius-control: ${radius};`,
+    '',
+    '  /* Type scale */',
+    ...scaleLines,
+    '',
+    '  /* Spacing rhythm */',
+    `  --spacing: ${d.spacing.baseUnit};`,
+    `  --margin-scale: ${d.spacing.marginScale};`,
+    '',
+    '  /* Motion */',
+    `  /* load: ${d.motion.pageLoad} */`,
+    `  /* hover: ${d.motion.hoverStates} */`,
+    '}',
+    '',
+  ].join('\n')
+  const tokenJson = JSON.stringify(
+    {
+      $schema: 'design-vault/tokens@1',
+      name: d.name,
+      id: d.id,
+      category: d.category,
+      colors: d.colors,
+      typography: d.typography,
+      radius,
+      spacing: d.spacing,
+      motion: d.motion,
+      components: d.components,
+      accessibility: d.accessibility,
+    },
+    null,
+    2,
+  )
   const theme = themeOf(d)
   const accentColor = d.accent
 
@@ -390,17 +459,41 @@ function DetailsView({ d }: { d: DesignSystem }) {
 
         {/* Prompt + exports */}
         <section>
+          <h3 className="details-h">Drop-in tokens</h3>
+          <p className="details-details">
+            Paste the Tailwind v4 theme into <code className="details-code">app.css</code>, or take the JSON if you
+            generate tokens at build time. Colors, type pairing, radius, the type scale, spacing rhythm, and motion are
+            all included.
+          </p>
+          <div className="prompt-box">{tailwindTheme}</div>
+        </section>
+
+        <section>
           <h3 className="details-h">Full design prompt</h3>
           <div className="prompt-box">{prompt}</div>
           <div className="export-row">
             <button className="export-btn" onClick={() => copyDesignPrompt(d.id)}>⧉ Copy prompt</button>
             <button className="export-btn" onClick={() => copy(cssVars, '✓ CSS variables copied')}>⧉ Copy CSS vars</button>
-            <button className="export-btn" onClick={() => download(`${d.id}.css`, cssVars, 'text/css')}>↓ Download .css</button>
+            <button className="export-btn" onClick={() => copy(tailwindTheme, '✓ Tailwind @theme copied')}>
+              ⧉ Copy Tailwind theme
+            </button>
+            <button className="export-btn" onClick={() => copy(tokenJson, '✓ Token JSON copied')}>⧉ Copy token JSON</button>
             <button
               className="export-btn"
-              onClick={() => download(`${d.id}.json`, JSON.stringify(d, null, 2), 'application/json')}
+              onClick={() => {
+                const url = new URL(window.location.href)
+                url.searchParams.set('design', d.id)
+                void copy(url.toString(), '✓ Shareable link copied')
+              }}
             >
-              ↓ Download .json
+              🔗 Copy link to this design
+            </button>
+            <button className="export-btn" onClick={() => download(`${d.id}.css`, cssVars, 'text/css')}>↓ Download .css</button>
+            <button className="export-btn" onClick={() => download(`${d.id}.tokens.json`, tokenJson, 'application/json')}>
+              ↓ Download tokens .json
+            </button>
+            <button className="export-btn" onClick={() => download(`${d.id}.tailwind.css`, tailwindTheme, 'text/css')}>
+              ↓ Download Tailwind theme
             </button>
           </div>
         </section>

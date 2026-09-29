@@ -37,6 +37,12 @@ export type Motif =
   | 'tape-labels'
   | 'diagonal-bars'
   | 'halftone-dots'
+  | 'moire-rings'
+  | 'isometric-lattice'
+  | 'paper-cut'
+  | 'oil-slick'
+  | 'ledger-rules'
+  | 'stencil-mask'
 
 export type DeviceMode = 'desktop' | 'tablet' | 'mobile'
 export type PreviewTab = 'live' | 'components' | 'colors' | 'code' | 'details'
@@ -55,6 +61,9 @@ export type Layout =
   | 'bento'
   | 'poster'
   | 'catalog'
+  | 'mosaic'
+  | 'timeline'
+  | 'split-scroll'
 
 export const LAYOUT_LABEL: Record<Layout, string> = {
   'hero-cards': 'Hero + Feature Cards',
@@ -70,6 +79,9 @@ export const LAYOUT_LABEL: Record<Layout, string> = {
   bento: 'Bento Grid',
   poster: 'Poster',
   catalog: 'Catalog',
+  mosaic: 'Mosaic',
+  timeline: 'Timeline',
+  'split-scroll': 'Split Scroll',
 }
 
 /**
