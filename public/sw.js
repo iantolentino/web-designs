@@ -27,6 +27,12 @@ const MANIFEST = /*__PRECACHE__*/[]
 // shell and assets can never mix across deploys.
 const CACHE = 'dv-' + hashKey(JSON.stringify(MANIFEST))
 
+// Where the hashed build assets live, *relative to this worker*. The production
+// build is served from a sub-path (/web-designs/), so a hard-coded '/assets/'
+// test would miss every asset request there and let them fall through to the
+// network — which is exactly what offline mode cannot do.
+const ASSETS_PREFIX = new URL('assets/', self.location.href).pathname
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
@@ -67,14 +73,16 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       (async () => {
         const cache = await caches.open(CACHE)
+        // Relative keys, not absolute: the production build is served from a
+        // sub-path, and a service worker resolves these against its own URL.
         const cachedShell = async () =>
           (await caches.match(req, { ignoreSearch: true, ignoreVary: true })) ||
-          (await caches.match('/', { ignoreVary: true })) ||
-          (await caches.match('/index.html', { ignoreVary: true }))
+          (await caches.match('./', { ignoreVary: true })) ||
+          (await caches.match('./index.html', { ignoreVary: true }))
         try {
           const res = await fetch(req)
           if (res && res.ok) {
-            await cache.put(req.mode === 'navigate' ? '/' : req, res.clone())
+            await cache.put('./', res.clone())
             return res
           }
           return (await cachedShell()) || res
@@ -87,7 +95,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // 2) Content-hashed build assets: cache-first, immutable.
-  if (url.origin === self.location.origin && url.pathname.startsWith('/assets/')) {
+  if (url.origin === self.location.origin && url.pathname.startsWith(ASSETS_PREFIX)) {
     event.respondWith(
       (async () => {
         const hit = await caches.match(req, { ignoreVary: true })
