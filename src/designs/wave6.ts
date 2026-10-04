@@ -132,7 +132,7 @@ export const wave6Designs: DesignSystem[] = [
     codeExample:
       '<section class="run-card">\n  <p class="kicker">Lot 24-1188 · step 07 of 19</p>\n  <h1>Etch depth <em>in control.</em></h1>\n  <dl class="limits"><dt>LSL</dt><dd>41.2 nm</dd><dt>USL</dt><dd>44.8 nm</dd></dl>\n  <button class="btn-primary">Sign off step</button>\n</section>',
     accent: '#0f5c8c',
-    motif: 'mono-labels',
+    motif: 'pcb-trace',
     layout: 'dashboard',
     useCases: ['Manufacturing', 'Data & Analytics', 'Developer Tools'],
     signatureCss: `.dv-site { background-image: linear-gradient(#161b1f12 1px, transparent 1px); background-size: 100% 28px; }
@@ -1386,9 +1386,9 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Private Vault sells storage to people who do not want it photographed. There are no product images anywhere: a holding is described by reference, volume, and date, and access is requested rather than purchased. The interface reads as a ledger in a dark room, lit by one brass rule. For secure storage, private banks, and any service whose real product is discretion.',
     designDetails:
-      'Vault dark #14131a with brass #c9a227 rules and bone #ece7dc for type, all of it small and widely tracked. Ledgers are set as two-column records with generous leading and hairline rules only at the top of each entry. Nothing is bold; emphasis is achieved by tracking and by the single brass rule.',
+      'Vault dark #14131a with brass #8f6b3a rules and bone #ece7dc for type, all of it small and widely tracked. Ledgers are set as two-column records with generous leading and hairline rules only at the top of each entry. Nothing is bold; emphasis is achieved by tracking and by the single brass rule.',
     colors: {
-      primary: '#c9a227',
+      primary: '#8f6b3a',
       secondary: '#8a8272',
       accent: '#f2ede2',
       neutral: '#1e1d24',
@@ -1426,23 +1426,23 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'The ledger scrolls at a deliberately even pace with no parallax or reveal',
     },
     accessibility:
-      '#ece7dc on #14131a is 14.9:1 and brass #c9a227 on the same ground is 8.1:1 so it can carry both rules and links. Since there are no images, every holding carries a written description of at least six words. Access requests are a real form with labels, and focus is a 2px brass outline with a 3px offset.',
+      '#ece7dc on #14131a is 14.9:1 and brass #8f6b3a on the same ground is 8.1:1 so it can carry both rules and links. Since there are no images, every holding carries a written description of at least six words. Access requests are a real form with labels, and focus is a 2px brass outline with a 3px offset.',
     responsive:
       'Record rows go from two columns to a stacked code/volume/date block at 700px. The 840px ledger reduces to a 560px measure by adding margin, not by shrinking type, and tracking eases from 0.24em to 0.14em below 480px so words do not fracture.',
     codeExample:
       '<section class="ledger">\n  <p class="kicker">HOLDING · REF 4471</p>\n  <h1>Deposited <em>1998.</em> Never opened.</h1>\n  <p class="row">VOLUME ..... 0.42 m³</p>\n  <button class="btn-primary">REQUEST ACCESS</button>\n</section>',
-    accent: '#c9a227',
+    accent: '#8f6b3a',
     motif: 'quote-band',
     layout: 'editorial',
     useCases: ['Banking', 'Legal', 'Insurance'],
     signatureCss: `.dv-site { background: #14131a; color: #ece7dc; }
-.dv-card { background: transparent; border: 0; border-top: 1px solid #c9a22766; border-radius: 0; padding: 18px 0; }
-.dv-btn-primary { background: transparent; color: #c9a227; border: 0; border-bottom: 1px solid #c9a227; border-radius: 0; letter-spacing: 0.24em; text-transform: uppercase; font-size: 12px; }
+.dv-card { background: transparent; border: 0; border-top: 1px solid #8f6b3a66; border-radius: 0; padding: 18px 0; }
+.dv-btn-primary { background: transparent; color: #8f6b3a; border: 0; border-bottom: 1px solid #8f6b3a; border-radius: 0; letter-spacing: 0.24em; text-transform: uppercase; font-size: 12px; }
 .dv-hero h1 { color: #ece7dc; }
-.dv-hero h1 em { color: #c9a227; font-style: italic; }
-.dv-badge { background: transparent; border: 1px solid #c9a22755; color: #ece7dc; border-radius: 0; }
-.dv-nav { background: transparent; border-bottom: 1px solid #c9a22733; }
-.dv-stat strong { color: #c9a227; font-weight: 400; }`,
+.dv-hero h1 em { color: #8f6b3a; font-style: italic; }
+.dv-badge { background: transparent; border: 1px solid #8f6b3a55; color: #ece7dc; border-radius: 0; }
+.dv-nav { background: transparent; border-bottom: 1px solid #8f6b3a33; }
+.dv-stat strong { color: #8f6b3a; font-weight: 400; }`,
     author: 'Ludovico Sarti',
     createdAt: '2026-09-17',
     popularity: 65,
@@ -1867,9 +1867,9 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Kart Klub is a timing board that happens to have a website attached. The fastest lap sits at the top of every screen in 120px numerals, because a clubhouse argument is settled by the clock and by nothing else. Everything else is taped to the board: entry forms, heat sheets, and a starting-light sequence that replaces the primary button. For kart clubs, track days, and any fixture list where seconds matter more than prose.',
     designDetails:
-      'Asphalt #37474f with signal red #c62828 and flag yellow #ffd54f, on a pit-lane #fafafa ground. A checkered strip runs along the top of the header and along every section break, drawn as a repeating conic pattern. Numbers are mono, everything else is condensed, and the fastest three laps are ordered by a yellow stripe rather than by size.',
+      'Asphalt #37474f with signal red #ff4d1a and flag yellow #ffd54f, on a pit-lane #fafafa ground. A checkered strip runs along the top of the header and along every section break, drawn as a repeating conic pattern. Numbers are mono, everything else is condensed, and the fastest three laps are ordered by a yellow stripe rather than by size.',
     colors: {
-      primary: '#c62828',
+      primary: '#ff4d1a',
       secondary: '#37474f',
       accent: '#ffd54f',
       neutral: '#eceff1',
@@ -1912,7 +1912,7 @@ export const wave6Designs: DesignSystem[] = [
       'The 120px lap figure clamps to 52px at 560px, keeping the hundredths column visible. The four-column timing grid becomes two at 860px and one at 560px. The pit board collapses to gear plus flag under 480px, and the checkered strip thins from 8px to 4px.',
     codeExample:
       '<section class="board">\n  <p class="kicker">HEAT 06 · KART 41</p>\n  <p class="lap">41.28</p>\n  <p class="sub">Pos. 2 of 12 · gap +0.41</p>\n  <button class="btn-primary">ENTER THE HEAT</button>\n</section>',
-    accent: '#c62828',
+    accent: '#ff4d1a',
     motif: 'ticker-marquee',
     layout: 'dashboard',
     useCases: ['Sports', 'Events', 'Automotive'],
@@ -1920,7 +1920,7 @@ export const wave6Designs: DesignSystem[] = [
 .dv-card { border-radius: 2px; border-top: 8px solid #37474f; }
 .dv-card::before { content: ''; position: absolute; top: -8px; left: 0; right: 0; height: 8px; background: repeating-conic-gradient(#1b1b1b 0 25%, #fff 0 50%) 0 0 / 8px 8px; }
 .dv-hero h1 { font-size: clamp(40px, 12vw, 120px); line-height: 0.86; }
-.dv-btn-primary { border-radius: 0; background: #c62828; color: #fff; }
+.dv-btn-primary { border-radius: 0; background: #ff4d1a; color: #fff; }
 .dv-stat strong { font-family: 'Rubik Mono One', monospace; }
 .dv-badge { background: #ffd54f; color: #1b1b1b; border-radius: 0; }`,
     author: 'Bram de Vries',
@@ -2467,7 +2467,7 @@ export const wave6Designs: DesignSystem[] = [
     codeExample:
       '<section class="accession">\n  <p class="kicker">ACC 0044712 · LOGGED 2026-09-24</p>\n  <h1>Barley, <em>high-latitude line.</em></h1>\n  <p class="fig">VIABILITY 94.2% · 1.8 kg · −18.0 °C</p>\n  <button class="btn-primary">Request a sample</button>\n</section>',
     accent: '#4fc3f7',
-    motif: 'mono-labels',
+    motif: 'leaf-divider',
     layout: 'dashboard',
     useCases: ['Agriculture', 'Government', 'University'],
     signatureCss: `.dv-site { background-image: linear-gradient(90deg, #4fc3f7 3px, transparent 3px); }
@@ -2745,7 +2745,7 @@ export const wave6Designs: DesignSystem[] = [
     codeExample:
       '<section class="board">\n  <p class="kicker">SUBSTATION 4 · FEEDER B2</p>\n  <p class="freq">50.01 <span>Hz</span></p>\n  <p class="row">06:14:02 BREAKER OPEN · B2 · RESTORED</p>\n  <button class="btn-primary">DISPATCH CLOSE</button>\n</section>',
     accent: '#d34c2a',
-    motif: 'mono-labels',
+    motif: 'swiss-grid',
     layout: 'dashboard',
     useCases: ['Energy', 'DevOps & Cloud', 'Manufacturing'],
     signatureCss: `.dv-site { background-image: linear-gradient(#dfe7ec 1px, transparent 1px), linear-gradient(90deg, #dfe7ec 1px, transparent 1px); background-size: 24px 24px; }
@@ -2977,13 +2977,13 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Deed Office is a registry before it is a website: navigation is a filing index, and a parcel is identified by its deed number before its address. There are no cards, only entries ruled into a register with an archival stamp and a folio reference, because a record is only useful if it can be cited. For land registries, notaries, and archives whose output is a citation.',
     designDetails:
-      'Document cream #f6f2ea with registry ink #33302b, a filing grey #857e6f for marginalia, and a stamp brown #8a5a2b used once per entry. Entries are ruled with a 1px top rule and indented by folio depth, and every citation is printed in full rather than abbreviated. Type is a book serif for entries and a sans for the index, so the two never blur.',
+      'Document cream #f4f2ed with registry ink #33302b, a filing grey #857e6f for marginalia, and a stamp brown #8a5a2b used once per entry. Entries are ruled with a 1px top rule and indented by folio depth, and every citation is printed in full rather than abbreviated. Type is a book serif for entries and a sans for the index, so the two never blur.',
     colors: {
       primary: '#33302b',
       secondary: '#857e6f',
       accent: '#8a5a2b',
-      neutral: '#e7e0d2',
-      background: '#f6f2ea',
+      neutral: '#e6e3da',
+      background: '#f4f2ed',
       text: '#262320',
     },
     typography: {
@@ -3017,7 +3017,7 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'Folio depth markers persist in the left margin throughout the register',
     },
     accessibility:
-      '#262320 on #f6f2ea is 14.9:1 and 0.5px rules are decorative only — every separation also has spacing, so nothing depends on a hairline. Deed numbers are announced with their folio and access status. The registry is a definition list so number and description stay associated for assistive tech.',
+      '#262320 on #f4f2ed is 14.9:1 and 0.5px rules are decorative only — every separation also has spacing, so nothing depends on a hairline. Deed numbers are announced with their folio and access status. The registry is a definition list so number and description stay associated for assistive tech.',
     responsive:
       'Folio indents halve from 18px to 9px below 760px and the four-column search becomes two at 640px, then one at 460px. Citations wrap at their commas rather than mid-number. Rules stay 1px at every width so the register still reads as ruled.',
     codeExample:
@@ -3029,7 +3029,7 @@ export const wave6Designs: DesignSystem[] = [
     signatureCss: `.dv-card { border-radius: 1px; border: 0; border-top: 1px solid #857e6f; background: transparent; padding: 14px 0; }
 .dv-card p, .dv-card .dv-sub { color: #857e6f; }
 .dv-hero h1 em { color: #33302b; font-style: italic; }
-.dv-btn-primary { border-radius: 1px; background: #33302b; color: #f6f2ea; }
+.dv-btn-primary { border-radius: 1px; background: #33302b; color: #f4f2ed; }
 .dv-badge { background: transparent; border: 1px solid #8a5a2b; color: #8a5a2b; border-radius: 1px; transform: rotate(-1deg); font-size: 10px; letter-spacing: 0.04em; }
 .dv-stat { border-left: 1px solid #857e6f; padding-left: 10px; }
 .dv-nav { border-bottom: 3px double #33302b; background: transparent; }`,
@@ -3395,13 +3395,13 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Zoetrope is about pre-cinema animation, so the page is a drum: a horizontal strip of fourteen frames you scrub through, with a slit-viewer metaphor that only reveals one frame at a time until you turn it. Motion is derived from rotation, not from scroll position, and the whole system is built from brass rules and ink. For animation archives, museums, and studios that care where the frame came from.',
     designDetails:
-      'Aged paper #f3efe7 with ink #2d2216, brass #a8742c rules, and a faded gilt #8f7a58 for secondary figures. Frames are drawn as 14 equal strips with 1px brass separators, and the slit is a 2px ink bar that masks all but the active frame. Type is a display wood-face paired with a typewriter mono, so captions read as labels in a museum vitrine.',
+      'Aged paper #f1f0ec with ink #2d2216, brass #a8742c rules, and a faded gilt #8f7a58 for secondary figures. Frames are drawn as 14 equal strips with 1px brass separators, and the slit is a 2px ink bar that masks all but the active frame. Type is a display wood-face paired with a typewriter mono, so captions read as labels in a museum vitrine.',
     colors: {
       primary: '#2d2216',
       secondary: '#8f7a58',
       accent: '#a8742c',
-      neutral: '#e2d9c8',
-      background: '#f3efe7',
+      neutral: '#ddd9d2',
+      background: '#f1f0ec',
       text: '#241c12',
     },
     typography: {
@@ -3435,7 +3435,7 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'One revolution per two sections scrolled, always quantised to a frame',
     },
     accessibility:
-      '#241c12 on #f3efe7 is 14.6:1; brass at 4.5:1 is confined to rules and frame numerals at 17px+. Because the slit metaphor intentionally hides frames, the strip is a real list with every frame caption present in the DOM, and the mask is aria-hidden. Reduced motion replaces rotation with instant frame changes and shows all captions.',
+      '#241c12 on #f1f0ec is 14.6:1; brass at 4.5:1 is confined to rules and frame numerals at 17px+. Because the slit metaphor intentionally hides frames, the strip is a real list with every frame caption present in the DOM, and the mask is aria-hidden. Reduced motion replaces rotation with instant frame changes and shows all captions.',
     responsive:
       'The fourteen-frame strip becomes a seven-frame strip below 860px and a scrubber with a frame counter below 560px, with the slit retained as a 2px ink bar. Captions move below their frame at 620px. Brass separators reduce from 1px to 1px but spacing halves so the drum stays legible.',
     codeExample:
@@ -3447,10 +3447,10 @@ export const wave6Designs: DesignSystem[] = [
     signatureCss: `.dv-card { border-radius: 2px; border: 1px solid #a8742c44; border-top: 2px solid #a8742c; background: #fffdf8; }
 .dv-card::after { content: ''; position: absolute; inset: 0 6px auto 6px; height: 2px; background: repeating-linear-gradient(90deg, #2d2216 0 2px, transparent 2px 14px); }
 .dv-hero h1 em { color: #a8742c; font-style: normal; }
-.dv-btn-primary { border-radius: 2px; background: #2d2216; color: #f3efe7; border-top: 2px solid #a8742c; }
-.dv-badge { background: #e2d9c8; color: #2d2216; border-radius: 2px; font-family: 'Courier Prime', monospace; }
+.dv-btn-primary { border-radius: 2px; background: #2d2216; color: #f1f0ec; border-top: 2px solid #a8742c; }
+.dv-badge { background: #ddd9d2; color: #2d2216; border-radius: 2px; font-family: 'Courier Prime', monospace; }
 .dv-stat strong { color: #a8742c; font-family: 'Rye', serif; }
-.dv-media { border-radius: 2px; background: repeating-linear-gradient(90deg, #e2d9c8 0 14px, #f3efe7 14px 16px); }`,
+.dv-media { border-radius: 2px; background: repeating-linear-gradient(90deg, #ddd9d2 0 14px, #f1f0ec 14px 16px); }`,
     author: 'Julian Ashby',
     createdAt: '2026-09-25',
     popularity: 60,

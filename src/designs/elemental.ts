@@ -146,14 +146,14 @@ export const elementalDesigns: DesignSystem[] = [
     designPhilosophy:
       'One brushstroke says more than a thousand divs. Sumi-e discipline: greyscale ink on warm paper, asymmetric balance, and negative space treated as the primary material. The interface breathes like a hand scroll — unhurried, deliberate, precise where it matters and empty where it does not.',
     designDetails:
-      'Warm paper #f7f4ee with near-black ink #1c1a17. Zilla Slab light for display with manual brush-weight contrast; Karla for function. Single vermilion hanko-stamp accent (used at most twice per page). Brushstroke divider: a CSS gradient that tapers. Layouts are asymmetric (7:5) with deliberate emptiness. Hover states are ink spreading (background tint grows).',
+      'Warm paper #f7f4ee with near-black ink #23292e. Zilla Slab light for display with manual brush-weight contrast; Karla for function. Single vermilion hanko-stamp accent (used at most twice per page). Brushstroke divider: a CSS gradient that tapers. Layouts are asymmetric (7:5) with deliberate emptiness. Hover states are ink spreading (background tint grows).',
     colors: {
-      primary: '#1c1a17',
+      primary: '#23292e',
       secondary: '#6b665e',
       accent: '#c73e2d',
       neutral: '#e7e2d8',
       background: '#f7f4ee',
-      text: '#1c1a17',
+      text: '#23292e',
     },
     typography: {
       displayFont: 'Zilla Slab',
@@ -163,7 +163,7 @@ export const elementalDesigns: DesignSystem[] = [
       letterSpacing: 'Display 0.02em, labels 0.3em uppercase',
     },
     components: {
-      primary: 'Solid ink #1c1a17, paper text, radius 2px, padding 12px 32px, 400 weight, letter-spaced',
+      primary: 'Solid ink #23292e, paper text, radius 2px, padding 12px 32px, 400 weight, letter-spaced',
       secondary: '1px ink border, transparent, weight 400',
       tertiary: 'Ink text link with taper-underline (gradient) on hover',
       radius: '2px — the brush does not round corners',
@@ -197,7 +197,7 @@ export const elementalDesigns: DesignSystem[] = [
     useCases: ['Portfolio', 'Photography', 'Agency'],
     signatureCss: `
 .dv-hero h1 em { font-style: normal; color: #6b665e; }
-.dv-section + .dv-section::before { content: ''; display: block; height: 2px; margin-bottom: 3em; background: linear-gradient(90deg, #1c1a17 0%, rgba(28,26,23,.35) 55%, transparent 90%); }
+.dv-section + .dv-section::before { content: ''; display: block; height: 2px; margin-bottom: 3em; background: linear-gradient(90deg, #23292e 0%, rgba(28,26,23,.35) 55%, transparent 90%); }
 .dv-kicker { color: #c73e2d; }
 .dv-logo::after { content: '・'; color: #c73e2d; }`,
     author: 'Riko Tanaka',

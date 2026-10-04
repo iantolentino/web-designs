@@ -1,0 +1,144 @@
+
+bookbindery  (new, base #7a2f2a)
+----------------------------------------------------------------
+  ✓ bookbindery        #7a2f2a → #8e4850   primary ΔE   13.1 → puppet-theater   palette ΔE   10.8 → appeals-tribunal
+
+glazier  (new, base #2f6b8a)
+----------------------------------------------------------------
+  ~ glazier            #2f6b8a → #256dc1   primary ΔE    8.5 → pigeon-post   palette ΔE    6.8 → procurement-desk
+
+plumber  (new, base #1f4a6b)
+----------------------------------------------------------------
+  ~ plumber            #1f4a6b → #1d59af   primary ΔE    7.5 → milk-round   palette ΔE    6.4 → permit-office
+
+electrician  (new, base #a8760e)
+----------------------------------------------------------------
+  ~ electrician        #a8760e → #c0a807   primary ΔE   10.0 → dispatch-cab   palette ΔE    8.8 → building-inspector
+
+upholsterer  (new, base #7a4a6b)
+----------------------------------------------------------------
+  ✓ upholsterer        #7a4a6b → #9b4b91   primary ΔE   17.5 → sleep-lab   palette ΔE   16.1 → appeals-tribunal
+
+tiler  (new, base #2f5f8a)
+----------------------------------------------------------------
+  ~ tiler              #2f5f8a → #153479   primary ΔE    7.4 → consular-desk   palette ΔE    6.6 → rain-gauge
+
+plasterer  (new, base #a89a8a)
+----------------------------------------------------------------
+  ~ plasterer          #a89a8a → #a7a296   primary ΔE   11.0 → wabi-sabi   palette ΔE    9.1 → cashmere-mill
+
+cabinetmaker  (new, base #8a5a1f)
+----------------------------------------------------------------
+  ~ cabinetmaker       #8a5a1f → #a46b46   primary ΔE    9.0 → film-journal   palette ΔE    7.4 → trade-licensing
+
+watchmaker  (new, base #3a3550)
+----------------------------------------------------------------
+  ~ watchmaker         #3a3550 → #4e396e   primary ΔE    9.8 → pumping-station   palette ΔE    8.1 → customs-post
+
+luthier  (new, base #8a4a1f)
+----------------------------------------------------------------
+  ~ luthier            #8a4a1f → #603f10   primary ΔE    9.3 → malt-house   palette ΔE    8.4 → vehicle-registration
+
+cooper-works  (new, base #5f3a2a)
+----------------------------------------------------------------
+  ~ cooper-works       #5f3a2a → #9a601f   primary ΔE    7.8 → penny-press   palette ΔE    7.5 → national-archives
+
+milliner  (new, base #a82f5a)
+----------------------------------------------------------------
+  ~ milliner           #a82f5a → #b93c42   primary ΔE   10.3 → lantern-district   palette ΔE    8.6 → court-clerk
+
+basket-weaver  (new, base #9a7a2f)
+----------------------------------------------------------------
+  ~ basket-weaver      #9a7a2f → #655420   primary ΔE    8.9 → mud-kitchen   palette ΔE    8.3 → licence-board
+
+potters-wheel  (new, base #a85a3a)
+----------------------------------------------------------------
+  ~ potters-wheel      #a85a3a → #a53d0d   primary ΔE    8.8 → ink-house   palette ΔE   10.0 → vehicle-registration
+
+marbler  (new, base #1f3f5f)
+----------------------------------------------------------------
+  ~ marbler            #1f3f5f → #3d4a71   primary ΔE    7.8 → ward-round   palette ΔE    8.0 → census-desk
+
+gilder  (new, base #8a6a14)
+----------------------------------------------------------------
+  ~ gilder             #8a6a14 → #be8d08   primary ΔE    8.8 → scriptorium-sips   palette ΔE    7.9 → licence-board
+
+woodturner  (new, base #6b4a2a)
+----------------------------------------------------------------
+  ~ woodturner         #6b4a2a → #b8641e   primary ΔE    8.5 → ink-house   palette ΔE    8.4 → trade-licensing
+
+blacksmith  (new, base #4a4a4e)
+----------------------------------------------------------------
+  ~ blacksmith         #4a4a4e → #4e5a49   primary ΔE    9.9 → mushroom-log   palette ΔE    8.7 → mortar-works
+
+cutler  (new, base #2f3a44)
+----------------------------------------------------------------
+  ~ cutler             #2f3a44 → #353555   primary ΔE    7.7 → briefcase-slate   palette ΔE    6.3 → first-class
+
+cobbler  (new, base #5f3a1f)
+----------------------------------------------------------------
+  ~ cobbler            #5f3a1f → #bf7b18   primary ΔE    8.1 → canopy-lodge   palette ΔE    8.3 → vehicle-registration
+
+tailor  (new, base #2f3550)
+----------------------------------------------------------------
+  ~ tailor             #2f3550 → #262230   primary ΔE    6.2 → timetable   palette ΔE    5.3 → spec:cutler#pick
+
+framer  (new, base #6b5a2a)
+----------------------------------------------------------------
+  ~ framer             #6b5a2a → #ae6832   primary ΔE    7.0 → bakery-window   palette ΔE    5.6 → herbarium-sheet
+
+papermill  (new, base #4a5560)
+----------------------------------------------------------------
+  ~ papermill          #4a5560 → #556a8c   primary ΔE    7.6 → ward-round   palette ΔE    6.2 → bird-atlas
+
+ink-works  (new, base #1f2440)
+----------------------------------------------------------------
+  ~ ink-works          #1f2440 → #4a2688   primary ΔE    8.1 → boundary-commission   palette ΔE    6.2 → electoral-count
+
+dye-house  (new, base #8a2f6b)
+----------------------------------------------------------------
+  ✓ dye-house          #8a2f6b → #f00fd2   primary ΔE   18.3 → candy-stand   palette ΔE   15.0 → audit-desk
+
+weavers-loom  (new, base #7a4a1f)
+----------------------------------------------------------------
+  ~ weavers-loom       #7a4a1f → #ad7b2b   primary ΔE    8.4 → depot-yard   palette ΔE    7.6 → spec:gilder#pick
+
+lacemaker  (new, base #a8908a)
+----------------------------------------------------------------
+  ~ lacemaker          #a8908a → #a55f59   primary ΔE   11.3 → spec:bookbindery#pick   palette ΔE    9.3 → spec:plasterer#pick
+
+glass-engraver  (new, base #2f4a6b)
+----------------------------------------------------------------
+  ~ glass-engraver     #2f4a6b → #11124a   primary ΔE    6.8 → voter-roll   palette ΔE    5.3 → consular-desk
+
+silversmith  (new, base #4a4a55)
+----------------------------------------------------------------
+  ~ silversmith        #4a4a55 → #8c737b   primary ΔE   10.6 → white-glove   palette ΔE   12.6 → spec:upholsterer#pick
+
+calligrapher  (new, base #1f1f2a)
+----------------------------------------------------------------
+  ~ calligrapher       #1f1f2a → #56434a   primary ΔE    9.2 → sketchbook-club   palette ΔE    7.4 → spec:marbler#pick
+
+cartwright  (new, base #8a5a2a)
+----------------------------------------------------------------
+  ~ cartwright         #8a5a2a → #d3ab17   primary ΔE    7.6 → spec:electrician#pick   palette ΔE    6.7 → driving-licence
+
+brass-polish  (new, base #9a7a1f)
+----------------------------------------------------------------
+  ~ brass-polish       #9a7a1f → #7a7329   primary ΔE    8.3 → heritage-linen   palette ΔE    6.7 → spec:gilder#pick
+
+sign-carver  (new, base #2f4a2f)
+----------------------------------------------------------------
+  ~ sign-carver        #2f4a2f → #51902a   primary ΔE    9.2 → sock-puppet   palette ΔE    7.7 → land-titles
+
+key-cutter  (new, base #3f4a5f)
+----------------------------------------------------------------
+  ~ key-cutter         #3f4a5f → #3f3e73   primary ΔE    6.9 → spec:watchmaker#pick   palette ΔE    5.7 → consular-desk
+
+clock-tower  (new, base #2f3a3a)
+----------------------------------------------------------------
+  ~ clock-tower        #2f3a3a → #43504a   primary ΔE    7.7 → spec:blacksmith#pick   palette ΔE    6.3 → civic-charter
+
+bench-room  (new, base #5f4a2a)
+----------------------------------------------------------------
+  ~ bench-room         #5f4a2a → #47422a   primary ΔE    7.9 → truffle-hunter   palette ΔE    6.9 → spec:basket-weaver#pick

@@ -214,7 +214,7 @@ signatureCss: `
     designPhilosophy:
       'A terminal that learned manners. Greyscale surfaces, mono details, and hairline structure — then a single amber spark for the one action that matters. Built for developer tools whose users distrust color but respect clarity.',
     designDetails:
-      'Space Mono for labels, numbers, and meta; IBM Plex Sans for prose. Surfaces step through four greys; borders are 1px and always visible. Amber (#f59e0b-family, deepened for contrast) appears exactly twice per viewport: active nav item and primary CTA. Code blocks are first-class citizens, styled like the product itself.',
+      'IBM Plex Mono for labels, numbers, and meta; IBM Plex Sans for prose. Surfaces step through four greys; borders are 1px and always visible. Amber (#f59e0b-family, deepened for contrast) appears exactly twice per viewport: active nav item and primary CTA. Code blocks are first-class citizens, styled like the product itself.',
     colors: {
       primary: '#b45309',
       secondary: '#27272a',
@@ -224,7 +224,7 @@ signatureCss: `
       text: '#18181b',
     },
     typography: {
-      displayFont: 'IBM Plex Sans',
+      displayFont: 'IBM Plex Mono',
       bodyFont: 'IBM Plex Sans',
       scale: '12 / 13 / 15 / 17 / 22 / 30 / 44',
       lineHeights: 'Display 1.15, body 1.65, mono 1.5',

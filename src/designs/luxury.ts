@@ -10,9 +10,9 @@ export const luxuryDesigns: DesignSystem[] = [
     designPhilosophy:
       'Wealth whispers. Deep velvet black, champagne-gold hairlines, and a display serif reserved for the few words that deserve them. Space is the real luxury: enormous padding, slow fades, and a singleCTA that appears only when you are ready.',
     designDetails:
-      'Black #0d0b09 canvas with champagne-gold (#d4af37-family) 1px rules and small-caps serif labels. Fraunces light weight for display with wide letter-spacing; IBM Plex Sans for function. Buttons are gold-bordered ghosts that fill on hover over 400ms — luxury is patient. Every section is separated by a gold hairline, never a box.',
+      'Black #0d0b09 canvas with champagne-gold (#e7cf9f-family) 1px rules and small-caps serif labels. Bodoni Moda light weight for display with wide letter-spacing; IBM Plex Sans for function. Buttons are gold-bordered ghosts that fill on hover over 400ms — luxury is patient. Every section is separated by a gold hairline, never a box.',
     colors: {
-      primary: '#d4af37',
+      primary: '#e7cf9f',
       secondary: '#3a3630',
       accent: '#8a6f2f',
       neutral: '#201d19',
@@ -20,14 +20,14 @@ export const luxuryDesigns: DesignSystem[] = [
       text: '#f5f0e6',
     },
     typography: {
-      displayFont: 'Fraunces',
+      displayFont: 'Bodoni Moda',
       bodyFont: 'IBM Plex Sans',
       scale: '12 / 14 / 16 / 20 / 28 / 40 / 64',
       lineHeights: 'Display 1.1, body 1.7',
       letterSpacing: 'Display 0.02em, labels 0.28em uppercase small-caps',
     },
     components: {
-      primary: '1px #d4af37 border, transparent bg, gold text, padding 16px 40px, letter-spaced uppercase, fills gold (text flips #0d0b09) on hover over 400ms',
+      primary: '1px #e7cf9f border, transparent bg, gold text, padding 16px 40px, letter-spaced uppercase, fills gold (text flips #0d0b09) on hover over 400ms',
       secondary: '1px rgba(245,240,230,.35) border, paper text, same patience',
       tertiary: 'Gold text link with hairline underline that draws slowly',
       radius: '0 — corners stay sharp like a folded tuxedo',
@@ -55,15 +55,15 @@ export const luxuryDesigns: DesignSystem[] = [
       'Display clamps 2.5rem→4rem; hairlines remain. Padding steps 96→64→32. Under 640px nav becomes a minimal ✕/☰ hairline toggle.',
     codeExample:
       '<section class="atelier">\n  <p class="smallcaps">Collection No. 3</p>\n  <h1>Quiet objects,<br/>loud heritage.</h1>\n  <a class="ghost" href="#">View the collection</a>\n</section>',
-    accent: '#d4af37',
-    motif: 'serif-italic-hero',
+    accent: '#e7cf9f',
+    motif: 'glow-pulse',
     layout: 'centered',
     useCases: ['Fashion', 'Fintech', 'Real Estate'],
 signatureCss: `
-.dv-smallcaps { font-variant: small-caps; letter-spacing: .28em; color: #d4af37; }
+.dv-smallcaps { font-variant: small-caps; letter-spacing: .28em; color: #e7cf9f; }
 .dv-hero h1 { letter-spacing: .02em; font-weight: 350; }
 .dv-btn { transition: background .4s, color .4s; }
-.dv-btn:hover { background: #d4af37; color: #0d0b09; }
+.dv-btn:hover { background: #e7cf9f; color: #0d0b09; }
 .dv-section + .dv-section { border-top: 1px solid rgba(212,175,55,.25); }`,
     author: 'Aurélie Fontaine',
     createdAt: '2026-02-20',

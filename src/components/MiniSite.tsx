@@ -263,6 +263,11 @@ function renderLayout(
     case 'mosaic': return <MosaicBody d={d} />
     case 'timeline': return <TimelineBody d={d} />
     case 'split-scroll': return <SplitScrollBody d={d} />
+    case 'docs': return <DocsBody d={d} />
+    case 'film-strip': return <FilmStripBody d={d} />
+    case 'map-plate': return <MapPlateBody d={d} />
+    case 'field-notes': return <FieldNotesBody d={d} />
+    case 'receipt': return <ReceiptBody d={d} />
     case 'hero-cards':
     default: return <HeroCards d={d} />
   }
@@ -935,6 +940,200 @@ function SplitScrollBody({ d }: { d: DesignSystem }) {
   )
 }
 
+/* ===== Wave-11 layout bodies ===== */
+
+/** Docs — a documentation shell: tree on the left, reading column, on-this-page rail. */
+function DocsBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  return (
+    <section className="dv-docs">
+      <aside className="dv-docs-tree">
+        <div className="dv-docs-brand">◈ {d.name}</div>
+        {[['Getting started', ['Install', 'Quickstart', 'Concepts']], ['Guides', ['Theming', 'Motion', 'Accessibility']], ['Reference', ['Tokens', 'Components']]].map(([group, items]) => (
+          <div key={group as string} className="dv-docs-group">
+            <span className="dv-label">{group as string}</span>
+            {(items as string[]).map((item, i) => (
+              <span key={item} className={`dv-docs-item ${item === 'Theming' ? 'dv-docs-on' : ''}`} style={item === 'Theming' ? { background: withAlpha(t.primary, 0.12), color: t.primary } : undefined}>
+                {item}
+              </span>
+            ))}
+          </div>
+        ))}
+      </aside>
+      <article className="dv-docs-article">
+        <p className="dv-kicker">{d.category} · docs shell</p>
+        <h1>{heroTitle(d)}</h1>
+        <p className="dv-sub dv-align-left">{d.description}</p>
+        <div className="dv-docs-callout" style={{ borderColor: withAlpha(t.primary, 0.4), background: withAlpha(t.primary, 0.06) }}>
+          <strong>Why this page is shaped like this</strong>
+          <p>{d.designPhilosophy.split('.')[0]}.</p>
+        </div>
+        <pre className="dv-docs-code">{`$ npm install ${d.id}\n# ${d.name} — ${d.description}`}</pre>
+        <h2 className="dv-h2">The rules, in order</h2>
+        <p>Every token in this system exists because something else would be worse. The scale has seven steps because six cramped and eight wandered; the accent appears exactly where your eye needs a handhold.</p>
+        <ul className="dv-docs-list">
+          {['Six named colors, no unnamed greys', 'One spacing unit, applied without exception', `Display voice: ${d.typography.displayFont}`].map((li) => <li key={li}>{li}</li>)}
+        </ul>
+        <div className="dv-docs-pager">
+          <button className="dv-btn dv-btn-secondary">← Concepts</button>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Motion →</button>
+        </div>
+      </article>
+      <aside className="dv-docs-toc">
+        <span className="dv-label">On this page</span>
+        {['Install', 'The rules, in order', 'Next steps'].map((x, i) => (
+          <span key={x} className={i === 1 ? 'dv-docs-toc-on' : ''} style={i === 1 ? { color: t.primary } : undefined}>{x}</span>
+        ))}
+      </aside>
+    </section>
+  )
+}
+
+/** Film Strip — a horizontal roll of frames, sprockets included. */
+function FilmStripBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  const frames = ['01', '02', '03', '04', '05']
+  return (
+    <>
+      <header className="dv-fs-head">
+        <p className="dv-kicker">{d.category} · film strip</p>
+        <h1>{heroTitle(d)}</h1>
+        <p className="dv-sub dv-align-left">{d.description}</p>
+        <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Thread the reel</button>
+          <button className="dv-btn dv-btn-secondary">Frame notes</button>
+        </div>
+      </header>
+      <div className="dv-fs-reel">
+        <div className="dv-fs-perf" aria-hidden />
+        <div className="dv-fs-frames">
+          {frames.map((n, i) => (
+            <figure key={n} className="dv-fs-frame">
+              <div className="dv-fs-cell" style={{ background: i % 2 ? withAlpha(t.secondary, 0.22) : `linear-gradient(150deg, ${withAlpha(t.primary, 0.85)}, ${withAlpha(t.secondary, 0.7)})` }}>
+                <span className="dv-fs-num" style={{ color: i % 2 ? t.text : onColor(t.primary) }}>{n}</span>
+              </div>
+              <figcaption>{i % 2 ? 'Interior, available light' : 'Establishing frame, handheld'}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <div className="dv-fs-perf" aria-hidden />
+      </div>
+      <section className="dv-fs-notes">
+        {[['Exposure', 'One stop under, printed down.'], ['Grain', '400 speed, pushed to 1600.'], ['Cut', 'Straight, never a dissolve.']].map(([k, v]) => (
+          <div key={k} className="dv-card dv-fs-note">
+            <span className="dv-label">{k}</span>
+            <p>{v}</p>
+          </div>
+        ))}
+      </section>
+    </>
+  )
+}
+
+/** Map Plate — a map canvas with pins and legend beside a briefing column. */
+function MapPlateBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  return (
+    <>
+      <section className="dv-map">
+        <div className="dv-map-canvas" style={{ borderColor: withAlpha(t.text, 0.18) }}>
+          <span className="dv-map-grid" aria-hidden />
+          <span className="dv-map-route" aria-hidden />
+          {[[22, 30], [48, 18], [63, 62], [80, 40]].map(([x, y], i) => (
+            <span key={i} className={`dv-map-pin ${i === 1 ? 'dv-map-pin-on' : ''}`} style={{ left: `${x}%`, top: `${y}%`, background: i === 1 ? t.accent : t.primary }}>
+              <b style={{ transform: 'rotate(45deg)', fontWeight: 700 }}>{i + 1}</b>
+            </span>
+          ))}
+          <span className="dv-map-legend">
+            <i style={{ background: t.primary }} /> Station
+            <i style={{ background: t.accent }} /> Current
+          </span>
+        </div>
+        <div className="dv-map-copy">
+          <p className="dv-kicker">{d.category} · map plate</p>
+          <h1>{heroTitle(d)}</h1>
+          <p className="dv-sub dv-align-left">{d.description}</p>
+          <div className="dv-map-facts">
+            {[['Plate', '41° 23′ N'], ['Scale', '1 : 25 000'], ['Edition', '3rd, revised']].map(([k, v]) => (
+              <div key={k} className="dv-ss-fact"><span className="dv-label">{k}</span><span>{v}</span></div>
+            ))}
+          </div>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Open the chart</button>
+        </div>
+      </section>
+      <section className="dv-map-rows">
+        {[['North quay', '1.2 km', 'Sheltered, all tide'], ['Old lock', '3.4 km', 'Heritage, no mooring'], ['Outer mole', '5.8 km', 'Exposed in easterlies']].map(([name, dist, note]) => (
+          <div key={name} className="dv-map-row" style={{ borderColor: withAlpha(t.text, 0.14) }}>
+            <strong>{name}</strong>
+            <span className="dv-label">{dist}</span>
+            <span>{note}</span>
+          </div>
+        ))}
+      </section>
+    </>
+  )
+}
+
+/** Field Notes — a ruled notebook spread with a margin for marginalia. */
+function FieldNotesBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  return (
+    <section className="dv-fn">
+      <header className="dv-fn-head">
+        <p className="dv-kicker">{d.category} · field notes</p>
+        <h1>{heroTitle(d)}</h1>
+        <p className="dv-sub dv-align-left">{d.description}</p>
+      </header>
+      <div className="dv-fn-spread">
+        <div className="dv-fn-entries">
+          {[['07:40', 'Trunk diameter', '41 cm at breast height.'], ['11:05', 'Canopy cover', 'Dense — over 80% by eye.'], ['15:20', 'Soil', 'Dark, loose, two earthworms.'], ['18:00', 'Weather', 'Rain by evening, as promised.']].map(([time, title, body]) => (
+            <div key={time} className="dv-fn-entry">
+              <span className="dv-fn-time" style={{ color: t.primary }}>{time}</span>
+              <div className="dv-fn-entry-body"><h3>{title}</h3><p>{body}</p></div>
+            </div>
+          ))}
+        </div>
+        <aside className="dv-fn-margin">
+          <div className="dv-fn-sticky" style={{ background: withAlpha(t.accent, 0.28) }}>{d.designPhilosophy.split('.')[0]}.</div>
+          <ul className="dv-fn-checks">
+            {['Tag tree #41', 'Photograph canopy', 'Mail the logsheet'].map((x, i) => (
+              <li key={x}><span className={i === 0 ? 'dv-fn-check-on' : ''} style={i === 0 ? { background: t.primary, borderColor: t.primary } : undefined} />{x}</li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    </section>
+  )
+}
+
+/** Receipt — one narrow paper column: line items, total, barcode. */
+function ReceiptBody({ d }: { d: DesignSystem }) {
+  const t = themeOf(d)
+  const items: [string, string][] = [['House blend, 250g', '9.00'], ['Filter papers, 100', '4.50'], ['Brew class', '32.00'], ['Cup deposit', '1.00']]
+  return (
+    <section className="dv-receipt">
+      <div className="dv-receipt-paper" style={{ borderColor: withAlpha(t.text, 0.22) }}>
+        <p className="dv-receipt-brand">◈ {d.name}</p>
+        <p className="dv-receipt-meta">{d.category.toUpperCase()} · ORDER 2418 · 03 OCT</p>
+        <div className="dv-receipt-rule" />
+        {items.map(([name, price]) => (
+          <p key={name} className="dv-receipt-line"><span>{name}</span><span>{price}</span></p>
+        ))}
+        <div className="dv-receipt-rule" />
+        <p className="dv-receipt-line dv-receipt-total"><strong>TOTAL</strong><strong style={{ color: t.primary }}>46.50</strong></p>
+        <p className="dv-receipt-thanks">{d.designPhilosophy.split('.')[0]}. Thank you — come back hungry.</p>
+        <div className="dv-receipt-barcode" aria-hidden />
+        <p className="dv-receipt-meta">41°23′N 2°11′E</p>
+      </div>
+      <div className="dv-receipt-side">
+        <h1 className="dv-receipt-hero">{heroTitle(d)}</h1>
+        <p className="dv-sub dv-align-left">{d.description}</p>
+        <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Print another</button>
+      </div>
+    </section>
+  )
+}
+
 /* ================= Wave-2 content blocks (themed, placeholder copy) ================= */
 
 /**
@@ -1188,7 +1387,17 @@ function manifestoLines(d: DesignSystem): string[] {
   ]
 }
 
+/** Render a data-authored hero line: `*word*` becomes the accent italic. */
+function heroFromData(hero: string): React.ReactNode {
+  const parts = hero.split('*')
+  if (parts.length === 1) return <>{hero}</>
+  return <>{parts.map((p, i) => (i % 2 ? <em key={i}>{p}</em> : p))}</>
+}
+
 function heroTitle(d: DesignSystem): React.ReactNode {
+  // Newer designs carry their hero in their own data — one line per design
+  // instead of a 500-case switch. Legacy designs keep the switch below.
+  if (d.hero) return heroFromData(d.hero)
   switch (d.id) {
     case 'minimalist-tech': return <>Ship <em>calm</em> software.</>
     case 'zen-minimal': return <>Begin <em>quietly.</em></>

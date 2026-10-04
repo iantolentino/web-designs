@@ -43,6 +43,27 @@ export type Motif =
   | 'oil-slick'
   | 'ledger-rules'
   | 'stencil-mask'
+  // — wave 11 vocabulary: texture, print craft, and instrument panels —
+  | 'double-rule'
+  | 'inset-frame'
+  | 'ribbon-band'
+  | 'stamp-seal'
+  | 'ticket-stub'
+  | 'blueprint-grid'
+  | 'riso-offset'
+  | 'glass-sheen'
+  | 'torn-edge'
+  | 'stitch-line'
+  | 'lattice-weave'
+  | 'vignette'
+  | 'slat-shadow'
+  | 'watermark-glyph'
+  | 'terrazzo-speck'
+  | 'sonar-sweep'
+  | 'pcb-trace'
+  | 'punched-card'
+  | 'quilt-patch'
+  | 'rivet-row'
 
 export type DeviceMode = 'desktop' | 'tablet' | 'mobile'
 export type PreviewTab = 'live' | 'components' | 'colors' | 'code' | 'details'
@@ -64,6 +85,12 @@ export type Layout =
   | 'mosaic'
   | 'timeline'
   | 'split-scroll'
+  // — wave 11 arrangements —
+  | 'docs'
+  | 'film-strip'
+  | 'map-plate'
+  | 'field-notes'
+  | 'receipt'
 
 export const LAYOUT_LABEL: Record<Layout, string> = {
   'hero-cards': 'Hero + Feature Cards',
@@ -82,6 +109,11 @@ export const LAYOUT_LABEL: Record<Layout, string> = {
   mosaic: 'Mosaic',
   timeline: 'Timeline',
   'split-scroll': 'Split Scroll',
+  docs: 'Docs Shell',
+  'film-strip': 'Film Strip',
+  'map-plate': 'Map Plate',
+  'field-notes': 'Field Notes',
+  receipt: 'Receipt',
 }
 
 /**
@@ -364,6 +396,12 @@ export interface DesignSystem {
   motif: Motif
   /** Page layout archetype for the live preview */
   layout: Layout
+  /**
+   * Bespoke hero line for the preview, with `*emphasis*` marking the word that
+   * renders in the accent italic. Designs may keep their hero in the legacy
+   * switch in MiniSite.tsx; when this field is present it wins.
+   */
+  hero?: string
   /** Website types this design suits */
   useCases: UseCase[]
   /** Extra per-design CSS (signature effects); injected only in preview + thumbs */

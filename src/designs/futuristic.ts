@@ -10,9 +10,9 @@ export const futuristicDesigns: DesignSystem[] = [
     designPhilosophy:
       'The future as imagined in 1958 — optimistic, geometric, chrome-plated. Googie architecture signs, rocket fins, starburst sparkles, and science-fair optimism. This is retrofuturism with its collar popped: confident, playful, and absolutely certain the year 2000 will have jetpacks.',
     designDetails:
-      'Cream #fbf6e8 with turbo red #e63317, cosmos navy #1b2a5e, and chrome-silver gradients. Righteous display; Jost body. Starburst ✷ ornaments, boomerang shapes (border-radius asymmetric), and chrome gradient bars (linear silver gradient with white hot-spot). Buttons look like rocket console switches. Card corners are "finned" via asymmetric radii.',
+      'Cream #fbf6e8 with turbo red #e07a00, cosmos navy #1b2a5e, and chrome-silver gradients. Righteous display; Jost body. Starburst ✷ ornaments, boomerang shapes (border-radius asymmetric), and chrome gradient bars (linear silver gradient with white hot-spot). Buttons look like rocket console switches. Card corners are "finned" via asymmetric radii.',
     colors: {
-      primary: '#e63317',
+      primary: '#e07a00',
       secondary: '#1b2a5e',
       accent: '#f2b705',
       neutral: '#e9e2cf',
@@ -27,7 +27,7 @@ export const futuristicDesigns: DesignSystem[] = [
       letterSpacing: 'Display 0.02em, labels 0.14em uppercase',
     },
     components: {
-      primary: 'Solid #e63317, cream text, radius 12px 24px 12px 24px (finned), padding 14px 30px, 700, 2px navy border, hard shadow 4px 4px 0 #1b2a5e',
+      primary: 'Solid #e07a00, cream text, radius 12px 24px 12px 24px (finned), padding 14px 30px, 700, 2px navy border, hard shadow 4px 4px 0 #1b2a5e',
       secondary: 'Cream bg, 2px navy border, finned radius, same shadow',
       tertiary: 'Navy 700 link with ✷ sparkle prefix on hover',
       radius: 'Finned: 12px 24px 12px 24px on interactive; 16px cards',
@@ -55,7 +55,7 @@ export const futuristicDesigns: DesignSystem[] = [
       'Finned radii simplify to 12px under 640px. Display clamps 2.25rem→3.625rem. Hero rocket stacks below text. Hard shadows reduce to 3px on mobile.',
     codeExample:
       '<section class="pad-39a">\n  <p class="count">T-minus 3… 2… 1…</p>\n  <h1>THE FUTURE, <em>DELIVERED.</em></h1>\n  <button class="btn-launch">Ignite ✷</button>\n</section>',
-    accent: '#e63317',
+    accent: '#e07a00',
     motif: 'rotated-stickers',
     layout: 'hero-cards',
     useCases: ['Events', 'Gaming', 'Kids'],

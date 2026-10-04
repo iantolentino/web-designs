@@ -61,7 +61,7 @@ export const craftDesigns: DesignSystem[] = [
     codeExample:
       '<section class="reading">\n  <p class="label">Global mean · September</p>\n  <h1>13.61<span>°C</span></h1>\n  <button class="btn-data">Download the dataset</button>\n</section>',
     accent: '#3a7ca5',
-    motif: 'big-stat-row',
+    motif: 'isometric-lattice',
     layout: 'dashboard',
     useCases: ['SaaS', 'AI/ML', 'Data & Analytics'],
     signatureCss: `
@@ -83,9 +83,9 @@ export const craftDesigns: DesignSystem[] = [
     designPhilosophy:
       'A drafting table, digitized. Every element snaps to an 8px grid, every label is set in monospace, and the only ornament is precision. Where Lunar Climate is calm, Arco Grid is exact — built for infrastructure dashboards, status pages, and tools engineers trust because nothing wobbles.',
     designDetails:
-      'Blueprint paper #f4f6f8, ink #14181d, arc-orange #e8590c used once per screen. Oxanium display for headings; IBM Plex Sans body with Plex Mono numerals. A visible dotted grid texture sits at 6% opacity behind the canvas. Panels are corner-notched: a small 45° cut on the top-right corner marks interactive containers.',
+      'Blueprint paper #f4f6f8, ink #14181d, arc-orange #3730a3 used once per screen. Oxanium display for headings; IBM Plex Sans body with Plex Mono numerals. A visible dotted grid texture sits at 6% opacity behind the canvas. Panels are corner-notched: a small 45° cut on the top-right corner marks interactive containers.',
     colors: {
-      primary: '#e8590c',
+      primary: '#3730a3',
       secondary: '#2b6cb0',
       accent: '#38a169',
       neutral: '#e2e6ea',
@@ -100,7 +100,7 @@ export const craftDesigns: DesignSystem[] = [
       letterSpacing: 'Display 0, labels 0.16em mono uppercase',
     },
     components: {
-      primary: 'Solid #e8590c, white text, radius 2px, padding 11px 24px, 700, mono uppercase label',
+      primary: 'Solid #3730a3, white text, radius 2px, padding 11px 24px, 700, mono uppercase label',
       secondary: '1.5px ink border, transparent, ink text',
       tertiary: 'Ink link with ⌁ caret and dotted underline',
       radius: '2px inputs/buttons; top-right corner notch 10px on cards',
@@ -128,7 +128,7 @@ export const craftDesigns: DesignSystem[] = [
       '12-col collapses to 6 under 900px, 2 under 600px. Notches shrink to 6px. Mono labels stay uppercase at all sizes.',
     codeExample:
       '<section class="sheet">\n  <p class="ref">GRID 01 / STATUS</p>\n  <h1>All systems nominal.</h1>\n  <button class="btn-arc">Open runbook</button>\n</section>',
-    accent: '#e8590c',
+    accent: '#3730a3',
     motif: 'pixel-grid',
     layout: 'dashboard',
     useCases: ['Developer Tools', 'Data & Analytics', 'DevOps & Cloud'],
@@ -488,9 +488,9 @@ export const craftDesigns: DesignSystem[] = [
     designPhilosophy:
       'Made on a copier that is low on toner, on purpose. Riso-style two-color overlays (blue + fluorescent pink), photocopied grain, marginalia scrawled in the gutters, and layouts that break their own grid once per page — exactly once. Brutalism with a sense of humor. For zines, independent labels, and music journalism.',
     designDetails:
-      'Xerox white #f2f0eb, toner black #111, riso blue #2b44ff, riso pink #ff48b0. Courier Prime display (typewriter) with mono labels; IBM Plex Mono body. Overprint effect: headlines get a 2px pink offset duplicate. Highlighter bars behind key lines. Images get halftone-dot treatment. Marginalia rotate -3°.',
+      'Xerox white #f2f0eb, toner black #111, riso blue #5333d6, riso pink #ff48b0. Courier Prime display (typewriter) with mono labels; IBM Plex Mono body. Overprint effect: headlines get a 2px pink offset duplicate. Highlighter bars behind key lines. Images get halftone-dot treatment. Marginalia rotate -3°.',
     colors: {
-      primary: '#2b44ff',
+      primary: '#5333d6',
       secondary: '#ff48b0',
       accent: '#111111',
       neutral: '#e3e0d8',
@@ -533,13 +533,13 @@ export const craftDesigns: DesignSystem[] = [
       'The rule-breaker straightens under 640px. Courier clamps 2rem→3.375rem. Staple marks hide on mobile.',
     codeExample:
       '<article class="page">\n  <p class="masthead">ISSUE №12 — FREE</p>\n  <h1>OVERPRINT &<br/>UNDERDOGS</h1>\n  <button class="btn-riso">Read the issue</button>\n</article>',
-    accent: '#2b44ff',
+    accent: '#5333d6',
     motif: 'dashed-borders',
     layout: 'asymmetric',
     useCases: ['Publishing', 'News', 'Music'],
     signatureCss: `
 .dv-hero h1 { font-family: 'Courier Prime', monospace; text-shadow: 3px 3px 0 #ff48b0; }
-.dv-kicker { background: #2b44ff; color: #f2f0eb; padding: 2px 8px; transform: rotate(-1deg); display: inline-block; }
+.dv-kicker { background: #5333d6; color: #f2f0eb; padding: 2px 8px; transform: rotate(-1deg); display: inline-block; }
 .dv-card { border: 2px solid #111; box-shadow: none; }
 .dv-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(#111 1px, transparent 1px); background-size: 4px 4px; opacity: .06; pointer-events: none; }`,
     author: 'Nina Kopp',
@@ -622,9 +622,9 @@ export const craftDesigns: DesignSystem[] = [
     designPhilosophy:
       'A critic\u2019s notebook scanned and put online. Tall Amatic caps for titles, real margins with pencil annotations, frames taped in slightly crooked, and a red pencil for emphasis. It should feel like you are reading over someone\u2019s shoulder — someone who watches everything and draws fast. For film journals, festivals, and personal criticism.',
     designDetails:
-      'Sketchbook #f7f4ec, pencil #3c3a35, red pencil #c0392b, tape #e8d9a0. Amatic SC display (tall hand caps); Karla body. Pencil-rule underlines (wobbly SVG path look via border-image or dashed), taped photo corners (4 rotated tape strips), and margin notes rotated ±2–3°. Frames-per-second dotted dividers.',
+      'Sketchbook #f7f4ec, pencil #3c3a35, red pencil #8a5a3b, tape #e8d9a0. Amatic SC display (tall hand caps); Karla body. Pencil-rule underlines (wobbly SVG path look via border-image or dashed), taped photo corners (4 rotated tape strips), and margin notes rotated ±2–3°. Frames-per-second dotted dividers.',
     colors: {
-      primary: '#c0392b',
+      primary: '#8a5a3b',
       secondary: '#3c3a35',
       accent: '#4a6b8a',
       neutral: '#eae5d8',
@@ -639,7 +639,7 @@ export const craftDesigns: DesignSystem[] = [
       letterSpacing: 'Display 0.08em, notes 0',
     },
     components: {
-      primary: 'Red pencil: #c0392b bg, sketch text, radius 10px 4px 12px 5px (hand-drawn), padding 12px 26px, 700',
+      primary: 'Red pencil: #8a5a3b bg, sketch text, radius 10px 4px 12px 5px (hand-drawn), padding 12px 26px, 700',
       secondary: 'Pencil outline sketch, transparent bg, wobbly border',
       tertiary: 'Pencil link with margin-arrow → and red underline scribble',
       radius: 'Hand-drawn: each corner slightly different (10/4/12/5)',
@@ -667,13 +667,13 @@ export const craftDesigns: DesignSystem[] = [
       'Margin folds away under 900px; notes become inline. Amatic clamps 2.5rem→4.5rem (it runs small). Tape corners persist.',
     codeExample:
       '<article class="spread">\n  <p class="note">saw this twice →</p>\n  <h1>NOTES ON<br/>SLOW LIGHT</h1>\n  <button class="btn-sketch">Read the notebook</button>\n</article>',
-    accent: '#c0392b',
-    motif: 'grain-overlay',
+    accent: '#8a5a3b',
+    motif: 'tape-labels',
     layout: 'magazine',
     useCases: ['Film & TV', 'Photography', 'Publishing'],
     signatureCss: `
 .dv-hero h1 { font-family: 'Amatic SC', cursive; letter-spacing: .08em; }
-.dv-kicker { color: #c0392b; transform: rotate(-2deg); display: inline-block; }
+.dv-kicker { color: #8a5a3b; transform: rotate(-2deg); display: inline-block; }
 .dv-card { background: #fffdf6; }
 .dv-media { border-radius: 2px; box-shadow: 0 1px 0 #d8d2c2, 0 0 0 6px #fffdf6, 0 0 0 7px #e0d8c4; }`,
     author: 'Lucia Ferrer',

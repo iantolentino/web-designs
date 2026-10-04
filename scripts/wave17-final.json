@@ -1,0 +1,290 @@
+{
+ "bookbindery": [
+  "#8e4850",
+  "#c49a8a",
+  "#1f4a5f",
+  "#e8dad2",
+  "#faf5f1",
+  "#241512"
+ ],
+ "glazier": [
+  "#256dc1",
+  "#a4c4d4",
+  "#e8b02b",
+  "#dce8ee",
+  "#f4f9fc",
+  "#0c1c24"
+ ],
+ "plumber": [
+  "#1d59af",
+  "#93a8bd",
+  "#e07a3a",
+  "#d6dfe8",
+  "#f2f6fa",
+  "#0a1620"
+ ],
+ "electrician": [
+  "#c0a807",
+  "#d9c08a",
+  "#1f3f8a",
+  "#efe4c4",
+  "#fdf8ec",
+  "#241d0c"
+ ],
+ "upholsterer": [
+  "#9b4b91",
+  "#c4a4b4",
+  "#1f6b52",
+  "#ece0e8",
+  "#fbf6f9",
+  "#241626"
+ ],
+ "tiler": [
+  "#153479",
+  "#a4b8cc",
+  "#d97706",
+  "#dce4ec",
+  "#f4f8fb",
+  "#0b1722"
+ ],
+ "plasterer": [
+  "#a7a296",
+  "#d9d2c8",
+  "#1f6b8a",
+  "#ece7e0",
+  "#faf8f5",
+  "#241f1a"
+ ],
+ "cabinetmaker": [
+  "#a46b46",
+  "#d4b48a",
+  "#2f5d3a",
+  "#ece0cc",
+  "#fdf7ec",
+  "#241708"
+ ],
+ "watchmaker": [
+  "#4e396e",
+  "#9a94b0",
+  "#c9971b",
+  "#e0dce8",
+  "#f7f6fa",
+  "#12101c"
+ ],
+ "luthier": [
+  "#603f10",
+  "#cfa87f",
+  "#1f4a5f",
+  "#eeddcc",
+  "#fdf6ec",
+  "#241508"
+ ],
+ "cooper-works": [
+  "#9a601f",
+  "#b39a8a",
+  "#c9971b",
+  "#e2d8cc",
+  "#f8f4ee",
+  "#1e140e"
+ ],
+ "milliner": [
+  "#b93c42",
+  "#e0a4bc",
+  "#d4af37",
+  "#f0dce4",
+  "#fdf6f9",
+  "#241018"
+ ],
+ "basket-weaver": [
+  "#655420",
+  "#d4c49a",
+  "#2f5d8a",
+  "#ece4cc",
+  "#fbf7ec",
+  "#241d0c"
+ ],
+ "potters-wheel": [
+  "#a53d0d",
+  "#d9b4a4",
+  "#2f5d6b",
+  "#efe0d8",
+  "#fdf6f2",
+  "#241410"
+ ],
+ "marbler": [
+  "#3d4a71",
+  "#93a8bd",
+  "#a82f4a",
+  "#d8e0e8",
+  "#f5f8fa",
+  "#0a1420"
+ ],
+ "gilder": [
+  "#be8d08",
+  "#d4c08a",
+  "#1f4a5f",
+  "#ece2c8",
+  "#fdf9ee",
+  "#241c0c"
+ ],
+ "woodturner": [
+  "#b8641e",
+  "#c4a894",
+  "#2f6b52",
+  "#e8dcd0",
+  "#faf5ee",
+  "#221810"
+ ],
+ "blacksmith": [
+  "#4e5a49",
+  "#9a9a9a",
+  "#e8630a",
+  "#d6d6d8",
+  "#f2f2f3",
+  "#17171a"
+ ],
+ "cutler": [
+  "#353555",
+  "#93a2ad",
+  "#c9971b",
+  "#d5dde2",
+  "#f2f6f8",
+  "#0c1419"
+ ],
+ "cobbler": [
+  "#bf7b18",
+  "#b3987a",
+  "#2f5d8a",
+  "#e6d8c4",
+  "#faf5ec",
+  "#221608"
+ ],
+ "tailor": [
+  "#262230",
+  "#9a9fb4",
+  "#c9971b",
+  "#dcdde8",
+  "#f6f6fa",
+  "#10121c"
+ ],
+ "framer": [
+  "#ae6832",
+  "#b3a882",
+  "#7a1f38",
+  "#e6dfc8",
+  "#faf7ec",
+  "#221c0d"
+ ],
+ "papermill": [
+  "#556a8c",
+  "#9aa8b4",
+  "#c2410c",
+  "#d9e0e6",
+  "#f3f6f8",
+  "#0e141a"
+ ],
+ "ink-works": [
+  "#4a2688",
+  "#8f94b4",
+  "#c9971b",
+  "#d8dae8",
+  "#f4f5fa",
+  "#0a0c18"
+ ],
+ "dye-house": [
+  "#f00fd2",
+  "#d4a4c4",
+  "#d9a441",
+  "#ece0e8",
+  "#fdf6fa",
+  "#241026"
+ ],
+ "weavers-loom": [
+  "#ad7b2b",
+  "#cfa87f",
+  "#2f5d6b",
+  "#ece0cc",
+  "#fbf6ec",
+  "#241808"
+ ],
+ "lacemaker": [
+  "#a55f59",
+  "#dcd0cc",
+  "#2f5d6b",
+  "#efe8e4",
+  "#fcfaf9",
+  "#26201e"
+ ],
+ "glass-engraver": [
+  "#11124a",
+  "#9aa8bd",
+  "#c9971b",
+  "#d9e2ea",
+  "#f4f8fb",
+  "#0b1420"
+ ],
+ "silversmith": [
+  "#8c737b",
+  "#a8a8b4",
+  "#1f5f4a",
+  "#dcdee4",
+  "#f6f7f9",
+  "#15151c"
+ ],
+ "calligrapher": [
+  "#56434a",
+  "#8f8f9a",
+  "#a82f4a",
+  "#dcdce2",
+  "#f7f7fa",
+  "#101018"
+ ],
+ "cartwright": [
+  "#d3ab17",
+  "#cfae82",
+  "#2f5d8a",
+  "#eaddc8",
+  "#fbf6ec",
+  "#241808"
+ ],
+ "brass-polish": [
+  "#7a7329",
+  "#d9c68a",
+  "#1f4a5f",
+  "#efe6c8",
+  "#fdf9ec",
+  "#241d0a"
+ ],
+ "sign-carver": [
+  "#51902a",
+  "#9ab49a",
+  "#c9971b",
+  "#dae4da",
+  "#f4f9f4",
+  "#0c1a0c"
+ ],
+ "key-cutter": [
+  "#3f3e73",
+  "#9aa4b4",
+  "#d9a441",
+  "#d9dde4",
+  "#f4f6f9",
+  "#0e1420"
+ ],
+ "clock-tower": [
+  "#43504a",
+  "#9aa8a8",
+  "#c9971b",
+  "#d8e0e0",
+  "#f2f6f6",
+  "#0c1414"
+ ],
+ "bench-room": [
+  "#47422a",
+  "#b3a68a",
+  "#2f5d8a",
+  "#e4dcc8",
+  "#faf7f0",
+  "#1f1a10"
+ ]
+}

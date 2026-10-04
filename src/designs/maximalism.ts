@@ -288,9 +288,9 @@ signatureCss: `
     designPhilosophy:
       'Half this system believes in bubblegum; half believes in asphalt. The page is the collision: candy panels slam into concrete slabs, sticker type overlays hazard tape, and the reader picks a side. The discipline is in the crash — every colliding block aligns to the same 12-column grid, so the chaos stays load-bearing.',
     designDetails:
-      'Bubblegum (#ff5da2, #ffd23f, #7c6ff0) and asphalt (#2b2140, #3d3d3d) share the page in alternating collision bands. Display flips between Bungee stickers and Archivo Black slabs. Borders are 3px and always visible; shadows alternate hard and soft — deliberately inconsistent, consistently intentional.',
+      'Bubblegum (#f72585, #ffd23f, #7c6ff0) and asphalt (#2b2140, #3d3d3d) share the page in alternating collision bands. Display flips between Bungee stickers and Archivo Black slabs. Borders are 3px and always visible; shadows alternate hard and soft — deliberately inconsistent, consistently intentional.',
     colors: {
-      primary: '#ff5da2',
+      primary: '#f72585',
       secondary: '#2b2140',
       accent: '#7c6ff0',
       neutral: '#f2e9ff',
@@ -306,8 +306,8 @@ signatureCss: `
     },
     components: {
       primary:
-        'Bubblegum #ff5da2, ink text, 2px border, hard shadow 5px 5px 0 #2b2140, radius 12px, weight 800',
-      secondary: 'Asphalt slab #2b2140, candy text, shadow 5px 5px 0 #ff5da2 — sides swap on hover',
+        'Bubblegum #f72585, ink text, 2px border, hard shadow 5px 5px 0 #2b2140, radius 12px, weight 800',
+      secondary: 'Asphalt slab #2b2140, candy text, shadow 5px 5px 0 #f72585 — sides swap on hover',
       tertiary: 'Sticker-chip text link with a rotated 1.5deg chip background',
       radius: '14px cards, 12px buttons, 999px stickers',
       hover: 'Collision — blocks shift 3px toward each other and shadows swap colors, 180ms',
@@ -335,15 +335,15 @@ signatureCss: `
       'Collision bands stack under 768px — candy first, asphalt second, never blended. Bungee drops a weight if it overflows; clamps hold 2.4rem→5.5rem.',
     codeExample:
       '<section class="crash">\n  <div class="candy-half"><h1>Everything,</h1></div>\n  <div class="asphalt-half"><h1>at once.</h1></div>\n  <button class="btn-collide">Pick a side</button>\n</section>',
-    accent: '#ff5da2',
+    accent: '#f72585',
     motif: 'rotated-stickers',
     layout: 'hero-cards',
     useCases: ['Events', 'Music', 'Gaming'],
     signatureCss: `
-.dv-card:nth-child(odd) { background: #ff5da2; color: #2b2140; }
+.dv-card:nth-child(odd) { background: #f72585; color: #2b2140; }
 .dv-card:nth-child(even) { background: #2b2140; color: #ffd23f; }
 .dv-hero h1 { text-shadow: 0.05em 0.05em 0 #ffd23f; }
-.dv-nav { background: linear-gradient(90deg, #ff5da2 50%, #2b2140 50%); }
+.dv-nav { background: linear-gradient(90deg, #f72585 50%, #2b2140 50%); }
 .dv-nav .dv-links a, .dv-nav .dv-logo { color: #fff6ec; }`,
     author: 'Mika Oda',
     createdAt: '2026-08-20',
@@ -637,7 +637,7 @@ signatureCss: `
     designPhilosophy:
       'Risograph printing is beautiful when it misregisters, so this system misregisters on purpose. Two inks flood the page in oversized shapes; where they overlap, a third color is born. The asymmetric arrangement keeps the flood off the reading line — ink covers sixty percent of the canvas and none of the sentence you came for.',
     designDetails:
-      'Riso blue and fluorescent pink inks multiply over warm paper; a 6% grain reads as soy ink on recycled stock. Fraunces black display over Karla body. Buttons print as ink stamps with visible paper margin, and the misregistration is a consistent 3px offset between fill and outline. No pure black anywhere — text is ink blue at heavy weight.',
+      'Riso blue and fluorescent pink inks multiply over warm paper; a 6% grain reads as soy ink on recycled stock. Bricolage Grotesque black display over Karla body. Buttons print as ink stamps with visible paper margin, and the misregistration is a consistent 3px offset between fill and outline. No pure black anywhere — text is ink blue at heavy weight.',
     colors: {
       primary: '#2b44ff',
       secondary: '#ff48b0',
@@ -647,7 +647,7 @@ signatureCss: `
       text: '#1d2cc7',
     },
     typography: {
-      displayFont: 'Fraunces',
+      displayFont: 'Bricolage Grotesque',
       bodyFont: 'Karla',
       scale: '13 / 15 / 17 / 21 / 27 / 40 / 78',
       lineHeights: 'Display 1.02, body 1.66',

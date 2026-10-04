@@ -566,8 +566,8 @@ export const wave9Designs: DesignSystem[] = [
     designPhilosophy:
       'An auction catalogue is the rare luxury format that is also a spreadsheet: lot numbers, provenance, estimates, and an outcome. Auction House keeps the hush of a saleroom while making the numbers the star. For resale, collectibles, and premium marketplaces.',
     designDetails:
-      'Saleroom white #f7f5f1, ink #17150f, hammer red #8c2f2f, gilt #b08d57. DM Serif Display display with Manrope body. Lot numbering in gilt, hairline rules, tabular estimates, and a hammer-red status mark.',
-    colors: { primary: '#17150f', secondary: '#6f6656', accent: '#8c2f2f', neutral: '#ebe6dc', background: '#f7f5f1', text: '#17150f' },
+      'Saleroom white #f1ece2, ink #17150f, hammer red #8c2f2f, gilt #b08d57. DM Serif Display display with Manrope body. Lot numbering in gilt, hairline rules, tabular estimates, and a hammer-red status mark.',
+    colors: { primary: '#17150f', secondary: '#6f6656', accent: '#8c2f2f', neutral: '#e2dacb', background: '#f1ece2', text: '#17150f' },
     typography: {
       displayFont: 'DM Serif Display',
       bodyFont: 'Manrope',
@@ -655,7 +655,7 @@ export const wave9Designs: DesignSystem[] = [
     codeExample:
       '<section class="deck">\n  <p class="callsign">FL 340 · ZBAA → EGLL</p>\n  <h1>On time, <em>every time.</em></h1>\n  <p>62 movements, zero holds.</p>\n</section>',
     accent: '#39d6d0',
-    motif: 'mono-labels',
+    motif: 'scanlines',
     layout: 'dashboard',
     useCases: ['Logistics', 'Manufacturing', 'Data & Analytics'],
     signatureCss: `.dv-card { background: #141a20; }
@@ -730,8 +730,8 @@ export const wave9Designs: DesignSystem[] = [
     designPhilosophy:
       'A stamp album is a grid with provenance — every cell has a number, a country, a year, and a reason. Philatelic Album takes that seriously for catalogs and archives: perforated edges, tabular metadata, and a rhythm of small, well-labelled objects. For collections, directories, and archival projects.',
     designDetails:
-      'Album grey #eceae4, stamp red #b5372f, deep blue #24406b, ink #1a1714. Rubik Mono One display with Source Sans 3 body. Perforated card edges, hairline mounts, and corner metadata in tiny caps.',
-    colors: { primary: '#b5372f', secondary: '#24406b', accent: '#c99b28', neutral: '#e0ddd4', background: '#eceae4', text: '#1a1714' },
+      'Album grey #eceae4, stamp red #7a2231, deep blue #24406b, ink #1a1714. Rubik Mono One display with Source Sans 3 body. Perforated card edges, hairline mounts, and corner metadata in tiny caps.',
+    colors: { primary: '#7a2231', secondary: '#24406b', accent: '#c99b28', neutral: '#e0ddd4', background: '#eceae4', text: '#1a1714' },
     typography: {
       displayFont: 'Rubik Mono One',
       bodyFont: 'Source Sans 3',
@@ -740,7 +740,7 @@ export const wave9Designs: DesignSystem[] = [
       letterSpacing: 'Display -0.02em; labels 0.1em uppercase',
     },
     components: {
-      primary: 'Solid #b5372f, white text, 2px radius, perforated top edge',
+      primary: 'Solid #7a2231, white text, 2px radius, perforated top edge',
       secondary: '1px #24406b border, transparent, blue text',
       tertiary: 'Blue link with a catalogue number',
       radius: '2px controls, 4px stamps',
@@ -763,14 +763,14 @@ export const wave9Designs: DesignSystem[] = [
       'The album grid goes 6 → 4 → 2; catalogue numbers wrap instead of clipping.',
     codeExample:
       '<article class="stamp">\n  <p class="cat">Cat. 4471 · Japon</p>\n  <h1>Three pence, <em>imperforate.</em></h1>\n  <p>Issued 1871 · toned on the reverse</p>\n</article>',
-    accent: '#b5372f',
+    accent: '#7a2231',
     motif: 'dashed-borders',
     layout: 'magazine',
     useCases: ['Publishing', 'Marketplace', 'Education'],
     signatureCss: `.dv-card { background: #faf9f5; border-style: dashed; }
 .dv-hero h1 { font-family: 'Rubik Mono One', monospace; }
 .dv-hero h1 em { color: #24406b; font-style: normal; }
-.dv-kicker { color: #b5372f; }
+.dv-kicker { color: #7a2231; }
 .dv-stat strong { font-variant-numeric: tabular-nums; }`,
     author: 'Arthur Penhaligon',
     createdAt: '2026-09-27',

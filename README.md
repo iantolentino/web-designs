@@ -1,7 +1,7 @@
 # The Design Vault
 
-A production-grade design-system showcase: **226 curated, intentionally distinct design
-systems**, a **153-layout pattern library**, and a **90-component kit** — all browsable,
+A production-grade design-system showcase: **500 curated, intentionally distinct design
+systems**, a **153-layout pattern library**, and a **110-component kit** — all browsable,
 previewable live, and copyable as ready-to-use AI design prompts. 
 Built to kill AI design slop — no Inter, no purple-on-white, no generic layouts.
 
@@ -28,23 +28,26 @@ sort, and saved filters live there, so the main column is nothing but content.
 
 | View | What it shows |
 | --- | --- |
-| **Design systems** | 226 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
-| **Layout arrangements** | 13 archetypes (incl. Bento, Poster, Catalog); each design offers its own set so previews differ structurally, not just by color. |
+| **Design systems** | 500 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
+| **Layout arrangements** | 21 archetypes (incl. Bento, Poster, Catalog, Docs, Map plate); each design offers its own set so previews differ structurally, not just by color. |
 | **Pattern library** | 153 production layouts with live previews, filterable by family and searchable by block. |
-| **Component kit** | The 90-component kit rendered for any design — with a side-by-side compare mode. |
+| **Component kit** | The 110-component kit rendered for any design — with a side-by-side compare mode. |
 
 On narrow screens the sidebar becomes a drawer (hamburger in the top bar, `Esc` to close,
 `/` to open-and-focus search).
 
 ## What's inside
 
-### Design systems (226)
+### Design systems (500)
 
-Sixteen arrangements ship today: the original thirteen (hero + cards, split hero, magazine,
+Twenty-one arrangements ship today: the original thirteen (hero + cards, split hero, magazine,
 dashboard, centered, editorial, asymmetric, full-bleed, spotlight, manifesto, bento, poster,
-catalog) plus wave 10's **mosaic**, **timeline**, and **split-scroll**. Thirty-three
-motifs are available, six of them new in wave 10 (moiré rings, isometric lattice, paper cut,
-oil slick, ledger rules, stencil mask). `scripts/audit-designs.cjs` asserts that no two systems
+catalog) plus wave 10's **mosaic**, **timeline**, and **split-scroll**, and wave 11's
+**docs**, **film-strip**, **map-plate**, **field-notes**, and **receipt**. Fifty-three
+motifs are available, twenty of them added in wave 11 (double rule, inset frame, ribbon
+band, stamp seal, ticket stub, blueprint grid, riso offset, glass sheen, torn edge, stitch
+line, lattice weave, vignette, slat shadow, watermark glyph, terrazzo speck, sonar sweep,
+PCB trace, punched card, quilt patch, rivet row). `scripts/audit-designs.cjs` asserts that no two systems
 share an identity (type pair + motif + radius + depth), a palette, a name, or a hero line.
 
 Every system ships: philosophy, typography (display + body fonts, scale, leading, tracking),
@@ -60,15 +63,15 @@ a full preview with:
 - **Details** — philosophy, click-to-copy palette, type scale, component specs, a themed
   playground, the full prompt, and JSON / CSS-variable export.
 
-### The component kit (90 components, per design)
+### The component kit (110 components, per design)
 
 `src/components/ComponentKit.tsx` implements one vocabulary — buttons, fields, selection
 controls, feedback, data display, navigation, and overlays — and renders it entirely from
 whatever tokens it is handed. Nothing is hard-coded, which is why the same kit reads as a
-different product in every one of the 226 systems. Groups:
+different product in every one of the 500 systems. Groups:
 
-**Inputs & actions** (17) · **Selection & toggles** (10) · **Feedback & status** (11) ·
-**Data display** (11) · **Navigation** (7) · **Overlays & media** (14)
+**Inputs & actions** (28) · **Selection & toggles** (14) · **Feedback & status** (15) ·
+**Data display** (23) · **Navigation** (10) · **Overlays & media** (20)
 
 ### The pattern library (153 layouts)
 
@@ -120,12 +123,12 @@ bucket is 5 designs, and `npm run verify` fails the build if that stops being tr
 
 ## Speed
 
-Three things keep the vault fast as the catalog grows past 200 systems:
+Three things keep the vault fast as the catalog grows past 500 systems:
 
 - **The catalog loads lazily.** `src/designs/*` is more than two thirds of the app's
   JavaScript, so the shell (topbar, sidebar, search, theme) paints from its own markup while
   the design data streams in behind it through a dynamic import. The entry chunk is ~85 kB
-  gzipped, the catalog ~228 kB, and the gallery shows shimmer cards — never an empty page —
+  gzipped, the catalog ~300 kB, and the gallery shows shimmer cards — never an empty page —
   for the frames in between. `src/catalog.ts` is the only module that touches the data
   module directly.
 - **Everything else is prefetched on intent.** Hovering a card, a view button, or a palette
@@ -155,7 +158,7 @@ src/
 ├── prompt.ts             # buildDesignPrompt() — the copyable prompt text
 ├── hooks.ts              # clipboard, toast, URL sync, keyboard shortcuts
 ├── App.tsx               # shell: sidebar + topbar + the three views
-├── designs/              # 19 category files + registry + theming + use-case index
+├── designs/              # 29 design files + registry + theming + use-case index
 │   ├── theme.ts          #   themeOf(), contrast/onColor, withAlpha, sorting
 │   ├── usecases.ts       #   derived website-type index (rules + top-up)
 │   └── extras.ts         #   per-design layout sets, block sets, dashboard extras
@@ -169,7 +172,7 @@ src/
     ├── Gallery.tsx       #   4-up cards, lazy thumbnails, infinite scroll
     ├── Preview.tsx       #   overlay: live/components/code/details, device modes
     ├── MiniSite.tsx      #   shared live renderer + per-instance CSS scoping
-    ├── ComponentKit.tsx  #   53 themed components + the kit board
+    ├── ComponentKit.tsx  #   110 themed components + the kit board
     ├── KitExplorer.tsx   #   kit-per-design view with compare mode
     ├── minisite.css      #   themed layout, motif variants, container queries
     └── kit.css           #   kit layout + motion
@@ -177,8 +180,8 @@ src/
 
 Design thumbnails and previews are the **same component** (`MiniSite`) — cards render it
 scaled inside the thumb, the preview renders it full-size in a device frame. Each design's
-`signatureCss` is auto-scoped per instance so 226 previews can coexist without style bleed.
-Thumbnails use `compact` mode, which skips the kit and blocks sections so 226 scaled pages
+`signatureCss` is auto-scoped per instance so 500 previews can coexist without style bleed.
+Thumbnails use `compact` mode, which skips the kit and blocks sections so 500 scaled pages
 stay cheap.
 
 ## Adding a design system

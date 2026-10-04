@@ -1,0 +1,322 @@
+{
+ "permit-office": [
+  "#2c5199",
+  "#9db3c4",
+  "#e07a5f",
+  "#dae2e8",
+  "#f5f8fa",
+  "#101c24"
+ ],
+ "registry-archives": [
+  "#703d21",
+  "#c4b39a",
+  "#7a1f38",
+  "#e6dfd2",
+  "#faf7f0",
+  "#231a12"
+ ],
+ "land-titles": [
+  "#29ae5c",
+  "#9ec4b0",
+  "#d4af37",
+  "#d9e6de",
+  "#f4faf7",
+  "#0b1c15"
+ ],
+ "customs-post": [
+  "#191a39",
+  "#8f9cba",
+  "#e8b02b",
+  "#d5dbe6",
+  "#f2f5fa",
+  "#0b1220"
+ ],
+ "patent-office": [
+  "#8f39ad",
+  "#a49ac4",
+  "#c2410c",
+  "#e0dcec",
+  "#f6f4fc",
+  "#141024"
+ ],
+ "census-desk": [
+  "#1e4967",
+  "#93a8bd",
+  "#e07a5f",
+  "#d8e1e8",
+  "#f2f7fa",
+  "#0b1821"
+ ],
+ "court-clerk": [
+  "#ba2c6b",
+  "#b39aa4",
+  "#d4af37",
+  "#e6d8dd",
+  "#faf4f6",
+  "#1f0f16"
+ ],
+ "licence-board": [
+  "#8b870e",
+  "#d9c08a",
+  "#1f5f8a",
+  "#e8e0cc",
+  "#f9f6ee",
+  "#241d10"
+ ],
+ "notary-desk": [
+  "#3f1b12",
+  "#b39a86",
+  "#1f5f4a",
+  "#e2d8cc",
+  "#f8f4ee",
+  "#1e150e"
+ ],
+ "planning-committee": [
+  "#25471f",
+  "#a4c0aa",
+  "#c2410c",
+  "#dde8de",
+  "#f5faf5",
+  "#101f14"
+ ],
+ "voter-roll": [
+  "#0f1b4d",
+  "#93a8bd",
+  "#f2c400",
+  "#d6dfe8",
+  "#f2f6fa",
+  "#0a1620"
+ ],
+ "tax-returns": [
+  "#3f0f4d",
+  "#9a90b4",
+  "#22c55e",
+  "#dcd9e8",
+  "#f5f4fb",
+  "#121028"
+ ],
+ "census-enumerator": [
+  "#53938d",
+  "#93bdc0",
+  "#e07a3a",
+  "#d9e8e8",
+  "#f3fafa",
+  "#0b1e20"
+ ],
+ "consular-desk": [
+  "#212c78",
+  "#93a2b4",
+  "#d4af37",
+  "#d8e0e8",
+  "#f4f7fa",
+  "#0a141f"
+ ],
+ "hansard": [
+  "#a1904a",
+  "#b3a68a",
+  "#7a1f38",
+  "#e4dfcc",
+  "#faf8ee",
+  "#1f1a10"
+ ],
+ "statute-book": [
+  "#9e5414",
+  "#d9ab74",
+  "#1f3f66",
+  "#ecdcc4",
+  "#fdf6ea",
+  "#20140a"
+ ],
+ "municipal-budget": [
+  "#114b45",
+  "#93bda8",
+  "#e07a5f",
+  "#d9e8e0",
+  "#f3faf6",
+  "#0b1e17"
+ ],
+ "procurement-desk": [
+  "#3c5486",
+  "#93a8bd",
+  "#e8b02b",
+  "#d6dfe8",
+  "#f2f6fa",
+  "#0a1620"
+ ],
+ "ombudsman": [
+  "#77218c",
+  "#9a94b4",
+  "#f2b705",
+  "#dedaec",
+  "#f6f5fc",
+  "#131228"
+ ],
+ "appeals-tribunal": [
+  "#754357",
+  "#a894a0",
+  "#1f5f8a",
+  "#e0d8dc",
+  "#f8f4f6",
+  "#1c1016"
+ ],
+ "building-inspector": [
+  "#d6d628",
+  "#d9c08a",
+  "#1f3f66",
+  "#e6dcc4",
+  "#f8f4e8",
+  "#221a0c"
+ ],
+ "health-inspector": [
+  "#20c5a1",
+  "#93c4ae",
+  "#c2410c",
+  "#d8e8e0",
+  "#f2faf6",
+  "#0a1e16"
+ ],
+ "weights-and-measures": [
+  "#2228aa",
+  "#93a2bd",
+  "#f2c400",
+  "#d6dee8",
+  "#f2f5fa",
+  "#0a1220"
+ ],
+ "trade-licensing": [
+  "#95750e",
+  "#d9b48a",
+  "#1f6b52",
+  "#e8dcc8",
+  "#faf5ec",
+  "#221608"
+ ],
+ "border-check": [
+  "#114b5b",
+  "#8fa8b4",
+  "#e8b02b",
+  "#cfdae0",
+  "#eef4f7",
+  "#08161d"
+ ],
+ "passport-issuance": [
+  "#2f5776",
+  "#93a2b4",
+  "#d4af37",
+  "#d8e0e8",
+  "#f4f7fa",
+  "#0a1420"
+ ],
+ "school-admissions": [
+  "#eac52f",
+  "#e8d18a",
+  "#2f5d8a",
+  "#f0e6c8",
+  "#fdf9ec",
+  "#2a220c"
+ ],
+ "housing-allocation": [
+  "#2cb0ba",
+  "#a4c4b4",
+  "#c2410c",
+  "#dce8e0",
+  "#f4faf6",
+  "#0a1c15"
+ ],
+ "benefits-desk": [
+  "#1b278f",
+  "#93a8bd",
+  "#e07a5f",
+  "#d8e1e8",
+  "#f4f8fa",
+  "#0a1820"
+ ],
+ "employment-office": [
+  "#2592c1",
+  "#93bdb4",
+  "#e8b02b",
+  "#d9e8e4",
+  "#f3faf8",
+  "#0a1e1c"
+ ],
+ "pension-registry": [
+  "#5029ae",
+  "#9a94b4",
+  "#22c55e",
+  "#dcd9e8",
+  "#f5f4fb",
+  "#111028"
+ ],
+ "driving-licence": [
+  "#d4c144",
+  "#e8c48a",
+  "#1f6b8a",
+  "#f0e0c8",
+  "#fdf8ee",
+  "#241808"
+ ],
+ "vehicle-registration": [
+  "#934424",
+  "#d9b08a",
+  "#2f5d8a",
+  "#e8dcc8",
+  "#f7f4ee",
+  "#221408"
+ ],
+ "boundary-commission": [
+  "#5839a1",
+  "#9a94bd",
+  "#e07a5f",
+  "#dedaec",
+  "#f6f5fc",
+  "#141228"
+ ],
+ "electoral-count": [
+  "#1c1372",
+  "#94a2bd",
+  "#e8b02b",
+  "#d6dfe8",
+  "#f2f5fa",
+  "#0a1220"
+ ],
+ "public-records": [
+  "#8d844f",
+  "#c4b39a",
+  "#1f4a6b",
+  "#e8e2d4",
+  "#fbf9f2",
+  "#221c10"
+ ],
+ "national-archives": [
+  "#77524b",
+  "#b39a8a",
+  "#d4af37",
+  "#e2d8cc",
+  "#f8f4ee",
+  "#1e140e"
+ ],
+ "freedom-of-information": [
+  "#6b8f56",
+  "#a4bd94",
+  "#1f3f66",
+  "#dce4d4",
+  "#f5f8f0",
+  "#101a0c"
+ ],
+ "civic-charter": [
+  "#39707f",
+  "#93a8b4",
+  "#c9971b",
+  "#d8e4e8",
+  "#f4fafa",
+  "#0a1c20"
+ ],
+ "typing-pool": [
+  "#bab345",
+  "#d9c08a",
+  "#7a1f38",
+  "#f0e4cc",
+  "#fdf8ec",
+  "#241c0c"
+ ]
+}

@@ -16,7 +16,7 @@ export type { KitGroupId }
  * design's own tokens (colors, type pairing, radius, border weight, motion).
  * That is what makes a design system a system: one kit, many identities.
  *
- * The kit is the answer to "20+ components for every design" — it ships 78
+ * The kit is the answer to "20+ components for every design" — it ships 110
  * distinct, interactive components grouped in six families, and each design
  * re-skins every one of them by changing nothing but its token block.
  */
@@ -2980,6 +2980,631 @@ function MarqueeTicker() {
   )
 }
 
+/* ————— wave 11: twenty more surfaces the kit was still missing ————— */
+
+function CurrencyInput() {
+  const { t, r } = useKit()
+  const [raw, setRaw] = useState('4200')
+  const n = Number(raw.replace(/[^0-9.]/g, '')) || 0
+  return (
+    <div className="kit-stack">
+      <span className="kit-label" style={{ color: t.muted }}>Amount</span>
+      <div className="kit-select-wrap" style={{ borderColor: line(t, 0.2), borderRadius: r.ctl, background: t.bg }}>
+        <select className="kit-select" defaultValue="EUR" style={{ color: t.text, background: 'transparent' }} aria-label="Currency">
+          <option>EUR</option>
+          <option>USD</option>
+          <option>JPY</option>
+        </select>
+        <span className="kit-select-caret" style={{ color: t.muted }}>▾</span>
+      </div>
+      <input
+        className="kit-input"
+        inputMode="decimal"
+        value={raw}
+        onChange={(e) => setRaw(e.target.value)}
+        style={{ borderColor: line(t, 0.2), borderRadius: r.ctl, color: t.text, background: t.bg, textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}
+      />
+      <span className="kit-help" style={{ color: t.muted }}>
+        Formatted for display: {new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' }).format(n)}
+      </span>
+    </div>
+  )
+}
+
+function TimeField() {
+  const { t, r } = useKit()
+  const [time, setTime] = useState('09:30')
+  const zones = ['Europe/Dublin', 'Europe/Berlin', 'America/New_York']
+  const [zone, setZone] = useState(zones[0])
+  return (
+    <div className="kit-stack">
+      <span className="kit-label" style={{ color: t.muted }}>Scheduled for</span>
+      <div className="kit-row">
+        <input
+          type="time"
+          className="kit-input"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+          style={{ borderColor: line(t, 0.2), borderRadius: r.ctl, color: t.text, background: t.bg, width: 120 }}
+        />
+        <div className="kit-select-wrap" style={{ borderColor: line(t, 0.2), borderRadius: r.ctl, background: t.bg, flex: 1 }}>
+          <select
+            className="kit-select"
+            value={zone}
+            onChange={(e) => setZone(e.target.value)}
+            style={{ color: t.text, background: 'transparent', width: '100%' }}
+            aria-label="Time zone"
+          >
+            {zones.map((z) => <option key={z}>{z}</option>)}
+          </select>
+          <span className="kit-select-caret" style={{ color: t.muted }}>▾</span>
+        </div>
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>
+        Stored as {time} with zone {zone.split('/')[1]?.replace('_', ' ')} — rendered in the reader’s own clock.
+      </span>
+    </div>
+  )
+}
+
+function AvailabilitySlots() {
+  const { t, r } = useKit()
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+  const slots = ['09:00', '11:00', '14:00', '16:00']
+  const [on, setOn] = useState<Record<string, boolean>>({ 'Wed 11:00': true, 'Thu 14:00': true })
+  return (
+    <div>
+      <span className="kit-label" style={{ color: t.muted }}>Weekly availability</span>
+      <div style={{ display: 'grid', gridTemplateColumns: `64px repeat(${slots.length}, 1fr)`, gap: 4 }}>
+        <span />
+        {slots.map((s) => (
+          <span key={s} className="kit-help" style={{ color: t.muted, textAlign: 'center', fontSize: 10 }}>{s}</span>
+        ))}
+        {days.map((d) => (
+          <div key={d} style={{ display: 'contents' }}>
+            <span className="kit-label" style={{ color: t.muted, alignSelf: 'center' }}>{d}</span>
+            {slots.map((s) => {
+              const key = `${d} ${s}`
+              const active = !!on[key]
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setOn((p) => ({ ...p, [key]: !p[key] }))}
+                  className="kit-chip"
+                  style={{
+                    borderColor: active ? t.primary : line(t, 0.18),
+                    background: active ? withAlpha(t.primary, 0.16) : 'transparent',
+                    color: active ? t.text : t.muted,
+                    borderRadius: r.ctl,
+                    padding: '6px 8px',
+                    fontSize: 11,
+                  }}
+                >
+                  {active ? 'free' : '·'}
+                </button>
+              )
+            })}
+          </div>
+        ))}
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>Tap a cell to open or close a slot; times are local to the calendar owner.</span>
+    </div>
+  )
+}
+
+function AttendeePicker() {
+  const { t, r } = useKit()
+  const people = [
+    { id: 'amara', name: 'Amara Osei', role: 'Clinical lead' },
+    { id: 'jun', name: 'Jun Park', role: 'Design' },
+    { id: 'marek', name: 'Marek Dolny', role: 'Site' },
+  ]
+  const [picked, setPicked] = useState<string[]>(['amara'])
+  const toggle = (id: string) => setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]))
+  return (
+    <div className="kit-stack">
+      <span className="kit-label" style={{ color: t.muted }}>Attendees · {picked.length} of {people.length}</span>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {picked.map((id) => (
+          <span key={id} className="kit-chip" style={{ borderColor: withAlpha(t.primary, 0.4), background: withAlpha(t.primary, 0.12), borderRadius: r.pill, color: t.text }}>
+            {people.find((p) => p.id === id)?.name}
+            <button type="button" className="kit-chip-x" aria-label={`Remove ${id}`} onClick={() => toggle(id)} style={{ color: t.muted }}>×</button>
+          </span>
+        ))}
+      </div>
+      <div className="kit-card" style={{ borderColor: line(t, 0.14), borderRadius: r.card, background: t.bg }}>
+        {people.map((p) => (
+          <button
+            key={p.id}
+            type="button"
+            className="kit-list-row"
+            aria-pressed={picked.includes(p.id)}
+            onClick={() => toggle(p.id)}
+            style={{ color: t.text, borderColor: line(t, 0.12), width: '100%', textAlign: 'left' }}
+          >
+            <span className="kit-avatar" style={{ background: withAlpha(t.secondary, 0.5), color: t.text, borderRadius: r.pill }}>
+              {p.name.split(' ').map((w) => w[0]).join('')}
+            </span>
+            <span style={{ flex: 1 }}>{p.name}</span>
+            <span className="kit-help" style={{ color: t.muted }}>{p.role}</span>
+            <span className="kit-dot" style={{ background: picked.includes(p.id) ? t.primary : 'transparent', border: `1px solid ${line(t, 0.3)}` }} />
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function KanbanColumn() {
+  const { t, r } = useKit()
+  const cards = [
+    { id: 'DV-118', title: 'Frame the empty state', tag: 'design' },
+    { id: 'DV-121', title: 'Token audit for wave 12', tag: 'tokens' },
+    { id: 'DV-124', title: 'Contrast pass on dark kits', tag: 'a11y' },
+  ]
+  const limit = 4
+  return (
+    <div className="kit-card" style={{ borderColor: line(t, 0.16), borderRadius: r.card, background: t.bg, width: '100%' }}>
+      <div className="kit-between">
+        <span className="kit-label" style={{ color: t.text }}>In review</span>
+        <span className="kit-badge" style={{ background: cards.length >= limit ? withAlpha(t.accent, 0.2) : withAlpha(t.primary, 0.14), color: t.text, borderRadius: r.pill }}>
+          {cards.length}/{limit}
+        </span>
+      </div>
+      {cards.map((c) => (
+        <div key={c.id} className="kit-note" style={{ borderColor: line(t, 0.14), borderRadius: r.ctl, background: t.surface, color: t.text }}>
+          <span className="kit-help" style={{ color: t.muted }}>{c.id}</span>
+          <span style={{ flex: 1 }}>{c.title}</span>
+          <span className="kit-badge" style={{ border: `1px solid ${line(t, 0.2)}`, color: t.muted, borderRadius: r.pill }}>{c.tag}</span>
+        </div>
+      ))}
+      {cards.length >= limit && (
+        <span className="kit-help" style={{ color: t.muted }}>WIP limit reached — the column is a promise, not a shelf.</span>
+      )}
+    </div>
+  )
+}
+
+function ConversionFunnel() {
+  const { t, r } = useKit()
+  const stages = [
+    { label: 'Visited', n: 12480 },
+    { label: 'Compared', n: 5210 },
+    { label: 'Trial', n: 1840 },
+    { label: 'Paid', n: 612 },
+  ]
+  const max = stages[0].n
+  return (
+    <div style={{ width: '100%' }}>
+      {stages.map((s, i) => {
+        const pct = (s.n / max) * 100
+        const prev = i === 0 ? s.n : stages[i - 1].n
+        return (
+          <div key={s.label} style={{ marginBottom: 10 }}>
+            <div className="kit-between">
+              <span className="kit-label" style={{ color: t.text }}>{s.label}</span>
+              <span className="kit-help" style={{ color: t.muted }}>
+                {s.n.toLocaleString()} · {i === 0 ? '—' : `${((s.n / prev) * 100).toFixed(1)}% of previous`}
+              </span>
+            </div>
+            <div className="kit-bar" style={{ background: soft(t, 0.08), borderRadius: r.ctl }}>
+              <div className="kit-bar-fill" style={{ width: `${pct}%`, background: t.primary, borderRadius: r.ctl }} />
+            </div>
+          </div>
+        )
+      })}
+      <span className="kit-help" style={{ color: t.muted }}>Drop-off is always relative to the step before it, never to the top.</span>
+    </div>
+  )
+}
+
+function AuditLog() {
+  const { t, r } = useKit()
+  const rows = [
+    { who: 'M. Dolny', what: 'changed membrane spec', when: '02:14' },
+    { who: 'system', what: 'recalculated pressure band', when: '02:15' },
+    { who: 'P. Balan', what: 'approved duty roster', when: '06:02' },
+  ]
+  return (
+    <div className="kit-card" style={{ borderColor: line(t, 0.14), borderRadius: r.card, background: t.bg, width: '100%' }}>
+      <span className="kit-label" style={{ color: t.muted }}>Audit trail</span>
+      {rows.map((row, i) => (
+        <div key={i} className="kit-list-row" style={{ borderColor: line(t, 0.12), color: t.text }}>
+          <span className="kit-dot" style={{ background: row.who === 'system' ? t.secondary : t.primary }} />
+          <span style={{ flex: 1 }}>
+            <b>{row.who}</b> {row.what}
+          </span>
+          <span className="kit-help" style={{ color: t.muted, fontVariantNumeric: 'tabular-nums' }}>{row.when}</span>
+        </div>
+      ))}
+      <span className="kit-help" style={{ color: t.muted }}>Append-only: records can be annotated but never rewritten.</span>
+    </div>
+  )
+}
+
+function VersionHistory() {
+  const { t, r } = useKit()
+  const versions = [
+    { v: 'v14', note: 'Tightened the ledger rules', at: 'today' },
+    { v: 'v13', note: 'Re-inked the primary, kept the type', at: 'Mon' },
+    { v: 'v12', note: 'First complete kit pass', at: 'Sep 28' },
+  ]
+  const [current, setCurrent] = useState('v14')
+  return (
+    <div className="kit-stack">
+      <span className="kit-label" style={{ color: t.muted }}>Version history</span>
+      {versions.map((v) => (
+        <div key={v.v} className="kit-between" style={{ borderTop: `1px solid ${line(t, 0.12)}`, paddingTop: 6 }}>
+          <span style={{ color: t.text }}>
+            <b style={{ color: v.v === current ? t.primary : t.text }}>{v.v}</b> · {v.note}
+          </span>
+          <span className="kit-help" style={{ color: t.muted }}>{v.at}</span>
+          {v.v === current ? (
+            <span className="kit-badge" style={{ background: withAlpha(t.primary, 0.16), color: t.text, borderRadius: r.pill }}>current</span>
+          ) : (
+            <button type="button" className="kit-btn kit-btn-flat" onClick={() => setCurrent(v.v)} style={{ color: t.primary, borderRadius: r.ctl }}>
+              Restore
+            </button>
+          )}
+        </div>
+      ))}
+      <span className="kit-help" style={{ color: t.muted }}>Restoring a version writes a new entry — the log never rewinds.</span>
+    </div>
+  )
+}
+
+function FileRowList() {
+  const { t, r } = useKit()
+  const files = [
+    { name: 'wave12.audit.txt', size: '18 KB', kind: 'text' },
+    { name: 'kit-sheet.png', size: '2.4 MB', kind: 'image' },
+    { name: 'tokens.json', size: '41 KB', kind: 'data' },
+  ]
+  return (
+    <div className="kit-card" style={{ borderColor: line(t, 0.14), borderRadius: r.card, background: t.bg, width: '100%' }}>
+      {files.map((f) => (
+        <div key={f.name} className="kit-list-row" style={{ borderColor: line(t, 0.12), color: t.text }}>
+          <span className="kit-badge" style={{ background: soft(t, 0.08), color: t.muted, borderRadius: r.ctl }}>{f.kind}</span>
+          <span style={{ flex: 1, fontFamily: `'${t.body}', sans-serif` }}>{f.name}</span>
+          <span className="kit-help" style={{ color: t.muted, fontVariantNumeric: 'tabular-nums' }}>{f.size}</span>
+        </div>
+      ))}
+      <span className="kit-help" style={{ color: t.muted }}>Rows keep their own metadata column so size never crowds the name.</span>
+    </div>
+  )
+}
+
+function SplitPane() {
+  const { t, r } = useKit()
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 3px 1.4fr', gap: 0, width: '100%', minHeight: 120 }}>
+      <div style={{ background: t.surface, borderRadius: `${r.card} 0 0 ${r.card}`, padding: 10, color: t.text, border: `1px solid ${line(t, 0.14)}` }}>
+        <span className="kit-label" style={{ color: t.muted }}>Sources</span>
+        {['tokens', 'patterns', 'kit'].map((x) => (
+          <div key={x} className="kit-help" style={{ color: t.text, padding: '3px 0' }}>· {x}</div>
+        ))}
+      </div>
+      <div role="separator" aria-orientation="vertical" style={{ background: withAlpha(t.primary, 0.5), cursor: 'col-resize' }} />
+      <div style={{ background: t.bg, borderRadius: `0 ${r.card} ${r.card} 0`, padding: 10, border: `1px solid ${line(t, 0.14)}`, borderLeft: 'none' }}>
+        <span className="kit-label" style={{ color: t.muted }}>Preview</span>
+        <p className="kit-help" style={{ color: t.muted }}>
+          The divider is the only affordance — panes carry no chrome of their own, so the content stays the loudest thing on screen.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function FilterBar() {
+  const { t, r } = useKit()
+  const facets = ['Status', 'Owner', 'Region']
+  const [applied, setApplied] = useState<string[]>(['Status: open'])
+  const [q, setQ] = useState('')
+  return (
+    <div className="kit-stack" style={{ width: '100%' }}>
+      <div className="kit-row">
+        <input
+          className="kit-input"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Filter records…"
+          style={{ borderColor: line(t, 0.2), borderRadius: r.ctl, color: t.text, background: t.bg, flex: 1, minWidth: 140 }}
+        />
+        {facets.map((f) => (
+          <button
+            key={f}
+            type="button"
+            className="kit-btn kit-btn-flat"
+            onClick={() => setApplied((p) => (p.includes(`${f}: open`) ? p : [...p, `${f}: open`]))}
+            style={{ border: `1px solid ${line(t, 0.2)}`, borderRadius: r.ctl, color: t.text }}
+          >
+            {f} ▾
+          </button>
+        ))}
+      </div>
+      <div className="kit-row kit-row-tight">
+        {applied.map((a) => (
+          <span key={a} className="kit-chip" style={{ borderColor: withAlpha(t.primary, 0.4), background: withAlpha(t.primary, 0.12), borderRadius: r.pill, color: t.text }}>
+            {a}
+            <button type="button" className="kit-chip-x" aria-label={`Clear ${a}`} onClick={() => setApplied((p) => p.filter((x) => x !== a))} style={{ color: t.muted }}>×</button>
+          </span>
+        ))}
+        {applied.length > 0 && (
+          <button type="button" className="kit-help" onClick={() => setApplied([])} style={{ color: t.primary, background: 'none', border: 'none', cursor: 'pointer' }}>
+            Clear all
+          </button>
+        )}
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>
+        {applied.length ? `${applied.length} facet${applied.length > 1 ? 's' : ''} applied — the count sits next to the filter, never inside it.` : 'No facets applied; the list is unfiltered.'}
+      </span>
+    </div>
+  )
+}
+
+function QuickActionTiles() {
+  const { t, r } = useKit()
+  const tiles = [
+    { ic: '＋', label: 'New design' },
+    { ic: '⇪', label: 'Import tokens' },
+    { ic: '⌗', label: 'Run audit' },
+    { ic: '↗', label: 'Publish' },
+  ]
+  return (
+    <div className="kit-grid-3" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', width: '100%' }}>
+      {tiles.map((x) => (
+        <button
+          key={x.label}
+          type="button"
+          className="kit-card"
+          style={{ borderColor: line(t, 0.16), borderRadius: r.card, background: t.bg, color: t.text, textAlign: 'left', display: 'flex', gap: 10, alignItems: 'center' }}
+        >
+          <span className="kit-icon-btn" style={{ background: withAlpha(t.primary, 0.14), color: t.primary, borderRadius: r.ctl }}>{x.ic}</span>
+          <span>{x.label}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function ApprovalChain() {
+  const { t, r } = useKit()
+  const steps = [
+    { who: 'Site engineer', state: 'approved' as const },
+    { who: 'Compliance', state: 'pending' as const },
+    { who: 'Budget holder', state: 'waiting' as const },
+  ]
+  const tone = { approved: t.primary, pending: t.accent, waiting: line(t, 0.35) }
+  return (
+    <div className="kit-card" style={{ borderColor: line(t, 0.14), borderRadius: r.card, background: t.bg, width: '100%' }}>
+      <span className="kit-label" style={{ color: t.muted }}>Approval chain</span>
+      {steps.map((s, i) => (
+        <div key={s.who} className="kit-list-row" style={{ borderColor: line(t, 0.12), color: t.text }}>
+          <span className="kit-dot" style={{ background: tone[s.state] }} />
+          <span style={{ flex: 1 }}>{s.who}</span>
+          <span className="kit-badge" style={{ border: `1px solid ${line(t, 0.2)}`, color: s.state === 'waiting' ? t.muted : t.text, borderRadius: r.pill }}>{s.state}</span>
+          {i < steps.length - 1 && <span className="kit-help" style={{ color: t.muted }}>→</span>}
+        </div>
+      ))}
+      <span className="kit-help" style={{ color: t.muted }}>Waiting steps are dimmed rather than hidden, so the chain always shows its full length.</span>
+    </div>
+  )
+}
+
+function SyncStatus() {
+  const { t, r } = useKit()
+  const [state, setState] = useState<'live' | 'paused'>('live')
+  const live = state === 'live'
+  return (
+    <div className="kit-stack">
+      <div className="kit-between">
+        <span className="kit-row kit-row-tight">
+          <span className={`kit-dot ${live ? 'kit-dot-live' : ''}`} style={{ background: live ? t.primary : t.muted }} />
+          <span style={{ color: t.text }}>{live ? 'Synced' : 'Paused'}</span>
+        </span>
+        <button type="button" className="kit-btn" onClick={() => setState(live ? 'paused' : 'live')} style={{ background: live ? 'transparent' : t.primary, color: live ? t.text : t.onPrimary, border: `1px solid ${live ? line(t, 0.24) : t.primary}`, borderRadius: r.ctl }}>
+          {live ? 'Pause' : 'Resume'}
+        </button>
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>
+        {live ? 'Last change pushed 12 seconds ago · 0 conflicts' : 'Local changes held in the queue — nothing is lost, nothing is sent.'}
+      </span>
+    </div>
+  )
+}
+
+function VoiceNote() {
+  const { t, r } = useKit()
+  const [on, setOn] = useState(false)
+  const bars = [6, 14, 9, 18, 12, 22, 8, 16, 11, 19, 7, 13]
+  return (
+    <div className="kit-stack">
+      <div className="kit-row">
+        <button
+          type="button"
+          className="kit-btn"
+          onClick={() => setOn((v) => !v)}
+          style={{ background: on ? t.accent : t.primary, color: on ? t.text : t.onPrimary, borderRadius: r.pill, borderColor: 'transparent' }}
+        >
+          {on ? '■ Stop' : '● Record'}
+        </button>
+        <span className="kit-help" style={{ color: t.muted, fontVariantNumeric: 'tabular-nums' }}>{on ? '00:07' : '00:00'}</span>
+      </div>
+      <div className="kit-row kit-row-tight" aria-hidden={!on} style={{ alignItems: 'flex-end', height: 26 }}>
+        {bars.map((h, i) => (
+          <span key={i} style={{ width: 3, height: on ? h : 5, background: on ? t.primary : line(t, 0.25), borderRadius: 2, transition: 'height 160ms ease-out' }} />
+        ))}
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>Recording shows elapsed time and press state; nothing is transcribed until you stop.</span>
+    </div>
+  )
+}
+
+function SignaturePad() {
+  const { t, r } = useKit()
+  const [signed, setSigned] = useState(false)
+  return (
+    <div className="kit-stack">
+      <div
+        role="img"
+        aria-label={signed ? 'Signature captured' : 'Empty signature area'}
+        onClick={() => setSigned(true)}
+        style={{
+          border: `1px dashed ${signed ? t.primary : line(t, 0.3)}`,
+          borderRadius: r.card,
+          background: t.bg,
+          minHeight: 84,
+          display: 'grid',
+          placeItems: 'center',
+          cursor: 'crosshair',
+          color: t.muted,
+        }}
+      >
+        {signed ? (
+          <span style={{ fontFamily: `'${t.display}', cursive`, fontSize: 26, color: t.text }}>A. Osei</span>
+        ) : (
+          <span className="kit-help" style={{ color: t.muted }}>Sign inside the box</span>
+        )}
+      </div>
+      <div className="kit-between">
+        <span className="kit-help" style={{ color: t.muted }}>{signed ? 'Signed · timestamped on capture' : 'Unsigned'}</span>
+        <button type="button" className="kit-btn kit-btn-flat" onClick={() => setSigned(false)} style={{ color: t.primary, borderRadius: r.ctl }}>Clear</button>
+      </div>
+    </div>
+  )
+}
+
+function PinCard() {
+  const { t, r } = useKit()
+  return (
+    <div className="kit-popover" style={{ borderColor: line(t, 0.16), borderRadius: r.card, background: t.bg, color: t.text, width: '100%' }}>
+      <span className="kit-popover-arrow" style={{ background: t.bg, borderColor: line(t, 0.16) }} />
+      <span className="kit-row kit-row-tight">
+        <span className="kit-icon-btn" style={{ background: withAlpha(t.accent, 0.2), color: t.text, borderRadius: r.pill }}>◎</span>
+        <b>Bridge 4 · closed</b>
+      </span>
+      <p className="kit-help" style={{ color: t.muted }}>
+        Closed for maintenance until Thursday. Diversion via the old road, +11 minutes at peak.
+      </p>
+      <div className="kit-row kit-row-tight">
+        <button type="button" className="kit-btn kit-btn-sm" style={{ background: t.primary, color: t.onPrimary, borderRadius: r.ctl, borderColor: 'transparent' }}>Directions</button>
+        <button type="button" className="kit-btn kit-btn-sm kit-btn-flat" style={{ color: t.primary, borderRadius: r.ctl }}>Share</button>
+      </div>
+    </div>
+  )
+}
+
+function QuantityPrice() {
+  const { t, r } = useKit()
+  const [qty, setQty] = useState(3)
+  const unit = 24.5
+  const vat = qty * unit * 0.23
+  return (
+    <div className="kit-stack" style={{ width: '100%' }}>
+      <div className="kit-between">
+        <span className="kit-label" style={{ color: t.muted }}>Quantity</span>
+        <span className="kit-row kit-row-tight">
+          <button type="button" className="kit-btn kit-btn-sm kit-btn-flat" aria-label="Decrease" onClick={() => setQty((q) => Math.max(1, q - 1))} style={{ border: `1px solid ${line(t, 0.2)}`, color: t.text, borderRadius: r.ctl }}>−</button>
+          <span style={{ minWidth: 28, textAlign: 'center', color: t.text, fontVariantNumeric: 'tabular-nums' }}>{qty}</span>
+          <button type="button" className="kit-btn kit-btn-sm kit-btn-flat" aria-label="Increase" onClick={() => setQty((q) => q + 1)} style={{ border: `1px solid ${line(t, 0.2)}`, color: t.text, borderRadius: r.ctl }}>＋</button>
+        </span>
+      </div>
+      {[
+        ['Unit price', unit.toFixed(2)],
+        ['Subtotal', (qty * unit).toFixed(2)],
+        ['VAT 23%', vat.toFixed(2)],
+      ].map(([k, v]) => (
+        <div key={k} className="kit-between">
+          <span className="kit-help" style={{ color: t.muted }}>{k}</span>
+          <span style={{ color: t.text, fontVariantNumeric: 'tabular-nums' }}>€{v}</span>
+        </div>
+      ))}
+      <div className="kit-between" style={{ borderTop: `1px solid ${line(t, 0.16)}`, paddingTop: 6 }}>
+        <b style={{ color: t.text }}>Total</b>
+        <b style={{ color: t.primary, fontVariantNumeric: 'tabular-nums' }}>€{(qty * unit + vat).toFixed(2)}</b>
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>Every line keeps its own currency format; the total is the only bolded row.</span>
+    </div>
+  )
+}
+
+function CohortRetention() {
+  const { t } = useKit()
+  const rows = [
+    { label: 'Jan', values: [100, 62, 48, 41, 37] },
+    { label: 'Feb', values: [100, 66, 51, 44, 0] },
+    { label: 'Mar', values: [100, 58, 46, 0, 0] },
+    { label: 'Apr', values: [100, 69, 0, 0, 0] },
+  ]
+  return (
+    <div style={{ width: '100%' }}>
+      <span className="kit-label" style={{ color: t.muted }}>Retention · weeks after signup</span>
+      <div style={{ display: 'grid', gridTemplateColumns: '44px repeat(5, 1fr)', gap: 3 }}>
+        <span />
+        {[0, 1, 2, 3, 4].map((w) => (
+          <span key={w} className="kit-help" style={{ color: t.muted, fontSize: 10, textAlign: 'center' }}>w{w}</span>
+        ))}
+        {rows.map((row) => (
+          <div key={row.label} style={{ display: 'contents' }}>
+            <span className="kit-help" style={{ color: t.muted, alignSelf: 'center' }}>{row.label}</span>
+            {row.values.map((v, i) => (
+              <span
+                key={i}
+                title={`${row.label} · week ${i}: ${v ? `${v}%` : 'no data'}`}
+                style={{
+                  background: v ? withAlpha(t.primary, 0.12 + (v / 100) * 0.7) : soft(t, 0.05),
+                  color: v > 55 ? t.onPrimary : t.text,
+                  padding: '7px 0',
+                  textAlign: 'center',
+                  fontSize: 11,
+                  fontVariantNumeric: 'tabular-nums',
+                }}
+              >
+                {v ? v : '—'}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+      <span className="kit-help" style={{ color: t.muted }}>Empty cells are missing cohorts, not zeroes — the grid never interpolates.</span>
+    </div>
+  )
+}
+
+function StockLevels() {
+  const { t, r } = useKit()
+  const items = [
+    { sku: 'MV-220', name: 'Mosaic tile · 20mm', have: 340, reorder: 200 },
+    { sku: 'GR-014', name: 'Grout · charcoal', have: 62, reorder: 120 },
+    { sku: 'TR-088', name: 'Trim · brass', have: 18, reorder: 60 },
+  ]
+  return (
+    <div className="kit-card" style={{ borderColor: line(t, 0.14), borderRadius: r.card, background: t.bg, width: '100%' }}>
+      <span className="kit-label" style={{ color: t.muted }}>Stock against reorder point</span>
+      {items.map((it) => {
+        const low = it.have < it.reorder
+        const pct = Math.min(100, (it.have / Math.max(it.have, it.reorder)) * 100)
+        return (
+          <div key={it.sku} className="kit-stack kit-stack-tight" style={{ borderTop: `1px solid ${line(t, 0.12)}`, paddingTop: 7 }}>
+            <div className="kit-between">
+              <span style={{ color: t.text }}>{it.name}</span>
+              <span className="kit-help" style={{ color: low ? t.accent : t.muted, fontVariantNumeric: 'tabular-nums' }}>
+                {it.have} / {it.reorder}{low ? ' · reorder' : ''}
+              </span>
+            </div>
+            <div className="kit-bar" style={{ background: soft(t, 0.08), borderRadius: r.ctl }}>
+              <div className="kit-bar-fill" style={{ width: `${pct}%`, background: low ? t.accent : t.primary, borderRadius: r.ctl }} />
+            </div>
+          </div>
+        )
+      })}
+      <span className="kit-help" style={{ color: t.muted }}>The bar measures against the reorder point, so a full bar means safe — not full.</span>
+    </div>
+  )
+}
+
 export interface KitItem {
   id: string
   name: string
@@ -3079,6 +3704,27 @@ export const KIT_ITEMS: KitItem[] = [
   { id: 'comparison-slider', name: 'Before / after slider', group: 'overlays', Comp: ComparisonSlider },
   { id: 'speed-dial', name: 'Speed dial', group: 'overlays', Comp: SpeedDial },
   { id: 'marquee-ticker', name: 'Announcement ticker', group: 'feedback', Comp: MarqueeTicker },
+  // — wave 11: scheduling, approvals, money and stock —
+  { id: 'currency-input', name: 'Currency input', group: 'actions', Comp: CurrencyInput },
+  { id: 'time-field', name: 'Time & zone field', group: 'actions', Comp: TimeField },
+  { id: 'filter-bar', name: 'Filter bar · facets', group: 'actions', Comp: FilterBar },
+  { id: 'quick-action-tiles', name: 'Quick action tiles', group: 'actions', Comp: QuickActionTiles },
+  { id: 'signature-pad', name: 'Signature pad', group: 'actions', Comp: SignaturePad },
+  { id: 'quantity-price', name: 'Quantity & price', group: 'actions', Comp: QuantityPrice },
+  { id: 'availability-slots', name: 'Availability grid', group: 'selection', Comp: AvailabilitySlots },
+  { id: 'attendee-picker', name: 'Attendee picker', group: 'selection', Comp: AttendeePicker },
+  { id: 'sync-status', name: 'Sync status', group: 'feedback', Comp: SyncStatus },
+  { id: 'voice-note', name: 'Voice note', group: 'feedback', Comp: VoiceNote },
+  { id: 'kanban-column', name: 'Kanban column', group: 'data', Comp: KanbanColumn },
+  { id: 'conversion-funnel', name: 'Conversion funnel', group: 'data', Comp: ConversionFunnel },
+  { id: 'audit-log', name: 'Audit log', group: 'data', Comp: AuditLog },
+  { id: 'version-history', name: 'Version history', group: 'data', Comp: VersionHistory },
+  { id: 'file-row-list', name: 'File rows', group: 'data', Comp: FileRowList },
+  { id: 'approval-chain', name: 'Approval chain', group: 'data', Comp: ApprovalChain },
+  { id: 'cohort-retention', name: 'Cohort retention', group: 'data', Comp: CohortRetention },
+  { id: 'stock-levels', name: 'Stock levels', group: 'data', Comp: StockLevels },
+  { id: 'split-pane', name: 'Split pane', group: 'nav', Comp: SplitPane },
+  { id: 'pin-card', name: 'Map pin card', group: 'overlays', Comp: PinCard },
 ]
 
 /** How many components every design ships with. */

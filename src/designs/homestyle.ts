@@ -214,9 +214,9 @@ export const homestyleDesigns: DesignSystem[] = [
     designPhilosophy:
       'Main street, 1885. Woodtype posters, bandana red, rope borders, and letters tall enough to read off a horse. Modern inside: real hierarchy, real contrast, real buttons. For rodeos, BBQ joints, western wear, whiskey, and anyone selling authenticity by the yard.',
     designDetails:
-      'Parchment #f2e3c8, leather brown #6b3f23, bandana red #b33a2c, and rope tan. Rye/Bungee-style slab western display (Rye loaded); Karla body. Rope borders via repeating-radial-gradient dots, star badges ★, and halftone corner shading. Buttons are woodcut blocks with heavy borders.',
+      'Parchment #f2e3c8, leather brown #6b3f23, bandana red #7d3320, and rope tan. Rye/Bungee-style slab western display (Rye loaded); Karla body. Rope borders via repeating-radial-gradient dots, star badges ★, and halftone corner shading. Buttons are woodcut blocks with heavy borders.',
     colors: {
-      primary: '#b33a2c',
+      primary: '#7d3320',
       secondary: '#6b3f23',
       accent: '#d9a441',
       neutral: '#e5d3ae',
@@ -231,7 +231,7 @@ export const homestyleDesigns: DesignSystem[] = [
       letterSpacing: 'Display 0.04em, labels 0.18em uppercase',
     },
     components: {
-      primary: 'Solid #b33a2c, parchment text, radius 4px, padding 14px 30px, 800, 3px #3a2418 border, shadow 4px 4px 0 #3a2418',
+      primary: 'Solid #7d3320, parchment text, radius 4px, padding 14px 30px, 800, 3px #3a2418 border, shadow 4px 4px 0 #3a2418',
       secondary: 'Parchment bg, 3px border, same shadow',
       tertiary: 'Brown 700 link with ★ prefix and underline rope on hover',
       radius: '4px — hand-cut posters are almost square',
@@ -259,7 +259,7 @@ export const homestyleDesigns: DesignSystem[] = [
       'Posters stack under 720px; halftones simplify. Rye clamps 2rem→3.5rem. Rope borders persist (identity). Shadows shrink 4px→2px mobile.',
     codeExample:
       '<section class="saloon">\n  <p class="reward">★ GRAND OPENING ★</p>\n  <h1>SUNDAY.<br/>HIGH NOON.</h1>\n  <button class="btn-wood">Saddle up</button>\n</section>',
-    accent: '#b33a2c',
+    accent: '#7d3320',
     motif: 'hard-shadows',
     layout: 'hero-cards',
     useCases: ['Events', 'Restaurant', 'E-commerce'],
@@ -269,7 +269,7 @@ export const homestyleDesigns: DesignSystem[] = [
 .dv-card { border: 3px double #3a2418; }
 .dv-btn { box-shadow: 4px 4px 0 #3a2418; transition: transform .15s, box-shadow .15s; }
 .dv-btn:hover { transform: translate(2px,2px); box-shadow: 1px 1px 0 #3a2418; }
-.dv-kicker { color: #b33a2c; letter-spacing: .18em; }`,
+.dv-kicker { color: #7d3320; letter-spacing: .18em; }`,
     author: 'Bea Solano',
     createdAt: '2026-07-20',
     popularity: 82,

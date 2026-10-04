@@ -144,7 +144,7 @@ export const historicalDesigns: DesignSystem[] = [
     designPhilosophy:
       'Healthcare design patients actually trust. Reassuring teal, generous white, rounded-but-professional forms, and typography that explains rather than impresses. Every state (info, warning, critical) is designed. For clinics, health tech, insurance, and anything where confusion has a cost.',
     designDetails:
-      'White canvas, trust teal #0e7490-family, calm mint surfaces, amber warnings, red reserved for critical. IBM Plex Sans (clinical legibility); weights 400–600 only. Cards have 12px radii and colored top status strips. Icons precede every status. Buttons are 6px-radius, 44px minimum height (gloved hands exist).',
+      'White canvas, trust teal #0e7490-family, calm mint surfaces, amber warnings, red reserved for critical. Livvic display for clinical legibility at 400–600; IBM Plex Sans for prose. Cards have 12px radii and colored top status strips. Icons precede every status. Buttons are 6px-radius, 44px minimum height (gloved hands exist).',
     colors: {
       primary: '#0e7490',
       secondary: '#155e75',
@@ -154,7 +154,7 @@ export const historicalDesigns: DesignSystem[] = [
       text: '#1e3a45',
     },
     typography: {
-      displayFont: 'IBM Plex Sans',
+      displayFont: 'Livvic',
       bodyFont: 'IBM Plex Sans',
       scale: '13 / 15 / 17 / 20 / 25 / 32 / 44',
       lineHeights: 'Display 1.2, body 1.65',

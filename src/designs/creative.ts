@@ -10,9 +10,9 @@ export const creativeDesigns: DesignSystem[] = [
     designPhilosophy:
       'A Kandinsky canvas that learned to scroll. Primary red/yellow/blue geometry on warm cream, circles overlapping rectangles, and display type as composition. The layout IS the artwork — but buttons still look pressable.',
     designDetails:
-      'Cream #faf3e3 with pure geometry: #e63946 circles, #f1c40f triangles (clip-path), #3557a7 rectangles, all flat with no shadows. Fraunces black italic display collides deliberately with geometric blocks. Thin ink rules connect sections like gallery labels. Decorative shapes drift slowly on scroll (translateY parallax at different rates).',
+      'Cream #faf3e3 with pure geometry: #b5173c circles, #f1c40f triangles (clip-path), #3557a7 rectangles, all flat with no shadows. Fraunces black italic display collides deliberately with geometric blocks. Thin ink rules connect sections like gallery labels. Decorative shapes drift slowly on scroll (translateY parallax at different rates).',
     colors: {
-      primary: '#e63946',
+      primary: '#b5173c',
       secondary: '#3557a7',
       accent: '#f1c40f',
       neutral: '#efe6d0',
@@ -27,7 +27,7 @@ export const creativeDesigns: DesignSystem[] = [
       letterSpacing: 'Display -0.02em, gallery labels 0.14em uppercase',
     },
     components: {
-      primary: 'Solid #e63946, cream text, radius 999px (a circle-ish pill), padding 16px 36px, 700',
+      primary: 'Solid #b5173c, cream text, radius 999px (a circle-ish pill), padding 16px 36px, 700',
       secondary: 'Solid #3557a7, cream text, same metrics',
       tertiary: 'Ink text link with geometric diamond ◆ marker on hover',
       radius: 'Pills and circles only — geometry is the brand',
@@ -55,13 +55,13 @@ export const creativeDesigns: DesignSystem[] = [
       'Asymmetric grids stack under 768px; shapes scale down 40%. Display clamps 2.75rem→4.5rem. Parallax disabled on touch and reduced-motion.',
     codeExample:
       '<section class="canvas">\n  <div class="shape circle"></div>\n  <div class="shape bar"></div>\n  <h1>Form follows<br/><em>feeling.</em></h1>\n  <a class="btn-round" href="#">See the work</a>\n</section>',
-    accent: '#e63946',
+    accent: '#b5173c',
     motif: 'editorial-columns',
     layout: 'hero-cards',
     useCases: ['Portfolio', 'Agency', 'Events'],
 signatureCss: `
 .dv-shape { position: absolute; pointer-events: none; }
-.dv-shape.circle { width: 120px; height: 120px; border-radius: 50%; background: #e63946; }
+.dv-shape.circle { width: 120px; height: 120px; border-radius: 50%; background: #b5173c; }
 .dv-shape.tri { width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 104px solid #f1c40f; }
 .dv-shape.bar { width: 180px; height: 40px; background: #3557a7; }
 .dv-hero h1 em { font-style: italic; font-weight: 900; }
@@ -396,7 +396,7 @@ signatureCss: `
     codeExample:
       '<section class="plate">\n  <h1 class="specimen">Aa Gg Rr</h1>\n  <table class="meta"><tr><td>Weight</td><td>900</td></tr></table>\n  <button class="ink">License the cut</button>\n</section>',
     accent: '#e0492f',
-    motif: 'mono-labels',
+    motif: 'outline-type',
     layout: 'editorial',
     useCases: ['Portfolio', 'Agency', 'Productivity'],
     signatureCss: `

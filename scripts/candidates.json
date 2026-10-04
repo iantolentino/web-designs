@@ -1,0 +1,9 @@
+[
+  { "id": "claims-queue", "candidates": [["#0416a4", "#94a3b8", "#ef4444", "#e8eefc", "#f8faff", "#101a33"]] },
+  { "id": "zine-rack", "candidates": [["#ad2976", "#0f172a", "#fde047", "#ffe4e6", "#fff5f7", "#1f1235"]] },
+  { "id": "carnival-row", "candidates": [["#8106f9", "#f59e0b", "#22c55e", "#ede9fe", "#fdf4ff", "#241333"]] },
+  { "id": "olive-grove", "candidates": [["#9db620", "#a3b18a", "#d97706", "#e6e8d8", "#f6f7ee", "#1c2113"]] },
+  { "id": "glass-lab", "candidates": [["#55a0a9", "#a5f3fc", "#f59e0b", "#e0f2fe", "#f8fdff", "#0c2a33"]] },
+  { "id": "water-tower", "candidates": [["#2e9d78", "#6b7280", "#38bdf8", "#d1d5db", "#e5e7eb", "#111827"]] },
+  { "id": "carbon-copy", "candidates": [["#6c4d74", "#a3a3a3", "#ec4899", "#e5e5e5", "#fafafa", "#171717"]] }
+]

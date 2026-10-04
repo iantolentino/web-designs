@@ -23,10 +23,10 @@ export const wave8Designs: DesignSystem[] = [
     designPhilosophy:
       'Dystopia got all the good designers. Solarpunk takes the opposite bet: technology and nature as allies, abundance instead of scarcity, and a palette that looks like photosynthesis under glass. Warm sunlight accents over living green, rounded architecture, and type that smiles without trying. For climate projects, community energy, and civic optimism.',
     designDetails:
-      'Leaf green #2f9e44 over sunlit canvas #f5f9ee, brass #f4b400 reserved for buttons and highlights. Fraunces soft-serif display against Karla body. Arched corners, canopy gradients, and a radial wave crest that reads as sunrise over a roof.',
+      'Leaf green #2f9e44 over sunlit canvas #f5f9ee, brass #f4b400 reserved for buttons and highlights. Young Serif display against Karla body. Arched corners, canopy gradients, and a radial wave crest that reads as sunrise over a roof.',
     colors: { primary: '#2f9e44', secondary: '#0b6e4f', accent: '#f4b400', neutral: '#e9f2df', background: '#f5f9ee', text: '#0f2419' },
     typography: {
-      displayFont: 'Fraunces',
+      displayFont: 'Young Serif',
       bodyFont: 'Karla',
       scale: '14 / 16 / 18 / 22 / 30 / 42 / 64',
       lineHeights: 'Display 1.08, body 1.62',
@@ -186,7 +186,7 @@ export const wave8Designs: DesignSystem[] = [
       'The case file is the most atmospheric document in fiction: manila, carbon, red string. Noir Dossier builds a reading experience out of it — typewriter display type, stamped labels, and the confidence that comes from a period where every word cost paper. For true-crime publishing, archives, and narrative journalism.',
     designDetails:
       'Aged manila #efe6d0 ground, ink #14120f text, rubber-stamp red #a8352a for emphasis only. Courier Prime display with Spectral body. Rule lines like a typed form, stamped uppercase labels, and hanging-indent paragraphs.',
-    colors: { primary: '#1c1a17', secondary: '#5a5348', accent: '#a8352a', neutral: '#e7dcc3', background: '#efe6d0', text: '#14120f' },
+    colors: { primary: '#33261c', secondary: '#5a5348', accent: '#a8352a', neutral: '#e7dcc3', background: '#efe6d0', text: '#14120f' },
     typography: {
       displayFont: 'Courier Prime',
       bodyFont: 'Spectral',
@@ -195,12 +195,12 @@ export const wave8Designs: DesignSystem[] = [
       letterSpacing: 'Labels 0.18em uppercase; body 0',
     },
     components: {
-      primary: 'Solid #1c1a17, manila text, 0 radius, uppercase, padding 12px 22px',
-      secondary: '2px #1c1a17 border, transparent, ink text',
+      primary: 'Solid #33261c, manila text, 0 radius, uppercase, padding 12px 22px',
+      secondary: '2px #33261c border, transparent, ink text',
       tertiary: 'Red underlined link, as if circled',
       radius: '0 everywhere — paper has no corners to round',
       hover: 'Background darkens one step, 120ms linear',
-      cards: 'Manila files, 0 radius, 1px #1c1a1733 border, 26px padding, typed rules',
+      cards: 'Manila files, 0 radius, 1px #33261c33 border, 26px padding, typed rules',
       forms: 'Underlined fields, no boxes, red focus caret',
       navigation: 'Typed masthead bar with a rule beneath',
       modals: 'Dossier sheet, 0 radius, stamped header',
@@ -652,7 +652,7 @@ export const wave8Designs: DesignSystem[] = [
     codeExample:
       '<section class="bureau">\n  <p class="kicker">Issued 06:00 local</p>\n  <h1>Clear, then <em>turning.</em></h1>\n  <p>High 21°, low 9°. Wind from the north-west, 12 km/h.</p>\n</section>',
     accent: '#0b63c5',
-    motif: 'swiss-grid',
+    motif: 'scanlines',
     layout: 'dashboard',
     useCases: ['Government', 'Data & Analytics', 'Agriculture'],
     signatureCss: `.dv-hero h1 { text-transform: none; }
@@ -813,7 +813,7 @@ export const wave8Designs: DesignSystem[] = [
     codeExample:
       '<section class="console">\n  <p class="stamp">CLEARANCE · LEVEL 3</p>\n  <h1>Two attempts, <em>one origin.</em></h1>\n  <p>Both failed at the same hop.</p>\n</section>',
     accent: '#e0a41c',
-    motif: 'tape-labels',
+    motif: 'scanlines',
     layout: 'bento',
     useCases: ['Cybersecurity', 'Government', 'DevOps & Cloud'],
     signatureCss: `.dv-card { background: #141813; }
@@ -867,7 +867,7 @@ export const wave8Designs: DesignSystem[] = [
     codeExample:
       '<section class="atelier">\n  <p class="plate">Plate I</p>\n  <h1>Drawn before <em>built.</em></h1>\n  <p>Stone, light, and an argument about proportion.</p>\n</section>',
     accent: '#b08d57',
-    motif: 'outline-type',
+    motif: 'paper-cut',
     layout: 'poster',
     useCases: ['Architecture', 'Art Gallery', 'Real Estate'],
     signatureCss: `.dv-hero h1 { font-family: 'Cormorant Garamond', serif; }

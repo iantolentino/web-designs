@@ -357,8 +357,34 @@ export function primaryLayout(d: DesignSystem): Layout {
 /** Arrangements offered for a design: its default first, then the rest, deduped. */
 export function layoutSetFor(d: DesignSystem): Layout[] {
   const primary = primaryLayout(d)
-  const base = LAYOUT_SETS_FULL[d.id] ?? LAYOUT_SETS[d.id] ?? [d.layout]
+  const base = LAYOUT_SETS_FULL[d.id] ?? LAYOUT_SETS[d.id] ?? fallbackLayouts(d, primary)
   return [primary, ...base.filter((l) => l !== primary)]
+}
+
+/**
+ * Deterministic arrangement set for designs that do not carry a curated one —
+ * every wave-11+ design. The hash keeps the three alternatives stable per
+ * design while spreading them across the whole arrangement vocabulary, so two
+ * neighbouring cards rarely offer the same menu.
+ */
+const FALLBACK_ORDER: Layout[] = [
+  'split-scroll', 'docs', 'mosaic', 'catalog', 'timeline', 'bento', 'poster', 'field-notes',
+  'map-plate', 'film-strip', 'receipt', 'asymmetric', 'editorial', 'manifesto', 'spotlight',
+  'full-bleed', 'centered', 'magazine', 'hero-cards', 'dashboard', 'split-hero',
+]
+
+function fallbackLayouts(d: DesignSystem, primary: Layout): Layout[] {
+  let n = 2166136261
+  for (let i = 0; i < d.id.length; i++) {
+    n ^= d.id.charCodeAt(i)
+    n = Math.imul(n, 16777619)
+  }
+  const out: Layout[] = [primary]
+  for (let step = 0; out.length < 4 && step < FALLBACK_ORDER.length; step++) {
+    const l = FALLBACK_ORDER[Math.abs(n + step * 7) % FALLBACK_ORDER.length]
+    if (!out.includes(l)) out.push(l)
+  }
+  return out
 }
 
 /* ---------- Extra content blocks (FAQ always present) ---------- */
@@ -424,7 +450,18 @@ FAMILY_IDS.forEach((family, fi) => {
 })
 
 export function getBlockSet(id: string): BlockId[] {
-  return BLOCK_SETS[id] ?? ['testimonials', 'stats', 'faq', 'cta', 'pricing', 'cards']
+  const explicit = BLOCK_SETS[id]
+  if (explicit) return explicit
+  // Designs without a curated set rotate deterministically through the same
+  // six patterns, so neighbouring cards in the gallery never show identical
+  // block pages while every new design still ships FAQ + five others.
+  let n = 2166136261
+  for (let i = 0; i < id.length; i++) {
+    n ^= id.charCodeAt(i)
+    n = Math.imul(n, 16777619)
+  }
+  const set = BLOCK_PATTERNS[Math.abs(n) % BLOCK_PATTERNS.length]
+  return BLOCK_ORDER.filter((b) => set.includes(b))
 }
 
 /* ---------- Dashboard extras (one per dashboard-capable design) ---------- */
@@ -476,6 +513,15 @@ export const DASH_EXTRAS: Record<string, DashExtra> = {
   'kiln-works': 'calendar',
 }
 
+const DASH_ROTATION: DashExtra[] = ['report-builder', 'kanban', 'calendar', 'activity']
+
 export function getDashExtra(id: string): DashExtra | undefined {
-  return DASH_EXTRAS[id]
+  const explicit = DASH_EXTRAS[id]
+  if (explicit) return explicit
+  let n = 2166136261
+  for (let i = 0; i < id.length; i++) {
+    n ^= id.charCodeAt(i)
+    n = Math.imul(n, 16777619)
+  }
+  return DASH_ROTATION[Math.abs(n) % DASH_ROTATION.length]
 }

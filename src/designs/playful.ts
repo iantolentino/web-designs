@@ -191,7 +191,7 @@ signatureCss: `
     codeExample:
       '<section class="clay">\n  <h1>Squeeze the interface.</h1>\n  <p>Tools that feel like toys, work like pro apps.</p>\n  <button class="btn-clay">Get the app</button>\n</section>',
     accent: '#ff8a5c',
-    motif: 'soft-shadows',
+    motif: 'big-stat-row',
     layout: 'split-hero',
     useCases: ['Kids', 'SaaS', 'Health'],
 signatureCss: `
@@ -259,7 +259,7 @@ signatureCss: `
     codeExample:
       '<section class="machine">\n  <h1>Turn the knob. <em>Get a color.</em></h1>\n  <p>A design system with a glass dome and a chrome base.</p>\n  <button class="btn-knob">Dispense</button>\n</section>',
     accent: '#ef476f',
-    motif: 'rotated-stickers',
+    motif: 'halftone-dots',
     layout: 'hero-cards',
     useCases: ['Kids', 'E-commerce', 'Events'],
     signatureCss: `
@@ -283,7 +283,7 @@ signatureCss: `
     designDetails:
       'Graph-paper background (8px cells), ink-navy marker strokes at 2.5px, highlighter sweeps in yellow behind key phrases. Caveat for annotations, Be Vietnam Pro for content. Borders wobble via SVG-style irregular radii; cards are taped photos and index cards. The active nav item gets a circled scribble.',
     colors: {
-      primary: '#2563eb',
+      primary: '#6d28d9',
       secondary: '#1e293b',
       accent: '#fde047',
       neutral: '#f8fafc',
@@ -327,7 +327,7 @@ signatureCss: `
       'The graph grid fades under 700px to save ink on small screens; cards un-tilt to 0.2deg. Display clamps 2.2rem→4.1rem. Spiral tabs scroll horizontally on mobile.',
     codeExample:
       '<section class="page">\n  <h1>Margin notes <em>welcome.</em></h1>\n  <p class="note-caveat">this is the good part →</p>\n  <button class="btn-marker">Highlight this</button>\n</section>',
-    accent: '#2563eb',
+    accent: '#6d28d9',
     motif: 'dashed-borders',
     layout: 'asymmetric',
     useCases: ['Education', 'Productivity', 'Portfolio'],

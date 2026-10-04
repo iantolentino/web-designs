@@ -1,0 +1,160 @@
+
+permit-office  (new, base #33607f)
+----------------------------------------------------------------
+  ~ permit-office      #33607f → #2c5199   primary ΔE    7.9 → milk-round   palette ΔE    7.6 → fog-station
+
+registry-archives  (new, base #6b4a2a)
+----------------------------------------------------------------
+  ~ registry-archives  #6b4a2a → #703d21   primary ΔE    8.6 → malt-house   palette ΔE    7.4 → herbarium-sheet
+
+land-titles  (new, base #1f5f4a)
+----------------------------------------------------------------
+  ~ land-titles        #1f5f4a → #29ae5c   primary ΔE    8.2 → solar-punk   palette ΔE    7.0 → salt-marsh
+
+customs-post  (new, base #1f3a6b)
+----------------------------------------------------------------
+  ~ customs-post       #1f3a6b → #191a39   primary ΔE    8.7 → sleep-coach   palette ΔE    7.8 → roll-call
+
+patent-office  (new, base #4a3a7a)
+----------------------------------------------------------------
+  ✓ patent-office      #4a3a7a → #8f39ad   primary ΔE   14.1 → obelisk-net   palette ΔE   11.5 → bird-atlas
+
+census-desk  (new, base #27577f)
+----------------------------------------------------------------
+  ~ census-desk        #27577f → #1e4967   primary ΔE    7.4 → grid-dispatch   palette ΔE    6.0 → spec:permit-office#pick
+
+court-clerk  (new, base #7a2a44)
+----------------------------------------------------------------
+  ~ court-clerk        #7a2a44 → #ba2c6b   primary ΔE   10.9 → hot-sauce-wall   palette ΔE    8.8 → vineyard-terrace
+
+licence-board  (new, base #a8761b)
+----------------------------------------------------------------
+  ✓ licence-board      #a8761b → #8b870e   primary ΔE   12.8 → mushroom-night   palette ΔE   14.8 → cashmere-mill
+
+notary-desk  (new, base #5f3f2a)
+----------------------------------------------------------------
+  ~ notary-desk        #5f3f2a → #3f1b12   primary ΔE   10.1 → overnight-radio   palette ΔE    7.7 → customs-broker
+
+planning-committee  (new, base #3f7a52)
+----------------------------------------------------------------
+  ~ planning-committee #3f7a52 → #25471f   primary ΔE    9.4 → ticket-window   palette ΔE    7.8 → seaweed-farm
+
+voter-roll  (new, base #1c4a7a)
+----------------------------------------------------------------
+  ~ voter-roll         #1c4a7a → #0f1b4d   primary ΔE    8.4 → press-room   palette ΔE    6.9 → spec:customs-post#pick
+
+tax-returns  (new, base #3a2f6b)
+----------------------------------------------------------------
+  ✓ tax-returns        #3a2f6b → #3f0f4d   primary ΔE   16.5 → pumping-station   palette ΔE   20.2 → arco-grid
+
+census-enumerator  (new, base #1f6b72)
+----------------------------------------------------------------
+  ~ census-enumerator  #1f6b72 → #53938d   primary ΔE    9.1 → cold-aisle   palette ΔE    7.6 → river-lock
+
+consular-desk  (new, base #1f3f66)
+----------------------------------------------------------------
+  ~ consular-desk      #1f3f66 → #212c78   primary ΔE    8.9 → airmail   palette ΔE    7.3 → spec:voter-roll#pick
+
+hansard  (new, base #5f4a2a)
+----------------------------------------------------------------
+  ~ hansard            #5f4a2a → #a1904a   primary ΔE    7.4 → mushroom-night   palette ΔE    6.2 → herbarium-sheet
+
+statute-book  (new, base #8a4a1b)
+----------------------------------------------------------------
+  ~ statute-book       #8a4a1b → #9e5414   primary ΔE    9.6 → ink-house   palette ΔE   11.3 → coastguard-watch
+
+municipal-budget  (new, base #1f6b52)
+----------------------------------------------------------------
+  ~ municipal-budget   #1f6b52 → #114b45   primary ΔE    8.3 → meridian-will   palette ΔE    9.4 → low-water
+
+procurement-desk  (new, base #1f4a7a)
+----------------------------------------------------------------
+  ~ procurement-desk   #1f4a7a → #3c5486   primary ΔE    7.5 → gondola-lift   palette ΔE    6.3 → rain-gauge
+
+ombudsman  (new, base #433a7a)
+----------------------------------------------------------------
+  ~ ombudsman          #433a7a → #77218c   primary ΔE   10.7 → spec:patent-office#pick   palette ΔE    8.9 → nightline-desk
+
+appeals-tribunal  (new, base #6b2a44)
+----------------------------------------------------------------
+  ✓ appeals-tribunal   #6b2a44 → #754357   primary ΔE   15.0 → vineyard-terrace   palette ΔE   13.6 → quiet-floor
+
+building-inspector  (new, base #a8761b)
+----------------------------------------------------------------
+  ~ building-inspector #a8761b → #d6d628   primary ΔE   10.7 → night-load   palette ΔE    9.3 → spec:licence-board#pick
+
+health-inspector  (new, base #1f7a5a)
+----------------------------------------------------------------
+  ~ health-inspector   #1f7a5a → #20c5a1   primary ΔE    8.5 → beacon-keeper   palette ΔE    6.9 → river-lock
+
+weights-and-measures  (new, base #1f3a6b)
+----------------------------------------------------------------
+  ~ weights-and-measures #1f3a6b → #2228aa   primary ΔE    9.0 → claims-queue   palette ΔE    7.5 → ferry-timetable
+
+trade-licensing  (new, base #a8621b)
+----------------------------------------------------------------
+  ~ trade-licensing    #a8621b → #95750e   primary ΔE   10.4 → sun-dry   palette ΔE   10.5 → thatch-line
+
+border-check  (new, base #1c4a66)
+----------------------------------------------------------------
+  ~ border-check       #1c4a66 → #114b5b   primary ΔE    7.6 → cold-chain   palette ΔE    6.2 → spec:procurement-desk#pick
+
+passport-issuance  (new, base #1f3a66)
+----------------------------------------------------------------
+  ~ passport-issuance  #1f3a66 → #2f5776   primary ΔE    6.0 → spec:census-desk#pick   palette ΔE    5.1 → spec:procurement-desk#pick
+
+school-admissions  (new, base #d9a916)
+----------------------------------------------------------------
+  ~ school-admissions  #d9a916 → #eac52f   primary ΔE   10.6 → bumper-stickers   palette ΔE    8.9 → spec:building-inspector#pick
+
+housing-allocation  (new, base #2f7a5f)
+----------------------------------------------------------------
+  ~ housing-allocation #2f7a5f → #2cb0ba   primary ΔE    7.9 → glacier-survey   palette ΔE    6.4 → river-lock
+
+benefits-desk  (new, base #20507a)
+----------------------------------------------------------------
+  ~ benefits-desk      #20507a → #1b278f   primary ΔE    7.7 → betamax-rental   palette ΔE    6.2 → spec:permit-office#pick
+
+employment-office  (new, base #1f6b6b)
+----------------------------------------------------------------
+  ~ employment-office  #1f6b6b → #2592c1   primary ΔE    8.8 → blueprint-tech   palette ΔE    8.6 → handover-ward
+
+pension-registry  (new, base #3f3572)
+----------------------------------------------------------------
+  ~ pension-registry   #3f3572 → #5029ae   primary ΔE    8.5 → spec:weights-and-measures#pick   palette ΔE    7.8 → spec:tax-returns#pick
+
+driving-licence  (new, base #c9781b)
+----------------------------------------------------------------
+  ~ driving-licence    #c9781b → #d4c144   primary ΔE   10.0 → art-deco   palette ΔE    7.8 → spec:school-admissions#pick
+
+vehicle-registration  (new, base #a84a1b)
+----------------------------------------------------------------
+  ~ vehicle-registration #a84a1b → #934424   primary ΔE    8.8 → ramen-late   palette ΔE    7.4 → spec:statute-book#pick
+
+boundary-commission  (new, base #4a3f8a)
+----------------------------------------------------------------
+  ~ boundary-commission #4a3f8a → #5839a1   primary ΔE   10.3 → arco-grid   palette ΔE    8.6 → pumping-station
+
+electoral-count  (new, base #2a3f8a)
+----------------------------------------------------------------
+  ~ electoral-count    #2a3f8a → #1c1372   primary ΔE    7.2 → betamax-rental   palette ΔE    6.0 → spec:consular-desk#pick
+
+public-records  (new, base #6b5230)
+----------------------------------------------------------------
+  ~ public-records     #6b5230 → #8d844f   primary ΔE   10.0 → cashmere-mill   palette ΔE    8.2 → cashmere-mill
+
+national-archives  (new, base #5f3a2a)
+----------------------------------------------------------------
+  ~ national-archives  #5f3a2a → #77524b   primary ΔE    9.0 → mud-run   palette ΔE    7.4 → truffle-hunter
+
+freedom-of-information  (new, base #3f6b2a)
+----------------------------------------------------------------
+  ✓ freedom-of-information #3f6b2a → #6b8f56   primary ΔE   12.1 → cottagecore   palette ΔE   10.1 → spec:public-records#pick
+
+civic-charter  (new, base #1f4a5f)
+----------------------------------------------------------------
+  ~ civic-charter      #1f4a5f → #39707f   primary ΔE    7.1 → bone-china   palette ΔE    6.3 → spec:border-check#pick
+
+typing-pool  (new, base #a8761b)
+----------------------------------------------------------------
+  ~ typing-pool        #a8761b → #bab345   primary ΔE    9.7 → dispatch-cab   palette ΔE    8.1 → spec:hansard#pick

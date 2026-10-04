@@ -10,7 +10,7 @@ export const urbanDesigns: DesignSystem[] = [
     designPhilosophy:
       'Every interface is a drawing that has not been built yet. Cyanotype paper, drafting grids, dimension lines with arrowheads, and annotation labels in drafting caps. Engineering romance — the beauty of the plan. For architecture tools, engineering software, and B2B products that sell precision.',
     designDetails:
-      'Cyanotype #123a5c-family canvas with white drafting lines (grid + dimension marks), IBM Plex Mono for annotations, IBM Plex Sans body. Dimension lines (|←→|) annotate components themselves. Dashed cut-lines, section markers (A, B, C in circles), and a title block in the footer like real drawings. White-on-blue throughout.',
+      'Cyanotype #123a5c-family canvas with white drafting lines (grid + dimension marks), Chakra Petch display for annotations, IBM Plex Mono for dimension lines, IBM Plex Sans body. Dimension lines (|←→|) annotate components themselves. Dashed cut-lines, section markers (A, B, C in circles), and a title block in the footer like real drawings. White-on-blue throughout.',
     colors: {
       primary: '#4a9fd8',
       secondary: '#9db8cc',
@@ -20,7 +20,7 @@ export const urbanDesigns: DesignSystem[] = [
       text: '#eaf3fa',
     },
     typography: {
-      displayFont: 'IBM Plex Sans',
+      displayFont: 'Chakra Petch',
       bodyFont: 'IBM Plex Sans',
       scale: '11 / 13 / 15 / 18 / 24 / 32 / 48',
       lineHeights: 'Display 1.15, body 1.6, annotations 1.4',
@@ -147,7 +147,7 @@ export const urbanDesigns: DesignSystem[] = [
     designDetails:
       'Paper white with primary red/yellow/blue (Lichtenstein triad) and heavy 3px ink outlines. Bangers display font; Nunito body. Halftone dot fills (radial-gradient repeating), word balloons (rounded boxes with CSS triangle tails), action bursts (clip-path star polygons). Panel gutters are thick black bars.',
     colors: {
-      primary: '#e63946',
+      primary: '#ef4b1b',
       secondary: '#f1c40f',
       accent: '#3557a7',
       neutral: '#f0f0e8',
@@ -162,7 +162,7 @@ export const urbanDesigns: DesignSystem[] = [
       letterSpacing: 'Display 0.04em, balloons 0.02em',
     },
     components: {
-      primary: 'Solid #e63946, white text, radius 8px, padding 14px 30px, 800, 3px #141414 border, shadow 5px 5px 0 #141414',
+      primary: 'Solid #ef4b1b, white text, radius 8px, padding 14px 30px, 800, 3px #141414 border, shadow 5px 5px 0 #141414',
       secondary: 'Solid #f1c40f, ink text, same border and shadow',
       tertiary: 'Ink 800 link with wavy underline on hover',
       radius: '8px panels, 999px balloons',
@@ -190,7 +190,7 @@ export const urbanDesigns: DesignSystem[] = [
       'Panels stack under 720px (gutters persist as horizontal bars). Bangers clamps 2.25rem→4rem (it is narrow). Shadows shrink to 3px mobile.',
     codeExample:
       '<div class="panel">\n  <h1>KA-POW!</h1>\n  <p class="balloon">Your ideas, but louder.</p>\n  <button class="btn-pow">ZOOM IN →</button>\n</div>',
-    accent: '#e63946',
+    accent: '#ef4b1b',
     motif: 'hard-shadows',
     layout: 'magazine',
     useCases: ['Kids', 'Events', 'Gaming'],

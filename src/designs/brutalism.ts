@@ -79,7 +79,7 @@ signatureCss: `
     designPhilosophy:
       'Concrete, but poured by a careful crew. The raw vocabulary — mono labels, squared edges, visible structure — is tempered by a sophisticated grey palette, generous padding, and measured motion. Feels like an architecture firm built a website.',
     designDetails:
-      'Six-step greyscale with one restrained orange for interactive emphasis. IBM Plex Mono for all labels and numbers, IBM Plex Sans for prose. Structure is visible: thin rules divide cells; section numbers run down the left margin. Shadows are almost never used — depth comes from greys.',
+      'Six-step greyscale with one restrained orange for interactive emphasis. IBM Plex Mono for labels and numbers, IBM Plex Sans for prose, Archivo Black for the load-bearing headlines. Structure is visible: thin rules divide cells; section numbers run down the left margin. Shadows are almost never used — depth comes from greys.',
     colors: {
       primary: '#e8590c',
       secondary: '#343a40',
@@ -89,7 +89,7 @@ signatureCss: `
       text: '#212529',
     },
     typography: {
-      displayFont: 'IBM Plex Sans',
+      displayFont: 'Archivo Black',
       bodyFont: 'IBM Plex Sans',
       scale: '12 / 14 / 16 / 20 / 26 / 36 / 56',
       lineHeights: 'Display 1.05, body 1.6',
@@ -125,7 +125,7 @@ signatureCss: `
     codeExample:
       '<section class="cell">\n  <span class="idx">02</span>\n  <h2>Load-bearing typography</h2>\n  <p>Every rule has a reason.</p>\n</section>',
     accent: '#e8590c',
-    motif: M('swiss-grid'),
+    motif: M('corner-brackets'),
     layout: 'magazine',
     useCases: ['Agency', 'Portfolio', 'News'],
 signatureCss: `
@@ -401,7 +401,7 @@ signatureCss: `
     codeExample:
       '<div class="instrument">\n  <span class="label">LINE PRESSURE</span>\n  <strong class="value">4.82 <em>bar</em></strong>\n  <button class="switch-armed">ENGAGE</button>\n</div>',
     accent: '#ff7a1a',
-    motif: 'mono-labels',
+    motif: 'corner-brackets',
     layout: 'dashboard',
     useCases: ['SaaS', 'Productivity', 'Gaming'],
     signatureCss: `

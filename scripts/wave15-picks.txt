@@ -1,0 +1,160 @@
+
+tide-table  (new, base #2f6f8f)
+----------------------------------------------------------------
+  ~ tide-table         #2f6f8f → #527f93   primary ΔE    9.2 → river-keeper   palette ΔE    7.8 → laundromat-late
+
+rain-gauge  (new, base #3f5f7a)
+----------------------------------------------------------------
+  ~ rain-gauge         #3f5f7a → #394386   primary ΔE    9.2 → airmail   palette ΔE    7.6 → gondola-lift
+
+snow-science  (new, base #5f6fa8)
+----------------------------------------------------------------
+  ✓ snow-science       #5f6fa8 → #8577bb   primary ΔE   17.3 → milk-round   palette ΔE   13.1 → cold-aisle
+
+ferry-timetable  (new, base #1c3f66)
+----------------------------------------------------------------
+  ~ ferry-timetable    #1c3f66 → #1f3ca3   primary ΔE    8.3 → corporate-blue   palette ΔE    7.0 → spec:rain-gauge#pick
+
+harvest-fair  (new, base #c2571b)
+----------------------------------------------------------------
+  ~ harvest-fair       #c2571b → #a22706   primary ΔE   11.1 → mask-maker   palette ΔE   14.0 → mask-maker
+
+corn-maze  (new, base #d9a916)
+----------------------------------------------------------------
+  ✓ corn-maze          #d9a916 → #d1d147   primary ΔE   13.5 → night-load   palette ΔE   12.7 → olive-grove
+
+pumpkin-patch  (new, base #c95a12)
+----------------------------------------------------------------
+  ~ pumpkin-patch      #c95a12 → #ca6402   primary ΔE   10.0 → soft-mono   palette ΔE   11.8 → spec:harvest-fair#pick
+
+wellington-boots  (new, base #3f7a52)
+----------------------------------------------------------------
+  ✓ wellington-boots   #3f7a52 → #27682c   primary ΔE   13.5 → survey-pin   palette ΔE   11.3 → street-sweeper
+
+scarecrow-rows  (new, base #b08b42)
+----------------------------------------------------------------
+  ✓ scarecrow-rows     #b08b42 → #c1bc71   primary ΔE   15.1 → black-car   palette ΔE   12.4 → spec:corn-maze#pick
+
+flood-barrier  (new, base #2f4f6a)
+----------------------------------------------------------------
+  ✓ flood-barrier      #2f4f6a → #6f85b9   primary ΔE   14.8 → lunar-climate   palette ΔE   14.2 → blueprint-tech
+
+quarry-face  (now #2f3136)
+----------------------------------------------------------------
+  ~ quarry-face        #2f3136 → #64556d   primary ΔE   11.1 → carbon-copy   palette ΔE    9.0 → tunnel-bore
+
+dry-stone-wall  (new, base #8a8474)
+----------------------------------------------------------------
+  ~ dry-stone-wall     #8a8474 → #aca356   primary ΔE    9.3 → spec:scarecrow-rows#pick   palette ΔE    7.7 → sheep-fold
+
+storm-drain  (new, base #285563)
+----------------------------------------------------------------
+  ✓ storm-drain        #285563 → #8aa2a8   primary ΔE   12.7 → glacier-spa   palette ΔE   10.4 → spec:flood-barrier#pick
+
+river-lock  (new, base #2a6b6b)
+----------------------------------------------------------------
+  ✓ river-lock         #2a6b6b → #66b29b   primary ΔE   13.3 → collage-cut   palette ΔE   11.0 → handover-ward
+
+sea-salt  (new, base #7fa6bd)
+----------------------------------------------------------------
+  ✓ sea-salt           #7fa6bd → #93a3c8   primary ΔE   14.5 → glacier-spa   palette ΔE   11.9 → oyster-bar
+
+vineyard-terrace  (new, base #7a1f38)
+----------------------------------------------------------------
+  ✓ vineyard-terrace   #7a1f38 → #662c31   primary ΔE   12.8 → vintage-print   palette ΔE   11.9 → cellar-index
+
+sugar-bush  (new, base #8a4a1f)
+----------------------------------------------------------------
+  ~ sugar-bush         #8a4a1f → #75551a   primary ΔE   10.4 → malt-house   palette ΔE    8.7 → overnight-radio
+
+seed-library  (new, base #256b4a)
+----------------------------------------------------------------
+  ~ seed-library       #256b4a → #407869   primary ΔE    8.9 → tensor-atlas   palette ΔE    7.4 → spec:wellington-boots#pick
+
+fog-signal  (now #d2452f)
+----------------------------------------------------------------
+  ~ fog-signal         #d2452f → #5a679c   primary ΔE   11.8 → spec:flood-barrier#pick   palette ΔE   12.8 → glacier-air
+
+thatch-line  (new, base #8a6a3a)
+----------------------------------------------------------------
+  ~ thatch-line        #8a6a3a → #ad8f23   primary ΔE   10.5 → neo-gothic   palette ΔE    8.6 → spec:dry-stone-wall#pick
+
+harness-room  (new, base #8b5d25)
+----------------------------------------------------------------
+  ✓ harness-room       #8b5d25 → #bc7864   primary ΔE   14.3 → linen-quiet   palette ΔE   17.7 → aperture-notes
+
+cider-press  (new, base #a8621b)
+----------------------------------------------------------------
+  ~ cider-press        #a8621b → #a8733b   primary ΔE   10.2 → depot-yard   palette ΔE   16.7 → heritage-linen
+
+apiary-log  (new, base #c99a1b)
+----------------------------------------------------------------
+  ~ apiary-log         #c99a1b → #d38305   primary ΔE    9.8 → canopy-lodge   palette ΔE    8.9 → spec:thatch-line#pick
+
+seaweed-farm  (new, base #2f6b52)
+----------------------------------------------------------------
+  ~ seaweed-farm       #2f6b52 → #267d24   primary ΔE   13.4 → solar-punk   palette ΔE   10.0 → spec:river-lock#pick
+
+peat-bog  (new, base #603b32)
+----------------------------------------------------------------
+  ✓ peat-bog           #603b32 → #b28a80   primary ΔE   12.2 → dino-dig   palette ΔE   10.5 → spec:harness-room#pick
+
+tree-nursery  (new, base #3f7a3a)
+----------------------------------------------------------------
+  ✓ tree-nursery       #3f7a3a → #22d35d   primary ΔE   13.8 → tactical-hud   palette ΔE   10.5 → olive-grove
+
+greenhouse-rows  (new, base #2f7a5a)
+----------------------------------------------------------------
+  ~ greenhouse-rows    #2f7a5a → #4f8b65   primary ΔE   10.3 → quiet-hours   palette ΔE    8.4 → vet-night
+
+hop-yard  (new, base #617a1f)
+----------------------------------------------------------------
+  ✓ hop-yard           #617a1f → #38ac23   primary ΔE   13.1 → street-sweeper   palette ΔE   10.7 → wet-market
+
+weather-station  (new, base #132251)
+----------------------------------------------------------------
+  ~ weather-station    #132251 → #334fac   primary ΔE    9.8 → airmail   palette ΔE    9.3 → spec:flood-barrier#pick
+
+coastguard-watch  (new, base #c2410c)
+----------------------------------------------------------------
+  ~ coastguard-watch   #c2410c → #b60802   primary ΔE    9.5 → mutual-aid-press   palette ΔE   12.5 → spec:harvest-fair#pick
+
+avalanche-desk  (new, base #3b4687)
+----------------------------------------------------------------
+  ✓ avalanche-desk     #3b4687 → #6181db   primary ΔE   14.4 → pigeon-post   palette ΔE   14.8 → spec:flood-barrier#pick
+
+forest-fire-watch  (new, base #a53c08)
+----------------------------------------------------------------
+  ~ forest-fire-watch  #a53c08 → #cf574a   primary ΔE    9.8 → ever-current   palette ΔE   16.5 → spec:harness-room#pick
+
+glacier-survey  (new, base #3f8fa8)
+----------------------------------------------------------------
+  ~ glacier-survey     #3f8fa8 → #2fc3c8   primary ΔE    8.4 → abyssal-drift   palette ΔE    6.8 → laundromat-late
+
+herbarium-sheet  (new, base #6b5a2a)
+----------------------------------------------------------------
+  ~ herbarium-sheet    #6b5a2a → #655d36   primary ΔE   11.0 → mud-kitchen   palette ΔE    9.4 → spec:cider-press#pick
+
+plankton-net  (new, base #30cfaa)
+----------------------------------------------------------------
+  ✓ plankton-net       #30cfaa → #7fbdbd   primary ΔE   12.3 → binaural-room   palette ΔE   14.9 → spec:storm-drain#pick
+
+bird-atlas  (new, base #2a4a7a)
+----------------------------------------------------------------
+  ~ bird-atlas         #2a4a7a → #504e80   primary ΔE   10.5 → spec:fog-signal#pick   palette ΔE    8.6 → audit-trail
+
+soil-charts  (new, base #5a4028)
+----------------------------------------------------------------
+  ~ soil-charts        #5a4028 → #5d3930   primary ΔE    8.9 → overnight-radio   palette ΔE    7.4 → sheep-fold
+
+monsoon-desk  (new, base #48327e)
+----------------------------------------------------------------
+  ✓ monsoon-desk       #48327e → #7b52c3   primary ΔE   16.6 → sleep-lab   palette ΔE   13.9 → obelisk-net
+
+salt-marsh  (new, base #4a7a5f)
+----------------------------------------------------------------
+  ~ salt-marsh         #4a7a5f → #4e9c6d   primary ΔE    8.4 → water-tower   palette ΔE    7.0 → spec:wellington-boots#pick
+
+wind-rose  (new, base #2a4a66)
+----------------------------------------------------------------
+  ~ wind-rose          #2a4a66 → #15264f   primary ΔE    9.2 → sleep-coach   palette ΔE    8.4 → shortwave

@@ -52,7 +52,7 @@ console.log(JSON.stringify({
   designs: DESIGN_SYSTEMS.map((d) => ({
     id: d.id,
     name: d.name,
-    hero: HERO[d.id] ?? '',
+    hero: (d.hero ?? HERO[d.id] ?? '').split('*').join(''),
     display: d.typography.displayFont,
     body: d.typography.bodyFont,
     motif: d.motif,

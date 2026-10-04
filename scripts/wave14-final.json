@@ -1,0 +1,322 @@
+{
+ "night-bakery": [
+  "#b38019",
+  "#d9b382",
+  "#f59e0b",
+  "#f0e2cf",
+  "#fffaf1",
+  "#2a1c10"
+ ],
+ "fish-auction": [
+  "#2e56c7",
+  "#9fb8c4",
+  "#ff6b5e",
+  "#dbe6ec",
+  "#f4f9fc",
+  "#0b1f2a"
+ ],
+ "press-room": [
+  "#212763",
+  "#8f8f8f",
+  "#a4161a",
+  "#ded9cf",
+  "#f6f4ee",
+  "#121112"
+ ],
+ "steam-laundry": [
+  "#0698f9",
+  "#9dc3da",
+  "#f4845f",
+  "#cfe0ea",
+  "#eef6fb",
+  "#0a1c28"
+ ],
+ "nightline-desk": [
+  "#0f0f57",
+  "#8b9dc3",
+  "#f2b705",
+  "#dde4f0",
+  "#f5f8fd",
+  "#12192b"
+ ],
+ "depot-yard": [
+  "#946a1f",
+  "#4b5563",
+  "#22d3ee",
+  "#e5e7eb",
+  "#f6f7f9",
+  "#1b1b1f"
+ ],
+ "street-sweeper": [
+  "#54a028",
+  "#b9c4a8",
+  "#eab308",
+  "#e2e7dc",
+  "#f6f8f2",
+  "#1f2a1c"
+ ],
+ "overnight-radio": [
+  "#562d1b",
+  "#c9a27a",
+  "#f0a500",
+  "#ecdfd0",
+  "#fdf6ec",
+  "#2b1d12"
+ ],
+ "sleep-lab": [
+  "#724096",
+  "#9c93bd",
+  "#8b5cf6",
+  "#ddd9ec",
+  "#f7f5fd",
+  "#191430"
+ ],
+ "grill-line": [
+  "#ff1500",
+  "#a8adb5",
+  "#facc15",
+  "#e8eaed",
+  "#fafbfc",
+  "#17181a"
+ ],
+ "pumping-station": [
+  "#653874",
+  "#7d7694",
+  "#e07a5f",
+  "#d9d5e0",
+  "#f5f3f8",
+  "#1b1826"
+ ],
+ "night-load": [
+  "#cebe08",
+  "#4a5a7a",
+  "#38bdf8",
+  "#e6e2d6",
+  "#f8f7f2",
+  "#1a2333"
+ ],
+ "guard-room": [
+  "#0c356e",
+  "#7c8aa0",
+  "#ffb020",
+  "#ccd6e2",
+  "#e8edf4",
+  "#0c1420"
+ ],
+ "cold-aisle": [
+  "#58888d",
+  "#8fa8b5",
+  "#22d3ee",
+  "#cfdde4",
+  "#eef6f9",
+  "#0b1a22"
+ ],
+ "carpark-night": [
+  "#c88c41",
+  "#6f6a66",
+  "#f2c400",
+  "#ddd8d0",
+  "#f2efe9",
+  "#181713"
+ ],
+ "night-market": [
+  "#ff0046",
+  "#2a2a3a",
+  "#22d3ee",
+  "#dcd8e0",
+  "#faf7fb",
+  "#16121c"
+ ],
+ "cinema-usher": [
+  "#a20921",
+  "#b08d3a",
+  "#e8c547",
+  "#efe3d0",
+  "#fdf8f0",
+  "#241013"
+ ],
+ "sleep-coach": [
+  "#2c1f47",
+  "#a7a4c8",
+  "#c4b5fd",
+  "#e4e6f2",
+  "#f8f9fd",
+  "#141a2b"
+ ],
+ "rink-master": [
+  "#42bcf0",
+  "#a9d5ea",
+  "#ef476f",
+  "#d3e6f0",
+  "#f2fafd",
+  "#0a1f2c"
+ ],
+ "milk-round": [
+  "#495bab",
+  "#cfd8e3",
+  "#e8b04b",
+  "#ece5d8",
+  "#fdfaf3",
+  "#221d16"
+ ],
+ "flower-clock": [
+  "#9b4261",
+  "#a8c0a0",
+  "#f4a261",
+  "#f0dfe4",
+  "#fdf6f8",
+  "#2a1820"
+ ],
+ "red-eye-desk": [
+  "#070d86",
+  "#7b88a8",
+  "#f59e0b",
+  "#d6dbea",
+  "#f4f6fc",
+  "#0b1120"
+ ],
+ "beacon-keeper": [
+  "#2cbaa2",
+  "#7f9aa6",
+  "#ffd166",
+  "#d8e3e7",
+  "#f2f7f9",
+  "#101f26"
+ ],
+ "cellar-barrel": [
+  "#923e0c",
+  "#b39270",
+  "#d97706",
+  "#e8dfd2",
+  "#faf5ec",
+  "#241a12"
+ ],
+ "sugar-shed": [
+  "#cf6da6",
+  "#f7cddc",
+  "#6d28d9",
+  "#f6e3ea",
+  "#fff8fb",
+  "#2c1622"
+ ],
+ "vet-night": [
+  "#2fa56a",
+  "#a8c0b2",
+  "#e07a5f",
+  "#dde8e1",
+  "#f6faf7",
+  "#131f19"
+ ],
+ "patrol-log": [
+  "#050539",
+  "#6b7c96",
+  "#3b82f6",
+  "#ccd5e0",
+  "#f2f5f9",
+  "#0a1018"
+ ],
+ "tunnel-bore": [
+  "#7b735b",
+  "#9c9284",
+  "#d97a1e",
+  "#d5cec4",
+  "#f2efe9",
+  "#1c1815"
+ ],
+ "plough-route": [
+  "#3c637b",
+  "#8ea1b4",
+  "#c7f000",
+  "#d5dee6",
+  "#f0f4f7",
+  "#0e1720"
+ ],
+ "audit-desk": [
+  "#8d1e85",
+  "#8a6a80",
+  "#d4af37",
+  "#e3d5dd",
+  "#f9f4f7",
+  "#1e0f19"
+ ],
+ "ramen-late": [
+  "#9c513b",
+  "#d9a08c",
+  "#f4c95d",
+  "#e9d7cb",
+  "#faf2ea",
+  "#1f120e"
+ ],
+ "dispatch-cab": [
+  "#ada71f",
+  "#55534e",
+  "#2563eb",
+  "#ebe8df",
+  "#faf8f2",
+  "#1d1c1a"
+ ],
+ "dock-watch": [
+  "#3093a6",
+  "#6f9aa8",
+  "#e2543a",
+  "#cfdde3",
+  "#eef5f8",
+  "#0a1a22"
+ ],
+ "wet-market": [
+  "#24c322",
+  "#a4c3a8",
+  "#e2543a",
+  "#dfe9e0",
+  "#f6faf6",
+  "#14231a"
+ ],
+ "boiler-room": [
+  "#62170e",
+  "#9a8f7a",
+  "#c9971b",
+  "#e0d6c4",
+  "#f4eee2",
+  "#1f1610"
+ ],
+ "handover-ward": [
+  "#249094",
+  "#8fb3b0",
+  "#f59e0b",
+  "#d9e6e5",
+  "#f4fafa",
+  "#10201f"
+ ],
+ "laundromat-late": [
+  "#68c4e4",
+  "#bcd3e4",
+  "#f4845f",
+  "#dbe8f1",
+  "#f4fafc",
+  "#131f28"
+ ],
+ "newsroom-wire": [
+  "#51391b",
+  "#8a7f74",
+  "#b3261e",
+  "#ded4c8",
+  "#f8f3ec",
+  "#181310"
+ ],
+ "mushroom-night": [
+  "#948b38",
+  "#a2937f",
+  "#7d8c45",
+  "#e2dac9",
+  "#f7f3ea",
+  "#1d1710"
+ ],
+ "mortar-works": [
+  "#89708f",
+  "#a8a8a2",
+  "#e8630a",
+  "#e0dfda",
+  "#f6f6f4",
+  "#1d1d1b"
+ ]
+}

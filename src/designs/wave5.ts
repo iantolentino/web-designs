@@ -63,7 +63,7 @@ export const wave5Designs: DesignSystem[] = [
     codeExample:
       '<section class="book">\n  <h1>The ledger is <em>open.</em></h1>\n  <dl class="pair"><dt>ETH/USD</dt><dd>3,412.08 <span class="up">▲1.8%</span></dd></dl>\n  <button class="btn-signal">Trade now</button>\n</section>',
     accent: '#2fd47a',
-    motif: 'mono-labels',
+    motif: 'ledger-rules',
     layout: 'dashboard',
     useCases: ['Crypto', 'Fintech', 'Developer Tools'],
     signatureCss: `.dv-card { background: #10161f; }
@@ -130,7 +130,7 @@ export const wave5Designs: DesignSystem[] = [
     codeExample:
       '<section class="plate">\n  <h1>Collection <span class="rn">IV</span></h1>\n  <figure><img src="look-01.jpg" alt="Wool overcoat, back view" /><figcaption>Look 01 — wool &amp; silence</figcaption></figure>\n  <button class="btn-maison">View lookbook</button>\n</section>',
     accent: '#e8d5cc',
-    motif: 'serif-italic-hero',
+    motif: 'tape-labels',
     layout: 'editorial',
     useCases: ['Fashion', 'Art Gallery', 'Portfolio'],
     signatureCss: `.dv-card { background: #ffffff; border: 1px solid #e5e0d8; }
@@ -283,7 +283,7 @@ export const wave5Designs: DesignSystem[] = [
     designPhilosophy:
       'Remote-work tools all bought the same purple gradient. Async Rally is what distributed teams actually feel like: overlapping timezones as a rally route, hand-stickered standup boards, and copy with a pulse. Friendly enough for a 7am standup, honest enough for a retro. For remote-first teams, retreats, and async tooling.',
     designDetails:
-      'Route-cream #fdf6ec, rally-blue #2563a8, sticker-yellow #f5b31b, mark-green #3a9e63. Baloo 2 display, Nunito body. Timezone ribbons (repeating-linear-gradient bands), hand-drawn arrows (border-radius elbows), sticker rotations (-2°/1.5°), and emoji-free status chips with dot language.',
+      'Route-cream #fdf6ec, rally-blue #2563a8, sticker-yellow #f5b31b, mark-green #3a9e63. Outfit display, Nunito body. Timezone ribbons (repeating-linear-gradient bands), hand-drawn arrows (border-radius elbows), sticker rotations (-2°/1.5°), and emoji-free status chips with dot language.',
     colors: {
       primary: '#2563a8',
       secondary: '#3a9e63',
@@ -293,7 +293,7 @@ export const wave5Designs: DesignSystem[] = [
       text: '#33302a',
     },
     typography: {
-      displayFont: 'Baloo 2',
+      displayFont: 'Outfit',
       bodyFont: 'Nunito',
       scale: '15 / 17 / 19 / 24 / 30 / 40 / 56',
       lineHeights: 'Display 1.15, body 1.7',
@@ -527,7 +527,7 @@ export const wave5Designs: DesignSystem[] = [
     codeExample:
       '<section class="station">\n  <h1>Brand, <em>engraved.</em></h1>\n  <dl class="ledger"><dt>01 — Discovery</dt><dd>Positioning, audits, appetite</dd></dl>\n  <button class="btn-copper">Open a station</button>\n</section>',
     accent: '#9a5b33',
-    motif: 'dashed-borders',
+    motif: 'ledger-rules',
     layout: 'editorial',
     useCases: ['Agency', 'Consulting', 'Portfolio'],
     signatureCss: `.dv-card { background: #ffffff; border: 1px solid #dcd6c9; box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 4px #dcd6c9; }
@@ -613,7 +613,7 @@ export const wave5Designs: DesignSystem[] = [
     designPhilosophy:
       'News sites buried the front page under banners. Deadline Gazette restores it: a broadsheet grid that survives 390px, ink-on-newsprint palette, columns that actually column, and a live “STOP PRESS” strip. For newsrooms, newsletters, and local papers that still employ editors.',
     designDetails:
-      'Newsprint #f6f3ea, ink #191713, press-red #b3271e, rule-blue #2c4a7c. Playfair Display headlines, Source Sans 3 body, Space Mono for timestamps. Column rules (1px ink), drop caps, kicker-deck-headline hierarchy, and a stop-press ticker with wire timestamps (14:02 GMT).',
+      'Newsprint #f6f3ea, ink #191713, press-red #b3271e, rule-blue #2c4a7c. DM Serif Display headlines, Source Sans 3 body, Space Mono for timestamps. Column rules (1px ink), drop caps, kicker-deck-headline hierarchy, and a stop-press ticker with wire timestamps (14:02 GMT).',
     colors: {
       primary: '#191713',
       secondary: '#2c4a7c',
@@ -623,7 +623,7 @@ export const wave5Designs: DesignSystem[] = [
       text: '#191713',
     },
     typography: {
-      displayFont: 'Playfair Display',
+      displayFont: 'DM Serif Display',
       bodyFont: 'Source Sans 3',
       scale: '15 / 16 / 18 / 22 / 28 / 40 / 60',
       lineHeights: 'Display 1.05, body 1.62',
@@ -665,7 +665,7 @@ export const wave5Designs: DesignSystem[] = [
     signatureCss: `.dv-card { background: #fbf8ef; border: 1px solid #19171322; }
 .dv-column { border-right: 1px solid #19171333; padding-right: 20px; }
 .dv-kicker { font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.14em; font-size: 11px; color: #b3271e; }
-.dv-hero h1 { font-family: 'Playfair Display', serif; }`,
+.dv-hero h1 { font-family: 'DM Serif Display', serif; }`,
     author: 'Edith Marchetti',
     createdAt: '2026-07-22',
     popularity: 79,
@@ -811,7 +811,7 @@ export const wave5Designs: DesignSystem[] = [
     designPhilosophy:
       'Event sites shout with countdowns. Gilded Hour invites: deckled-edge cards, gilt-line rules, and an RSVP flow that feels like correspondence. The palette is candlelight, the type is engraved, and nothing moves faster than a held breath. For weddings, galas, and milestone celebrations.',
     designDetails:
-      'Candle #faf6ec, ink #2c2620, gilt #b08d3e, blush rose #d8a7a0. Cormorant Garamond display with true italics, EB Garamond body. Deckled edges (mask-image torn), gilt double rules, monogram seals (border-radius 50% with inset ring), and RSVP cards filed as correspondence.',
+      'Candle #faf6ec, ink #2c2620, gilt #b08d3e, blush rose #d8a7a0. Marcellus display, EB Garamond body, true italics kept for flourishes. Deckled edges (mask-image torn), gilt double rules, monogram seals (border-radius 50% with inset ring), and RSVP cards filed as correspondence.',
     colors: {
       primary: '#b08d3e',
       secondary: '#d8a7a0',
@@ -821,7 +821,7 @@ export const wave5Designs: DesignSystem[] = [
       text: '#2c2620',
     },
     typography: {
-      displayFont: 'Cormorant Garamond',
+      displayFont: 'Marcellus',
       bodyFont: 'EB Garamond',
       scale: '16 / 18 / 20 / 25 / 32 / 44 / 64',
       lineHeights: 'Display 1.1, body 1.75',

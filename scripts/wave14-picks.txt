@@ -1,0 +1,160 @@
+
+night-bakery  (new, base #8a4b1f)
+----------------------------------------------------------------
+  ✓ night-bakery       #8a4b1f → #b38019   primary ΔE   12.5 → scriptorium-sips   palette ΔE   15.0 → termite-mound
+
+fish-auction  (new, base #14607e)
+----------------------------------------------------------------
+  ✓ fish-auction       #14607e → #2e56c7   primary ΔE   13.0 → skate-zine   palette ΔE   10.9 → xray-view
+
+press-room  (new, base #22304a)
+----------------------------------------------------------------
+  ✓ press-room         #22304a → #212763   primary ΔE   14.2 → grid-paper   palette ΔE   10.3 → underwriter-desk
+
+steam-laundry  (new, base #0f5d8c)
+----------------------------------------------------------------
+  ✓ steam-laundry      #0f5d8c → #0698f9   primary ΔE   17.8 → system-cool   palette ΔE   10.5 → ward-round
+
+nightline-desk  (new, base #243b6b)
+----------------------------------------------------------------
+  ✓ nightline-desk     #243b6b → #0f0f57   primary ΔE   13.9 → betamax-rental   palette ΔE   11.8 → gondola-lift
+
+depot-yard  (new, base #b45309)
+----------------------------------------------------------------
+  ✓ depot-yard         #b45309 → #946a1f   primary ΔE   12.2 → sun-dry   palette ΔE   15.6 → pearl-hotel
+
+street-sweeper  (new, base #4a7c43)
+----------------------------------------------------------------
+  ✓ street-sweeper     #4a7c43 → #54a028   primary ΔE   15.0 → solar-punk   palette ΔE   12.5 → olive-grove
+
+overnight-radio  (new, base #7a5230)
+----------------------------------------------------------------
+  ✓ overnight-radio    #7a5230 → #562d1b   primary ΔE   13.2 → vintage-print   palette ΔE   10.8 → truffle-hunter
+
+sleep-lab  (new, base #3b2f63)
+----------------------------------------------------------------
+  ✓ sleep-lab          #3b2f63 → #724096   primary ΔE   21.6 → corporate-blue   palette ΔE   24.6 → tech-corporate
+
+grill-line  (new, base #cf3a24)
+----------------------------------------------------------------
+  ✓ grill-line         #cf3a24 → #ff1500   primary ΔE   14.6 → kart-klub   palette ΔE   12.4 → kart-klub
+
+pumping-station  (new, base #3b3355)
+----------------------------------------------------------------
+  ✓ pumping-station    #3b3355 → #653874   primary ΔE   15.0 → carbon-copy   palette ΔE   12.8 → grid-paper
+
+night-load  (new, base #d9a400)
+----------------------------------------------------------------
+  ✓ night-load         #d9a400 → #cebe08   primary ΔE   17.2 → beacon-petition   palette ΔE   16.8 → spec:depot-yard#pick
+
+guard-room  (new, base #0d3577)
+----------------------------------------------------------------
+  ~ guard-room         #0d3577 → #0c356e   primary ΔE    9.0 → grid-paper   palette ΔE    8.0 → roll-call
+
+cold-aisle  (new, base #3d5a70)
+----------------------------------------------------------------
+  ~ cold-aisle         #3d5a70 → #58888d   primary ΔE   10.5 → clutter-core   palette ΔE   11.7 → seed-vault
+
+carpark-night  (new, base #b8621b)
+----------------------------------------------------------------
+  ~ carpark-night      #b8621b → #c88c41   primary ΔE   10.1 → culture-jar   palette ΔE    9.2 → nordic-hygge
+
+night-market  (now #ff8a00)
+----------------------------------------------------------------
+  ✓ night-market       #ff8a00 → #ff0046   primary ΔE   14.1 → slot-car   palette ΔE   26.1 → pinball-parlour
+
+cinema-usher  (new, base #7f1220)
+----------------------------------------------------------------
+  ~ cinema-usher       #7f1220 → #a20921   primary ΔE   11.3 → soviet-control   palette ΔE   16.2 → harvest-table
+
+sleep-coach  (new, base #2c3e6b)
+----------------------------------------------------------------
+  ✓ sleep-coach        #2c3e6b → #2c1f47   primary ΔE   14.0 → spec:press-room#pick   palette ΔE   12.9 → notebook-margin
+
+rink-master  (new, base #3f9fd0)
+----------------------------------------------------------------
+  ✓ rink-master        #3f9fd0 → #42bcf0   primary ΔE   12.8 → paper-plane   palette ΔE   12.4 → xray-view
+
+milk-round  (new, base #2f6fb5)
+----------------------------------------------------------------
+  ✓ milk-round         #2f6fb5 → #495bab   primary ΔE   12.4 → airmail   palette ΔE   15.9 → first-class
+
+flower-clock  (new, base #d64570)
+----------------------------------------------------------------
+  ✓ flower-clock       #d64570 → #9b4261   primary ΔE   15.4 → campus-lms   palette ΔE   15.0 → vow-and-verse
+
+red-eye-desk  (new, base #12265c)
+----------------------------------------------------------------
+  ✓ red-eye-desk       #12265c → #070d86   primary ΔE   12.3 → claims-queue   palette ΔE   10.2 → spec:nightline-desk#pick
+
+beacon-keeper  (new, base #1f4a5c)
+----------------------------------------------------------------
+  ✓ beacon-keeper      #1f4a5c → #2cbaa2   primary ΔE   13.6 → water-tower   palette ΔE   13.4 → oyster-bar
+
+cellar-barrel  (new, base #6b4226)
+----------------------------------------------------------------
+  ~ cellar-barrel      #6b4226 → #923e0c   primary ΔE   10.7 → ink-house   palette ΔE    9.9 → termite-mound
+
+sugar-shed  (new, base #e3679b)
+----------------------------------------------------------------
+  ✓ sugar-shed         #e3679b → #cf6da6   primary ΔE   21.3 → bounce-house   palette ΔE   18.6 → spec:sleep-lab#pick
+
+vet-night  (new, base #2f6b52)
+----------------------------------------------------------------
+  ~ vet-night          #2f6b52 → #2fa56a   primary ΔE   10.1 → circuit-foundry   palette ΔE   13.3 → rice-terrace
+
+patrol-log  (new, base #16233a)
+----------------------------------------------------------------
+  ✓ patrol-log         #16233a → #050539   primary ΔE   14.3 → spec:sleep-coach#pick   palette ΔE   14.8 → spec:sleep-coach#pick
+
+tunnel-bore  (new, base #5a5048)
+----------------------------------------------------------------
+  ~ tunnel-bore        #5a5048 → #7b735b   primary ΔE    9.4 → marble-atelier   palette ΔE    7.3 → termite-mound
+
+plough-route  (new, base #38495c)
+----------------------------------------------------------------
+  ~ plough-route       #38495c → #3c637b   primary ΔE    7.7 → river-keeper   palette ΔE   13.9 → slab-city
+
+audit-desk  (new, base #4a1f3d)
+----------------------------------------------------------------
+  ✓ audit-desk         #4a1f3d → #8d1e85   primary ΔE   19.7 → spec:sleep-lab#pick   palette ΔE   16.3 → spec:pumping-station#pick
+
+ramen-late  (new, base #a82c1f)
+----------------------------------------------------------------
+  ~ ramen-late         #a82c1f → #9c513b   primary ΔE   11.9 → frontier-western   palette ΔE   12.3 → spec:overnight-radio#pick
+
+dispatch-cab  (new, base #e0b400)
+----------------------------------------------------------------
+  ✓ dispatch-cab       #e0b400 → #ada71f   primary ΔE   14.8 → olive-grove   palette ΔE   19.9 → spec:night-load#pick
+
+dock-watch  (new, base #1d5670)
+----------------------------------------------------------------
+  ~ dock-watch         #1d5670 → #3093a6   primary ΔE    8.2 → tech-corporate   palette ΔE    9.6 → grid-dispatch
+
+wet-market  (new, base #2f7a4f)
+----------------------------------------------------------------
+  ✓ wet-market         #2f7a4f → #24c322   primary ΔE   21.0 → slime-lab   palette ΔE   13.3 → spec:vet-night#pick
+
+boiler-room  (new, base #8a3b12)
+----------------------------------------------------------------
+  ~ boiler-room        #8a3b12 → #62170e   primary ΔE   10.9 → frontier-western   palette ΔE    9.1 → goldsmiths-lane
+
+handover-ward  (new, base #1f6f68)
+----------------------------------------------------------------
+  ~ handover-ward      #1f6f68 → #249094   primary ΔE    9.5 → oyster-bar   palette ΔE    8.8 → glass-lab
+
+laundromat-late  (new, base #5b93c4)
+----------------------------------------------------------------
+  ~ laundromat-late    #5b93c4 → #68c4e4   primary ΔE   11.3 → neon-sign-shop   palette ΔE    9.8 → spec:steam-laundry#pick
+
+newsroom-wire  (new, base #3a2f28)
+----------------------------------------------------------------
+  ~ newsroom-wire      #3a2f28 → #51391b   primary ΔE    9.0 → truffle-hunter   palette ΔE    7.6 → letterpress-crash
+
+mushroom-night  (new, base #4a3a2a)
+----------------------------------------------------------------
+  ✓ mushroom-night     #4a3a2a → #948b38   primary ΔE   12.3 → orchard-row   palette ΔE   12.7 → sheep-fold
+
+mortar-works  (new, base #6b6b66)
+----------------------------------------------------------------
+  ✓ mortar-works       #6b6b66 → #89708f   primary ΔE   13.0 → art-nouveau   palette ΔE   10.9 → white-room

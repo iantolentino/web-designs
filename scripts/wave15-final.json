@@ -1,0 +1,322 @@
+{
+ "tide-table": [
+  "#527f93",
+  "#a8c3d1",
+  "#e07a5f",
+  "#d8e4ea",
+  "#f4f9fb",
+  "#0d2029"
+ ],
+ "rain-gauge": [
+  "#394386",
+  "#9fb2c0",
+  "#f0a500",
+  "#dbe3e9",
+  "#f5f8fa",
+  "#101d26"
+ ],
+ "snow-science": [
+  "#8577bb",
+  "#c2c8e0",
+  "#22d3ee",
+  "#e2e5f0",
+  "#f7f8fc",
+  "#141a2e"
+ ],
+ "ferry-timetable": [
+  "#1f3ca3",
+  "#8fa6bd",
+  "#ffb020",
+  "#d5dfe9",
+  "#f1f6fa",
+  "#0a1723"
+ ],
+ "harvest-fair": [
+  "#a22706",
+  "#e8b06a",
+  "#2f7a4f",
+  "#f2ddc2",
+  "#fdf4e8",
+  "#2a1a0e"
+ ],
+ "corn-maze": [
+  "#d1d147",
+  "#e8d18a",
+  "#e07a3a",
+  "#f0e6c8",
+  "#fdf9ec",
+  "#2a220e"
+ ],
+ "pumpkin-patch": [
+  "#ca6402",
+  "#e8a56b",
+  "#4d7c0f",
+  "#f0dcc8",
+  "#fdf6ee",
+  "#2a1a10"
+ ],
+ "wellington-boots": [
+  "#27682c",
+  "#a8c7b0",
+  "#e8c04b",
+  "#dfe9e1",
+  "#f6faf7",
+  "#142019"
+ ],
+ "scarecrow-rows": [
+  "#c1bc71",
+  "#d9c69a",
+  "#c2410c",
+  "#e8e0cc",
+  "#faf6ec",
+  "#2b2415"
+ ],
+ "flood-barrier": [
+  "#6f85b9",
+  "#9aa9bb",
+  "#e8b02b",
+  "#1b2836",
+  "#101a24",
+  "#e2ebf2"
+ ],
+ "quarry-face": [
+  "#64556d",
+  "#a8a8a2",
+  "#c2410c",
+  "#2b2b2e",
+  "#17171a",
+  "#e6e4e8"
+ ],
+ "dry-stone-wall": [
+  "#aca356",
+  "#c4bfae",
+  "#4d7c0f",
+  "#e2ded2",
+  "#f6f4ec",
+  "#26241c"
+ ],
+ "storm-drain": [
+  "#8aa2a8",
+  "#7f96a5",
+  "#f2c400",
+  "#16242c",
+  "#0b141b",
+  "#dbe6ee"
+ ],
+ "river-lock": [
+  "#66b29b",
+  "#8fb5b0",
+  "#c2410c",
+  "#d6e5e3",
+  "#f2f9f8",
+  "#0d1f1f"
+ ],
+ "sea-salt": [
+  "#93a3c8",
+  "#c8d8e2",
+  "#d4af37",
+  "#e6edf1",
+  "#f8fbfc",
+  "#16242c"
+ ],
+ "vineyard-terrace": [
+  "#662c31",
+  "#b08a94",
+  "#d4af37",
+  "#ecd8dd",
+  "#fbf4f6",
+  "#25101a"
+ ],
+ "sugar-bush": [
+  "#75551a",
+  "#cfa87f",
+  "#f0c04b",
+  "#ece0d0",
+  "#fdf8f0",
+  "#241a10"
+ ],
+ "seed-library": [
+  "#407869",
+  "#9ec4ae",
+  "#d4af37",
+  "#d9e8df",
+  "#f3faf6",
+  "#0c1f16"
+ ],
+ "fog-signal": [
+  "#5a679c",
+  "#9aa8b0",
+  "#e07a3a",
+  "#dbe2e6",
+  "#f4f7f8",
+  "#161f24"
+ ],
+ "thatch-line": [
+  "#ad8f23",
+  "#c8ab7a",
+  "#4d7c0f",
+  "#e8dfcc",
+  "#faf5ea",
+  "#241c0f"
+ ],
+ "harness-room": [
+  "#bc7864",
+  "#b08f70",
+  "#c9971b",
+  "#33241a",
+  "#1d130c",
+  "#f0e4d4"
+ ],
+ "cider-press": [
+  "#a8733b",
+  "#d9ab74",
+  "#7a1f38",
+  "#f0e0c8",
+  "#fdf7ec",
+  "#26170c"
+ ],
+ "apiary-log": [
+  "#d38305",
+  "#e8cf8a",
+  "#4d7c0f",
+  "#f0e6c8",
+  "#fdf9ee",
+  "#2a220c"
+ ],
+ "seaweed-farm": [
+  "#267d24",
+  "#8fb3a0",
+  "#c2410c",
+  "#d9e6df",
+  "#f3f9f6",
+  "#0d1f18"
+ ],
+ "peat-bog": [
+  "#b28a80",
+  "#8a755a",
+  "#d97706",
+  "#2a1d16",
+  "#170f0a",
+  "#e8dcd0"
+ ],
+ "tree-nursery": [
+  "#22d35d",
+  "#a8c4a0",
+  "#d97706",
+  "#dde8d8",
+  "#f5faf2",
+  "#111f0e"
+ ],
+ "greenhouse-rows": [
+  "#4f8b65",
+  "#a4c4b0",
+  "#e2543a",
+  "#dce9e2",
+  "#f4faf7",
+  "#0e1f18"
+ ],
+ "hop-yard": [
+  "#38ac23",
+  "#b3c48a",
+  "#c2410c",
+  "#e4e8d0",
+  "#f7f9ee",
+  "#1e2210"
+ ],
+ "weather-station": [
+  "#334fac",
+  "#8fa8bd",
+  "#f2b705",
+  "#1b2536",
+  "#0e1622",
+  "#dce5f0"
+ ],
+ "coastguard-watch": [
+  "#b60802",
+  "#e8b06a",
+  "#1f5f8a",
+  "#f0dcc4",
+  "#fdf5ea",
+  "#2a1408"
+ ],
+ "avalanche-desk": [
+  "#6181db",
+  "#9aa8c4",
+  "#e07a5f",
+  "#1d2438",
+  "#0e1322",
+  "#e4e9f5"
+ ],
+ "forest-fire-watch": [
+  "#cf574a",
+  "#e0a878",
+  "#4d7c0f",
+  "#3a2418",
+  "#22150d",
+  "#f5e6d8"
+ ],
+ "glacier-survey": [
+  "#2fc3c8",
+  "#a8cdd8",
+  "#e07a5f",
+  "#dcebf0",
+  "#f4fbfd",
+  "#0c1f26"
+ ],
+ "herbarium-sheet": [
+  "#655d36",
+  "#b3a882",
+  "#7a1f38",
+  "#e6dfc8",
+  "#faf7ec",
+  "#221c0d"
+ ],
+ "plankton-net": [
+  "#7fbdbd",
+  "#9fc4c0",
+  "#d4af37",
+  "#0f3b3b",
+  "#08211f",
+  "#dcf5f0"
+ ],
+ "bird-atlas": [
+  "#504e80",
+  "#9aa8c4",
+  "#c2410c",
+  "#d9e0ec",
+  "#f4f7fc",
+  "#0d1524"
+ ],
+ "soil-charts": [
+  "#5d3930",
+  "#a89478",
+  "#4d7c0f",
+  "#e0d6c4",
+  "#f6f1e6",
+  "#1c150c"
+ ],
+ "monsoon-desk": [
+  "#7b52c3",
+  "#9a90bd",
+  "#22d3ee",
+  "#251f45",
+  "#151130",
+  "#e8e4fb"
+ ],
+ "salt-marsh": [
+  "#4e9c6d",
+  "#a8c4b3",
+  "#d9a441",
+  "#dce8e0",
+  "#f4faf6",
+  "#10201a"
+ ],
+ "wind-rose": [
+  "#15264f",
+  "#93a8bb",
+  "#e07a3a",
+  "#d8e1e8",
+  "#f3f7fa",
+  "#0d1a24"
+ ]
+}

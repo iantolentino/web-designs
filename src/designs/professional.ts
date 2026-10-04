@@ -12,7 +12,7 @@ export const professionalDesigns: DesignSystem[] = [
     designDetails:
       'Navy #12284c for headers and footer, white canvas, steel greys for structure, cobalt #2563eb-family for actions. Source Sans 3 humanist sans throughout — friendly but serious. Cards carry 1px borders and 4px left accent bars in section colors. Buttons are sturdy 4px-radius rectangles. Density is moderate: enterprise users scan, they don’t browse.',
     colors: {
-      primary: '#1d4ed8',
+      primary: '#1b2f8a',
       secondary: '#12284c',
       accent: '#0e7490',
       neutral: '#e2e8f0',
@@ -27,7 +27,7 @@ export const professionalDesigns: DesignSystem[] = [
       letterSpacing: 'Labels 0.06em uppercase, display -0.01em',
     },
     components: {
-      primary: 'Solid #1d4ed8, white text, radius 4px, padding 12px 24px, 600',
+      primary: 'Solid #1b2f8a, white text, radius 4px, padding 12px 24px, 600',
       secondary: '1px #cbd5e1 border, white bg, navy text, same metrics',
       tertiary: 'Cobalt text link, underline on hover, external-link icons on new tabs',
       radius: '4px buttons/inputs, 8px cards',
@@ -55,12 +55,12 @@ export const professionalDesigns: DesignSystem[] = [
       'Grid stacks under 768px; navy bar condenses to hamburger + logo. Tables become stacked definition lists under 640px. Type scale compresses two steps.',
     codeExample:
       '<header class="corporate">\n  <h1>Compliance, minus the headache.</h1>\n  <p>Audit-ready workflows for regulated teams.</p>\n  <div class="cta-row">\n    <button class="btn-primary">Request a demo</button>\n    <a class="text-link" href="#">Read the whitepaper</a>\n  </div>\n</header>',
-    accent: '#1d4ed8',
+    accent: '#1b2f8a',
     motif: 'big-stat-row',
     layout: 'split-hero',
     useCases: ['SaaS', 'Fintech', 'Real Estate'],
 signatureCss: `
-.dv-card { border-left: 4px solid #1d4ed8; }
+.dv-card { border-left: 4px solid #1b2f8a; }
 .dv-stat { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; color: #12284c; }
 .dv-nav { background: #12284c; }
 .dv-nav a { color: #e2e8f0; }`,
@@ -145,7 +145,7 @@ signatureCss: `
     designPhilosophy:
       'For companies whose product is a datacenter. Slate greys, cloud cyan, IBM Plex Sans engineering sobriety, and grid-paper section backgrounds. Dense tables, precise diagrams, and copy that respects the reader’s IQ.',
     designDetails:
-      'White/slate palette with cyan #0891b2-family accents and deep slate #1e293b anchors. IBM Plex Sans + IBM Plex Mono for anything technical. Sections separated by 1px slate rules with grid-paper backgrounds (24px CSS grid lines at 3% opacity). Cards are flat with 1px borders; stat chips are mono. Buttons are square-ish 3px radius.',
+      'White/slate palette with cyan #0891b2-family accents and deep slate #1e293b anchors. Familjen Grotesk display; IBM Plex Sans + IBM Plex Mono for anything technical. Sections separated by 1px slate rules with grid-paper backgrounds (24px CSS grid lines at 3% opacity). Cards are flat with 1px borders; stat chips are mono. Buttons are square-ish 3px radius.',
     colors: {
       primary: '#0891b2',
       secondary: '#1e293b',
@@ -155,7 +155,7 @@ signatureCss: `
       text: '#0f172a',
     },
     typography: {
-      displayFont: 'IBM Plex Sans',
+      displayFont: 'Familjen Grotesk',
       bodyFont: 'IBM Plex Sans',
       scale: '12 / 14 / 16 / 18 / 24 / 32 / 46',
       lineHeights: 'Display 1.15, body 1.6, mono 1.5',
@@ -460,7 +460,7 @@ signatureCss: `
     codeExample:
       '<section class="reception">\n  <h1>Medicine with<br/><em>bedside manner.</em></h1>\n  <p>Here’s what happens next, in plain words.</p>\n  <button class="pill-rose">Book a visit</button>\n</section>',
     accent: '#c65f72',
-    motif: 'soft-shadows',
+    motif: 'leaf-divider',
     layout: 'split-hero',
     useCases: ['Health', 'Nonprofit', 'Education'],
     signatureCss: `
