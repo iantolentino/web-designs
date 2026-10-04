@@ -239,8 +239,8 @@ export const wave8Designs: DesignSystem[] = [
     designPhilosophy:
       'Optical art is interaction design for the retina. Op Art Aperture strips the page to black, white, and one alarm red, then uses scale and outline to make the layout itself vibrate. Nothing is decorative; every line is doing perceptual work. For galleries, posters, and studios that would rather be remembered than liked.',
     designDetails:
-      'Paper white #fafafa with true black #111111 and a single red #ff3b30. Archivo Black outlined headlines (stroke, not fill), Archivo body, and concentric ring dividers. Zero radius, zero shadow, maximum contrast.',
-    colors: { primary: '#111111', secondary: '#f2f2f2', accent: '#ff3b30', neutral: '#e8e8e8', background: '#fafafa', text: '#0a0a0a' },
+      'Paper white #fbfcfe with true black #111111 and a single indigo #4338ca. Archivo Black outlined headlines (stroke, not fill), Archivo body, and concentric ring dividers. Zero radius, zero shadow, maximum contrast.',
+    colors: { primary: '#111111', secondary: '#eef2f7', accent: '#4338ca', neutral: '#e9edf3', background: '#fbfcfe', text: '#08090c' },
     typography: {
       displayFont: 'Archivo Black',
       bodyFont: 'Archivo',
@@ -266,12 +266,12 @@ export const wave8Designs: DesignSystem[] = [
       transitions: 'No easing curves — mechanical on/off',
     },
     accessibility:
-      'Black on white is 19.6:1; red is used at 4.9:1 and always with a rule or label so it is not colour-only. Focus is a 3px black outline with 2px offset.',
+      'Black on white is 18.4:1; indigo is used at 7.7:1 and always with a rule or label so it is not colour-only. Focus is a 3px black outline with 2px offset.',
     responsive:
       'The poster headline scales with clamp(); concentric grids collapse 4 → 2 under 700px.',
     codeExample:
       '<section class="op">\n  <h1>Form follows <em>feeling.</em></h1>\n  <p>Pattern is not decoration. It is argument.</p>\n  <button class="btn-op">Enter the grid</button>\n</section>',
-    accent: '#ff3b30',
+    accent: '#4338ca',
     motif: 'outline-type',
     layout: 'poster',
     useCases: ['Art Gallery', 'Portfolio', 'Agency'],

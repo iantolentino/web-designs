@@ -498,7 +498,7 @@ signatureCss: `
     designPhilosophy:
       'One tile is decoration; a thousand are a facade. This system builds pages the way Gaudí built parks: small saturated tiles, strict bedding, and a picture that only resolves at distance. Every card is a tessera, every section a mosaic field — the eye travels the grout lines and arrives exactly where the composition wants.',
     designDetails:
-      'Tangerine, cobalt, olive-gold, and cream tiles with 2px grout borders; corner radii vary ±1px so the surface feels hand-set. Bricolage Grotesque display over Space Grotesk body. Section headers sit inside a “feature tile” — a larger asymmetric tessera. Hover lifts individual tiles 2px like a loose piece being pressed back.',
+      'Tangerine, cobalt, olive-gold, and cream tiles with 2px grout borders; corner radii vary ±1px so the surface feels hand-set. Syne display over Work Sans body. Section headers sit inside a “feature tile” — a larger asymmetric tessera. Hover lifts individual tiles 2px like a loose piece being pressed back.',
     colors: {
       primary: '#e07a3f',
       secondary: '#274690',
@@ -508,8 +508,8 @@ signatureCss: `
       text: '#33261d',
     },
     typography: {
-      displayFont: 'Bricolage Grotesque',
-      bodyFont: 'Space Grotesk',
+      displayFont: 'Syne',
+      bodyFont: 'Work Sans',
       scale: '13 / 15 / 18 / 22 / 30 / 46 / 86',
       lineHeights: 'Display 1.0, body 1.6',
       letterSpacing: 'Display -0.02em, tile labels 0.1em uppercase',
@@ -546,7 +546,7 @@ signatureCss: `
       '<section class="field">\n  <div class="tile feature"><h1>A thousand <em>right answers.</em></h1></div>\n  <div class="tile" />\n  <div class="tile" />\n  <div class="tile" />\n</section>',
     accent: '#e07a3f',
     motif: 'pixel-grid',
-    layout: 'magazine',
+    layout: 'bento',
     useCases: ['E-commerce', 'Events', 'Agency'],
     signatureCss: `
 .dv-cards { gap: 2px; background: #33261d; padding: 2px; }

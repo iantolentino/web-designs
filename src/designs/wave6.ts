@@ -427,14 +427,14 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Tare Weight assumes the operator is holding a sample in one hand. Every screen is a single right-aligned figure with its unit, a four-word instruction, and nothing else — because a balance is read, not browsed. Hierarchy comes entirely from numeral size, not from colour, weight, or position. For labs, calibration benches, and any instrument whose output is a number.',
     designDetails:
-      'Bone white #f7f8f7 with ink #1b1f1e and a single calibration red #b8452f that is only ever used for out-of-tolerance readings. Display figures run to 120px in a tabular mono, always right-aligned against a shared decimal column. Labels are set at 11px in the same mono so the numbers keep the stage.',
+      'Bone white #f9fafb with ink #3a4a52 and a single calibration red #d1495b that is only ever used for out-of-tolerance readings. Display figures run to 120px in a tabular mono, always right-aligned against a shared decimal column. Labels are set at 11px in the same mono so the numbers keep the stage.',
     colors: {
-      primary: '#1b1f1e',
-      secondary: '#8f9793',
-      accent: '#b8452f',
-      neutral: '#eceded',
-      background: '#f7f8f7',
-      text: '#14171a',
+      primary: '#3a4a52',
+      secondary: '#90a4ae',
+      accent: '#d1495b',
+      neutral: '#eceff1',
+      background: '#f9fafb',
+      text: '#172125',
     },
     typography: {
       displayFont: 'IBM Plex Mono',
@@ -467,20 +467,20 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'Nothing moves on scroll — the column is the whole document',
     },
     accessibility:
-      '#14171a on #f7f8f7 is 16.4:1 and figures are never colour-coded: tolerance state is written as PASS or OUT OF TOL, with calibration red only as a 4px bar beside it. Numeric inputs are type="text" with inputmode="decimal" so screen readers read digits individually. Reduced motion removes the count-up entirely.',
+      '#172125 on #f9fafb is 15.7:1 and figures are never colour-coded: tolerance state is written as PASS or OUT OF TOL, with calibration red only as a 4px bar beside it. Numeric inputs are type="text" with inputmode="decimal" so screen readers read digits individually. Reduced motion removes the count-up entirely.',
     responsive:
       'The 120px figure scales to 64px under 700px and 44px under 400px with the decimal column preserved, never wrapped. Units move below the figure at 320px rather than truncating. The rail becomes two columns of two.',
     codeExample:
       '<section class="readout">\n  <p class="kicker">PAN 02 · ZEROED</p>\n  <p class="figure">248.61 <span class="unit">G</span></p>\n  <p class="note">tare set, load sample</p>\n  <button class="btn-primary">calibrate</button>\n</section>',
-    accent: '#b8452f',
+    accent: '#d1495b',
     motif: 'mono-labels',
     layout: 'centered',
     useCases: ['Manufacturing', 'Health', 'Data & Analytics'],
     signatureCss: `.dv-stat strong { font-size: 64px; font-weight: 300; font-variant-numeric: tabular-nums; }
-.dv-btn-primary { background: transparent; color: #14171a; border: 0; border-bottom: 1px solid #1b1f1e; border-radius: 0; text-transform: lowercase; letter-spacing: 0; }
-.dv-card { border: 0; border-bottom: 1px solid #eceded; border-radius: 0; background: transparent; }
+.dv-btn-primary { background: transparent; color: #172125; border: 0; border-bottom: 1px solid #3a4a52; border-radius: 0; text-transform: lowercase; letter-spacing: 0; }
+.dv-card { border: 0; border-bottom: 1px solid #eceff1; border-radius: 0; background: transparent; }
 .dv-hero h1 { font-size: clamp(34px, 9vw, 120px); font-variant-numeric: tabular-nums; }
-.dv-label, .dv-kicker { letter-spacing: 0.14em; text-transform: uppercase; font-size: 11px; color: #8f9793; }`,
+.dv-label, .dv-kicker { letter-spacing: 0.14em; text-transform: uppercase; font-size: 11px; color: #90a4ae; }`,
     author: 'Petra Lindqvist',
     createdAt: '2026-09-10',
     popularity: 63,
@@ -563,14 +563,14 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Brick Course refuses the centred hero on principle. Its grid is a running bond: every second column is offset by half a unit, so nothing can be symmetric and no heading can sit in the middle. That offset makes long tables of quantities readable at a glance, because the eye tracks the stagger instead of the numbers. For quantity surveyors, masonry contractors, and structural schedules.',
     designDetails:
-      'Mortar grey #e4e3df joints of exactly 2px hold clay #c2622f and slate #3b3f45 blocks. The 2px joint is the only spacing device — there are no margins inside components, only joints. Batches are numbered in Roman numerals in the margin, and a per-course counter runs down the left edge.',
+      'Mortar grey #8d8b84 joints of exactly 2px hold clay #9c3b26 blocks, with slate #2f4858 kept for quantities. The 2px joint is the only spacing device — there are no margins inside components, only joints. Batches are numbered in Roman numerals in the margin, and a per-course counter runs down the left edge.',
     colors: {
-      primary: '#3b3f45',
-      secondary: '#8a8f96',
-      accent: '#c2622f',
-      neutral: '#e4e3df',
-      background: '#f4f3f0',
-      text: '#23262a',
+      primary: '#9c3b26',
+      secondary: '#8d8b84',
+      accent: '#2f4858',
+      neutral: '#e6e2da',
+      background: '#f6f4f0',
+      text: '#221d18',
     },
     typography: {
       displayFont: 'Zilla Slab',
@@ -581,7 +581,7 @@ export const wave6Designs: DesignSystem[] = [
     },
     components: {
       primary: 'A solid clay block, radius 2px, set 2px off its baseline so it looks laid rather than placed',
-      secondary: 'Mortar-outlined block: 2px #8a8f96 border, no fill',
+      secondary: 'Mortar-outlined block: 2px #8d8b84 border, no fill',
       tertiary: 'Roman-numeraled text link with a joint line under it',
       radius: '2px controls, 2px cards — every corner is a cut brick',
       hover: 'The block shifts 2px down and its joint line doubles in weight, 90ms',
@@ -603,21 +603,21 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'The course counter ticks as each row of blocks enters the viewport',
     },
     accessibility:
-      '#23262a on #f4f3f0 is 13.9:1; clay #c2622f on the same ground is 4.5:1 and only carries quantities at 16px or bolder. The deliberate offset never changes DOM order, so reading order stays top-to-bottom and left-to-right. Focus is a 2px slate outline drawn inside the block so the joint stays visible.',
+      '#221d18 on #f6f4f0 is 15.2:1; clay #9c3b26 on the same ground is 6.2:1 and only carries quantities at 16px or bolder. The deliberate offset never changes DOM order, so reading order stays top-to-bottom and left-to-right. Focus is a 2px slate outline drawn inside the block so the joint stays visible.',
     responsive:
       'The running bond collapses to a single column under 760px and the offset step drops from 50% to 25% under 1024px. Quantities keep a fixed 62px numeric column at every width. Roman numerals are never abbreviated.',
     codeExample:
       '<section class="wall">\n  <p class="kicker">Course IV · 214 units</p>\n  <h1>Running bond, <em>no cuts wasted.</em></h1>\n  <dl class="qty"><dt>Stretchers</dt><dd>186</dd><dt>Headers</dt><dd>28</dd></dl>\n  <button class="btn-primary">Order the course</button>\n</section>',
-    accent: '#c2622f',
+    accent: '#2f4858',
     motif: 'swiss-grid',
     layout: 'asymmetric',
     useCases: ['Construction', 'Architecture', 'Real Estate'],
     signatureCss: `.dv-card { border-radius: 2px; box-shadow: none; }
 .dv-cards > *:nth-child(2n) { transform: translate(6%, 44px); }
-.dv-btn-primary { border-radius: 2px; box-shadow: 0 2px 0 #23262a33; }
-.dv-site { background-image: repeating-linear-gradient(90deg, #e4e3df 0 2px, transparent 2px 100%); }
-.dv-h2 { border-left: 6px solid #c2622f; padding-left: 10px; }
-.dv-nav { border-bottom: 2px solid #e4e3df; }`,
+.dv-btn-primary { border-radius: 2px; box-shadow: 0 2px 0 #221d1833; }
+.dv-site { background-image: repeating-linear-gradient(90deg, #e6e2da 0 2px, transparent 2px 100%); }
+.dv-h2 { border-left: 6px solid #2f4858; padding-left: 10px; }
+.dv-nav { border-bottom: 2px solid #e6e2da; }`,
     author: 'Marcus Odell',
     createdAt: '2026-09-11',
     popularity: 61,
@@ -631,14 +631,14 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Aphelion is plotted rather than laid out. Mission elapsed time runs horizontally across the entire page, and every section is placed at the moment it belongs to — so a burn appears at T+00:14, and the ground-station pass sits where it actually falls. Nothing floats; everything is anchored to a moment. For satellite operators, launch planners, and any timeline where position is data.',
     designDetails:
-      'Plotter white #ffffff with 12.5% vertical gridlines in #eceff1 and a single bold meridian every hour. Ink #12161a for axes, solar #d0431f threaded only along the active pass. Type is set like a technical legend: 12px mono labels with leader lines to their point on the axis.',
+      'Plotter white #f7f9fc with 12.5% vertical gridlines in #e8ecf2 and a single bold meridian every hour. Ink #0b1020 for axes, solar #e85d04 threaded only along the active pass. Type is set like a technical legend: 12px mono labels with leader lines to their point on the axis.',
     colors: {
-      primary: '#12161a',
-      secondary: '#7b848c',
-      accent: '#d0431f',
-      neutral: '#eceff1',
-      background: '#ffffff',
-      text: '#0e1114',
+      primary: '#0b1020',
+      secondary: '#4a5568',
+      accent: '#e85d04',
+      neutral: '#e8ecf2',
+      background: '#f7f9fc',
+      text: '#0a0e18',
     },
     typography: {
       displayFont: 'Oxanium',
@@ -671,20 +671,20 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'Scrolling moves a fixed T+ readout; the axis labels stay pinned',
     },
     accessibility:
-      '#0e1114 on #ffffff is 19.1:1 and solar #d0431f reaches 4.9:1 on white, used only for the active pass and always with a written "pass" label. Every plotted mark has a text alternative naming its time and event, so the timeline is never the only representation. Reduced motion removes the sweep and shows all marks at once.',
+      '#0a0e18 on #f7f9fc is 18.3:1 and solar #e85d04 reaches 3.3:1 on the plotter white, used only for the active pass and always with a written "pass" label. Every plotted mark has a text alternative naming its time and event, so the timeline is never the only representation. Reduced motion removes the sweep and shows all marks at once.',
     responsive:
       'The 24-hour axis halves to 12 hours below 900px and to 6 below 560px, keeping every mark and adding 6px of horizontal padding per dropped hour. Labels rotate 45° below 420px rather than overlapping. The axis never scrolls horizontally.',
     codeExample:
       '<section class="plot">\n  <p class="kicker">T+00:14:02 · 412 km</p>\n  <h1>Burn complete, <em>aphelion rising.</em></h1>\n  <p class="axis">|----|----|----|----|</p>\n  <button class="btn-primary">Plot the next pass</button>\n</section>',
-    accent: '#d0431f',
+    accent: '#e85d04',
     motif: 'mono-labels',
     layout: 'dashboard',
     useCases: ['Data & Analytics', 'Energy', 'Developer Tools'],
-    signatureCss: `.dv-site { background-image: linear-gradient(90deg, #eceff1 1px, transparent 1px); background-size: 8.333% 100%; }
-.dv-hero { border-bottom: 2px solid #12161a; }
-.dv-hero h1 em { font-style: normal; color: #d0431f; }
-.dv-card { border: 1px solid #eceff1; border-left: 3px solid #12161a; border-radius: 0; background: #ffffff; }
-.dv-btn-primary { border-radius: 0; background: #12161a; box-shadow: 3px 0 0 #d0431f; }
+    signatureCss: `.dv-site { background-image: linear-gradient(90deg, #e8ecf2 1px, transparent 1px); background-size: 8.333% 100%; }
+.dv-hero { border-bottom: 2px solid #0b1020; }
+.dv-hero h1 em { font-style: normal; color: #e85d04; }
+.dv-card { border: 1px solid #e8ecf2; border-left: 3px solid #0b1020; border-radius: 0; background: #f7f9fc; }
+.dv-btn-primary { border-radius: 0; background: #0b1020; box-shadow: 3px 0 0 #e85d04; }
 .dv-stat strong { font-family: 'Space Mono', monospace; letter-spacing: 0.04em; }
 .dv-chart-card { border-radius: 0; }`,
     author: 'Yuki Sorenson',
@@ -700,14 +700,14 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Footnote Press puts the argument in the margin. The main column carries only the numbered claim; every qualification, source, and caveat lives in the left gutter at 12px, ruled off from the body by a 1px margin rule. Navigation is a reference list, so the site is literally cited before it is read. For journals, research groups, and monographs that must show their work.',
     designDetails:
-      'Cream stock #fdfbf6 with sepia #7a7469 secondary ink and rubrication red #8c3226 used sparingly for the numeral only. The margin rule runs the full page height, unbroken, and superscripts are the primary interactive element — hovering one lifts its note by 2px and thickens nothing else.',
+      'Cream stock #fbfcfd with sepia #6f7a74 secondary ink and rubrication red #b23b3b used sparingly for the numeral only. The margin rule runs the full page height, unbroken, and superscripts are the primary interactive element — hovering one lifts its note by 2px and thickens nothing else.',
     colors: {
-      primary: '#1c1c1c',
-      secondary: '#7a7469',
-      accent: '#8c3226',
-      neutral: '#efece6',
-      background: '#fdfbf6',
-      text: '#1c1c1c',
+      primary: '#1f2a37',
+      secondary: '#6f7a74',
+      accent: '#b23b3b',
+      neutral: '#eceef0',
+      background: '#fbfcfd',
+      text: '#1f2a37',
     },
     typography: {
       displayFont: 'Spectral',
@@ -740,21 +740,21 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'Notes stay in their gutter; the rule is continuous, so nothing follows you',
     },
     accessibility:
-      '#1c1c1c on #fdfbf6 is 17.3:1 and notes at 12px still manage 5.1:1 against the stock. Superscripts are real buttons with aria-describedby pointing at their note, so the reference is announced rather than merely seen. Rubrication red is decorative — the numeral is also bracketed, so colour is never the only carrier.',
+      '#1f2a37 on #fbfcfd is 17.3:1 and notes at 12px still manage 5.1:1 against the stock. Superscripts are real buttons with aria-describedby pointing at their note, so the reference is announced rather than merely seen. Rubrication red is decorative — the numeral is also bracketed, so colour is never the only carrier.',
     responsive:
       'Below 900px the note gutter folds under each claim as an indented block with the same 12px size. Under 560px notes open on tap rather than sitting open, and the margin rule becomes a dashed top rule per claim. The body measure never exceeds 68 characters.',
     codeExample:
       '<article class="paper">\n  <p class="kicker">Chapter III · note 42</p>\n  <h1>On the <em>quiet</em> parts.<sup>[42]</sup></h1>\n  <p class="standfirst">Evidence, such as it exists, is thinner than the claim.</p>\n  <button class="btn-primary">Read the notes →</button>\n</article>',
-    accent: '#8c3226',
+    accent: '#b23b3b',
     motif: 'editorial-columns',
     layout: 'editorial',
     useCases: ['Publishing', 'University', 'Legal'],
-    signatureCss: `.dv-card { border-left: 1px solid #7a7469; border-radius: 0; background: transparent; box-shadow: none; padding: 4px 0 4px 12px; }
-.dv-card p, .dv-card .dv-sub { font-size: 12px; line-height: 1.45; color: #7a7469; }
-.dv-hero h1 em { font-style: italic; color: #1c1c1c; }
-.dv-btn-primary { background: transparent; color: #1c1c1c; border-bottom: 1px solid #1c1c1c; border-radius: 0; padding: 8px 0; }
-.dv-badge { background: transparent; border: 1px solid #8c3226; color: #8c3226; border-radius: 0; font-size: 11px; }
-.dv-sep { background: #7a7469; height: 1px; }`,
+    signatureCss: `.dv-card { border-left: 1px solid #6f7a74; border-radius: 0; background: transparent; box-shadow: none; padding: 4px 0 4px 12px; }
+.dv-card p, .dv-card .dv-sub { font-size: 12px; line-height: 1.45; color: #6f7a74; }
+.dv-hero h1 em { font-style: italic; color: #1f2a37; }
+.dv-btn-primary { background: transparent; color: #1f2a37; border-bottom: 1px solid #1f2a37; border-radius: 0; padding: 8px 0; }
+.dv-badge { background: transparent; border: 1px solid #b23b3b; color: #b23b3b; border-radius: 0; font-size: 11px; }
+.dv-sep { background: #6f7a74; height: 1px; }`,
     author: 'Hélène Rousseau',
     createdAt: '2026-09-12',
     popularity: 57,
@@ -1297,7 +1297,7 @@ export const wave6Designs: DesignSystem[] = [
       '<section class="docket">\n  <p class="stub">BATCH 8842 · TRUCK P-17</p>\n  <h1>Slump <em>75 mm.</em></h1>\n  <p class="row">ARRIVED ....... 06:41</p>\n  <button class="btn-primary">SIGN AND ACCEPT</button>\n</section>',
     accent: '#d1453b',
     motif: 'numbered-steps',
-    layout: 'split-hero',
+    layout: 'receipt',
     useCases: ['Construction', 'Logistics', 'Manufacturing'],
     signatureCss: `.dv-card { border-radius: 2px; border-top: 2px dashed #4a4d52; background: #f7f6f3; }
 .dv-btn-primary { border-radius: 0; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -2699,14 +2699,14 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Grid Dispatch is a control room that admits there is only one number that matters: system frequency, held at 50 hertz. That value sits in the header on every screen and is the only element allowed to change colour. Everything else is a single-line diagram, an alarm list, and a breaker state, drawn with the discipline of an electrical schematic. For utilities, network operators, and industrial control rooms.',
     designDetails:
-      'Switchgear grey #f2f5f7 with schematic ink #123a52 for conductors, and a single alarm rust #d34c2a reserved for out-of-band frequency and open breakers. Single-line diagrams are drawn with 1px hairlines and 3px bus bars; every alarm carries a timestamp to the second. Type is a technical display face for bus labels and a plain sans for the alarm log.',
+      'Switchgear grey #f5f8fa with schematic ink #1a2b4a for conductors, and a single alarm amber #b25b00 reserved for out-of-band frequency and open breakers. Single-line diagrams are drawn with 1px hairlines and 3px bus bars; every alarm carries a timestamp to the second. Type is a technical display face for bus labels and a plain sans for the alarm log.',
     colors: {
-      primary: '#123a52',
-      secondary: '#6b8a9c',
-      accent: '#d34c2a',
-      neutral: '#dfe7ec',
-      background: '#f2f5f7',
-      text: '#0d1b24',
+      primary: '#1a2b4a',
+      secondary: '#6f7f95',
+      accent: '#b25b00',
+      neutral: '#e2e8ee',
+      background: '#f5f8fa',
+      text: '#0e1b28',
     },
     typography: {
       displayFont: 'Oxanium',
@@ -2739,22 +2739,22 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'The frequency readout stays pinned in the header and re-renders as you move',
     },
     accessibility:
-      '#0d1b24 on #f2f5f7 is 15.9:1; alarm rust at 4.4:1 is only used with the word ALARM or a listed breaker state, never as a bare indicator. Frequency carries its unit and its nominal band in text. Alarm rows are a real ordered list with timestamps so assistive tech reads the sequence in order.',
+      '#0e1b28 on #f5f8fa is 16.3:1; alarm amber at 4.5:1 is only used with the word ALARM or a listed breaker state, never as a bare indicator. Frequency carries its unit and its nominal band in text. Alarm rows are a real ordered list with timestamps so assistive tech reads the sequence in order.',
     responsive:
       'The schematic grid drops from 18 to 8 columns at 1100px and to 4 at 700px, with bus bars reflowing as vertical stubs under 700px. The alarm log becomes a stacked two-line format at 560px. The frequency readout stays in the header at every width.',
     codeExample:
       '<section class="board">\n  <p class="kicker">SUBSTATION 4 · FEEDER B2</p>\n  <p class="freq">50.01 <span>Hz</span></p>\n  <p class="row">06:14:02 BREAKER OPEN · B2 · RESTORED</p>\n  <button class="btn-primary">DISPATCH CLOSE</button>\n</section>',
-    accent: '#d34c2a',
+    accent: '#b25b00',
     motif: 'swiss-grid',
     layout: 'dashboard',
     useCases: ['Energy', 'DevOps & Cloud', 'Manufacturing'],
-    signatureCss: `.dv-site { background-image: linear-gradient(#dfe7ec 1px, transparent 1px), linear-gradient(90deg, #dfe7ec 1px, transparent 1px); background-size: 24px 24px; }
-.dv-card { border-radius: 0; border: 1px solid #123a5222; border-top: 3px solid #123a52; background: #fff; }
+    signatureCss: `.dv-site { background-image: linear-gradient(#e2e8ee 1px, transparent 1px), linear-gradient(90deg, #e2e8ee 1px, transparent 1px); background-size: 24px 24px; }
+.dv-card { border-radius: 0; border: 1px solid #1a2b4a22; border-top: 3px solid #1a2b4a; background: #fff; }
 .dv-hero h1 { font-family: 'Oxanium', sans-serif; }
-.dv-hero h1 em { color: #d34c2a; font-style: normal; }
-.dv-btn-primary { border-radius: 0; background: #123a52; color: #f2f5f7; }
+.dv-hero h1 em { color: #b25b00; font-style: normal; }
+.dv-btn-primary { border-radius: 0; background: #1a2b4a; color: #f5f8fa; }
 .dv-stat strong { font-family: 'Oxanium', sans-serif; letter-spacing: 0.02em; }
-.dv-badge { background: transparent; border: 1px solid #6b8a9c; color: #123a52; border-radius: 0; font-size: 11px; }`,
+.dv-badge { background: transparent; border: 1px solid #6f7f95; color: #1a2b4a; border-radius: 0; font-size: 11px; }`,
     author: 'Ravi Chandrasekhar',
     createdAt: '2026-09-25',
     popularity: 64,
@@ -2977,14 +2977,14 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Deed Office is a registry before it is a website: navigation is a filing index, and a parcel is identified by its deed number before its address. There are no cards, only entries ruled into a register with an archival stamp and a folio reference, because a record is only useful if it can be cited. For land registries, notaries, and archives whose output is a citation.',
     designDetails:
-      'Document cream #f4f2ed with registry ink #33302b, a filing grey #857e6f for marginalia, and a stamp brown #8a5a2b used once per entry. Entries are ruled with a 1px top rule and indented by folio depth, and every citation is printed in full rather than abbreviated. Type is a book serif for entries and a sans for the index, so the two never blur.',
+      'Document cream #f5f4f0 with registry ink #2f3238, a filing grey #7f7a70 for marginalia, and a stamp blue #4a5aa8 used once per entry. Entries are ruled with a 1px top rule and indented by folio depth, and every citation is printed in full rather than abbreviated. Type is a book serif for entries and a sans for the index, so the two never blur.',
     colors: {
-      primary: '#33302b',
-      secondary: '#857e6f',
-      accent: '#8a5a2b',
-      neutral: '#e6e3da',
-      background: '#f4f2ed',
-      text: '#262320',
+      primary: '#2f3238',
+      secondary: '#7f7a70',
+      accent: '#4a5aa8',
+      neutral: '#e4e2dc',
+      background: '#f5f4f0',
+      text: '#24262b',
     },
     typography: {
       displayFont: 'Spectral',
@@ -3017,22 +3017,22 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'Folio depth markers persist in the left margin throughout the register',
     },
     accessibility:
-      '#262320 on #f4f2ed is 14.9:1 and 0.5px rules are decorative only — every separation also has spacing, so nothing depends on a hairline. Deed numbers are announced with their folio and access status. The registry is a definition list so number and description stay associated for assistive tech.',
+      '#24262b on #f5f4f0 is 13.8:1 and 0.5px rules are decorative only — every separation also has spacing, so nothing depends on a hairline. Deed numbers are announced with their folio and access status. The registry is a definition list so number and description stay associated for assistive tech.',
     responsive:
       'Folio indents halve from 18px to 9px below 760px and the four-column search becomes two at 640px, then one at 460px. Citations wrap at their commas rather than mid-number. Rules stay 1px at every width so the register still reads as ruled.',
     codeExample:
       '<section class="entry">\n  <p class="kicker">REGISTER · PARCEL 4471 · FOLIO 214</p>\n  <h1>Title <em>held since 1931.</em></h1>\n  <p class="citation">Deed 4471/214, Parish of Ashwell, transferred 14 June 1931.</p>\n  <button class="btn-primary">Request a certified copy</button>\n</section>',
-    accent: '#8a5a2b',
+    accent: '#4a5aa8',
     motif: 'quote-band',
     layout: 'magazine',
     useCases: ['Government', 'Legal', 'Real Estate'],
-    signatureCss: `.dv-card { border-radius: 1px; border: 0; border-top: 1px solid #857e6f; background: transparent; padding: 14px 0; }
-.dv-card p, .dv-card .dv-sub { color: #857e6f; }
-.dv-hero h1 em { color: #33302b; font-style: italic; }
-.dv-btn-primary { border-radius: 1px; background: #33302b; color: #f4f2ed; }
-.dv-badge { background: transparent; border: 1px solid #8a5a2b; color: #8a5a2b; border-radius: 1px; transform: rotate(-1deg); font-size: 10px; letter-spacing: 0.04em; }
-.dv-stat { border-left: 1px solid #857e6f; padding-left: 10px; }
-.dv-nav { border-bottom: 3px double #33302b; background: transparent; }`,
+    signatureCss: `.dv-card { border-radius: 1px; border: 0; border-top: 1px solid #7f7a70; background: transparent; padding: 14px 0; }
+.dv-card p, .dv-card .dv-sub { color: #7f7a70; }
+.dv-hero h1 em { color: #2f3238; font-style: italic; }
+.dv-btn-primary { border-radius: 1px; background: #2f3238; color: #f5f4f0; }
+.dv-badge { background: transparent; border: 1px solid #4a5aa8; color: #4a5aa8; border-radius: 1px; transform: rotate(-1deg); font-size: 10px; letter-spacing: 0.04em; }
+.dv-stat { border-left: 1px solid #7f7a70; padding-left: 10px; }
+.dv-nav { border-bottom: 3px double #2f3238; background: transparent; }`,
     author: 'Edith Ashworth',
     createdAt: '2026-09-25',
     popularity: 57,
@@ -3116,14 +3116,14 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Letterpress Crash celebrates the mistakes a real press makes: squeezed ink, a kiss that went too deep, a forme that shifted half a millimetre. Headings are debossed into the page with inset shadows, and every block carries a slight ink halo where pressure was highest. Instead of pretending to be flat design, it is honestly dimensional. For print studios, workshops, and typography projects that want to be touched.',
     designDetails:
-      'Press-board #f4efe6 with ink black #2a2622, a bruised plum #8a8079 for secondary and over-ink red #b8452f for any text that was hit twice. Debossing is done with a 1px dark inset on the top edge and a 1px light inset below, which reads as relief at any size. Paper texture is a 3% grain, and every panel has a 2px press edge.',
+      'Press-board #f5f0e6 with ink black #232a33, a bruised plum #857f76 for secondary and over-ink red #b03024 for any text that was hit twice. Debossing is done with a 1px dark inset on the top edge and a 1px light inset below, which reads as relief at any size. Paper texture is a 3% grain, and every panel has a 2px press edge.',
     colors: {
-      primary: '#2a2622',
-      secondary: '#8a8079',
-      accent: '#b8452f',
-      neutral: '#e3dbcf',
-      background: '#f4efe6',
-      text: '#201d1a',
+      primary: '#232a33',
+      secondary: '#857f76',
+      accent: '#b03024',
+      neutral: '#e5ded2',
+      background: '#f5f0e6',
+      text: '#1b2026',
     },
     typography: {
       displayFont: 'Abril Fatface',
@@ -3156,21 +3156,21 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'Blocks press in as they enter, once, then stay struck',
     },
     accessibility:
-      '#201d1a on #f4efe6 is 15.4:1 and the deboss effect never carries contrast on its own — text stays ink-black in all states. Over-ink red at 5.1:1 marks anything struck twice and always duplicates a word. Inset shadows are decorative and removed under reduced motion, which leaves clean struck type.',
+      '#1b2026 on #f5f0e6 is 15.4:1 and the deboss effect never carries contrast on its own — text stays ink-black in all states. Over-ink red at 5.1:1 marks anything struck twice and always duplicates a word. Inset shadows are decorative and removed under reduced motion, which leaves clean struck type.',
     responsive:
       'The two-column forme becomes one at 780px and press offsets reduce from 3px to 1px below 560px so blocks do not appear misaligned. Display sizes clamp from 56px to 34px at 400px. Halos are disabled under 480px where they would blur text.',
     codeExample:
       '<section class="forme">\n  <p class="kicker">JOB 114 · 2 PRESSES</p>\n  <h1>Ink too deep, <em>press it anyway.</em></h1>\n  <p class="note">Cotton 300gsm · 4 passes · impression 0.3 mm</p>\n  <button class="btn-primary">Book a forme</button>\n</section>',
-    accent: '#b8452f',
+    accent: '#b03024',
     motif: 'hard-shadows',
     layout: 'spotlight',
     useCases: ['Publishing', 'Design Tools', 'Events'],
-    signatureCss: `.dv-card { border-radius: 2px; border: 1px solid #2a26221f; box-shadow: inset 0 1px 0 #ffffffcc, inset 0 -2px 0 #2a262226, 3px 3px 0 #2a262214; background: #fffdF7; }
-.dv-hero h1, .dv-h2 { text-shadow: 0 1px 0 #ffffffb3, 0 -1px 0 #2a262233; }
-.dv-hero h1 em { color: #b8452f; font-style: normal; }
-.dv-btn-primary { border-radius: 1px; background: #2a2622; color: #f4efe6; box-shadow: inset 0 -2px 0 #ffffff26, 3px 3px 0 #b8452f33; }
+    signatureCss: `.dv-card { border-radius: 2px; border: 1px solid #232a331f; box-shadow: inset 0 1px 0 #ffffffcc, inset 0 -2px 0 #232a3326, 3px 3px 0 #232a3314; background: #fffdF7; }
+.dv-hero h1, .dv-h2 { text-shadow: 0 1px 0 #ffffffb3, 0 -1px 0 #232a3333; }
+.dv-hero h1 em { color: #b03024; font-style: normal; }
+.dv-btn-primary { border-radius: 1px; background: #232a33; color: #f5f0e6; box-shadow: inset 0 -2px 0 #ffffff26, 3px 3px 0 #b0302433; }
 .dv-btn-primary:hover { transform: translateY(2px); }
-.dv-badge { background: #e3dbcf; color: #2a2622; border-radius: 1px; box-shadow: inset 0 1px 0 #fff; }
+.dv-badge { background: #e5ded2; color: #232a33; border-radius: 1px; box-shadow: inset 0 1px 0 #fff; }
 .dv-stat strong { text-shadow: 0 1px 0 #ffffffcc; }`,
     author: 'Walter Fenwick',
     createdAt: '2026-09-25',
@@ -3324,14 +3324,14 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Binaural Room treats a mix as a plan view: the hero is a floor plan with speaker positions you can click, and the layout itself splits left and right like a stereo field, so the page literally has a channel per column. Panning is explained spatially rather than numerically, and levels are shown as distance from the listener. For spatial-audio studios, mastering rooms, and audio-tool documentation.',
     designDetails:
-      'Room dark #0f1216 with monitor teal #6cd0c9 for anything routed, a level amber #f0c05a for clipping, and slate #45707a for surfaces. Speaker positions are 8px teal dots with a 4px ring when active, and the floor plan is drawn in 1px hairlines with a 24px radius grid. Type is a technical display for channel labels and a plain sans for the notes.',
+      'Room dark #100d16 with monitor violet #8f7ae0 for anything routed, a level amber #e5a76f for clipping, and slate #4b5563 for surfaces. Speaker positions are 8px violet dots with a 4px ring when active, and the floor plan is drawn in 1px hairlines with a 24px radius grid. Type is a technical display for channel labels and a plain sans for the notes.',
     colors: {
-      primary: '#6cd0c9',
-      secondary: '#45707a',
-      accent: '#f0c05a',
-      neutral: '#171c21',
-      background: '#0f1216',
-      text: '#dfe9ea',
+      primary: '#8f7ae0',
+      secondary: '#4b5563',
+      accent: '#e5a76f',
+      neutral: '#1a1720',
+      background: '#100d16',
+      text: '#e6e1f0',
     },
     typography: {
       displayFont: 'Chakra Petch',
@@ -3364,24 +3364,24 @@ export const wave6Designs: DesignSystem[] = [
       scroll: 'Active channel dots pulse in time with a 4/4 bar as sections pass',
     },
     accessibility:
-      '#dfe9ea on #0f1216 is 15.6:1; teal at 9.4:1 carries labels, and level amber is reserved for clipping at 24px+ figures so its 2.3:1 stays decorative. Every panning position is written as a value and a side, never as an x-coordinate alone. The pulsing activity dots stop under reduced motion.',
+      '#e6e1f0 on #100d16 is 15.0:1; violet at 5.5:1 carries labels, and level amber is reserved for clipping at 24px+ figures so its 2.3:1 stays decorative. Every panning position is written as a value and a side, never as an x-coordinate alone. The pulsing activity dots stop under reduced motion.',
     responsive:
       'The two-channel split stacks to a single column at 820px, with the floor plan above the notes. Speaker dots stay 8px with 44px hit areas at every size. The channel strip wraps to two rows below 520px rather than scrolling.',
     codeExample:
       '<section class="room">\n  <p class="kicker">ROOM B · 5.1 LAYOUT · PAIR 2</p>\n  <h1>Left and right, <em>forty degrees apart.</em></h1>\n  <p class="level">L −6.0 dBFS · R −5.8 dBFS · balance +0.2</p>\n  <button class="btn-primary">Open the plan</button>\n</section>',
-    accent: '#6cd0c9',
+    accent: '#8f7ae0',
     motif: 'glow-pulse',
     layout: 'centered',
     useCases: ['Music', 'Podcast', 'Film & TV'],
-    signatureCss: `.dv-site { background: radial-gradient(90% 70% at 50% 30%, #171c21 0%, #0f1216 70%); }
-.dv-card { background: #171c21; border: 1px solid #45707a55; border-radius: 4px; }
-.dv-card::after { content: ''; position: absolute; inset: 10px; border-radius: 24px; border: 1px dashed #45707a44; }
-.dv-hero h1 { color: #dfe9ea; }
-.dv-hero h1 em { color: #6cd0c9; font-style: normal; }
-.dv-btn-primary { border-radius: 999px; background: #6cd0c9; color: #0f1216; box-shadow: 0 0 0 3px #6cd0c933; }
-.dv-badge { background: transparent; border: 1px solid #45707a; color: #dfe9ea; border-radius: 999px; font-size: 10px; }
-.dv-stat strong { color: #6cd0c9; }
-.dv-nav { background: transparent; border-bottom: 1px solid #45707a44; }`,
+    signatureCss: `.dv-site { background: radial-gradient(90% 70% at 50% 30%, #1a1720 0%, #100d16 70%); }
+.dv-card { background: #1a1720; border: 1px solid #4b556355; border-radius: 4px; }
+.dv-card::after { content: ''; position: absolute; inset: 10px; border-radius: 24px; border: 1px dashed #4b556344; }
+.dv-hero h1 { color: #e6e1f0; }
+.dv-hero h1 em { color: #8f7ae0; font-style: normal; }
+.dv-btn-primary { border-radius: 999px; background: #8f7ae0; color: #100d16; box-shadow: 0 0 0 3px #8f7ae033; }
+.dv-badge { background: transparent; border: 1px solid #4b5563; color: #e6e1f0; border-radius: 999px; font-size: 10px; }
+.dv-stat strong { color: #8f7ae0; }
+.dv-nav { background: transparent; border-bottom: 1px solid #4b556344; }`,
     author: 'Hana Sørensen',
     createdAt: '2026-09-25',
     popularity: 62,

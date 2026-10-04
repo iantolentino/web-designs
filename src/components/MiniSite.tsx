@@ -1552,7 +1552,7 @@ function heroTitle(d: DesignSystem): React.ReactNode {
     case 'lunar-climate': return <>Earth science, <em>measured calmly.</em></>
     case 'arco-grid': return <>Ruled by the <em>grid.</em></>
     case 'tondo-ceramics': return <>Thrown on the <em>wheel.</em></>
-    case 'sable-supper': return <>Supper, <em>after dark.</em></>
+    case 'sable-supper': return <>The <em>late</em> table.</>
     case 'blau-index': return <>Indexes, tables, <em>trust.</em></>
     case 'beacon-petition': return <>SIGN IT, THEN <em>SHOUT IT.</em></>
     case 'poster-press': return <>Deep ink bite, <em>heavy slab.</em></>
@@ -1563,7 +1563,7 @@ function heroTitle(d: DesignSystem): React.ReactNode {
     case 'neon-arcade': return <>One more <em>coin.</em></>
     case 'cartogrid': return <>Records as <em>terrain.</em></>
     case 'echo-loft': return <>Recorded <em>after midnight.</em></>
-    case 'quiet-hours': return <>Permission to <em>slow down.</em></>
+    case 'quiet-hours': return <>The day can <em>wait.</em></>
     case 'ever-current': return <>Wet noses, <em>warm welcomes.</em></>
     case 'meridian-will': return <>Estate law, <em>without the dust.</em></>
     case 'undercroft-games': return <>Roll for <em>initiative.</em></>

@@ -216,14 +216,14 @@ export const craftDesigns: DesignSystem[] = [
     designPhilosophy:
       'The hour after midnight in a members\u2019 dining room. Near-black velvet, brass candlelight, and typography set like a private menu — italic, unhurried, never shouting. Reserve flows feel like being slipped a note. For supper clubs, boutique hotels, and brands whose product is the evening itself.',
     designDetails:
-      'Velvet black #14110f, candle #e8b563, merlot #6d2233, champagne text #f0e6d2. Abril Fatface display with high-contrast strokes; Spectral body. Sections open with a brass hairline and a small moon-phase glyph. Buttons are brass-edged black; hover lights the candle (a radial glow bloom). Photography gets a vignette.',
+      'Velvet black #120f14, candle #d99a6c, merlot #3a2d3f, champagne text #f0e6d6. Abril Fatface display with high-contrast strokes; Spectral body. Sections open with a brass hairline and a small moon-phase glyph. Buttons are brass-edged black; hover lights the candle (a radial glow bloom). Photography gets a vignette.',
     colors: {
-      primary: '#e8b563',
-      secondary: '#6d2233',
-      accent: '#3d5a4c',
-      neutral: '#241f1b',
-      background: '#14110f',
-      text: '#f0e6d2',
+      primary: '#d99a6c',
+      secondary: '#3a2d3f',
+      accent: '#c4704d',
+      neutral: '#241f1f',
+      background: '#120f14',
+      text: '#f0e6d6',
     },
     typography: {
       displayFont: 'Abril Fatface',
@@ -233,7 +233,7 @@ export const craftDesigns: DesignSystem[] = [
       letterSpacing: 'Display 0.01em, menu 0.2em uppercase',
     },
     components: {
-      primary: 'Black panel, 1px #e8b563 border, brass text, radius 0, padding 13px 32px, 500, letterspaced',
+      primary: 'Black panel, 1px #d99a6c border, brass text, radius 0, padding 13px 32px, 500, letterspaced',
       secondary: 'Transparent, champagne hairline border',
       tertiary: 'Brass italic link with candle-glow underline on hover',
       radius: '0 — the room has corners; 2px inputs',
@@ -256,20 +256,20 @@ export const craftDesigns: DesignSystem[] = [
       scroll: 'Vignette deepens slightly toward the footer',
     },
     accessibility:
-      'Champagne on velvet 13.2:1; brass on velvet 9.8:1. Focus 2px brass outline offset 3px. Glow blooms are additive light, never the only affordance. Dim-up disabled under reduced-motion.',
+      'Champagne on velvet 15.4:1; the rust accent on velvet 5.2:1. Focus 2px copper outline offset 3px. Glow blooms are additive light, never the only affordance. Dim-up disabled under reduced-motion.',
     responsive:
       'Menu columns stack under 700px; vignette halves. Abril clamps 2.25rem→3.5rem. Brass hairlines persist at every size.',
     codeExample:
       '<section class="table">\n  <p class="seating">TONIGHT · ONE SEATING</p>\n  <h1>The <em>midnight</em> menu</h1>\n  <button class="btn-reserve">Request a seat</button>\n</section>',
-    accent: '#e8b563',
+    accent: '#d99a6c',
     motif: 'serif-italic-hero',
     layout: 'full-bleed',
     useCases: ['Restaurant', 'Events'],
     signatureCss: `
-.dv-hero h1 em { color: #e8b563; font-style: italic; }
-.dv-card { background: #1c1713; border-top: 1px solid #e8b563; }
-.dv-btn-primary { background: #14110f; border: 1px solid #e8b563; color: #e8b563; }
-.dv-kicker { letter-spacing: .2em; text-transform: uppercase; color: #e8b563; }`,
+.dv-hero h1 em { color: #d99a6c; font-style: italic; }
+.dv-card { background: #1c1713; border-top: 1px solid #d99a6c; }
+.dv-btn-primary { background: #120f14; border: 1px solid #d99a6c; color: #d99a6c; }
+.dv-kicker { letter-spacing: .2em; text-transform: uppercase; color: #d99a6c; }`,
     author: 'Étienne Marchand',
     createdAt: '2026-08-30',
     popularity: 83,

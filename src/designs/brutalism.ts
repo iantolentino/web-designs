@@ -216,11 +216,11 @@ signatureCss: `
     designPhilosophy:
       'Structure exposed. The page is a slab: board-formed gray, rebar grid lines, stencil caps for signage. Nothing decorative survives the pour. If it does not hold weight, it does not ship.',
     designDetails:
-      'Board-formed concrete #d8d3c9 with near-black ink #1d1b18 and oxide-red #a33b2a stamp marks. Oswald condensed caps carry signage at heavy tracking; Archivo does the labor below. Buttons are 0px stencil plates; cards are form-work panels with visible 1px seam lines. Shadows are cast, not soft: 6px hard offset.',
+      'Board-formed concrete #d8d3c9 with near-black ink #1d1b18 and oxide-orange #a04d16 stamp marks. Oswald condensed caps carry signage at heavy tracking; Archivo does the labor below. Buttons are 0px stencil plates; cards are form-work panels with visible 1px seam lines. Shadows are cast, not soft: 6px hard offset.',
     colors: {
       primary: '#2e2c28',
       secondary: '#6b675e',
-      accent: '#a33b2a',
+      accent: '#a04d16',
       neutral: '#efeadf',
       background: '#d8d3c9',
       text: '#1d1b18',
@@ -257,12 +257,12 @@ signatureCss: `
       scroll: 'Sections butt against each other; seams never overlap',
     },
     accessibility:
-      'Ink on concrete 12.9:1; oxide stamps 5.4:1 at 600 weight. Focus is a 3px oxide outline. Uppercase signage has sentence-case aria-labels. Reduced-motion replaces drops with hard cuts.',
+      'Ink on concrete 11.5:1; oxide stamps 3.9:1 at 600 weight. Focus is a 3px oxide outline. Uppercase signage has sentence-case aria-labels. Reduced-motion replaces drops with hard cuts.',
     responsive:
       'Slabs stack with seams preserved under 820px; stencil display clamps 2.6rem→5rem. Press shadows shrink to 3px on touch.',
     codeExample:
       '<section class="slab">\n  <h1>FORMWORK<br/>NO. 04</h1>\n  <button class="stamp">POUR ORDER</button>\n</section>',
-    accent: '#a33b2a',
+    accent: '#a04d16',
     motif: 'hard-shadows',
     layout: 'manifesto',
     useCases: ['Events', 'Fitness', 'Gaming'],

@@ -622,8 +622,8 @@ export const wave11Designs: DesignSystem[] = [
     hero: 'The seat folds *into a bed.*',
     description: 'The front cabin, rendered as an itinerary.',
     philosophy:
-      'First class is not about the seat; it is about the fact that nobody will ask you anything for eleven hours. The system reads like a printed itinerary — night navy, a silverpoint that never glares, and a cabin gold spent only on time.',
-    colors: { primary: '#16324f', secondary: '#9fb3c8', accent: '#c9a227', neutral: '#e3e8ee', background: '#f4f7fa', text: '#15212e' },
+      'First class is not about the seat; it is about the fact that nobody will ask you anything for eleven hours. The system reads like a printed itinerary — night navy, a silverpoint that never glares, and a cabin bronze spent only on time.',
+    colors: { primary: '#2b3a63', secondary: '#a3aab8', accent: '#b06a33', neutral: '#e9e7e3', background: '#f8f7f4', text: '#1a2033' },
     display: 'Cormorant Garamond',
     body: 'Jost',
     motif: 'inset-frame',

@@ -146,14 +146,14 @@ export const elementalDesigns: DesignSystem[] = [
     designPhilosophy:
       'One brushstroke says more than a thousand divs. Sumi-e discipline: greyscale ink on warm paper, asymmetric balance, and negative space treated as the primary material. The interface breathes like a hand scroll — unhurried, deliberate, precise where it matters and empty where it does not.',
     designDetails:
-      'Warm paper #f7f4ee with near-black ink #23292e. Zilla Slab light for display with manual brush-weight contrast; Karla for function. Single vermilion hanko-stamp accent (used at most twice per page). Brushstroke divider: a CSS gradient that tapers. Layouts are asymmetric (7:5) with deliberate emptiness. Hover states are ink spreading (background tint grows).',
+      'Cool paper #f6f8fa with indigo ink #263a52. Zilla Slab light for display with manual brush-weight contrast; Karla for function. Single vermilion hanko-stamp accent (used at most twice per page). Brushstroke divider: a CSS gradient that tapers. Layouts are asymmetric (7:5) with deliberate emptiness. Hover states are ink spreading (background tint grows).',
     colors: {
-      primary: '#23292e',
-      secondary: '#6b665e',
-      accent: '#c73e2d',
-      neutral: '#e7e2d8',
-      background: '#f7f4ee',
-      text: '#23292e',
+      primary: '#263a52',
+      secondary: '#7b8290',
+      accent: '#9d2c22',
+      neutral: '#e2e6ea',
+      background: '#f6f8fa',
+      text: '#263a52',
     },
     typography: {
       displayFont: 'Zilla Slab',
@@ -163,7 +163,7 @@ export const elementalDesigns: DesignSystem[] = [
       letterSpacing: 'Display 0.02em, labels 0.3em uppercase',
     },
     components: {
-      primary: 'Solid ink #23292e, paper text, radius 2px, padding 12px 32px, 400 weight, letter-spaced',
+      primary: 'Solid ink #263a52, paper text, radius 2px, padding 12px 32px, 400 weight, letter-spaced',
       secondary: '1px ink border, transparent, weight 400',
       tertiary: 'Ink text link with taper-underline (gradient) on hover',
       radius: '2px — the brush does not round corners',
@@ -186,20 +186,20 @@ export const elementalDesigns: DesignSystem[] = [
       scroll: 'Vertical reveal masked like a scroll painting (clip-path)',
     },
     accessibility:
-      'Ink on paper 15.9:1; vermilion only at large sizes (4.9:1). Focus 2px ink outline offset 4px. Emptiness is layout, not hidden content — all sections have text alternatives. Reduced-motion: fades only.',
+      'Ink on paper 10.9:1; vermilion only at large sizes (7.0:1). Focus 2px ink outline offset 4px. Emptiness is layout, not hidden content — all sections have text alternatives. Reduced-motion: fades only.',
     responsive:
       'Asymmetry relaxes to single column under 760px; emptiness preserved via padding, not removal. Display clamps 2rem→3.375rem. Vermilion seal becomes underline under 480px.',
     codeExample:
       '<section class="scroll">\n  <h1>One stroke.<br/><em>Enough.</em></h1>\n  <p class="quiet">A portfolio for work that waits.</p>\n  <a class="seal" href="#">View</a>\n</section>',
-    accent: '#c73e2d',
+    accent: '#9d2c22',
     motif: 'serif-italic-hero',
     layout: 'editorial',
     useCases: ['Portfolio', 'Photography', 'Agency'],
     signatureCss: `
-.dv-hero h1 em { font-style: normal; color: #6b665e; }
-.dv-section + .dv-section::before { content: ''; display: block; height: 2px; margin-bottom: 3em; background: linear-gradient(90deg, #23292e 0%, rgba(28,26,23,.35) 55%, transparent 90%); }
-.dv-kicker { color: #c73e2d; }
-.dv-logo::after { content: '・'; color: #c73e2d; }`,
+.dv-hero h1 em { font-style: normal; color: #7b8290; }
+.dv-section + .dv-section::before { content: ''; display: block; height: 2px; margin-bottom: 3em; background: linear-gradient(90deg, #263a52 0%, rgba(28,26,23,.35) 55%, transparent 90%); }
+.dv-kicker { color: #9d2c22; }
+.dv-logo::after { content: '・'; color: #9d2c22; }`,
     author: 'Riko Tanaka',
     createdAt: '2026-05-27',
     popularity: 81,
