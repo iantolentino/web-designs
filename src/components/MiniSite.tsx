@@ -1,11 +1,16 @@
-import { lazy, Suspense, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { DesignSystem, Layout } from '../types'
 import { LAYOUT_LABEL } from '../types'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
 import { getBlockSet, getDashExtra, layoutSetFor, primaryLayout, type BlockId, type DashExtra } from '../designs/extras'
-// The kit is only used by the full-page render (never by thumbnails), so it
-// must not ride along in this chunk — every gallery thumbnail loads MiniSite.
-const ComponentKit = lazy(() => import('./ComponentKit').then((m) => ({ default: m.ComponentKit })))
+import { voicePack, voicePerks, type VoicePack } from './miniVoice'
+
+/**
+ * The component kit deliberately does NOT render inside the live preview —
+ * it has its own home in the Components tab of this modal and the standalone
+ * Component kit view. Duplicating it at the bottom of every mini page made
+ * every preview read as a spec sheet, and doubled the render cost.
+ */
 
 /**
  * MiniSite renders a complete sample page — themed entirely from a DesignSystem.
@@ -23,6 +28,7 @@ let dvScopeCounter = 0
 
 export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSystem; compact?: boolean; layoutOverride?: Layout | null }) {
   const t = useMemo(() => themeOf(d), [d])
+  const v = useMemo(() => voicePack(d), [d])
   const [modalOpen, setModalOpen] = useState(false)
   const [formMsg, setFormMsg] = useState<string | null>(null)
   const [tab, setTab] = useState(0)
@@ -55,11 +61,11 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
         <nav className="dv-nav">
           <span className="dv-logo">◈ {d.name}</span>
           <div className="dv-links">
-            {['Work', 'Studio', 'Journal', 'Contact'].map((l) => (
-              <a key={l} href="#" onClick={(e) => e.preventDefault()} className={l === 'Work' ? 'dv-active' : ''}>{l}</a>
+            {v.nav.map((l, i) => (
+              <a key={l} href="#" onClick={(e) => e.preventDefault()} className={i === 0 ? 'dv-active' : ''}>{l}</a>
             ))}
           </div>
-          <button className="dv-btn dv-btn-nav" style={btnStyle(t)}>Sign up</button>
+          <button className="dv-btn dv-btn-nav" style={btnStyle(t)}>{v.navAction}</button>
         </nav>
 
         {!compact && (
@@ -82,17 +88,6 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
         )}
 
         {renderLayout(d, activeLayout, { setModalOpen, openFaq, setOpenFaq })}
-
-        {/*
-         * FULL COMPONENT KIT — the whole component vocabulary, themed by this
-         * design's tokens. Thumbnails skip it (compact) so 100 cards stay
-         * cheap to render; the live preview and Components tab show it.
-         */}
-        {!compact && (
-          <Suspense fallback={<div style={{ padding: 24, color: '#777', fontSize: 13 }}>Loading component kit…</div>}>
-            <ComponentKit d={d} />
-          </Suspense>
-        )}
 
         {!compact && (
           <section className="dv-section dv-blocks-section">
@@ -275,20 +270,21 @@ function renderLayout(
 
 function HeroCards({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <header className="dv-hero">
-        <p className="dv-kicker">{d.category} system · for {d.useCases[0]?.toLowerCase() ?? 'modern'} teams</p>
+        <p className="dv-kicker">{v.kicker}</p>
         <h1>{heroTitle(d)}</h1>
         <p className="dv-sub">{d.description}</p>
         <div className="dv-cta-row">
-          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Get started</button>
-          <button className="dv-btn dv-btn-secondary">Learn more</button>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+          <button className="dv-btn dv-btn-secondary">{v.cta[1]}</button>
         </div>
         {d.motif === 'ticker-marquee' && <div className="dv-marquee"><span>✦ {d.name.toUpperCase()} ✦ MOTION ✦ COLOR ✦ CRAFT ✦&nbsp;</span></div>}
       </header>
       <section className="dv-section">
-        <h2 className="dv-h2">Why teams pick {d.name}</h2>
+        <h2 className="dv-h2">Why {d.useCases[0]?.toLowerCase() ?? 'teams'} pick {d.name}</h2>
         <div className="dv-cards">
           {features(d).map((f, i) => (
             <article key={i} className="dv-card">
@@ -300,20 +296,20 @@ function HeroCards({ d }: { d: DesignSystem }) {
         </div>
       </section>
       <section className="dv-stats-band">
-        <div className="dv-stat"><strong>98%</strong><span>ship faster</span></div>
-        <div className="dv-stat"><strong>4.9★</strong><span>avg. rating</span></div>
-        <div className="dv-stat"><strong>12k+</strong><span>teams</span></div>
+        {v.stats.map(([val, label]) => (
+          <div key={label} className="dv-stat"><strong>{val}</strong><span>{label}</span></div>
+        ))}
       </section>
       <section className="dv-section dv-section-forms">
         <div className="dv-form-wrap">
-          <h2 className="dv-h2">Join the list</h2>
-          <MiniForm d={d} />
+          <h2 className="dv-h2">{v.form.heading}</h2>
+          <MiniForm d={d} v={v} />
         </div>
         <div className="dv-comp-wrap">
           <h2 className="dv-h2">Testimonial</h2>
           <blockquote className="dv-quote">
-            “{d.name} gave our product an identity. Design reviews got shorter — decisions got bolder.”
-            <footer>— P. Okafor, Head of Design</footer>
+            “{v.quotes[0].q}”
+            <footer>— {v.quotes[0].a}</footer>
           </blockquote>
         </div>
       </section>
@@ -323,6 +319,7 @@ function HeroCards({ d }: { d: DesignSystem }) {
 
 function SplitHero({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <section className="dv-split">
@@ -331,11 +328,11 @@ function SplitHero({ d }: { d: DesignSystem }) {
           <h1>{heroTitle(d)}</h1>
           <p className="dv-sub">{d.description}</p>
           <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
-            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Start free trial</button>
-            <button className="dv-btn dv-btn-secondary">Watch demo</button>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+            <button className="dv-btn dv-btn-secondary">{v.cta[1]}</button>
           </div>
           <ul className="dv-check-list">
-            {['No credit card required', 'Cancel anytime', 'SOC2 compliant'].map((li) => <li key={li}>✓ {li}</li>)}
+            {v.dash.items.slice(0, 3).map((li) => <li key={li}>✓ {li}</li>)}
           </ul>
         </div>
         <div className="dv-split-visual">
@@ -347,7 +344,7 @@ function SplitHero({ d }: { d: DesignSystem }) {
         </div>
       </section>
       <section className="dv-section">
-        <h2 className="dv-h2">Built for how you work</h2>
+        <h2 className="dv-h2">Built for {d.useCases[0]?.toLowerCase() ?? 'how you work'}</h2>
         <div className="dv-cards">
           {features(d).map((f, i) => (
             <article key={i} className="dv-card"><span className="dv-card-icon" aria-hidden>{f.icon}</span><h3>{f.title}</h3><p>{f.body}</p></article>
@@ -355,14 +352,14 @@ function SplitHero({ d }: { d: DesignSystem }) {
         </div>
       </section>
       <section className="dv-pricing">
-        <h2 className="dv-h2">Simple pricing</h2>
+        <h2 className="dv-h2">Straight pricing</h2>
         <div className="dv-pricing-grid">
-          {[['Starter', '$0', ['3 projects', 'Community support', 'Basic analytics']], ['Pro', '$12', ['Unlimited projects', 'Priority support', 'Custom domain']], ['Team', '$29', ['SSO + roles', 'Audit log', 'Dedicated CSM']]].map(([name, price, items], pi) => (
-            <div key={name as string} className={`dv-card dv-mini-card dv-mini-card-price ${pi === 1 ? 'dv-price-hot' : ''}`} style={pi === 1 ? { borderColor: t.primary, borderWidth: 2 } : {}}>
+          {v.tiers.map(([name, price], pi) => (
+            <div key={name} className={`dv-card dv-mini-card dv-mini-card-price ${pi === 1 ? 'dv-price-hot' : ''}`} style={pi === 1 ? { borderColor: t.primary, borderWidth: 2 } : {}}>
               {pi === 1 && <span className="dv-price-tag" style={{ background: withAlpha(t.accent, 0.15), color: t.accent }}>Popular</span>}
               <h3>{name}</h3>
-              <div className="dv-price">{price}<span>/mo</span></div>
-              <ul>{(items as string[]).map((li) => <li key={li}>{li}</li>)}</ul>
+              <div className="dv-price">{price}</div>
+              <ul>{voicePerks(v, pi).map((li) => <li key={li}>{li}</li>)}</ul>
               <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Choose</button>
             </div>
           ))}
@@ -374,10 +371,11 @@ function SplitHero({ d }: { d: DesignSystem }) {
 
 function MagazineBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <header className="dv-masthead">
-        <p className="dv-kicker">{d.category} · Est. 2026</p>
+        <p className="dv-kicker">{v.meta}</p>
         <h1 className="dv-masthead-title">{heroTitle(d)}</h1>
         <div className="dv-masthead-rule" />
       </header>
@@ -396,9 +394,9 @@ function MagazineBody({ d }: { d: DesignSystem }) {
         </div>
       </section>
       <section className="dv-stats-band">
-        <div className="dv-stat"><strong>132</strong><span>articles</span></div>
-        <div className="dv-stat"><strong>18</strong><span>contributors</span></div>
-        <div className="dv-stat"><strong>2×</strong><span>weekly</span></div>
+        {v.stats.map(([val, label]) => (
+          <div key={label} className="dv-stat"><strong>{val}</strong><span>{label}</span></div>
+        ))}
       </section>
     </>
   )
@@ -406,22 +404,23 @@ function MagazineBody({ d }: { d: DesignSystem }) {
 
 function DashboardBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <div className="dv-dash">
         <aside className="dv-dash-side">
           <div className="dv-dash-logo">◈ {d.name}</div>
-          {['Overview', 'Analytics', 'Projects', 'Billing', 'Settings'].map((item, i) => (
+          {v.dash.items.map((item, i) => (
             <div key={item} className={`dv-dash-item ${i === 1 ? 'dv-dash-on' : ''}`} style={i === 1 ? { background: withAlpha(t.primary, 0.14), color: t.primary } : {}}>{item}</div>
           ))}
         </aside>
         <main className="dv-dash-main">
-          <div className="dv-dash-head"><h1>Analytics</h1><button className="dv-btn dv-btn-primary" style={btnStyle(t)}>+ New report</button></div>
+          <div className="dv-dash-head"><h1>{v.dash.heading}</h1><button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.dash.action}</button></div>
           <div className="dv-kpi-row">
-            {[['MRR', '$48.2k', '+8.4%'], ['Active users', '12,043', '+3.1%'], ['Churn', '1.9%', '−0.4%'], ['NPS', '62', '+5']].map(([k, v, delta]) => (
+            {v.dash.kpis.map(([k, val, delta]) => (
               <div key={k} className="dv-card dv-kpi">
                 <span className="dv-label">{k}</span>
-                <strong>{v}</strong>
+                <strong>{val}</strong>
                 <span className="dv-delta" style={{ color: String(delta).startsWith('+') ? '#1a9a5c' : '#c0392b' }}>{delta}</span>
               </div>
             ))}
@@ -431,11 +430,16 @@ function DashboardBody({ d }: { d: DesignSystem }) {
             <div className="dv-fake-ui-chart dv-chart-lg">{[42, 55, 48, 66, 59, 74, 68, 82, 77, 90, 84, 96].map((h, i) => <div key={i} style={{ height: `${h}%`, background: i % 3 === 2 ? t.secondary : t.primary }} />)}</div>
           </div>
           <table className="dv-table dv-table-lg">
-            <thead><tr><th>Customer</th><th>Plan</th><th>MRR</th><th>Status</th></tr></thead>
+            <thead><tr><th>{v.dash.heading}</th><th>Tier</th><th>Value</th><th>Status</th></tr></thead>
             <tbody>
-              <tr><td>Nimbus Labs</td><td>Team</td><td>$299</td><td><span className="dv-badge" style={{ background: withAlpha(t.accent, 0.18), color: t.accent }}>Active</span></td></tr>
-              <tr><td>Ferro & Co</td><td>Pro</td><td>$99</td><td><span className="dv-badge" style={{ background: withAlpha(t.accent, 0.18), color: t.accent }}>Active</span></td></tr>
-              <tr><td>Halcyon</td><td>Starter</td><td>$0</td><td><span className="dv-badge" style={{ background: withAlpha(t.text, 0.08), color: t.muted }}>Trial</span></td></tr>
+              {[0, 1, 2].map((i) => (
+                <tr key={i}>
+                  <td>{v.dash.items[i]}</td>
+                  <td>{v.tiers[i][0]}</td>
+                  <td>{v.tiers[i][1]}</td>
+                  <td><span className="dv-badge" style={{ background: i === 2 ? withAlpha(t.text, 0.08) : withAlpha(t.accent, 0.18), color: i === 2 ? t.muted : t.accent }}>{i === 2 ? 'Queued' : 'Active'}</span></td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <DashExtraSlot d={d} />
@@ -447,6 +451,7 @@ function DashboardBody({ d }: { d: DesignSystem }) {
 
 function CenteredBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <header className="dv-hero dv-hero-centered">
@@ -455,17 +460,17 @@ function CenteredBody({ d }: { d: DesignSystem }) {
         <h1>{heroTitle(d)}</h1>
         <p className="dv-sub">{d.description}</p>
         <div className="dv-cta-row">
-          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Begin</button>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
         </div>
-        <p className="dv-mini-note">Free for 14 days · no card needed</p>
+        <p className="dv-mini-note">{v.stats[2][0]} pages shipped on {d.name}</p>
       </header>
       <section className="dv-steps">
-        {[['01', 'Connect', 'Link your tools in two minutes.'], ['02', 'Configure', 'Pick the tokens that fit your brand.'], ['03', 'Ship', 'Publish with one command.']].map(([n, title, body]) => (
+        {[['01', v.dash.items[0] ?? 'Connect', 'Start from the first token — nothing else is required.'], ['02', v.dash.items[1] ?? 'Configure', 'The palette, type, and radius do the branding for you.'], ['03', v.dash.items[2] ?? 'Ship', 'Publish it — the system holds the page together.']].map(([n, title, body]) => (
           <div key={n} className="dv-step"><span className="dv-step-num">{n}</span><h3>{title}</h3><p>{body}</p></div>
         ))}
       </section>
       <section className="dv-quote-band" style={{ background: withAlpha(t.primary, 0.08) }}>
-        <blockquote>“The first design system our engineers actually read.”<footer>— S. Varga, CTO</footer></blockquote>
+        <blockquote>“{v.quotes[1].q}”<footer>— {v.quotes[1].a}</footer></blockquote>
       </section>
       <section className="dv-cta-final">
         <h2>Ready when you are.</h2>
@@ -506,6 +511,7 @@ function EditorialBody({ d }: { d: DesignSystem }) {
 
 function AsymmetricBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <section className="dv-asym-hero" style={{ borderColor: withAlpha(t.text, 0.16) }}>
@@ -514,18 +520,18 @@ function AsymmetricBody({ d }: { d: DesignSystem }) {
           <h1>{heroTitle(d)}</h1>
           <p className="dv-sub dv-align-left">{d.description}</p>
           <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
-            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Get started</button>
-            <button className="dv-btn dv-btn-secondary">See how</button>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+            <button className="dv-btn dv-btn-secondary">{v.cta[1]}</button>
           </div>
         </div>
         <div className="dv-asym-side">
           <div className="dv-stat-card" style={{ borderColor: withAlpha(t.text, 0.16) }}>
-            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>98%</strong>
-            <span>ship faster with {d.name}</span>
+            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{v.stats[0][0]}</strong>
+            <span>{v.stats[0][1]}</span>
           </div>
           <div className="dv-stat-card" style={{ borderColor: withAlpha(t.text, 0.16), background: withAlpha(t.primary, 0.08) }}>
-            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>4.9★</strong>
-            <span>average rating</span>
+            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{v.stats[2][0]}</strong>
+            <span>{v.stats[2][1]}</span>
           </div>
         </div>
       </section>
@@ -546,6 +552,7 @@ function AsymmetricBody({ d }: { d: DesignSystem }) {
 
 function FullBleedBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <section className="dv-bleed-hero" style={{ background: `linear-gradient(160deg, ${t.primary}, ${t.secondary})` }}>
@@ -553,14 +560,14 @@ function FullBleedBody({ d }: { d: DesignSystem }) {
         <h1 className="dv-bleed-title" style={{ color: onColor(t.primary) }}>{heroTitle(d)}</h1>
         <p className="dv-bleed-sub" style={{ color: onColor(t.primary) }}>{d.description}</p>
         <div className="dv-cta-row">
-          <button className="dv-btn dv-btn-primary" style={{ background: onColor(t.primary), color: t.primary }}>Start now</button>
-          <button className="dv-btn dv-btn-ghost-on-dark" style={{ color: onColor(t.primary), borderColor: withAlpha(onColor(t.primary), 0.5) }}>Tour the system</button>
+          <button className="dv-btn dv-btn-primary" style={{ background: onColor(t.primary), color: t.primary }}>{v.cta[0]}</button>
+          <button className="dv-btn dv-btn-ghost-on-dark" style={{ color: onColor(t.primary), borderColor: withAlpha(onColor(t.primary), 0.5) }}>{v.cta[1]}</button>
         </div>
       </section>
       <section className="dv-bleed-band" style={{ borderColor: withAlpha(t.text, 0.14) }}>
-        <div className="dv-stat"><strong style={{ fontFamily: `'${t.display}', sans-serif` }}>12k+</strong><span>teams on board</span></div>
-        <div className="dv-stat"><strong style={{ fontFamily: `'${t.display}', sans-serif` }}>40%</strong><span>fewer review rounds</span></div>
-        <div className="dv-stat"><strong style={{ fontFamily: `'${t.display}', sans-serif` }}>6</strong><span>tokens to learn</span></div>
+        {v.stats.map(([val, label]) => (
+          <div key={label} className="dv-stat"><strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{val}</strong><span>{label}</span></div>
+        ))}
       </section>
       <section className="dv-section">
         <h2 className="dv-h2">Nothing hides. Nothing shrinks.</h2>
@@ -576,6 +583,7 @@ function FullBleedBody({ d }: { d: DesignSystem }) {
 
 function SpotlightBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <section className="dv-spotlight">
@@ -604,7 +612,7 @@ function SpotlightBody({ d }: { d: DesignSystem }) {
         ))}
       </section>
       <section className="dv-quote-band" style={{ background: withAlpha(t.accent, 0.08) }}>
-        <blockquote>“You don't decorate {d.name}. You point a light at it.”<footer>— R. Osei, Creative Director</footer></blockquote>
+        <blockquote>“{v.quotes[2].q}”<footer>— {v.quotes[2].a}</footer></blockquote>
       </section>
     </>
   )
@@ -643,6 +651,7 @@ function ManifestoBody({ d }: { d: DesignSystem }) {
 
 function BentoBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <section className="dv-bento">
@@ -651,8 +660,8 @@ function BentoBody({ d }: { d: DesignSystem }) {
           <h1>{heroTitle(d)}</h1>
           <p className="dv-sub dv-align-left">{d.description}</p>
           <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
-            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Start free</button>
-            <button className="dv-btn dv-btn-secondary">See plans</button>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+            <button className="dv-btn dv-btn-secondary">{v.cta[1]}</button>
           </div>
         </header>
         <div className="dv-bento-grid">
@@ -660,8 +669,8 @@ function BentoBody({ d }: { d: DesignSystem }) {
             <span className="dv-bento-cap" style={{ color: onColor(t.primary) }}>Live in four minutes</span>
           </div>
           <div className="dv-bento-tile dv-bento-tile-stat" style={{ background: withAlpha(t.primary, 0.1) }}>
-            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>98%</strong>
-            <span>ship faster with {d.name}</span>
+            <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{v.stats[0][0]}</strong>
+            <span>{v.stats[0][1]}</span>
           </div>
           <div className="dv-bento-tile">
             <span className="dv-card-icon" aria-hidden>◆</span>
@@ -786,6 +795,7 @@ function CatalogBody({ d }: { d: DesignSystem }) {
  */
 function MosaicBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <section className="dv-mosaic">
@@ -794,8 +804,8 @@ function MosaicBody({ d }: { d: DesignSystem }) {
           <h1>{heroTitle(d)}</h1>
           <p className="dv-sub dv-align-left">{d.description}</p>
           <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
-            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Start free</button>
-            <button className="dv-btn dv-btn-secondary">See the method</button>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+            <button className="dv-btn dv-btn-secondary">{v.cta[1]}</button>
           </div>
         </header>
         <div
@@ -805,8 +815,8 @@ function MosaicBody({ d }: { d: DesignSystem }) {
           <span className="dv-mos-cap" style={{ color: onColor(t.primary) }}>In production since 2021</span>
         </div>
         <div className="dv-mos-tile dv-mos-stat" style={{ background: withAlpha(t.primary, 0.1) }}>
-          <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>98%</strong>
-          <span>of teams keep the tokens untouched</span>
+          <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{v.stats[0][0]}</strong>
+          <span>{v.stats[0][1]}</span>
         </div>
         <div className="dv-mos-tile">
           <span className="dv-card-icon" aria-hidden>◆</span>
@@ -847,6 +857,7 @@ function MosaicBody({ d }: { d: DesignSystem }) {
  */
 function TimelineBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   const entries: [string, string, string][] = [
     ['2019', 'The first rule', `A single spacing unit, committed to before the first component existed. It is still the one thing nobody in ${d.name} argues about.`],
     ['2021', 'Type becomes the system', `${d.typography.displayFont} for display, ${d.typography.bodyFont} for everything else — chosen for contrast, not for trend.`],
@@ -860,8 +871,8 @@ function TimelineBody({ d }: { d: DesignSystem }) {
         <h1>{heroTitle(d)}</h1>
         <p className="dv-sub dv-align-left">{d.description}</p>
         <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
-          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Start the record</button>
-          <button className="dv-btn dv-btn-secondary">Read the changelog</button>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+          <button className="dv-btn dv-btn-secondary">{v.cta[1]}</button>
         </div>
       </header>
       <ol className="dv-tl">
@@ -889,6 +900,7 @@ function TimelineBody({ d }: { d: DesignSystem }) {
  */
 function SplitScrollBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <section className="dv-ss">
       <aside className="dv-ss-rail" style={{ borderColor: withAlpha(t.text, 0.16) }}>
@@ -900,7 +912,7 @@ function SplitScrollBody({ d }: { d: DesignSystem }) {
             ['Display type', d.typography.displayFont],
             ['Body type', d.typography.bodyFont],
             ['Radius', d.components.radius.split(',')[0]],
-            ['Ships with', '20+ components'],
+            ['Made for', d.useCases.slice(0, 2).join(' · ')],
           ].map(([k, v]) => (
             <div key={k} className="dv-ss-fact">
               <span className="dv-label">{k}</span>
@@ -923,17 +935,17 @@ function SplitScrollBody({ d }: { d: DesignSystem }) {
         <section className="dv-ss-block dv-ss-rule" style={{ borderColor: withAlpha(t.text, 0.14) }}>
           <h2 className="dv-h2">The numbers, in line</h2>
           <div className="dv-ss-rows">
-            {[['Adoption after one quarter', '94%'], ['Review rounds saved', '40%'], ['Tokens a new hire learns', '6'], ['Pages shipped on the system', '412']].map(([k, v]) => (
+            {v.stats.map(([k, val]) => (
               <div key={k} className="dv-ss-row">
                 <span>{k}</span>
-                <strong style={{ fontFamily: `'${t.display}', sans-serif`, color: t.primary }}>{v}</strong>
+                <strong style={{ fontFamily: `'${t.display}', sans-serif`, color: t.primary }}>{val}</strong>
               </div>
             ))}
           </div>
         </section>
         <section className="dv-ss-block">
           <h2 className="dv-h2">Get the first file</h2>
-          <MiniForm d={d} />
+          <MiniForm d={d} v={v} />
         </section>
       </div>
     </section>
@@ -1109,12 +1121,13 @@ function FieldNotesBody({ d }: { d: DesignSystem }) {
 /** Receipt — one narrow paper column: line items, total, barcode. */
 function ReceiptBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   const items: [string, string][] = [['House blend, 250g', '9.00'], ['Filter papers, 100', '4.50'], ['Brew class', '32.00'], ['Cup deposit', '1.00']]
   return (
     <section className="dv-receipt">
       <div className="dv-receipt-paper" style={{ borderColor: withAlpha(t.text, 0.22) }}>
         <p className="dv-receipt-brand">◈ {d.name}</p>
-        <p className="dv-receipt-meta">{d.category.toUpperCase()} · ORDER 2418 · 03 OCT</p>
+        <p className="dv-receipt-meta">{v.meta}</p>
         <div className="dv-receipt-rule" />
         {items.map(([name, price]) => (
           <p key={name} className="dv-receipt-line"><span>{name}</span><span>{price}</span></p>
@@ -1144,17 +1157,14 @@ function ReceiptBody({ d }: { d: DesignSystem }) {
 
 function BlockSection({ d, b, openFaq, setOpenFaq }: { d: DesignSystem; b: BlockId; openFaq: number; setOpenFaq: (i: number) => void }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   switch (b) {
     case 'testimonials':
       return (
         <div className="dv-block">
           <h3 className="dv-block-h">Testimonials</h3>
           <div className="dv-testi-grid">
-            {[
-              { q: `Adopting ${d.name} ended our style debates. The rules are the referee now.`, a: 'Placeholder Person, Product Lead', i: 'P' },
-              { q: 'I shipped a marketing page in an afternoon and nobody asked which template it was.', a: 'Placeholder Person, Founder', i: 'Q' },
-              { q: 'The tokens hold up under real deadlines. That is the whole review.', a: 'Placeholder Person, Eng Manager', i: 'R' },
-            ].map((x, i) => (
+            {v.quotes.map((x, i) => (
               <figure key={i} className="dv-card dv-testi">
                 <blockquote>“{x.q}”</blockquote>
                 <figcaption>
@@ -1171,8 +1181,8 @@ function BlockSection({ d, b, openFaq, setOpenFaq }: { d: DesignSystem; b: Block
         <div className="dv-block">
           <h3 className="dv-block-h">Numbers</h3>
           <div className="dv-stats-band dv-stats-inblock">
-            {[['98%', 'ship faster'], ['4.9★', 'avg. rating'], ['12k+', 'teams'], ['2×', 'release velocity']].map(([v, l]) => (
-              <div key={l} className="dv-stat"><strong>{v}</strong><span>{l}</span></div>
+            {v.stats.map(([val, l]) => (
+              <div key={l} className="dv-stat"><strong>{val}</strong><span>{l}</span></div>
             ))}
           </div>
         </div>
@@ -1217,13 +1227,13 @@ function BlockSection({ d, b, openFaq, setOpenFaq }: { d: DesignSystem; b: Block
         <div className="dv-block">
           <h3 className="dv-block-h">Plans</h3>
           <div className="dv-pricing-grid">
-            {[['Solo', '$0', ['1 workspace', 'Core token set', 'Community answers']], ['Studio', '$18', ['Unlimited workspaces', 'Every component spec', 'Prompt exports']], ['Org', '$49', ['Shared libraries', 'Review workflows', 'Onboarding kit']]].map(([name, price, items], pi) => (
-              <div key={name as string} className={`dv-card dv-mini-card dv-mini-card-price ${pi === 1 ? 'dv-price-hot' : ''}`} style={pi === 1 ? { borderColor: t.primary, borderWidth: 2 } : {}}>
+            {v.tiers.map(([name, price], pi) => (
+              <div key={name} className={`dv-card dv-mini-card dv-mini-card-price ${pi === 1 ? 'dv-price-hot' : ''}`} style={pi === 1 ? { borderColor: t.primary, borderWidth: 2 } : {}}>
                 {pi === 1 && <span className="dv-price-tag" style={{ background: withAlpha(t.accent, 0.15), color: t.accent }}>Most picked</span>}
                 <h3>{name}</h3>
-                <div className="dv-price">{price}<span>/mo</span></div>
-                <ul>{(items as string[]).map((li) => <li key={li}>{li}</li>)}</ul>
-                <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Choose {name as string}</button>
+                <div className="dv-price">{price}</div>
+                <ul>{voicePerks(v, pi).map((li) => <li key={li}>{li}</li>)}</ul>
+                <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Choose {name}</button>
               </div>
             ))}
           </div>
@@ -1351,15 +1361,15 @@ function DashExtraSlot({ d }: { d: DesignSystem }) {
 
 /* ================= Shared pieces ================= */
 
-function MiniForm({ d }: { d: DesignSystem }) {
+function MiniForm({ d, v }: { d: DesignSystem; v: VoicePack }) {
   const [msg, setMsg] = useState<string | null>(null)
   return (
-    <form className="dv-form" onSubmit={(e) => { e.preventDefault(); setMsg('Welcome aboard — check your inbox.') }}>
+    <form className="dv-form" onSubmit={(e) => { e.preventDefault(); setMsg(v.form.ok) }}>
       <label className="dv-label" htmlFor={`dv-email-${d.id}`}>Email</label>
       <input id={`dv-email-${d.id}`} className="dv-input" type="email" required placeholder="you@studio.com" />
       <div className="dv-btn-row">
-        <button className="dv-btn dv-btn-primary" style={btnStyle(themeOf(d))} type="submit">Request access</button>
-        <button className="dv-btn dv-btn-tertiary" style={{ background: 'transparent', color: themeOf(d).primary, border: 'none', cursor: 'pointer' }} type="button">Just browsing →</button>
+        <button className="dv-btn dv-btn-primary" style={btnStyle(themeOf(d))} type="submit">{v.form.submit}</button>
+        <button className="dv-btn dv-btn-tertiary" style={{ background: 'transparent', color: themeOf(d).primary, border: 'none', cursor: 'pointer' }} type="button">{v.form.tertiary}</button>
       </div>
       {msg && <p className="dv-form-ok" role="status">{msg}</p>}
     </form>

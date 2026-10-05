@@ -55,9 +55,12 @@ Every system ships: philosophy, typography (display + body fonts, scale, leading
 accessibility notes, and a themed live preview driven by those same tokens. Each card opens
 a full preview with:
 
-- **Live preview** — the complete page, plus the full component kit and per-design content
-  blocks, with Desktop / Tablet / Mobile framing (container queries, so the design truly
-  responds) and an arrangement switcher (2–4 layout archetypes per design).
+- **Live preview** — the complete sample page with copy written in each design's own
+  voice (nav, CTAs, stats, pricing, testimonials, and dashboard labels derived from the
+  design's tags and use-cases), plus per-design content blocks, Desktop / Tablet / Mobile
+  framing (container queries, so the design truly responds), and an arrangement switcher
+  (2–4 layout archetypes per design). The 110-component kit lives in its own Components
+  tab and the standalone Component kit view — it does not repeat inside the page.
 - **Colors** — a Color Studio: keep the design, swap the ink. Apply a curated palette, harmonize a full palette from any single color, or edit each of the six tokens; overrides save per design.
 - **Code** — a simplified, readable HTML/CSS sample (tokens + one hero).
 - **Details** — philosophy, click-to-copy palette, type scale, component specs, a themed
