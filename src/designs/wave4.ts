@@ -422,9 +422,9 @@ export const wave4Designs: DesignSystem[] = [
     designPhilosophy:
       'Booking is stressful, so the interface borrows from nautical charts: enough information to be safe, drawn calmly enough to read at a glance. Sea-teal on fog, dune highlights, enormous legible numerals for price and nights. One screen, one decision — dates, then place, then confirm.',
     designDetails:
-      'Fog #f0f4f5, deep-sea text #16323f, sea-teal #0f7c8c, dune #e3a857 highlight. Jost geometric display in tight 600; Be Vietnam Pro body. The date range is the hero component — 40px squares, dune fill on the selected span. Stays sit on white cards with 1px #d5e2e4 and a small waypoint dot colored by availability.',
+      'Fog #f0f4f5, deep-sea text #16323f, chart-navy #32437b, dune #e3a857 highlight. Jost geometric display in tight 600; Be Vietnam Pro body. The date range is the hero component — 40px squares, dune fill on the selected span. Stays sit on white cards with 1px #d5e2e4 and a small waypoint dot colored by availability.',
     colors: {
-      primary: '#0f7c8c',
+      primary: '#32437b',
       secondary: '#e3a857',
       accent: '#ef6f4c',
       neutral: '#dce8ea',
@@ -439,7 +439,7 @@ export const wave4Designs: DesignSystem[] = [
       letterSpacing: 'Display -0.01em, prices tabular',
     },
     components: {
-      primary: 'Solid sea-teal #0f7c8c, fog text, radius 8px, padding 12px 26px, 600',
+      primary: 'Solid chart-navy #32437b, fog text, radius 8px, padding 12px 26px, 600',
       secondary: '1px #b9cdd1 border, transparent, deep-sea text',
       tertiary: 'Sea-teal link with waypoint-dot prefix',
       radius: '8px controls, 12px cards',
@@ -462,17 +462,17 @@ export const wave4Designs: DesignSystem[] = [
       scroll: 'Search rail condenses to a floating pill after 600px',
     },
     accessibility:
-      'Deep-sea on fog 12.2:1; fog on sea-teal 5.2:1. Price and date numerals are tabular. Availability never relies on color alone — dots pair with text labels.',
+      'Deep-sea on fog 12.2:1; fog on chart-navy 8.5:1. Price and date numerals are tabular. Availability never relies on color alone — dots pair with text labels.',
     responsive:
       'Search rail overlays as a bottom sheet on mobile. Date grid drops to 7-up with 34px squares. Map panel hides under 1100px.',
     codeExample:
       '<section class="stay">\n  <div class="waypoint available" data-label="Open"></div>\n  <h2>Lighthouse Keep, Ore</h2>\n  <p class="price">$214 <span>/ night</span></p>\n  <button class="btn-chart">Check dates</button>\n</section>',
-    accent: '#0f7c8c',
+    accent: '#32437b',
     motif: 'pill-nav',
     layout: 'split-hero',
     useCases: ['Booking', 'Travel', 'Hotel'],
     signatureCss: `
-.dv-waypoint { width: 8px; height: 8px; border-radius: 999px; background: #0f7c8c; display: inline-block; }
+.dv-waypoint { width: 8px; height: 8px; border-radius: 999px; background: #32437b; display: inline-block; }
 .dv-price { font-variant-numeric: tabular-nums; }
 .dv-card { border-radius: 12px; }
 .dv-chart-rule { border-bottom: 1px solid #b9cdd1; }`,

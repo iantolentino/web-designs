@@ -211,7 +211,7 @@ signatureCss: `
     designPhilosophy:
       'Finance UI earns trust by exposing the math. Every figure is typographically exact, every action leaves a trail, and the ledger green reassures without decorating. The dashboard is a balance sheet that happens to be beautiful.',
     designDetails:
-      'Mint-paper #f4f6f5 with deep green-ink #10201b, ledger emerald #0d7a5f, and amber #d97706 flags. IBM Plex Mono stamps the identity — totals, tickers, headers; IBM Plex Sans carries UI copy so decimals align and prose stays humane. Cards are statement panels with 1px #dbe4e0 rules and mono running totals. Amber marks only exceptions and pending states.',
+      'Mint-paper #f4f6f5 with deep green-ink #10201b, ledger emerald #0d7a5f, and amber #d97706 flags. IBM Plex Mono stamps the identity — totals, tickers, headers; Public Sans carries UI copy so decimals align and prose stays humane. Cards are statement panels with 1px #dbe4e0 rules and mono running totals. Amber marks only exceptions and pending states.',
     colors: {
       primary: '#0d7a5f',
       secondary: '#10201b',
@@ -222,7 +222,7 @@ signatureCss: `
     },
     typography: {
       displayFont: 'IBM Plex Mono',
-      bodyFont: 'IBM Plex Sans',
+      bodyFont: 'Public Sans',
       scale: '12 / 14 / 16 / 19 / 24 / 32 / 52',
       lineHeights: 'Display 1.2, body 1.6',
       letterSpacing: 'Display -0.01em, figures 0.02em',
@@ -279,7 +279,7 @@ signatureCss: `
     designPhilosophy:
       'The deck your most skeptical client approves. Slate surfaces, a hairline grid you could rule with a straightedge, and copy that respects the reader’s time. Confidence comes from restraint: no gradients, no gimmicks, just structure.',
     designDetails:
-      'Cool slate #f5f6f8 with charcoal-blue #1f2733 ink and suit-slate #33415c structure; a single #b45f18 briefcase-tan accent marks key actions. Familjen Grotesk handles headlines; Source Sans 3 prose and IBM Plex Mono data. Cards are dossier pages with 1px #dfe3ea rules and tab labels. Everything left-aligned; the grid never breaks.',
+      'Cool slate #f5f6f8 with charcoal-blue #1f2733 ink and suit-slate #33415c structure; a single #b45f18 briefcase-tan accent marks key actions. Familjen Grotesk handles headlines; Hanken Grotesk prose and IBM Plex Mono data. Cards are dossier pages with 1px #dfe3ea rules and tab labels. Everything left-aligned; the grid never breaks.',
     colors: {
       primary: '#33415c',
       secondary: '#1b2432',
@@ -290,7 +290,7 @@ signatureCss: `
     },
     typography: {
       displayFont: 'Familjen Grotesk',
-      bodyFont: 'Source Sans 3',
+      bodyFont: 'Hanken Grotesk',
       scale: '12 / 14 / 16 / 19 / 24 / 32 / 54',
       lineHeights: 'Display 1.18, body 1.62',
       letterSpacing: 'Display -0.01em, labels 0.08em uppercase',

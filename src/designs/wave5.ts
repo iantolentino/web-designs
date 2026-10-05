@@ -84,9 +84,9 @@ export const wave5Designs: DesignSystem[] = [
     designPhilosophy:
       'Fashion speaks in whitespace. Maison Mode is the lookbook before the lookbook: one garment per breath, a didone headline that never competes with the cloth, and navigation so quiet you discover it. For fashion houses, stylists, and editorial shops that sell restraint as hard as they sell silk.',
     designDetails:
-      'Gallery white #faf9f7, ink #171513, blush #e8d5cc accents used once per view. DM Serif Display at enormous sizes, Karla body. Full-bleed lookbook imagery with caption side-notes, hairline-framed product plates, and a whisper-thin 1px rule system. Numbers are Roman-numeraled.',
+      'Gallery white #faf9f7, ink #171513, house bordeaux #642b47 for buttons and rules, blush #e8d5cc accents used once per view. DM Serif Display at enormous sizes, Karla body. Full-bleed lookbook imagery with caption side-notes, hairline-framed product plates, and a whisper-thin 1px rule system. Numbers are Roman-numeraled.',
     colors: {
-      primary: '#171513',
+      primary: '#642b47',
       secondary: '#8a8378',
       accent: '#e8d5cc',
       neutral: '#efece7',
@@ -101,8 +101,8 @@ export const wave5Designs: DesignSystem[] = [
       letterSpacing: 'Display -0.01em; labels 0.22em uppercase',
     },
     components: {
-      primary: 'Solid #171513, gallery text, radius 0, wide 18px 44px padding, 500',
-      secondary: '1px #171513 border underline style, transparent',
+      primary: 'Solid #642b47, gallery text, radius 0, wide 18px 44px padding, 500',
+      secondary: '1px #642b47 border underline style, transparent',
       tertiary: 'Ink text link with long em-dash on hover',
       radius: '0 everywhere — tailoring has no round corners',
       hover: 'Image scales 1.02 inside frame, 600ms; caption slides up',
@@ -124,7 +124,7 @@ export const wave5Designs: DesignSystem[] = [
       scroll: 'Parallax plates at 0.96x; rules stay fixed',
     },
     accessibility:
-      '#171513 on #faf9f7 15.8:1. Focus 2px ink outline. Whitespace is decorative — all text passes contrast with margin to spare.',
+      'Ink #171513 on #faf9f7 15.8:1; gallery text on bordeaux #642b47 10.1:1. Focus 2px bordeaux outline. Whitespace is decorative — all text passes contrast with margin to spare.',
     responsive:
       'Lookbook stacks to single column; captions move below plates. Display clamps 3rem→4.5rem. Menu collapses to quiet drawer.',
     codeExample:
@@ -151,7 +151,7 @@ export const wave5Designs: DesignSystem[] = [
     designPhilosophy:
       'Fitness design lies with gradients and fake energy. Iron Cadence tells the truth: massive slab numerals for reps and plates, chalk-white on iron grey, and copy that reads like a training block — sets, reps, rest. For gyms, strength coaches, and programs that respect the work.',
     designDetails:
-      'Iron #17181a canvas, chalk #f2f0eb, plate-red #d33f2e for PRs and alerts. Alfa Slab One display, Source Sans 3 body. Rep-scheme tables, rest-timer rings, and plate-math graphics (45/25/10/5). Hard 6px shadows, square corners, uppercase everything short.',
+      'Iron #17181a canvas, chalk #f2f0eb, plate-red #d33f2e for PRs and alerts. Alfa Slab One display, Figtree body. Rep-scheme tables, rest-timer rings, and plate-math graphics (45/25/10/5). Hard 6px shadows, square corners, uppercase everything short.',
     colors: {
       primary: '#f2f0eb',
       secondary: '#8c8f94',
@@ -162,7 +162,7 @@ export const wave5Designs: DesignSystem[] = [
     },
     typography: {
       displayFont: 'Alfa Slab One',
-      bodyFont: 'Source Sans 3',
+      bodyFont: 'Figtree',
       scale: '15 / 17 / 20 / 25 / 34 / 48 / 68',
       lineHeights: 'Display 1.0, body 1.55',
       letterSpacing: 'Display 0; labels 0.1em uppercase',
@@ -349,7 +349,7 @@ export const wave5Designs: DesignSystem[] = [
     designPhilosophy:
       'Pet brands condescend with paw-print clip art. Kennel & Co. respects the animal and the owner: earthy linen field, intelligent serif display, and photography treated like portraiture. For shelters, vets, groomers, and pet food that reads like it was made by people with dogs.',
     designDetails:
-      'Linen #f6f1e7, moss #6f7d54, clay #b96a4b, ink #3b362e. Young Serif display, Livvic body. Portrait-framed animal photography (arched tops), adoption cards as file-folder tabs, vet-record tables with paw-free iconography, and a warm dashed rule system.',
+      'Linen #f6f1e7, moss #6f7d54, clay #b96a4b, ink #3b362e. Young Serif display, Mulish body. Portrait-framed animal photography (arched tops), adoption cards as file-folder tabs, vet-record tables with paw-free iconography, and a warm dashed rule system.',
     colors: {
       primary: '#6f7d54',
       secondary: '#b96a4b',
@@ -360,7 +360,7 @@ export const wave5Designs: DesignSystem[] = [
     },
     typography: {
       displayFont: 'Young Serif',
-      bodyFont: 'Livvic',
+      bodyFont: 'Mulish',
       scale: '15 / 17 / 19 / 24 / 31 / 42 / 58',
       lineHeights: 'Display 1.15, body 1.7',
       letterSpacing: 'Display 0; tabs 0.06em',

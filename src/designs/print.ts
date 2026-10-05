@@ -73,13 +73,13 @@ export const printDesigns: DesignSystem[] = [
     name: 'Neo Gothic',
     category: 'Luxury',
     tags: ['gothic', 'dark', 'mystical', 'blackletter', 'arch'],
-    description: 'Cathedral darkness: blackletter hints, arches, candlelit gold.',
+    description: 'Cathedral darkness: blackletter hints, arches, moonlit silver.',
     designPhilosophy:
       'The sacred and the serious. Deep obsidian surfaces, pointed-arch frames, blackletter-flavored display, and gilded accents that catch light like candle flames on stone. For brands that trade in mystery, craftsmanship, and weight — rare spirits, artisan ateliers, the occult of taste.',
     designDetails:
-      'Near-black #0e0c12 with ultra-dark purple undertones, antique gold #c9a227-family hairlines, and deep crimson accents. UnifrakturMaguntia appears only in the wordmark and drop caps; Cormorant Garamond carries display; EB Garamond the body. Pointed arches (border-radius 50% 50% 0 0 / 100% 100% 0 0 on tall elements) frame imagery. Hairline gold rules with a center diamond ornament ◆.',
+      'Near-black #0e0c12 with ultra-dark purple undertones, antique silver #a9a6b0-family hairlines and arches, gilt #c9a227 held back for ornaments, and deep crimson accents. UnifrakturMaguntia appears only in the wordmark and drop caps; Cormorant Garamond carries display; EB Garamond the body. Pointed arches (border-radius 50% 50% 0 0 / 100% 100% 0 0 on tall elements) frame imagery. Hairline silver rules with a center gilt diamond ornament ◆.',
     colors: {
-      primary: '#c9a227',
+      primary: '#a9a6b0',
       secondary: '#4a1942',
       accent: '#8e2436',
       neutral: '#1c1826',
@@ -94,15 +94,15 @@ export const printDesigns: DesignSystem[] = [
       letterSpacing: 'Display 0.01em, labels 0.22em uppercase',
     },
     components: {
-      primary: '1px gold border, transparent, gold text, padding 14px 36px, uppercase 0.18em, fills gold (text obsidian) over 400ms',
+      primary: '1px silver border, transparent, silver text, padding 14px 36px, uppercase 0.18em, fills silver (text obsidian) over 400ms',
       secondary: '1px rgba(232,221,200,.3) border, parchment text',
-      tertiary: 'Gold text link with slow underline draw',
+      tertiary: 'Silver text link with slow underline draw',
       radius: 'Arches only: 999px 999px 0 0 on frames; buttons square',
-      hover: 'Slow gold fills; arch frames brighten; 400ms patience',
-      cards: 'Obsidian panels with 1px gold hairline and top center diamond ornament',
-      forms: 'Bottom-hairline inputs, gold focus, small-caps labels',
+      hover: 'Slow silver fills; arch frames brighten; 400ms patience',
+      cards: 'Obsidian panels with 1px silver hairline and a gilt diamond ornament',
+      forms: 'Bottom-hairline inputs, silver focus, small-caps labels',
       navigation: 'Centered wordmark with flanking hairlines; tiny uppercase links',
-      modals: 'Arch-topped obsidian panel with double gold frame',
+      modals: 'Arch-topped obsidian panel with double silver frame',
     },
     spacing: {
       baseUnit: '16px',
@@ -111,17 +111,17 @@ export const printDesigns: DesignSystem[] = [
       grid: 'Single 760px nave column; 12-col only in galleries',
     },
     motion: {
-      pageLoad: 'Gold hairlines draw outward from center 700ms; text fades after',
-      hoverStates: '400ms gold fills; nothing bounces in a cathedral',
+      pageLoad: 'Silver hairlines draw outward from center 700ms; text fades after',
+      hoverStates: '400ms silver fills; nothing bounces in a cathedral',
       transitions: 'Slow, reverent, 400–600ms ease',
       scroll: 'Sections emerge from dark (opacity 0.4→1) over 700ms',
     },
     accessibility:
-      'Parchment on obsidian 13.8:1; gold on obsidian 7.6:1. Focus 2px gold outline offset 4px. Blackletter decorative only, aria-hidden. prefers-reduced-motion removes the emergence effect.',
+      'Parchment on obsidian 14.5:1; silver on obsidian 8.1:1. Focus 2px silver outline offset 4px. Blackletter decorative only, aria-hidden. prefers-reduced-motion removes the emergence effect.',
     responsive:
       'Nave column holds to 92vw. Arch frames become simple rounded tops under 640px. Display clamps 2.5rem→4.75rem. Wordmark alone survives small navs.',
     codeExample:
-      '<section class="sanctum">\n  <p class="kicker">Chapter VII</p>\n  <h1>The <em>Unseen</em> Collection</h1>\n  <a class="ghost-gold" href="#">Request audience</a>\n</section>',
+      '<section class="sanctum">\n  <p class="kicker">Chapter VII</p>\n  <h1>The <em>Unseen</em> Collection</h1>\n  <a class="ghost-silver" href="#">Request audience</a>\n</section>',
     accent: '#c9a227',
     motif: 'serif-italic-hero',
     layout: 'centered',
@@ -132,7 +132,7 @@ export const printDesigns: DesignSystem[] = [
 .dv-card { position: relative; }
 .dv-card::before { content: '◆'; position: absolute; top: -0.7em; left: 50%; transform: translateX(-50%); color: #c9a227; font-size: 0.7em; background: #0e0c12; padding: 0 8px; }
 .dv-btn { transition: background .4s, color .4s; }
-.dv-btn:hover { background: #c9a227; color: #0e0c12; }`,
+.dv-btn:hover { background: #a9a6b0; color: #0e0c12; }`,
     author: 'Aurélie Fontaine',
     createdAt: '2026-05-09',
     popularity: 86,

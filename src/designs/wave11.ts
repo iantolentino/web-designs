@@ -736,7 +736,7 @@ export const wave11Designs: DesignSystem[] = [
       'A port measures itself in moves per hour and apologises to no one. Throughput is the operations board for that world — harbour blue, crane amber, and berth rows a dispatcher can read with one eye while talking on the radio.',
     colors: { primary: '#075985', secondary: '#64748b', accent: '#f59e0b', neutral: '#dbe4ea', background: '#eef3f6', text: '#10222e' },
     display: 'Chakra Petch',
-    body: 'IBM Plex Sans',
+    body: 'Work Sans',
     motif: 'slat-shadow',
     layout: 'dashboard',
     radius: 2,

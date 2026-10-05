@@ -216,7 +216,7 @@ signatureCss: `
     designPhilosophy:
       'The Memphis Group threw a party on your screen. Squiggle lines, terrazzo dot patterns, clashing-but-curated primary colors, and Bungee/Archivo Black confidence. Playful geometry with gallery-certified composition underneath.',
     designDetails:
-      'White base attacked by geometric confetti: CSS squiggle borders (repeating gradients), terrazzo dot fields, and 3-color blocks (coral, teal, mustard) with ink outlines. Archivo Black display; Karla body. Cards have thick outlines + hard offset shadows. Squiggle dividers separate sections. Every color block gets a black 2px outline for that printed-1981 look.',
+      'White base attacked by geometric confetti: CSS squiggle borders (repeating gradients), terrazzo dot fields, and 3-color blocks (coral, teal, mustard) with ink outlines. Archivo Black display; Space Grotesk body. Cards have thick outlines + hard offset shadows. Squiggle dividers separate sections. Every color block gets a black 2px outline for that printed-1981 look.',
     colors: {
       primary: '#ff5964',
       secondary: '#00a896',
@@ -227,7 +227,7 @@ signatureCss: `
     },
     typography: {
       displayFont: 'Archivo Black',
-      bodyFont: 'Karla',
+      bodyFont: 'Space Grotesk',
       scale: '13 / 15 / 17 / 21 / 28 / 40 / 64',
       lineHeights: 'Display 1.0, body 1.55',
       letterSpacing: 'Display 0, labels 0.1em uppercase',
@@ -235,11 +235,11 @@ signatureCss: `
     components: {
       primary: 'Solid #ff5964, 2px #1d1d1d outline, white text, radius 12px, padding 14px 28px, 800, shadow 5px 5px 0 #1d1d1d',
       secondary: 'Solid #00a896 with same outline treatment, ink text',
-      tertiary: 'Ink Karla 700 link with squiggle underline image on hover',
+      tertiary: 'Ink Space Grotesk 700 link with squiggle underline image on hover',
       radius: '12px buttons, 16px cards — rounded but outlined',
       hover: 'Shadow grows to 7px 7px + element shifts -2px,-2px, 150ms',
       cards: 'White, 2px #1d1d1d border, radius 16px, hard shadow 6px 6px 0, padding 28px, terrazzo corner decorations',
-      forms: 'Outlined inputs 2px, squiggle focus underline, Karla labels',
+      forms: 'Outlined inputs 2px, squiggle focus underline, Space Grotesk labels',
       navigation: 'White bar with squiggle bottom border and outlined pill links',
       modals: 'White outlined panel with terrazzo header band',
     },

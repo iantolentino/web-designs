@@ -77,7 +77,7 @@ export const urbanDesigns: DesignSystem[] = [
     designPhilosophy:
       'The wall at 2am. Layered tags, paste-up posters, spray textures, and stickers half-peeled. Rebellious but composed — the chaos has rhythm. For streetwear, music venues, skate brands, and anyone whose audience flinches at corporate gloss.',
     designDetails:
-      'Concrete #2a2a2a canvas with spray-tag gradients (Permanent Marker font for accent words), sticker cards (white border + drop shadow + slight rotation), and torn-paper edges via clip-path polygons. Neon spray accents (#f5f5f5, lime, hot pink). Be Vietnam Pro body; Permanent Marker display moments.',
+      'Concrete #2a2a2a canvas with spray-tag gradients (Permanent Marker font for accent words), sticker cards (white border + drop shadow + slight rotation), and torn-paper edges via clip-path polygons. Neon spray accents (#f5f5f5, lime, hot pink). Work Sans body; Permanent Marker display moments.',
     colors: {
       primary: '#e6e6e6',
       secondary: '#c6ff4e',
@@ -88,7 +88,7 @@ export const urbanDesigns: DesignSystem[] = [
     },
     typography: {
       displayFont: 'Permanent Marker',
-      bodyFont: 'Be Vietnam Pro',
+      bodyFont: 'Work Sans',
       scale: '13 / 15 / 17 / 21 / 27 / 38 / 58',
       lineHeights: 'Display 1.1, body 1.6',
       letterSpacing: 'Display 0.02em, labels 0.1em uppercase',

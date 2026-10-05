@@ -10,7 +10,7 @@ export const homestyleDesigns: DesignSystem[] = [
     designPhilosophy:
       'The life we imagine when we close our eyes at a desk: linen drying in wind, jam in mismatched jars, a dog asleep on the draft excluder. Design that feels handmade — soft edges, gingham checks, botanical flourishes, and type with warmth instead of gloss. For farms, bakeries, craft marketplaces, and retreats.',
     designDetails:
-      'Oatmeal #f8f3e7 canvas, butter #f2d8a7, sage #8a9b6e, and berry #b0575c accents. Bitter body; Fraunces soft display. Gingham pattern strips (repeating-conic-gradient), scalloped borders (radial-gradient dots), and botanical ✿ ❀ ornaments. Cards look like paper labels tied with twine (dashed border top).',
+      'Oatmeal #f8f3e7 canvas, butter #f2d8a7, sage #8a9b6e, and berry #b0575c accents. Figtree body; Fraunces soft display. Gingham pattern strips (repeating-conic-gradient), scalloped borders (radial-gradient dots), and botanical ✿ ❀ ornaments. Cards look like paper labels tied with twine (dashed border top).',
     colors: {
       primary: '#8a9b6e',
       secondary: '#b0575c',
@@ -21,7 +21,7 @@ export const homestyleDesigns: DesignSystem[] = [
     },
     typography: {
       displayFont: 'Fraunces',
-      bodyFont: 'Bitter',
+      bodyFont: 'Figtree',
       scale: '14 / 16 / 18 / 22 / 28 / 38 / 54',
       lineHeights: 'Display 1.15, body 1.75',
       letterSpacing: 'Display 0, labels 0.14em uppercase',
@@ -78,7 +78,7 @@ export const homestyleDesigns: DesignSystem[] = [
     designPhilosophy:
       'Scandinavian design with the candles lit. The minimalism stays — clean forms, honest materials, no clutter — but the palette warms and the shadows soften. Everything invites you to stay a while. For wellness, D2C home goods, and services that promise calm without promising emptiness.',
     designDetails:
-      'Warm grey #eceae5 canvas, charcoal #2d2a26, oat and terracotta accents. Manrope everywhere, weights doing quiet work. Rounded 20px forms, wool-texture subtle noise, and shadows like lamplight (large, soft, warm-tinted). Photography frames are arched. One candle-flame amber accent for actions.',
+      'Warm grey #eceae5 canvas, charcoal #2d2a26, oat and terracotta accents. Manrope display with Mulish body, weights doing quiet work. Rounded 20px forms, wool-texture subtle noise, and shadows like lamplight (large, soft, warm-tinted). Photography frames are arched. One candle-flame amber accent for actions.',
     colors: {
       primary: '#c97b4a',
       secondary: '#6e675e',
@@ -89,7 +89,7 @@ export const homestyleDesigns: DesignSystem[] = [
     },
     typography: {
       displayFont: 'Manrope',
-      bodyFont: 'Manrope',
+      bodyFont: 'Mulish',
       scale: '13 / 15 / 17 / 21 / 27 / 36 / 52',
       lineHeights: 'Display 1.15, body 1.7',
       letterSpacing: 'Display -0.01em, labels 0.1em uppercase',

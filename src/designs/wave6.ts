@@ -3395,9 +3395,9 @@ export const wave6Designs: DesignSystem[] = [
     designPhilosophy:
       'Zoetrope is about pre-cinema animation, so the page is a drum: a horizontal strip of fourteen frames you scrub through, with a slit-viewer metaphor that only reveals one frame at a time until you turn it. Motion is derived from rotation, not from scroll position, and the whole system is built from brass rules and ink. For animation archives, museums, and studios that care where the frame came from.',
     designDetails:
-      'Aged paper #f1f0ec with ink #2d2216, brass #a8742c rules, and a faded gilt #8f7a58 for secondary figures. Frames are drawn as 14 equal strips with 1px brass separators, and the slit is a 2px ink bar that masks all but the active frame. Type is a display wood-face paired with a typewriter mono, so captions read as labels in a museum vitrine.',
+      'Aged paper #f1f0ec with Victorian mauve #622277, brass #a8742c rules, and a faded gilt #8f7a58 for secondary figures. Frames are drawn as 14 equal strips with 1px brass separators, and the slit is a 2px mauve bar that masks all but the active frame. Type is a display wood-face paired with a typewriter mono, so captions read as labels in a museum vitrine.',
     colors: {
-      primary: '#2d2216',
+      primary: '#622277',
       secondary: '#8f7a58',
       accent: '#a8742c',
       neutral: '#ddd9d2',
@@ -3412,7 +3412,7 @@ export const wave6Designs: DesignSystem[] = [
       letterSpacing: 'Caption labels 0.08em uppercase; display 0.01em',
     },
     components: {
-      primary: 'Brass-framed ink block with a 2px brass rule along the top and 0.08em tracked label, radius 2px',
+      primary: 'Brass-framed mauve block with a 2px brass rule along the top and 0.08em tracked label, radius 2px',
       secondary: 'Vitrine chip with a frame number and a revolution count',
       tertiary: 'A frame number link that advances the strip by one frame',
       radius: '2px controls, 2px cards — brass fittings, squared off',
@@ -3437,7 +3437,7 @@ export const wave6Designs: DesignSystem[] = [
     accessibility:
       '#241c12 on #f1f0ec is 14.6:1; brass at 4.5:1 is confined to rules and frame numerals at 17px+. Because the slit metaphor intentionally hides frames, the strip is a real list with every frame caption present in the DOM, and the mask is aria-hidden. Reduced motion replaces rotation with instant frame changes and shows all captions.',
     responsive:
-      'The fourteen-frame strip becomes a seven-frame strip below 860px and a scrubber with a frame counter below 560px, with the slit retained as a 2px ink bar. Captions move below their frame at 620px. Brass separators reduce from 1px to 1px but spacing halves so the drum stays legible.',
+      'The fourteen-frame strip becomes a seven-frame strip below 860px and a scrubber with a frame counter below 560px, with the slit retained as a 2px mauve bar. Captions move below their frame at 620px. Brass separators reduce from 1px to 1px but spacing halves so the drum stays legible.',
     codeExample:
       '<section class="drum">\n  <p class="kicker">DRUM 4 · 14 FRAMES · 1834</p>\n  <h1>One revolution, <em>fourteen frames.</em></h1>\n  <p class="caption">FRAME 07 · the horse runs · slit at 2 mm</p>\n  <button class="btn-primary">Turn the drum</button>\n</section>',
     accent: '#a8742c',
@@ -3445,10 +3445,10 @@ export const wave6Designs: DesignSystem[] = [
     layout: 'magazine',
     useCases: ['Art Gallery', 'Film & TV', 'Education'],
     signatureCss: `.dv-card { border-radius: 2px; border: 1px solid #a8742c44; border-top: 2px solid #a8742c; background: #fffdf8; }
-.dv-card::after { content: ''; position: absolute; inset: 0 6px auto 6px; height: 2px; background: repeating-linear-gradient(90deg, #2d2216 0 2px, transparent 2px 14px); }
+.dv-card::after { content: ''; position: absolute; inset: 0 6px auto 6px; height: 2px; background: repeating-linear-gradient(90deg, #622277 0 2px, transparent 2px 14px); }
 .dv-hero h1 em { color: #a8742c; font-style: normal; }
-.dv-btn-primary { border-radius: 2px; background: #2d2216; color: #f1f0ec; border-top: 2px solid #a8742c; }
-.dv-badge { background: #ddd9d2; color: #2d2216; border-radius: 2px; font-family: 'Courier Prime', monospace; }
+.dv-btn-primary { border-radius: 2px; background: #622277; color: #f1f0ec; border-top: 2px solid #a8742c; }
+.dv-badge { background: #ddd9d2; color: #622277; border-radius: 2px; font-family: 'Courier Prime', monospace; }
 .dv-stat strong { color: #a8742c; font-family: 'Rye', serif; }
 .dv-media { border-radius: 2px; background: repeating-linear-gradient(90deg, #ddd9d2 0 14px, #f1f0ec 14px 16px); }`,
     author: 'Julian Ashby',
