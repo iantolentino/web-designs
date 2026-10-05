@@ -1,6 +1,6 @@
 # The Design Vault
 
-A production-grade design-system showcase: **500 curated, intentionally distinct design
+A production-grade design-system showcase: **550 curated, intentionally distinct design
 systems**, a **153-layout pattern library**, and a **110-component kit** — all browsable,
 previewable live, and copyable as ready-to-use AI design prompts. 
 Built to kill AI design slop — no Inter, no purple-on-white, no generic layouts.
@@ -28,7 +28,7 @@ sort, and saved filters live there, so the main column is nothing but content.
 
 | View | What it shows |
 | --- | --- |
-| **Design systems** | 500 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
+| **Design systems** | 550 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
 | **Layout arrangements** | 21 archetypes (incl. Bento, Poster, Catalog, Docs, Map plate); each design offers its own set so previews differ structurally, not just by color. |
 | **Pattern library** | 153 production layouts with live previews, filterable by family and searchable by block. |
 | **Component kit** | The 110-component kit rendered for any design — with a side-by-side compare mode. |
@@ -38,7 +38,7 @@ On narrow screens the sidebar becomes a drawer (hamburger in the top bar, `Esc` 
 
 ## What's inside
 
-### Design systems (500)
+### Design systems (550)
 
 Twenty-one arrangements ship today: the original thirteen (hero + cards, split hero, magazine,
 dashboard, centered, editorial, asymmetric, full-bleed, spotlight, manifesto, bento, poster,
@@ -68,7 +68,7 @@ a full preview with:
 `src/components/ComponentKit.tsx` implements one vocabulary — buttons, fields, selection
 controls, feedback, data display, navigation, and overlays — and renders it entirely from
 whatever tokens it is handed. Nothing is hard-coded, which is why the same kit reads as a
-different product in every one of the 500 systems. Groups:
+different product in every one of the 550 systems. Groups:
 
 **Inputs & actions** (28) · **Selection & toggles** (14) · **Feedback & status** (15) ·
 **Data display** (23) · **Navigation** (10) · **Overlays & media** (20)
@@ -123,12 +123,12 @@ bucket is 5 designs, and `npm run verify` fails the build if that stops being tr
 
 ## Speed
 
-Three things keep the vault fast as the catalog grows past 500 systems:
+Three things keep the vault fast as the catalog grows past 550 systems:
 
 - **The catalog loads lazily.** `src/designs/*` is more than two thirds of the app's
   JavaScript, so the shell (topbar, sidebar, search, theme) paints from its own markup while
   the design data streams in behind it through a dynamic import. The entry chunk is ~85 kB
-  gzipped, the catalog ~300 kB, and the gallery shows shimmer cards — never an empty page —
+  gzipped, the catalog ~315 kB, and the gallery shows shimmer cards — never an empty page —
   for the frames in between. `src/catalog.ts` is the only module that touches the data
   module directly.
 - **Everything else is prefetched on intent.** Hovering a card, a view button, or a palette
@@ -180,8 +180,8 @@ src/
 
 Design thumbnails and previews are the **same component** (`MiniSite`) — cards render it
 scaled inside the thumb, the preview renders it full-size in a device frame. Each design's
-`signatureCss` is auto-scoped per instance so 500 previews can coexist without style bleed.
-Thumbnails use `compact` mode, which skips the kit and blocks sections so 500 scaled pages
+`signatureCss` is auto-scoped per instance so 550 previews can coexist without style bleed.
+Thumbnails use `compact` mode, which skips the kit and blocks sections so 550 scaled pages
 stay cheap.
 
 ## Adding a design system
