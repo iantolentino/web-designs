@@ -22,8 +22,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'The diagonal is doing the arguing.',
     designPhilosophy:
       'Constructivism treated a poster as a machine: no ornament, one direction, maximum force. Constructivist Press keeps that discipline for the web — bands that run at an angle, type that is either enormous or tiny with nothing in between, and a red that appears because it is the point rather than because it is pretty. For campaigns, journals, and studios with something to say.',
-    designDetails:
-      'Oxblood #c62828, paper #f4efe4, and true black #111. Diagonal bands at 18° behind the hero, condensed uppercase headlines, and a single red circle per screen. Zero radius; shadows are replaced by solid offset plates.',
     colors: { primary: '#c62828', secondary: '#111111', accent: '#1b5e20', neutral: '#e7e0d2', background: '#f4efe4', text: '#14110e' },
     typography: {
       displayFont: 'Oswald',
@@ -43,19 +41,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Heavy black bar with a red index mark',
       modals: 'Full plate with a red title strip',
     },
-    spacing: { baseUnit: '4px', marginScale: '8 / 16 / 32 / 64 / 120', paddingScale: '12 / 24 / 44 / 72', grid: '12-column, 1240px max, 16px gutter' },
-    motion: {
-      pageLoad: 'Bands slide in from the diagonal, 260ms',
-      hoverStates: 'Hard 4px offset, 90ms linear',
-      transitions: 'No easing — mechanical',
-      scroll: 'Sections snap in once, never fade',
-    },
-    accessibility:
-      'Ink 14.2:1 on paper; red at 5.6:1 always paired with a label or shape. Focus is a 3px black outline offset 2px. Diagonal bands are aria-hidden.',
-    responsive:
-      'Bands shorten but keep their angle; headline clamps between 34 and 68px; grids collapse 4 → 2 → 1 under 720px.',
-    codeExample:
-      '<section class="press">\n  <span class="band" aria-hidden="true"></span>\n  <h1>Act, do not <em>decorate.</em></h1>\n  <button class="btn-press">Agitate</button>\n</section>',
     accent: '#c62828',
     motif: 'diagonal-bars',
     layout: 'poster',
@@ -77,8 +62,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Benday dots and a raised voice.',
     designPhilosophy:
       'Pop art argued that a grocery can is a legitimate subject. Pop Print takes the printing screen seriously instead of ironically: halftone dots large enough to see, hard black outlines, and colours placed with no blending allowed. It is loud because comic covers are loud, not because contrast is trendy. For retail, merch, and entertainment.',
-    designDetails:
-      'Pop yellow #ffd400, cyan #00a9e0, hot red #ee2e24, and ink #111. Righteous display with Archivo body. Halftone dot fields behind heroes, 3px black outlines on every card, and a speech-balloon shape for CTAs.',
     colors: { primary: '#ee2e24', secondary: '#00a9e0', accent: '#ffd400', neutral: '#f6ecd2', background: '#fffdf5', text: '#111111' },
     typography: {
       displayFont: 'Righteous',
@@ -98,19 +81,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Outlined bar with a starburst logo',
       modals: 'Panel with a dashed speech-balloon header',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 32 / 48 / 88', paddingScale: '14 / 24 / 36 / 56', grid: '12-column, 1200px max, 24px gutter' },
-    motion: {
-      pageLoad: 'Cards stamp down 8px, 180ms each',
-      hoverStates: 'Offset +2px, 120ms ease-out',
-      transitions: 'Transform only',
-      scroll: 'Sections pop in once',
-    },
-    accessibility:
-      'Ink 17.9:1 on the cream ground; red/cyan/yellow always carry ink outlines so they read without colour. Focus 3px black with 2px offset.',
-    responsive:
-      'The halftone field shrinks dot spacing; outline cards reflow 3 → 2 → 1; headlines clamp.',
-    codeExample:
-      '<section class="pop">\n  <h1>Great items at <em>loud</em> prices.</h1>\n  <p>Every detail outlined. Nothing blended.</p>\n  <button class="btn-pop">Show me</button>\n</section>',
     accent: '#ee2e24',
     motif: 'halftone-dots',
     layout: 'bento',
@@ -132,8 +102,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'A courtyard, folded into eight points.',
     designPhilosophy:
       'Islamic tile work is a design system in the literal sense: one geometric rule generating infinite surface. Zellige Palace takes the eight-point star as a layout logic — nested frames, brass hairlines, and emerald held back so the pattern does the work. For hotels, heritage brands, and hospitality that wants to feel handmade.',
-    designDetails:
-      'Emerald #0f5f4a over courtyard cream #f7f3e8, brass #c9a227 for frames and rules, ink #14201c text. Marcellus display with Quicksand body. Star-tile dividers, 1px brass frames, and generous 40px insets.',
     colors: { primary: '#0f5f4a', secondary: '#0b3b30', accent: '#c9a227', neutral: '#eae4d4', background: '#f7f3e8', text: '#14201c' },
     typography: {
       displayFont: 'Marcellus',
@@ -153,19 +121,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Quiet bar with a brass rule underneath',
       modals: 'Nested frame with a tiled corner motif',
     },
-    spacing: { baseUnit: '8px', marginScale: '16 / 32 / 56 / 96 / 144', paddingScale: '18 / 32 / 48 / 72', grid: '12-column, 1160px max, 32px gutter' },
-    motion: {
-      pageLoad: 'Tiles resolve in, 400ms, 60ms apart',
-      hoverStates: 'Frame brighten, 220ms ease-out',
-      transitions: 'Opacity and transform only',
-      scroll: 'Sections fade once at 15%',
-    },
-    accessibility:
-      'Text 13.4:1 on cream; brass at 4.6:1 only for rules and labels. Focus 3px emerald ring. Decorative tile patterns are aria-hidden.',
-    responsive:
-      'The courtyard grid reflows 3 → 1; brass frames inset to 20px under 640px.',
-    codeExample:
-      '<section class="palace">\n  <h1>Eight points, <em>one room.</em></h1>\n  <p>Hand-cut tile, laid by four generations.</p>\n  <button class="btn-palace">Reserve</button>\n</section>',
     accent: '#0f5f4a',
     motif: 'corner-brackets',
     layout: 'spotlight',
@@ -187,8 +142,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Colour that cooled into a shape.',
     designPhilosophy:
       'Murano glass is expensive because the window for working it is seconds. Murano Glass keeps that urgency in the surface: saturated jewel gradients, glossy edges, and a dark ground that lets colour carry. It is decorative without being fussy. For galleries, accessories, and premium retail.',
-    designDetails:
-      'Deep teal #062a2e ground with molten amber #f08a24, garnet #b83b5e, and aqua #46c1c1. Abril Fatface display with Jost body. Gradients used on objects only, never on type; hairline specular highlights; 20px corners.',
     colors: { primary: '#f08a24', secondary: '#b83b5e', accent: '#46c1c1', neutral: '#0d3439', background: '#062a2e', text: '#eef6f6' },
     typography: {
       displayFont: 'Abril Fatface',
@@ -208,19 +161,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Floating glass bar with a light hairline',
       modals: 'Rounded sheet with a specular edge',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 40 / 72 / 120', paddingScale: '16 / 26 / 44 / 64', grid: '12-column, 1180px max, 28px gutter' },
-    motion: {
-      pageLoad: 'Objects settle, 460ms, no bounce',
-      hoverStates: 'Gloss sweep 240ms ease-out',
-      transitions: 'Transform and background-position',
-      scroll: 'Parallax on the showcase only',
-    },
-    accessibility:
-      'Text 14.7:1 on teal; aqua links at 7.1:1; gradients always paired with solid text. Focus 3px aqua. Gloss is decorative only.',
-    responsive:
-      'The collection grid goes 3 → 2 → 1; the gradient showcase becomes a single centred object under 700px.',
-    codeExample:
-      '<section class="glass">\n  <h1>Colour, <em>caught mid-air.</em></h1>\n  <p>Blown, cut, and cooled in one morning.</p>\n  <button class="btn-murano">View the collection</button>\n</section>',
     accent: '#f08a24',
     motif: 'gradient-hero',
     layout: 'split-hero',
@@ -241,8 +181,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Nothing commits like a mirrorball.',
     designPhilosophy:
       'Disco design gets dismissed as tacky, which is exactly why it is honest. Mirrorball leans into chrome type, gold on plum, and light that never settles. It is for brands that admit they want to be watched. Nightlife, festivals, and retail with a stage.',
-    designDetails:
-      'Plum #2a1338 with chrome #f2eef6, gold #f7c948, and magenta #ff5db1. Monoton display with Outfit body. Chrome gradient type, a radial flare behind the hero, and repeating gold ticks like a hanging ball.',
     colors: { primary: '#ff5db1', secondary: '#7c3aad', accent: '#f7c948', neutral: '#3a1f4d', background: '#2a1338', text: '#f2eef6' },
     typography: {
       displayFont: 'Monoton',
@@ -262,19 +200,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Chrome bar that reflects the hero',
       modals: 'Glitter sheet with a gold rule',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 32 / 56 / 96', paddingScale: '14 / 24 / 40 / 60', grid: '12-column, 1240px max, 24px gutter' },
-    motion: {
-      pageLoad: 'Flare sweeps across once, 700ms',
-      hoverStates: 'Flare rotate, 260ms ease-out',
-      transitions: 'Transform and background-position',
-      scroll: 'Grid sparkles at intervals, never continuously',
-    },
-    accessibility:
-      'Text 12.9:1 on plum; gold at 8.6:1 for links. Flare is decorative and disabled under reduced motion. Focus 3px gold ring.',
-    responsive:
-      'Chrome headline clamps hard; the club grid drops 3 → 1; flares stop rotating on small screens.',
-    codeExample:
-      '<section class="ball">\n  <h1>Start the <em>weekend</em> early.</h1>\n  <p>Doors at nine. The ball starts at eight.</p>\n  <button class="btn-ball">Book a table</button>\n</section>',
     accent: '#ff5db1',
     motif: 'glow-pulse',
     layout: 'full-bleed',
@@ -295,8 +220,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Turn until it sounds right.',
     designPhilosophy:
       'An analog dial is an interface you can feel: ticks, a sliding needle, warmth in the grain. FM Dial builds a browsing experience out of that — cream plastic, walnut, orange needle, and numbers set like a tuning scale. For podcasts, community radio, and audio products that value ritual.',
-    designDetails:
-      'Cream #f3ece0 with walnut #4a3427, needle orange #e2661f, and ink #1d1712. Bebas Neue display with Livvic body. A horizontal tuning scale runs under the hero; ticks mark every section.',
     colors: { primary: '#e2661f', secondary: '#4a3427', accent: '#1f6f8b', neutral: '#e7ddcb', background: '#f3ece0', text: '#1d1712' },
     typography: {
       displayFont: 'Bebas Neue',
@@ -316,19 +239,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Woodgrain bar with a tuning scale',
       modals: 'Radio-panel sheet with a station label',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 32 / 56 / 92', paddingScale: '14 / 24 / 38 / 56', grid: '12-column, 1180px max, 26px gutter' },
-    motion: {
-      pageLoad: 'Needle slides to its position, 520ms',
-      hoverStates: 'Sweep, 180ms ease-out',
-      transitions: 'transform and background-position',
-      scroll: 'Ticks illuminate as sections enter',
-    },
-    accessibility:
-      'Ink 14.8:1 on cream; orange at 5.4:1 with a label. Focus 2px blue ring. The tuning scale is decorative and aria-hidden.',
-    responsive:
-      'The scale compresses to a thin rule; program cards reflow 3 → 1 under 700px.',
-    codeExample:
-      '<section class="dial">\n  <p class="freq">88.5 · 91.1 · 98.3</p>\n  <h1>Find your <em>station.</em></h1>\n  <button class="btn-fm">Listen live</button>\n</section>',
     accent: '#e2661f',
     motif: 'mono-labels',
     layout: 'catalog',
@@ -349,8 +259,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Ink, paper, and one clean pull.',
     designPhilosophy:
       'A woodblock print is an edition of the same gesture, repeated with slight difference — which is what a design system aspires to be. Woodblock Wave is quiet indigo on washi with a vermilion seal as the only permitted interruption. It rewards patience. For galleries, cultural institutions, and craft brands.',
-    designDetails:
-      'Washi #f6f1e7 with indigo #1f3a63, deep ink #171a1f, and vermilion #c8442e reserved for seals. Fraunces display with Manrope body. Rough deckle edges, one seal per screen, and generous vertical space.',
     colors: { primary: '#1f3a63', secondary: '#2f5d8a', accent: '#c8442e', neutral: '#e9e2d3', background: '#f6f1e7', text: '#171a1f' },
     typography: {
       displayFont: 'Fraunces',
@@ -370,19 +278,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Slim bar with a vermilion seal',
       modals: 'Paper sheet with a seal stamp',
     },
-    spacing: { baseUnit: '8px', marginScale: '16 / 32 / 64 / 104 / 152', paddingScale: '16 / 30 / 48 / 76', grid: '1160px, 12-column with a 60ch reading measure' },
-    motion: {
-      pageLoad: 'Fade only, 640ms, no translation',
-      hoverStates: 'Rule draws, 220ms ease-out',
-      transitions: 'Opacity and border',
-      scroll: 'Sections fade in once at 18%',
-    },
-    accessibility:
-      'Ink 14.1:1 on washi; indigo 10.6:1 for links; vermilion always with a label. Focus 2px indigo. All ornament is aria-hidden.',
-    responsive:
-      'The print grid stacks to one column under 760px; the measure never widens past 65 characters.',
-    codeExample:
-      '<section class="block">\n  <span class="seal" aria-hidden="true">印</span>\n  <h1>The space between <em>strokes.</em></h1>\n  <p>Forty-one pulls, each one slightly alive.</p>\n</section>',
     accent: '#c8442e',
     motif: 'duotone-media',
     layout: 'editorial',
@@ -403,8 +298,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Everything has a tincture and a label.',
     designPhilosophy:
       'The apothecary is commerce disguised as knowledge — shelves, labels, and a person who knows which jar. Apothecary Counter brings that back for modern apothecary and wellness: label strips, amber glass, and copy that names ingredients rather than benefits. For herbal retail, clinics, and small-batch makers.',
-    designDetails:
-      'Amber #b3742a, bottle green #2c5f4a, label cream #f7f1e4, ink #23201b. Zilla Slab display with Karla body. Tape-label kickers, hairline shelf rules, and small caps for dosage-style metadata.',
     colors: { primary: '#2c5f4a', secondary: '#7a5230', accent: '#b3742a', neutral: '#eee6d6', background: '#f7f1e4', text: '#23201b' },
     typography: {
       displayFont: 'Zilla Slab',
@@ -424,19 +317,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Shelf bar with a dosage strip',
       modals: 'Label sheet with a bottle edge',
     },
-    spacing: { baseUnit: '6px', marginScale: '12 / 24 / 44 / 76', paddingScale: '14 / 24 / 38 / 58', grid: '12-column, 1140px max, 24px gutter' },
-    motion: {
-      pageLoad: 'Jars slide in, 240ms, 40ms apart',
-      hoverStates: 'Label straighten, 160ms ease-out',
-      transitions: 'Transform only',
-      scroll: 'Shelves reveal once',
-    },
-    accessibility:
-      'Ink 13.1:1 on label cream; green links 7.4:1; amber always labelled. Focus 3px green ring. Shelf rules are decorative.',
-    responsive:
-      'The shelf reflows 3 → 2 → 1; label strips wrap instead of truncating.',
-    codeExample:
-      '<section class="counter">\n  <p class="label">Tincture No. 4 · 30ml</p>\n  <h1>For the <em>long winter.</em></h1>\n  <button class="btn-apothecary">Add to order</button>\n</section>',
     accent: '#b3742a',
     motif: 'tape-labels',
     layout: 'catalog',
@@ -457,8 +337,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Honey is a supply-chain story.',
     designPhilosophy:
       'Beekeeping is a system of tiny hexagonal decisions. The Apiary leans on that geometry for structure while keeping the warmth of something handmade — honey amber, comb black, and body copy that explains the meadow behind the jar. For artisan food, farms, and conservation.',
-    designDetails:
-      'Honey #e8a021, comb black #1c1813, meadow green #6a8f3c, wax cream #faf3e0. Baloo 2 display with Fredoka body. Hexagonal frames on media, amber rules, and a gentle hex-pattern backdrop.',
     colors: { primary: '#e8a021', secondary: '#6a8f3c', accent: '#1c1813', neutral: '#f2e7cd', background: '#faf3e0', text: '#1c1813' },
     typography: {
       displayFont: 'Baloo 2',
@@ -478,19 +356,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Wax bar with a hexagon mark',
       modals: 'Comb sheet with a honey rule',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 32 / 52 / 84', paddingScale: '14 / 24 / 38 / 58', grid: '12-column, 1160px max, 24px gutter' },
-    motion: {
-      pageLoad: 'Cells fill in, 220ms, 30ms apart',
-      hoverStates: 'Lift 2px, 180ms ease-out',
-      transitions: 'Transform and opacity',
-      scroll: 'Honey level animates once',
-    },
-    accessibility:
-      'Ink 16.2:1 on wax; amber at 8.9:1 paired with ink text — never amber on white. Focus 3px meadow ring. Hex patterns are aria-hidden.',
-    responsive:
-      'The comb grid reflows 4 → 2 → 1; the honey gauge becomes a plain number.',
-    codeExample:
-      '<section class="honey">\n  <h1>Twelve hives, <em>one meadow.</em></h1>\n  <p>Raw and unfiltered, jarred the week it comes off.</p>\n  <button class="btn-apiary">Order a jar</button>\n</section>',
     accent: '#e8a021',
     motif: 'leaf-divider',
     layout: 'hero-cards',
@@ -511,8 +376,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Ladies and gentlemen, this is a website.',
     designPhilosophy:
       'The big top works because it makes promises before you go in. Big Top keeps that: red-and-cream stripes, ticket-stub borders, and type that shouts the headline before the fine print. It is theatrical on purpose. For festivals, family events, and anything selling a show.',
-    designDetails:
-      'Circus red #c8322b, cream #fdf4e3, midnight #16203c, gold #f4c430. Bangers display with Rubik body. Striped canopy bands, ticket perforations on cards, and a gold starburst badge system.',
     colors: { primary: '#c8322b', secondary: '#16203c', accent: '#f4c430', neutral: '#f7e8cd', background: '#fdf4e3', text: '#16203c' },
     typography: {
       displayFont: 'Bangers',
@@ -532,19 +395,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Striped canopy bar with a bell',
       modals: 'Ticket panel with perforation',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 32 / 56 / 92', paddingScale: '14 / 26 / 40 / 60', grid: '12-column, 1180px max, 26px gutter' },
-    motion: {
-      pageLoad: 'Badges pop in with an overshoot, 280ms',
-      hoverStates: 'Tilt 1° + lift, 160ms ease-out',
-      transitions: 'Transform with overshoot',
-      scroll: 'Marquee band runs under the hero',
-    },
-    accessibility:
-      'Midnight on cream 14.6:1; red at 5.2:1 always with a label; gold never on white. Focus 3px midnight ring.',
-    responsive:
-      'Stripes compress; ticket grid reflows 3 → 1; badges shrink rather than overlap.',
-    codeExample:
-      '<section class="show">\n  <p class="badge">★ Tonight only ★</p>\n  <h1>Three rings, <em>no rules.</em></h1>\n  <button class="btn-bigtop">Get tickets</button>\n</section>',
     accent: '#c8322b',
     motif: 'rotated-stickers',
     layout: 'magazine',
@@ -565,8 +415,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Lot 14. Sold to the phone at nine.',
     designPhilosophy:
       'An auction catalogue is the rare luxury format that is also a spreadsheet: lot numbers, provenance, estimates, and an outcome. Auction House keeps the hush of a saleroom while making the numbers the star. For resale, collectibles, and premium marketplaces.',
-    designDetails:
-      'Saleroom white #f1ece2, ink #17150f, hammer red #8c2f2f, gilt #b08d57. DM Serif Display display with Manrope body. Lot numbering in gilt, hairline rules, tabular estimates, and a hammer-red status mark.',
     colors: { primary: '#17150f', secondary: '#6f6656', accent: '#8c2f2f', neutral: '#e2dacb', background: '#f1ece2', text: '#17150f' },
     typography: {
       displayFont: 'DM Serif Display',
@@ -586,19 +434,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Quiet bar with a lot ticker',
       modals: 'Lot sheet with a red SOLD stamp',
     },
-    spacing: { baseUnit: '8px', marginScale: '16 / 32 / 56 / 96 / 148', paddingScale: '18 / 32 / 48 / 76', grid: '12-column, 1200px max, 32px gutter' },
-    motion: {
-      pageLoad: 'Lots fade in, 420ms, no movement',
-      hoverStates: 'Gilt rule draws, 200ms ease-out',
-      transitions: 'Opacity and border only',
-      scroll: 'Estimates count up once',
-    },
-    accessibility:
-      'Ink 16.1:1 on saleroom white; hammer red at 7.3:1 with a label; gilt only for ornament. Focus 2px ink with 2px offset. Estimates are real text, not images.',
-    responsive:
-      'The lot grid reflows 3 → 1; the estimate table scrolls with a pinned lot column.',
-    codeExample:
-      '<article class="lot">\n  <p class="lot-no">Lot 14</p>\n  <h1>A pair of <em>marmalade</em> urns.</h1>\n  <p>Estimate £4,000–6,000 · Wednesday 14:30</p>\n</article>',
     accent: '#8c2f2f',
     motif: 'editorial-columns',
     layout: 'spotlight',
@@ -620,8 +455,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Instruments first, opinions second.',
     designPhilosophy:
       'A cockpit is a document with strict priorities: altitude, speed, heading, everything else. Flight Deck borrows that hierarchy for operations products — instrument numerals, amber for attention, teal for normal, and no layout that makes you search for a figure. For aviation, logistics, and industrial operations.',
-    designDetails:
-      'Cockpit black #0b0e11, instrument cyan #39d6d0, caution amber #f0a721, cool grey #93a1b1. Chakra Petch display with Archivo body. Gauge rings on metrics, hairline frame rules, and monospace for call signs.',
     colors: { primary: '#39d6d0', secondary: '#93a1b1', accent: '#f0a721', neutral: '#141a20', background: '#0b0e11', text: '#e6edf2' },
     typography: {
       displayFont: 'Chakra Petch',
@@ -641,19 +474,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Top frame with a call-sign ticker',
       modals: 'Briefing panel with a stamped header',
     },
-    spacing: { baseUnit: '4px', marginScale: '16 / 32 / 64 / 112', paddingScale: '12 / 22 / 34', grid: '1360px full-width, 12-col instrument grid' },
-    motion: {
-      pageLoad: 'Gauges sweep from zero, 500ms',
-      hoverStates: 'Frame brighten, 120ms linear',
-      transitions: 'Linear, instrument-like',
-      scroll: 'Nothing animates on scroll — data must be present',
-    },
-    accessibility:
-      'Text 14.8:1 on cockpit black; amber cautions paired with an icon and words; cyan never alone. Focus 2px cyan. Gauge sweeps stop under reduced motion.',
-    responsive:
-      'The instrument row reflows 4 → 2; tables scroll with pinned call signs; gauges shrink to numbers on small screens.',
-    codeExample:
-      '<section class="deck">\n  <p class="callsign">FL 340 · ZBAA → EGLL</p>\n  <h1>On time, <em>every time.</em></h1>\n  <p>62 movements, zero holds.</p>\n</section>',
     accent: '#39d6d0',
     motif: 'scanlines',
     layout: 'dashboard',
@@ -675,8 +495,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Turn off the lights and look closer.',
     designPhilosophy:
       'Underwater sites fail when they use surface design in deep water. Reef At Night is built for the dark: near-black blue, glow that comes from the organisms rather than from a shadow, and copy that reads like a dive log. For marine science, travel, and premium content.',
-    designDetails:
-      'Abyss #04141d with reef glow #4fe0d8, anemone #ff7ad9, and cool foam #dff6f6. Bricolage Grotesque display with Nunito body. Soft glow layers, grain like water haze, and generous darkness between sections.',
     colors: { primary: '#4fe0d8', secondary: '#1a6f7a', accent: '#ff7ad9', neutral: '#0a2532', background: '#04141d', text: '#dff6f6' },
     typography: {
       displayFont: 'Bricolage Grotesque',
@@ -696,19 +514,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Transparent bar that deepens on scroll',
       modals: 'Drift sheet with a glow edge',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 40 / 76 / 128', paddingScale: '16 / 28 / 46 / 68', grid: '12-column, 1220px max, 28px gutter' },
-    motion: {
-      pageLoad: 'Bioluminescence fades up over 700ms',
-      hoverStates: 'Glow bloom, 240ms ease-out',
-      transitions: 'Opacity and filter',
-      scroll: 'Parallax drift on the depth layers',
-    },
-    accessibility:
-      'Text 15.1:1 on abyss; teal/pink links above 7:1 with underlines. Focus 2px teal. Glow and drift disabled under reduced motion.',
-    responsive:
-      'Depth parallax turns off below 700px; the dive log becomes single column.',
-    codeExample:
-      '<section class="reef">\n  <p class="depth">−28 m · moonless</p>\n  <h1>Four thousand metres, <em>no sunlight.</em></h1>\n  <button class="btn-reef">Enter the dive log</button>\n</section>',
     accent: '#4fe0d8',
     motif: 'grain-overlay',
     layout: 'full-bleed',
@@ -729,8 +534,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Small squares, long histories.',
     designPhilosophy:
       'A stamp album is a grid with provenance — every cell has a number, a country, a year, and a reason. Philatelic Album takes that seriously for catalogs and archives: perforated edges, tabular metadata, and a rhythm of small, well-labelled objects. For collections, directories, and archival projects.',
-    designDetails:
-      'Album grey #eceae4, stamp red #7a2231, deep blue #24406b, ink #1a1714. Rubik Mono One display with Source Sans 3 body. Perforated card edges, hairline mounts, and corner metadata in tiny caps.',
     colors: { primary: '#7a2231', secondary: '#24406b', accent: '#c99b28', neutral: '#e0ddd4', background: '#eceae4', text: '#1a1714' },
     typography: {
       displayFont: 'Rubik Mono One',
@@ -750,19 +553,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Index bar with a country list',
       modals: 'Mount sheet with a catalogue stamp',
     },
-    spacing: { baseUnit: '4px', marginScale: '16 / 32 / 56 / 96', paddingScale: '14 / 24 / 38', grid: '12-column, 1200px max, 22px gutter' },
-    motion: {
-      pageLoad: 'Stamps settle into mounts, 240ms',
-      hoverStates: 'Lift + straighten, 150ms ease-out',
-      transitions: 'Transform only',
-      scroll: 'Album rows reveal once',
-    },
-    accessibility:
-      'Ink 14.9:1 on album grey; red and blue above 5.9:1 with labels; metadata is real text. Focus 2px blue with 2px offset.',
-    responsive:
-      'The album grid goes 6 → 4 → 2; catalogue numbers wrap instead of clipping.',
-    codeExample:
-      '<article class="stamp">\n  <p class="cat">Cat. 4471 · Japon</p>\n  <h1>Three pence, <em>imperforate.</em></h1>\n  <p>Issued 1871 · toned on the reverse</p>\n</article>',
     accent: '#7a2231',
     motif: 'dashed-borders',
     layout: 'magazine',
@@ -784,8 +574,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'Two threads, one long pattern.',
     designPhilosophy:
       'A tapestry looks ornamental and is actually structural: the pattern IS the weave. Tapestry & Weave takes folk textile logic — repeating bands, warm wool colours, and a rhythm you can feel without reading — and uses it to organise a page. For makers, heritage brands, and textiles.',
-    designDetails:
-      'Wool #a8452e, loom indigo #2c3a63, straw #d9b06a, oat #f4ead8. Bitter display with EB Garamond body. Horizontal bands separate sections like woven stripes, with geometric dividers between bands.',
     colors: { primary: '#a8452e', secondary: '#2c3a63', accent: '#d9b06a', neutral: '#eee1cb', background: '#f4ead8', text: '#241c16' },
     typography: {
       displayFont: 'Bitter',
@@ -805,19 +593,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Braided bar with a loom mark',
       modals: 'Folded panel with a woven rule',
     },
-    spacing: { baseUnit: '8px', marginScale: '16 / 32 / 56 / 92 / 132', paddingScale: '16 / 28 / 44 / 64', grid: '12-column, 1160px max, 28px gutter' },
-    motion: {
-      pageLoad: 'Bands draw in from left, 380ms',
-      hoverStates: 'Thread draws, 200ms ease-out',
-      transitions: 'Border and transform',
-      scroll: 'Weave bands reveal once',
-    },
-    accessibility:
-      'Text 12.4:1 on oat; wool red at 5.7:1 with labels; indigo links 8.3:1. Focus 3px indigo. Bands are decorative and aria-hidden.',
-    responsive:
-      'Bands shorten but keep their stripes; the pattern grid reflows 3 → 1.',
-    codeExample:
-      '<section class="weave">\n  <h1>Woven, not <em>printed.</em></h1>\n  <p>Four colours, one loom, eight weeks.</p>\n  <button class="btn-weave">See the process</button>\n</section>',
     accent: '#a8452e',
     motif: 'wave-section',
     layout: 'magazine',
@@ -838,8 +613,6 @@ export const wave9Designs: DesignSystem[] = [
     description: 'No training required, just nerve.',
     designPhilosophy:
       'Art brut was defined by its distance from institutions — raw materials, private systems, no style guide. Outsider Art takes the amateur-rules credential seriously: hand-drawn marks, uneven baselines, and a layout that admits it was assembled by a person. For galleries, zine culture, and studios that distrust polish.',
-    designDetails:
-      'Raw paper #f6f2ea with charcoal #1b1a17, signal orange #ff6b1a, and blue pencil #2f6bd8. Permanent Marker display with Livvic body. Hand-drawn rules, mismatched rotations, and a deliberate baseline wobble.',
     colors: { primary: '#ff6b1a', secondary: '#2f6bd8', accent: '#1b1a17', neutral: '#e7e1d6', background: '#f6f2ea', text: '#1b1a17' },
     typography: {
       displayFont: 'Permanent Marker',
@@ -859,19 +632,6 @@ export const wave9Designs: DesignSystem[] = [
       navigation: 'Taped-up bar with a marker title',
       modals: 'Collage panel with a scribbled header',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 18 / 34 / 58 / 96', paddingScale: '14 / 26 / 40 / 62', grid: '12-column, 1140px max, 26px gutter, deliberately loose' },
-    motion: {
-      pageLoad: 'Elements wobble in, 200ms, uneven timing',
-      hoverStates: 'Jitter + lift, 140ms',
-      transitions: 'Transform with irregular timing',
-      scroll: 'Elements appear without a shared easing',
-    },
-    accessibility:
-      'Ink 16.3:1 on raw paper; orange at 4.8:1 with a label; dashed borders still meet 3:1 for UI. Focus 3px orange. Random tilts stop under reduced motion.',
-    responsive:
-      'Tilts reduce to zero below 700px so content stays readable; grids reflow 3 → 1.',
-    codeExample:
-      '<section class="raw">\n  <h1>Not <em>finished,</em> just honest.</h1>\n  <p>Every mark was made by a hand.</p>\n  <button class="btn-raw">See the wall</button>\n</section>',
     accent: '#ff6b1a',
     motif: 'underline-accent',
     layout: 'asymmetric',

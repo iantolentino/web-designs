@@ -42,8 +42,16 @@ const abs = (p) => path.resolve(p).replace(/\\/g, '/')
 fs.writeFileSync(
   entry,
   `import { DESIGN_SYSTEMS } from '${abs('src/designs/index')}'
+import { DESIGN_DETAILS } from '${abs('src/designs/details')}'
+import { derivedDetails } from '${abs('src/designs/build')}'
 
 const HERO = ${JSON.stringify(Object.fromEntries(heroMap))}
+
+// The preview prose no longer rides on the design record (it ships in its own
+// chunk and is derived for seeded designs), so the audit re-joins it here.
+// Without this the prose near-duplicate score would silently lose a third of
+// its input and start passing pairs it used to catch.
+const det = (d) => DESIGN_DETAILS[d.id] ?? derivedDetails(d.id)
 
 const radiusNum = (r) => {
   const m = (r || '').match(/(\\d+)px/)
@@ -72,8 +80,8 @@ console.log(JSON.stringify({
     radius: radiusNum(d.components.radius),
     depth: depth(d),
     colors: d.colors,
-    motion: d.motion.transitions,
-    prose: [d.description, d.designPhilosophy, d.designDetails].join(' '),
+    motion: det(d).motion.transitions,
+    prose: [d.description, d.designPhilosophy, det(d).designDetails].join(' '),
     components: Object.values(d.components).join(' '),
   })),
 }))`,
@@ -85,7 +93,9 @@ try {
     `npx esbuild "${entry}" --bundle --platform=node --format=cjs --target=node20 --log-level=error --outfile="${bundle}"`,
     { stdio: ['ignore', 'ignore', 'inherit'] },
   )
-  data = JSON.parse(execSync(`node "${bundle}"`, { encoding: 'utf8' }))
+  // The catalog plus its re-joined prose is over 1 MB of JSON — past execSync's
+  // default stdout buffer — so the ceiling is raised explicitly.
+  data = JSON.parse(execSync(`node "${bundle}"`, { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }))
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true })
 }

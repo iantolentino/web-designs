@@ -9,8 +9,6 @@ export const futuristicDesigns: DesignSystem[] = [
     description: 'The 1958 future: chrome fins, starbursts, boosters.',
     designPhilosophy:
       'The future as imagined in 1958 — optimistic, geometric, chrome-plated. Googie architecture signs, rocket fins, starburst sparkles, and science-fair optimism. This is retrofuturism with its collar popped: confident, playful, and absolutely certain the year 2000 will have jetpacks.',
-    designDetails:
-      'Cream #fbf6e8 with turbo red #e07a00, cosmos navy #1b2a5e, and chrome-silver gradients. Righteous display; Jost body. Starburst ✷ ornaments, boomerang shapes (border-radius asymmetric), and chrome gradient bars (linear silver gradient with white hot-spot). Buttons look like rocket console switches. Card corners are "finned" via asymmetric radii.',
     colors: {
       primary: '#e07a00',
       secondary: '#1b2a5e',
@@ -37,24 +35,6 @@ export const futuristicDesigns: DesignSystem[] = [
       navigation: 'Chrome-gradient bar with navy links and red active fin underline',
       modals: 'Cream panel with chrome title bar and finned corners',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 56 / 112',
-      paddingScale: '20 / 32 / 48',
-      grid: '12-col 1200px; hero split 7:5 with rocket visual',
-    },
-    motion: {
-      pageLoad: 'Elements zoom in with slight rotation, 400ms, staggered — lift-off feel',
-      hoverStates: '180ms shadow-growth physics, sparkles rotate',
-      transitions: 'Snappy, mechanical, 180–250ms',
-      scroll: 'Boomerang dividers parallax 0.96x; starbursts twinkle (opacity keyframes)',
-    },
-    accessibility:
-      'Navy on cream 10.9:1; cream on red 4.7:1 at 700 weight. Focus 3px red outline. Sparkles/starbursts aria-hidden. The twinkle is 2Hz max — photosensitivity safe.',
-    responsive:
-      'Finned radii simplify to 12px under 640px. Display clamps 2.25rem→3.625rem. Hero rocket stacks below text. Hard shadows reduce to 3px on mobile.',
-    codeExample:
-      '<section class="pad-39a">\n  <p class="count">T-minus 3… 2… 1…</p>\n  <h1>THE FUTURE, <em>DELIVERED.</em></h1>\n  <button class="btn-launch">Ignite ✷</button>\n</section>',
     accent: '#e07a00',
     motif: 'rotated-stickers',
     layout: 'hero-cards',
@@ -78,8 +58,6 @@ export const futuristicDesigns: DesignSystem[] = [
     description: 'Gatsby grandeur: gold geometry, sunbursts, symmetry.',
     designPhilosophy:
       'Chrysler Building energy. Strict symmetry, stepped geometry, sunburst fans, and gold-on-emerald opulence. Every element is framed, every frame is ornamented, and every ornament is architectural. For hotels, spirits, theaters, and brands that consider 1929 the high-water mark of taste.',
-    designDetails:
-      'Deep emerald #0f3d33 with antique gold #d4af37 and champagne text. Marcellus (Trajan-adjacent) display with wide tracking; Jost body. Sunburst fans via repeating-conic-gradient, stepped borders (double offset box-shadows), and diamond ◆ separators. Symmetry is enforced — center-aligned everything, mirrored layouts, framed sections.',
     colors: {
       primary: '#d4af37',
       secondary: '#0f3d33',
@@ -106,24 +84,6 @@ export const futuristicDesigns: DesignSystem[] = [
       navigation: 'Centered wordmark, diamond separators between links, gold hairlines above/below',
       modals: 'Emerald panel with triple gold frame and sunburst backdrop',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 40 / 80 / 160',
-      paddingScale: '24 / 48 / 72',
-      grid: 'Perfectly symmetric 12-col, 1160px; center axis respected',
-    },
-    motion: {
-      pageLoad: 'Frames draw (scaleX) from center 500ms; content fades after',
-      hoverStates: '300ms gold spread; fan ornaments rotate slightly',
-      transitions: 'Measured and ceremonial, 300–400ms',
-      scroll: 'Sunburst fans rotate slowly behind sections (0.5rpm)',
-    },
-    accessibility:
-      'Champagne on emerald 9.8:1; gold on emerald 7.3:1. Focus 2px gold outline offset 3px. Fans and ornaments aria-hidden. Symmetry never breaks semantic order.',
-    responsive:
-      'Symmetry holds to single centered column under 760px. Display clamps 2.25rem→3.5rem with tracking intact. Stepped shadows simplify on mobile. Fan animations pause under reduced-motion.',
-    codeExample:
-      '<section class="ballroom">\n  <p class="marquee">EST. MCMXXIX</p>\n  <h1>THE GRAND <em>EXPEDITION</em></h1>\n  <a class="frame-gold" href="#">Reserve a table</a>\n</section>',
     accent: '#d4af37',
     motif: 'serif-italic-hero',
     layout: 'centered',
@@ -146,8 +106,6 @@ export const futuristicDesigns: DesignSystem[] = [
     description: 'ＡＥＳＴＨＥＴＩＣ: pink-cyan grids, statues, nostalgia.',
     designPhilosophy:
       'The mall at the end of time. Full-width pink-to-cyan gradients, wireframe grids stretching to infinity, Roman busts, and Japanese katakana flourishes. Vaporwave is sincere nostalgia wearing irony as armor — and underneath, a real design system with real contrast ratios.',
-    designDetails:
-      'Sunset gradient canvas (#ff71ce→#01cdfe) fixed behind everything, wireframe perspective grid via CSS gradients, magenta/cyan/yellow panels with hard 2px cyan borders and magenta glow shadows. Monoton for display moments; Space Mono body (Vaporwave demands mono). Fullwidth characters ＡＥＳＴＨＥＴＩＣ for section labels. Checkerboard scanline overlay at 3% opacity.',
     colors: {
       primary: '#ff71ce',
       secondary: '#01cdfe',
@@ -174,24 +132,6 @@ export const futuristicDesigns: DesignSystem[] = [
       navigation: 'Full-width gradient bar with mono uppercase links',
       modals: 'Purple glass panel with gradient border-image and ＳＹＳＴＥＭ title',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '12 / 24 / 48 / 96',
-      paddingScale: '16 / 32 / 48',
-      grid: 'Centered 1040px with deliberate full-bleed gradient breaks',
-    },
-    motion: {
-      pageLoad: 'Grid fades in scrolling backward; panels slide from sides 400ms',
-      hoverStates: 'Glow + hue-rotate 250ms — everything feels slightly high',
-      transitions: 'Dreamy ease 250–400ms',
-      scroll: 'Wireframe grid scrolls continuously; statues drift horizontally',
-    },
-    accessibility:
-      '#f9f5ff on #1a103c 15.2:1; cyan on purple 7.9:1; magenta large/bold only. Focus 3px magenta ring. Hue-rotate removed under reduced-motion. Grid is slow (0.5Hz) — photosensitivity safe.',
-    responsive:
-      'Gradient bars persist; grid opacity reduces on mobile for legibility. Display clamps 2rem→3.5rem (Monoton is wide). Panels stack under 720px with 16px gaps.',
-    codeExample:
-      '<section class="mall">\n  <h1 class="full">ｗｅｌｃｏｍｅ</h1>\n  <p>＞ the future, as recalled.</p>\n  <button class="btn-vhs">E N T E R</button>\n</section>',
     accent: '#ff71ce',
     motif: 'gradient-hero',
     layout: 'hero-cards',
@@ -216,8 +156,6 @@ export const futuristicDesigns: DesignSystem[] = [
     description: 'Mission-control chrome: brackets, telemetry, alert states.',
     designPhilosophy:
       'The operations room at 0300. Every pixel is instrumented: corner brackets, live telemetry, monospaced readouts, and status colors that mean something. Restraint through function — decoration is a liability when lives (or SLAs) are on the line. For infrastructure dashboards, security tools, and anything with an incident channel.',
-    designDetails:
-      'Gunmetal #0c0f12 with phosphor green #4ade80-family primary, amber #fbbf24 warnings, red #f87171 alerts. IBM Plex Mono everywhere; Chakra Petch display. Corner brackets via border-image or ::before/::after L-shapes. Status dots, blinking cursor, telemetry ticks (small repeating ruler gradients). Buttons look like physical switches with heavy uppercase labels.',
     colors: {
       primary: '#4ade80',
       secondary: '#94a3b8',
@@ -244,24 +182,6 @@ export const futuristicDesigns: DesignSystem[] = [
       navigation: 'Top bar with SYS:ONLINE status dot, mono links, alert counter right',
       modals: 'Ops panel with red header strip for destructive actions',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '8 / 24 / 40 / 80',
-      paddingScale: '16 / 24 / 40',
-      grid: '12-col with fixed 220px instrument sidebar',
-    },
-    motion: {
-      pageLoad: 'Panels snap in with 1-frame bracket draw, 150ms — no easing theatrics',
-      hoverStates: '120ms functional shifts; brackets expand slightly',
-      transitions: 'Fast and instrumental, 120–150ms',
-      scroll: 'Sticky telemetry column; ruler ticks scroll with content',
-    },
-    accessibility:
-      '#d7e0e8 on #0c0f12 13.1:1; green on gunmetal 8.9:1. Status never color-only: dots pair with text labels (LIVE/WARN/DOWN). Focus 2px green outline. Blinking cursor ≤1Hz, aria-hidden.',
-    responsive:
-      'Sidebar collapses to top status strip under 1024px. Tables stay scrollable with sticky headers. Display clamps 1.75rem→3rem. Brackets persist — they are the identity.',
-    codeExample:
-      '<div class="ops">\n  <div class="panel">\n    <div class="strip">SECTOR 7 // TELEMETRY</div>\n    <h1>MISSION_CTRL v4.1</h1>\n    <p class="ok">● ALL SYSTEMS NOMINAL</p>\n    <button class="btn-exec">DEPLOY</button>\n  </div>\n</div>',
     accent: '#4ade80',
     motif: 'mono-labels',
     layout: 'dashboard',

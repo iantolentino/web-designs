@@ -21,8 +21,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'Every number has a tide line.',
     designPhilosophy:
       'Shipping runs on records, not dashboards. Tidemark is built as a ledger: ruled baselines that carry a reader down the page, a margin rule that marks where annotations belong, and a pinned rail that keeps the subject on screen while the evidence scrolls past. It is a professional system for teams whose work is auditable — logistics, analysis, operations — where the honest thing to show is the column, not a chart.',
-    designDetails:
-      'Harbour navy #12303f, sea green #2c6e7f, signal amber #e0a14a reserved for deltas and warnings, on cream paper #f4f1ea with ink #10232c. Instrument Serif display against Inter body, old-style figures on. Rules are 1px at 12% ink; the margin rule is amber at 45%. Cards are square-cornered and carry no shadow — depth comes from the ruling alone.',
     colors: { primary: '#12303f', secondary: '#2c6e7f', accent: '#e0a14a', neutral: '#e2dcd0', background: '#f4f1ea', text: '#10232c' },
     typography: {
       displayFont: 'Instrument Serif',
@@ -42,19 +40,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Hairline bar above a full-width ledger rule',
       modals: 'Sheet with a ruled header and a margin mark',
     },
-    spacing: { baseUnit: '4px', marginScale: '8 / 16 / 32 / 64 / 104', paddingScale: '14 / 24 / 40 / 64', grid: '12-column, 1220px max, 24px gutter' },
-    motion: {
-      pageLoad: 'Rows rule in top-down, 30ms apart, 200ms each',
-      hoverStates: 'Underline draw, 160ms ease-out',
-      transitions: 'Opacity and transform only',
-      scroll: 'Rail stays pinned; nothing fades on scroll',
-    },
-    accessibility:
-      'Ink 14.1:1 on cream paper and 9.6:1 for secondary ink; amber only ever carries a label, never meaning alone. Focus is a 2px amber outline offset 2px. Ruled backgrounds are decorative and aria-hidden.',
-    responsive:
-      'The ledger rules keep their 28px rhythm at every width; the pinned rail becomes a static header under 860px; tables scroll horizontally inside their own container.',
-    codeExample:
-      '<section class="ledger">\n  <h1>Every number has a tide line.</h1>\n  <p>Ruled baselines, a margin for notes, no decoration.</p>\n  <button class="btn-ledger">Open the record</button>\n</section>',
     accent: '#e0a14a',
     motif: 'ledger-rules',
     layout: 'split-scroll',
@@ -76,8 +61,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'A hundred miles of nothing, measured.',
     designPhilosophy:
       'The salt flats are the emptiest photogenic place on earth, and the photographs that work there are the ones that resist filling the frame. Salt Flat is that discipline as an interface: an enormous amount of paper, one cobalt mark at a time, and content cut out of a single sheet rather than stacked on top of it. Nothing is tinted, nothing glows, and every element earns its ink.',
-    designDetails:
-      'Bone ground #fbfaf7 with a single cobalt #1f4fd8, graphite #6f7d8c for secondary text, signal coral #ff5a3c used maybe twice per page, ink #16181d. Gloock for display, Public Sans for body. Cut-paper edges between sections, 2px radii, hairlines at 8% ink, and no shadow anywhere.',
     colors: { primary: '#1f4fd8', secondary: '#6f7d8c', accent: '#ff5a3c', neutral: '#efece6', background: '#fbfaf7', text: '#16181d' },
     typography: {
       displayFont: 'Gloock',
@@ -97,19 +80,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Three links and a hairline, nothing else',
       modals: 'Full-bleed sheet with a paper edge and one cobalt rule',
     },
-    spacing: { baseUnit: '8px', marginScale: '16 / 40 / 80 / 128 / 176', paddingScale: '20 / 36 / 56 / 88', grid: '12-column, 1140px max, 32px gutter' },
-    motion: {
-      pageLoad: 'One fade of the whole page, 280ms, once',
-      hoverStates: 'Rule draw only, 180ms ease-out',
-      transitions: 'Never transform — this system does not move things',
-      scroll: 'Sections cut in at 20% with no travel',
-    },
-    accessibility:
-      'Ink 16.4:1 on bone; cobalt 6.6:1 on bone; coral is never used for body text. Focus is a 2px cobalt outline with a 3px offset. The cut-paper edges are decorative and aria-hidden.',
-    responsive:
-      'Whitespace compresses 176 → 80 → 40 as the viewport narrows; the type scale holds four steps; nothing reflows into columns under 720px.',
-    codeExample:
-      '<section class="flat">\n  <h1>A hundred miles of nothing, measured.</h1>\n  <p>One cobalt mark at a time.</p>\n  <button class="btn-flat">Plan a survey</button>\n</section>',
     accent: '#1f4fd8',
     motif: 'paper-cut',
     layout: 'split-scroll',
@@ -131,8 +101,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'Turn the noise up.',
     designPhilosophy:
       'Static is what an untuned signal sounds like, and moiré is what an untuned image looks like — both are the accidental beauty of analogue media. Velvet Static treats interference as the identity: two ring patterns that never quite line up, deep plum velvet, and a single electric mint that behaves like a tone rather than a colour. It is built for music, podcasts, and anything that wants to feel late at night.',
-    designDetails:
-      'Plum #14081f ground, velvet #2b1440 surfaces, magenta #a545ff and rose #ff4d94 interference, electric mint #6ff0d4 as the only cool accent, text #f6ecff at 92%. Bodoni Moda display with Sora body. Ring interference sits behind everything at 50% opacity; cards are 24px with a glow, pills are 999px.',
     colors: { primary: '#a545ff', secondary: '#ff4d94', accent: '#6ff0d4', neutral: '#2b1440', background: '#14081f', text: '#f6ecff' },
     typography: {
       displayFont: 'Bodoni Moda',
@@ -152,19 +120,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Floating pill bar with a blurred velvet backing',
       modals: 'Rounded sheet with a static overlay and a mint rule',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 20 / 44 / 80 / 128', paddingScale: '18 / 28 / 46 / 68', grid: '12-column, 1180px max, 28px gutter' },
-    motion: {
-      pageLoad: 'Rings resolve from 60% to 0 interference, 520ms',
-      hoverStates: 'Glow bloom, 260ms ease-out',
-      transitions: 'Opacity and box-shadow only — no layout movement',
-      scroll: 'Sections drift 8px and settle, once',
-    },
-    accessibility:
-      'Body text 13.8:1 on plum; mint 11.2:1; magenta on plum is 5.2:1 and always sits inside a bordered surface. Interference layers are below text and aria-hidden. Focus 3px mint ring, 2px offset.',
-    responsive:
-      'Interference ring spacing tightens with the viewport so moiré still reads; rings drop to one layer under 640px; display type clamps 32 → 68px.',
-    codeExample:
-      '<section class="static">\n  <h1>Turn the noise <em>up.</em></h1>\n  <p>Two signals that never quite line up.</p>\n  <button class="btn-static">Play the mix</button>\n</section>',
     accent: '#a545ff',
     motif: 'moire-rings',
     layout: 'spotlight',
@@ -187,8 +142,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'Fire, clay, repeat.',
     designPhilosophy:
       'A kiln is a brutal object with an exact schedule. Kiln Works takes that pairing literally: a hard isometric lattice as the page ground, shapes that never round, ember orange reserved for anything that is hot — status, deltas, destructive actions — and steel grey for everything structural. Nothing here is soft because nothing in a plant is soft, and the geometry does the work that gradients would otherwise fake.',
-    designDetails:
-      'Ember #c2410c, steel #3f4652, hazard yellow #facc15, concrete #d6d3ce on ground #e7e4de, ink #1a1a1a. Anton display with Work Sans body, uppercase display, 0 radius everywhere, 3px borders, 4px hard offsets. The lattice runs at 60°/-60° with a 22px horizontal grid.',
     colors: { primary: '#c2410c', secondary: '#3f4652', accent: '#facc15', neutral: '#d6d3ce', background: '#e7e4de', text: '#1a1a1a' },
     typography: {
       displayFont: 'Anton',
@@ -208,19 +161,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Thick 3px bottom rule with square nav cells',
       modals: 'Slab with a 3px frame and a hazard stripe header',
     },
-    spacing: { baseUnit: '4px', marginScale: '8 / 16 / 32 / 56 / 96', paddingScale: '12 / 22 / 36 / 60', grid: '12-column, 1200px max, 16px gutter' },
-    motion: {
-      pageLoad: 'Blocks land with a 2px overshoot, 140ms each',
-      hoverStates: 'Hard offset shift, 80ms linear',
-      transitions: 'Transform and border only',
-      scroll: 'Nothing animates on scroll — the page is a plant, not a showreel',
-    },
-    accessibility:
-      'Ink 15.2:1 on concrete; ember on concrete is 4.9:1 and always paired with a word, not a dot alone; hazard yellow never carries text (1.4:1) — it is fill only. Focus is a 3px ink outline with no offset.',
-    responsive:
-      'The lattice keeps its angle and loses one axis under 700px; bento tiles collapse to one column; display type clamps 30 → 56px.',
-    codeExample:
-      '<section class="kiln">\n  <h1>Fire, clay, repeat.</h1>\n  <p>3px borders, 0 radius, no decoration.</p>\n  <button class="btn-kiln">Start a batch</button>\n</section>',
     accent: '#c2410c',
     motif: 'isometric-lattice',
     layout: 'bento',
@@ -241,8 +181,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'Ten thousand lights, one street.',
     designPhilosophy:
       'The most luxurious thing in a night market is not gold — it is the way light behaves on a wet stone street. Lantern District builds its whole surface language from that: a dark ink-blue ground, lacquer red as the only loud colour, and an oil-slick sheen that travels across cards as you move over them. Money is expressed through restraint in the layout and generosity in the materials, not through ornament.',
-    designDetails:
-      'Ink blue #0d1526 ground with #22335c surfaces, lacquer #b83b2f, paper-brass #e8b04b for rules and labels, text #f3eee4. Newsreader display with Hanken Grotesk body. A conic sheen moves over every card at 32% overlay; 14px controls, 20px cards, hairline borders at 12% white.',
     colors: { primary: '#b83b2f', secondary: '#172a4d', accent: '#e8b04b', neutral: '#22335c', background: '#0d1526', text: '#f3eee4' },
     typography: {
       displayFont: 'Newsreader',
@@ -262,19 +200,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Quiet bar on the dark ground with a brass hairline',
       modals: 'Rounded sheet with a lantern glow behind it',
     },
-    spacing: { baseUnit: '8px', marginScale: '16 / 32 / 64 / 104 / 152', paddingScale: '18 / 30 / 48 / 76', grid: '12-column, 1180px max, 30px gutter' },
-    motion: {
-      pageLoad: 'Lanterns rise 10px and settle, 480ms, 70ms apart',
-      hoverStates: 'Sheen travel, 420ms ease-out',
-      transitions: 'Opacity, transform, background-position',
-      scroll: 'Sections fade once at 18%',
-    },
-    accessibility:
-      'Paper text 14.6:1 on ink blue; brass 8.1:1; lacquer is only ever a fill behind light text (5.4:1). The moving sheen is aria-hidden and disabled under prefers-reduced-motion. Focus 2px brass ring, 2px offset.',
-    responsive:
-      'The mosaic reflows 4 → 2 → 1; sheen duration shortens to 240ms on touch; display type clamps 32 → 62px.',
-    codeExample:
-      '<section class="district">\n  <h1>Ten thousand lights, one street.</h1>\n  <p>Dark stone, lacquer red, brass rules.</p>\n  <button class="btn-district">Reserve a table</button>\n</section>',
     accent: '#b83b2f',
     motif: 'oil-slick',
     layout: 'mosaic',
@@ -296,8 +221,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'The message arrives either way.',
     designPhilosophy:
       'A fog signal is engineered for the worst conditions: no colour, no detail, no patience. Fog Signal borrows that honesty — stencilled labels knocked out of solid ink, a red that means action rather than brand, and a chronological spine so every entry is dated and accountable. It is the retro of public infrastructure: dull paint, exact type, and a system that works when everything else has failed.',
-    designDetails:
-      'Signal red #d2452f, fog grey #29323b, buoy green #7fd1ae as the single calm accent, on #e9ebe8 with ink #1c2124. Red Hat Display for display and Raleway for body, both stencilled via knocked-out label chips. 3px radii, 1px rules, hard square timeline nodes.',
     colors: { primary: '#d2452f', secondary: '#29323b', accent: '#7fd1ae', neutral: '#cfd4d2', background: '#e9ebe8', text: '#1c2124' },
     typography: {
       displayFont: 'Red Hat Display',
@@ -317,19 +240,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Utility bar with stencilled section labels',
       modals: 'Boxed panel with a red header strip',
     },
-    spacing: { baseUnit: '4px', marginScale: '8 / 16 / 32 / 56 / 96', paddingScale: '12 / 22 / 36 / 56', grid: '12-column, 1200px max, 20px gutter' },
-    motion: {
-      pageLoad: 'Entries click in top to bottom, 90ms apart',
-      hoverStates: 'Tone shift, 120ms linear',
-      transitions: 'Background and border only',
-      scroll: 'Nothing fades — a signal is either on or off',
-    },
-    accessibility:
-      'Ink 14.8:1 on the fog ground; signal red 4.7:1 and never the sole carrier of state (the label is always stencilled as words too). Focus 3px ink outline, 2px offset.',
-    responsive:
-      'The timeline spine moves to the left margin under 760px; entries stack without alternating; tables scroll inside their container.',
-    codeExample:
-      '<section class="signal">\n  <h1>The message arrives either way.</h1>\n  <p>Stencilled, dated, always on the record.</p>\n  <button class="btn-signal">Raise a notice</button>\n</section>',
     accent: '#d2452f',
     motif: 'stencil-mask',
     layout: 'timeline',
@@ -350,8 +260,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'Time does the cooking.',
     designPhilosophy:
       'Fermentation is a design system in the most literal sense: a few rules, a long timeline, and no shortcuts. Culture Jar lays its recipes out as dated entries on a spine — day one, day four, day twenty — with a ruled log beside each step so the reader can see how little has to happen for something to become good. Warm rye, cream, and one sour red for anything that needs watching.',
-    designDetails:
-      'Rye #b5722a, vine #6b8f4e, sour #e0533f for warnings and timings, cream #faf3e3 ground with #e8dcc4 surfaces and ink #2a2118. Petrona display with Mulish body, old-style figures, 8px controls, 16px cards, soft shadows at 6% ink.',
     colors: { primary: '#b5722a', secondary: '#6b8f4e', accent: '#e0533f', neutral: '#e8dcc4', background: '#faf3e3', text: '#2a2118' },
     typography: {
       displayFont: 'Petrona',
@@ -371,19 +279,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Wood-toned bar with a hand-ruled baseline',
       modals: 'Paper sheet with a jar-label header',
     },
-    spacing: { baseUnit: '8px', marginScale: '12 / 24 / 48 / 80 / 128', paddingScale: '16 / 26 / 42 / 68', grid: '12-column, 1180px max, 26px gutter' },
-    motion: {
-      pageLoad: 'Entries rise 8px and settle, 240ms each, 80ms apart',
-      hoverStates: 'Soft lift, 200ms ease-out',
-      transitions: 'Transform, box-shadow, opacity',
-      scroll: 'Sections fade once at 20%',
-    },
-    accessibility:
-      'Ink 12.9:1 on cream; rye 4.6:1 on cream (large text and fills only); sour red 4.4:1 and always accompanied by a word. Focus 3px rye ring. Decorative ruled backgrounds are aria-hidden.',
-    responsive:
-      'The day ruler compacts from a full label column to an inline chip under 700px; cards go single column; display type clamps 28 → 54px.',
-    codeExample:
-      '<section class="jar">\n  <h1>Time does the cooking.</h1>\n  <p>Day one, day four, day twenty.</p>\n  <button class="btn-jar">Start a jar</button>\n</section>',
     accent: '#b5722a',
     motif: 'ledger-rules',
     layout: 'timeline',
@@ -405,8 +300,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'Everything in orbit is on the record.',
     designPhilosophy:
       'Orbital tracking is a public-record problem dressed as a physics problem: the hard part is naming things and keeping the list honest. Orbital Registry treats every asset as a registered entry — one lattice of coordinates behind the page, one violet identity for primary objects, cyan only for live telemetry, and a typographic system big enough to be read at 2am by someone on call.',
-    designDetails:
-      'Deep space #0b0f1a with #1e2536 panels, registry violet #8b5cf6, orbital blue #4f7cff, telemetry cyan #22d3ee for live states only, text #e6ecff. Unbounded display with Figtree body. A 60° isometric lattice sits behind every section at 9% white; 5px radii, hairlines at 14%.',
     colors: { primary: '#4f7cff', secondary: '#8b5cf6', accent: '#22d3ee', neutral: '#1e2536', background: '#0b0f1a', text: '#e6ecff' },
     typography: {
       displayFont: 'Unbounded',
@@ -426,19 +319,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Registry bar with a live-status cyan dot',
       modals: 'Panel with a coordinate header and locked footer actions',
     },
-    spacing: { baseUnit: '4px', marginScale: '8 / 20 / 40 / 72 / 116', paddingScale: '14 / 24 / 40 / 64', grid: '12-column, 1240px max, 24px gutter' },
-    motion: {
-      pageLoad: 'Panels lock in with a 2px settle, 200ms each',
-      hoverStates: 'Lift and edge brighten, 180ms ease-out',
-      transitions: 'Transform, border-color, opacity',
-      scroll: 'The lattice stays fixed while content scrolls — the sky does not move',
-    },
-    accessibility:
-      'Text 15.1:1 on deep space; violet 5.9:1; cyan 11.4:1 and reserved for live state, always with a text label. The lattice is a decorative background. Focus 2px cyan outline, 3px offset.',
-    responsive:
-      'The mosaic reflows 4 → 2 → 1; the lattice drops to one axis under 700px; tabular figures keep columns aligned at every width.',
-    codeExample:
-      '<section class="registry">\n  <h1>Everything in orbit is on the record.</h1>\n  <p>One lattice, one list, no gaps.</p>\n  <button class="btn-registry">Register an asset</button>\n</section>',
     accent: '#4f7cff',
     motif: 'isometric-lattice',
     layout: 'mosaic',
@@ -460,8 +340,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'Go faster, giggle louder.',
     designPhilosophy:
       'A fairground is engineered joy: everything is over-scaled, over-lit, and built to survive being hit with a fist. Sugar Rush Rides takes that energy and keeps the engineering — chunky hard-offset buttons you can hit with a palm, a sheen that makes surfaces feel like boiled sweets, and type that refuses to whisper. It is for children, and for anyone building something a child will use.',
-    designDetails:
-      'Bubblegum #ff3d8b, soda #00c2b8, sherbet #ffd23f, on #fff7fb with #ffe9f3 surfaces and ink #2a1030. Syne display with Poppins body. Hard 4px offsets on every control, conic candy sheen on cards, 999px pills, 24px card radii.',
     colors: { primary: '#ff3d8b', secondary: '#00c2b8', accent: '#ffd23f', neutral: '#ffe9f3', background: '#fff7fb', text: '#2a1030' },
     typography: {
       displayFont: 'Syne',
@@ -481,19 +359,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Pill bar with a wobbling logo',
       modals: 'Rounded panel with a striped candy header',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 20 / 40 / 72 / 112', paddingScale: '18 / 28 / 44 / 64', grid: '12-column, 1180px max, 28px gutter' },
-    motion: {
-      pageLoad: 'Cards bounce in with a 6px overshoot, 200ms each, 60ms apart',
-      hoverStates: 'Offset growth and squash, 140ms ease-out',
-      transitions: 'Transform only — this system never cross-fades',
-      scroll: 'Sections pop once, no travel',
-    },
-    accessibility:
-      'Ink 15.7:1 on the pink ground; bubblegum is a fill behind white text at 4.8:1 — never body copy; soda and sherbet never carry text. Focus is a 4px ink outline offset 3px. Motion respects prefers-reduced-motion.',
-    responsive:
-      'Offsets shrink 6 → 3px on touch; the hero collapses to a single stack under 720px; buttons stay at least 48px tall everywhere.',
-    codeExample:
-      '<section class="rush">\n  <h1>Go faster, giggle louder.</h1>\n  <p>Fat controls, candy sheen, zero whispering.</p>\n  <button class="btn-rush">Ride the big one</button>\n</section>',
     accent: '#ff3d8b',
     motif: 'oil-slick',
     layout: 'hero-cards',
@@ -516,8 +381,6 @@ export const wave10Designs: DesignSystem[] = [
     description: 'Open till the last night bus.',
     designPhilosophy:
       'A night market is the densest designed environment people actually enjoy: overlapping signage, competing palettes, and a crowd that navigates it by feel. Night Market Arcade commits to that density — a moiré of overlapping rings behind the listings, four saturated colours in rotation, and a catalogue grid that behaves like a wall of stalls rather than a tidy product page.',
-    designDetails:
-      'Aubergine #1b0f22 with #2b1b33 stalls, arcade orange #ff8a00, neon rose #ff2e63, lamp yellow #ffe066, text #fff4e6. Gilda Display with Cabin body. Ring interference at 52% over dark, 8px radii on tiles, neon glows on prices and badges only.',
     colors: { primary: '#ff8a00', secondary: '#ff2e63', accent: '#ffe066', neutral: '#2b1b33', background: '#1b0f22', text: '#fff4e6' },
     typography: {
       displayFont: 'Gilda Display',
@@ -537,19 +400,6 @@ export const wave10Designs: DesignSystem[] = [
       navigation: 'Dense bar with four rotating accent dots',
       modals: 'Ticket-shaped panel with a perforated top edge',
     },
-    spacing: { baseUnit: '4px', marginScale: '8 / 16 / 32 / 60 / 96', paddingScale: '14 / 22 / 34 / 56', grid: '12-column, 1240px max, 18px gutter' },
-    motion: {
-      pageLoad: 'Stall tiles flicker in, 6% opacity hop, 160ms each',
-      hoverStates: 'Glow bloom with a slight tilt, 200ms ease-out',
-      transitions: 'Transform and box-shadow',
-      scroll: 'Rows light up as they enter, one flicker each',
-    },
-    accessibility:
-      'Text 13.4:1 on aubergine; lamp yellow 12.1:1; arcade orange and rose are fills behind ink or white at 4.9:1+. Glows never sit behind body copy. Focus 3px yellow outline offset 2px; flicker disabled under reduced motion.',
-    responsive:
-      'The catalogue grid reflows 4 → 3 → 2 → 1; ring spacing tightens; the perforated ticket edge becomes a straight rule under 640px.',
-    codeExample:
-      '<section class="market">\n  <h1>Open till the last night bus.</h1>\n  <p>Twelve stalls, four colours, no quiet corners.</p>\n  <button class="btn-market">Browse the stalls</button>\n</section>',
     accent: '#ff8a00',
     motif: 'moire-rings',
     layout: 'catalog',

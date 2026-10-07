@@ -1240,6 +1240,18 @@ a { color: inherit; }
   display: flex; align-items: center; gap: 10px;
 }
 .toast .check { color: #34d399; font-weight: 800; }
+/* Empty toast = idle live region. Collapsed to a hidden box rather than
+   unmounted, and clip-path rather than display:none, because a live region has
+   to stay in the accessibility tree to be announced. */
+.toast:empty {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  box-shadow: none;
+  white-space: nowrap;
+}
 
 /* ============ Color Studio ============ */
 .tab-dot {

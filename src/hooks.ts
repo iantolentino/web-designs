@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useStore } from './store'
 import { designById, loadCatalog, systemsOf } from './catalog'
 import { buildDesignPrompt } from './prompt'
+import { detailsOf, loadDetails } from './designs/previewDetails'
 import { CATEGORY_ORDER, USE_CASES, type Category, type UseCase } from './types'
 
 /** Clipboard copy with a legacy fallback. Returns a promise for success. */
@@ -46,7 +47,20 @@ export function useToast() {
 export async function copyDesignPrompt(id: string): Promise<boolean> {
   const d = designById(id)
   if (!d) return false
-  const ok = await copyText(buildDesignPrompt(d))
+  // The prompt quotes the preview prose, which ships in its own chunk (see
+  // src/designs/previewDetails.ts). Ctrl+Shift+C can be the very first thing a
+  // user does with a design, so wait for it rather than copying a partial
+  // prompt — the toast below only appears once the copy has actually happened.
+  if (!detailsOf(id)) {
+    useStore.getState().showToast('⧗ Loading design details…')
+    await loadDetails()
+  }
+  const details = detailsOf(id)
+  if (!details) {
+    useStore.getState().showToast('✗ Design details unavailable — try again')
+    return false
+  }
+  const ok = await copyText(buildDesignPrompt(d, details))
   const store = useStore.getState()
   store.showToast(ok ? '✓ Design prompt copied to clipboard!' : '✗ Copy failed — select and copy manually')
   if (ok) {

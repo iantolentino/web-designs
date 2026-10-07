@@ -116,12 +116,15 @@ export default function App() {
       if (selectedUseCase && !matchesUseCase(d, selectedUseCase)) return false
       if (favOnly && !favorites.includes(d.id)) return false
       if (!q) return true
+      // The preview prose (`designDetails`) is deliberately not searched: it
+      // ships in its own chunk, so matching on it would make results depend on
+      // whether a preview had been opened. Description and philosophy carry the
+      // same vocabulary.
       const haystack = [
         d.name,
         d.category,
         d.description,
         d.designPhilosophy,
-        d.designDetails,
         d.layout,
         ...d.tags,
         ...useCasesOf(d),
@@ -229,11 +232,20 @@ export default function App() {
 
       <CommandPalette />
 
-      {toast && (
-        <div className="toast" role="status" aria-live="polite">
-          <span className="check">✓</span> {toast.replace('✓ ', '')}
-        </div>
-      )}
+      {/*
+        Mounted even when empty. A live region has to already exist in the DOM
+        for its text changes to be announced; inserting the region and its
+        message in the same commit is the pattern screen readers most often
+        miss. `.toast:empty` collapses it out of sight without taking it out of
+        the accessibility tree.
+      */}
+      <div className="toast" role="status" aria-live="polite">
+        {toast && (
+          <>
+            <span className="check">✓</span> {toast.replace('✓ ', '')}
+          </>
+        )}
+      </div>
     </div>
   )
 }

@@ -3,9 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="The Design Vault — 226 curated, production-grade design systems. Preview live, recolor, export the tokens, copy the prompt, kill AI design slop." />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="The Design Vault — 550 curated, production-grade design systems, 153 layout patterns and 110 components. Preview every one live, recolor it, export the tokens, copy the prompt."
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>The Design Vault — Curated AI Design Systems</title>
+    <link rel="canonical" href="https://iantolentino.github.io/web-designs/" />
+    <meta name="theme-color" content="#12100e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f5f2" media="(prefers-color-scheme: light)" />
+    <title>The Design Vault — 550 Design Systems, Live Previews &amp; Tokens</title>
+
+    <!-- Link unfurling: without these a shared vault link renders as a bare
+         URL with no title, no summary and no image. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Design Vault" />
+    <meta property="og:url" content="https://iantolentino.github.io/web-designs/" />
+    <meta property="og:title" content="The Design Vault — 550 Design Systems, Live Previews &amp; Tokens" />
+    <meta
+      property="og:description"
+      content="550 production-grade design systems, 153 layout patterns and 110 components. Preview live, recolor, export tokens, copy the prompt."
+    />
+    <meta property="og:image" content="https://iantolentino.github.io/web-designs/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Design Vault — 550 design systems, 153 patterns, 110 components." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Design Vault — 550 Design Systems, Live Previews &amp; Tokens" />
+    <meta
+      name="twitter:description"
+      content="550 production-grade design systems, 153 layout patterns and 110 components. Preview live, recolor, export tokens, copy the prompt."
+    />
+    <meta name="twitter:image" content="https://iantolentino.github.io/web-designs/og.jpg" />
+    <meta name="twitter:image:alt" content="The Design Vault — 550 design systems, previewed live." />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://iantolentino.github.io/web-designs/#website",
+            "url": "https://iantolentino.github.io/web-designs/",
+            "name": "The Design Vault",
+            "inLanguage": "en",
+            "description": "A reference library of production-grade design systems, layout patterns and UI components, each previewable live."
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://iantolentino.github.io/web-designs/#collection",
+            "isPartOf": { "@id": "https://iantolentino.github.io/web-designs/#website" },
+            "name": "Design systems, patterns and components",
+            "description": "550 design systems, 153 layout patterns and 110 components — tokens, type pairings, palettes and the rules that hold them together.",
+            "about": { "@type": "Thing", "name": "Design systems" }
+          }
+        ]
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,7 +71,7 @@
       href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Alfa+Slab+One&family=Amatic+SC:wght@400;700&family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Bangers&family=Baloo+2:wght@400..800&family=Bebas+Neue&family=Bitter:ital,wght@0,300..900;1,300..900&family=Bungee&family=Bungee+Shade&family=Caveat:wght@400..700&family=Chakra+Petch:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Familjen+Grotesk:wght@400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Fredoka:wght@300..700&family=Gaegu:wght@400;700&family=Hi+Melody&family=IBM+Plex+Sans:ital,wght@0,300..700;1,300..700&family=Jost:wght@300..800&family=Karla:ital,wght@0,300..800;1,300..800&family=Livvic:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Manrope:wght@300..800&family=Marcellus&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Monoton&family=Mrs+Saint+Delafield&family=Rye&family=UnifrakturMaguntia&family=Anton&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cabin:ital,wght@0,400..700;1,400..700&family=Figtree:ital,wght@0,300..900;1,300..900&family=Gilda+Display&family=Gloock&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Nunito:ital,wght@0,300..900;1,300..900&family=Oswald:wght@300..700&family=Outfit:wght@300..900&family=Oxanium:wght@400..800&family=Patrick+Hand&family=Permanent+Marker&family=Petrona:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Press+Start+2P&family=Quicksand:wght@300..700&family=Righteous&family=Rubik+Doodle+Shadow&family=Rubik+Mono+One&family=Rubik:wght@300..900&family=Silkscreen:wght@400;700&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Sora:wght@100..800&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@400..800&family=Unbounded:wght@200..900&family=VT323&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Young+Serif&family=Zilla+Slab:ital,wght@0,300..700;1,300..700&display=swap"
     />
     <script>
-      // The design-fonts sheet styles 216 gallery thumbnails and pattern
+      // The design-fonts sheet styles 550 gallery thumbnails and pattern
       // boards, not the app shell — fetch it once the page is interactive so
       // it never competes with shell CSS/JS on the critical path.
       addEventListener('load', function () {
@@ -27,6 +82,18 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- The app is a client-rendered SPA, so a crawler that does not run JS
+         would otherwise see an empty document. This is the same content the
+         gallery paints, in static text. -->
+    <noscript>
+      <h1>The Design Vault</h1>
+      <p>
+        550 curated, production-grade design systems, 153 layout patterns and 110 components. Each system ships a full
+        token set — palette, type pairing, radius, depth, spacing rhythm, motion and accessibility notes — with a live
+        preview, a recolorable palette studio, and copy-ready Tailwind, CSS-variable and token-JSON exports.
+      </p>
+      <p>The vault needs JavaScript for its live previews and filtering.</p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

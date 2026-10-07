@@ -41,5 +41,13 @@ export default defineConfig({
   // Relative base so the build works at https://<user>.github.io/web-designs/
   base: './',
   server: { port: 5180, strictPort: false, host: true },
-  build: { chunkSizeWarningLimit: 1600, sourcemap: true, target: 'esnext' },
+  build: {
+    chunkSizeWarningLimit: 1600,
+    // Off by default: the maps are ~3.5 MB of extra artifact (and the whole
+    // source) uploaded on every deploy, and nothing requests them unless a
+    // console is open. `SOURCEMAP=1 npm run build` emits them for debugging.
+    // The service worker skips any `.map` it finds either way.
+    sourcemap: process.env.SOURCEMAP === '1',
+    target: 'esnext',
+  },
 })

@@ -16,8 +16,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'On-chain finance with terminal discipline.',
     designPhilosophy:
       'Crypto products failed when they dressed speculation as play. Signal Spire borrows the gravity of a trading floor: monospaced figures, ledger-dark surfaces, and green/red truth-telling. Every number is a promise, so every number is set in a mono face with tabular figures. For exchanges, custody platforms, and on-chain analytics.',
-    designDetails:
-      'Obsidian #0b0f14 canvas with ledger-line hairlines, signal green #2fd47a and alert red #f0524f for deltas only. IBM Plex Mono for figures, Oxanium display for headings. Candlestick sparklines, block-height tickers, and address chips with truncation rules. Hairline 1px borders everywhere; glow reserved for live data.',
     colors: {
       primary: '#2fd47a',
       secondary: '#8b98a9',
@@ -44,24 +42,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Top ledger bar with block-height ticker and hairline rule',
       modals: 'Instrument sheet, title bar with close ✕, hairline sections',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '16 / 48 / 96 / 160',
-      paddingScale: '12 / 20 / 32',
-      grid: 'Full-width 1360px; 12-col trading grid',
-    },
-    motion: {
-      pageLoad: 'Rows cascade 30ms apart, 200ms each',
-      hoverStates: 'Border + background brighten 120ms',
-      transitions: 'Snappy ease-out, instrument-like',
-      scroll: 'Ticker marquee 40s loop; sparklines draw on enter',
-    },
-    accessibility:
-      '#e6edf3 on #0b0f14 15.2:1; green/red deltas paired with ▲▼ arrows (never color alone). Focus 2px #2fd47a. Live regions announce price updates politely.',
-    responsive:
-      'Trading grid becomes stacked order-book + chart under 900px. Tables collapse to cards. Mono figures never truncate mid-number.',
-    codeExample:
-      '<section class="book">\n  <h1>The ledger is <em>open.</em></h1>\n  <dl class="pair"><dt>ETH/USD</dt><dd>3,412.08 <span class="up">▲1.8%</span></dd></dl>\n  <button class="btn-signal">Trade now</button>\n</section>',
     accent: '#2fd47a',
     motif: 'ledger-rules',
     layout: 'dashboard',
@@ -83,8 +63,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'Runway silence, set in didone type.',
     designPhilosophy:
       'Fashion speaks in whitespace. Maison Mode is the lookbook before the lookbook: one garment per breath, a didone headline that never competes with the cloth, and navigation so quiet you discover it. For fashion houses, stylists, and editorial shops that sell restraint as hard as they sell silk.',
-    designDetails:
-      'Gallery white #faf9f7, ink #171513, house bordeaux #642b47 for buttons and rules, blush #e8d5cc accents used once per view. DM Serif Display at enormous sizes, Karla body. Full-bleed lookbook imagery with caption side-notes, hairline-framed product plates, and a whisper-thin 1px rule system. Numbers are Roman-numeraled.',
     colors: {
       primary: '#642b47',
       secondary: '#8a8378',
@@ -111,24 +89,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Hairline top bar, centered wordmark, drop-cap menu',
       modals: 'Full-bleed plate with margin notes and ✕ in corner',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '24 / 64 / 120 / 200',
-      paddingScale: '24 / 48 / 80',
-      grid: 'Editorial 1240px with 2-col lookbook rhythm',
-    },
-    motion: {
-      pageLoad: 'Images reveal via clip-path, 700ms staggered',
-      hoverStates: 'Slow zoom + caption reveal, 600ms',
-      transitions: 'Linear, unhurried, runway-calm',
-      scroll: 'Parallax plates at 0.96x; rules stay fixed',
-    },
-    accessibility:
-      'Ink #171513 on #faf9f7 15.8:1; gallery text on bordeaux #642b47 10.1:1. Focus 2px bordeaux outline. Whitespace is decorative — all text passes contrast with margin to spare.',
-    responsive:
-      'Lookbook stacks to single column; captions move below plates. Display clamps 3rem→4.5rem. Menu collapses to quiet drawer.',
-    codeExample:
-      '<section class="plate">\n  <h1>Collection <span class="rn">IV</span></h1>\n  <figure><img src="look-01.jpg" alt="Wool overcoat, back view" /><figcaption>Look 01 — wool &amp; silence</figcaption></figure>\n  <button class="btn-maison">View lookbook</button>\n</section>',
     accent: '#e8d5cc',
     motif: 'tape-labels',
     layout: 'editorial',
@@ -150,8 +110,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'A coach’s whistle, set in heavy type.',
     designPhilosophy:
       'Fitness design lies with gradients and fake energy. Iron Cadence tells the truth: massive slab numerals for reps and plates, chalk-white on iron grey, and copy that reads like a training block — sets, reps, rest. For gyms, strength coaches, and programs that respect the work.',
-    designDetails:
-      'Iron #17181a canvas, chalk #f2f0eb, plate-red #d33f2e for PRs and alerts. Alfa Slab One display, Figtree body. Rep-scheme tables, rest-timer rings, and plate-math graphics (45/25/10/5). Hard 6px shadows, square corners, uppercase everything short.',
     colors: {
       primary: '#f2f0eb',
       secondary: '#8c8f94',
@@ -178,24 +136,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Chalk top bar with iron text, active item plate-red underlined',
       modals: 'Iron sheet, chalk 3px border, WARM UP / WORK / COOL DOWN sections',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 48 / 88 / 144',
-      paddingScale: '20 / 36 / 56',
-      grid: 'Strongman 1160px; 2-col set/rep grids',
-    },
-    motion: {
-      pageLoad: 'Blocks drop 12px and settle, 180ms staggered',
-      hoverStates: 'Shadow push 140ms; timers tick smoothly',
-      transitions: 'Fast, percussive, never bouncy',
-      scroll: 'Rest timer rings count on enter; rules scroll with content',
-    },
-    accessibility:
-      '#f2f0eb on #17181a 14.9:1; plate-red only for state, always with text. Focus 3px #d33f2e. Timers respect reduced-motion (static + numeric).',
-    responsive:
-      'Set/rep tables become cards under 720px. Display clamps 2.75rem→4.25rem. Shadow sizes halve on mobile.',
-    codeExample:
-      '<section class="block">\n  <h1>Week 1 · <em>Squat</em></h1>\n  <table class="scheme"><tr><td>5</td><td>× 225</td><td>rest 3:00</td></tr></table>\n  <button class="btn-iron">Start session</button>\n</section>',
     accent: '#d33f2e',
     motif: 'hard-shadows',
     layout: 'full-bleed',
@@ -216,8 +156,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'A contact sheet with captions worth reading.',
     designPhilosophy:
       'Photography sites either hide the images in chrome or drown them in it. Aperture Notes does neither: a darkroom-grey field, images at print size, and caption typography treated like a writer wrote it. For photographers, darkroom prints, zines, and anyone selling light.',
-    designDetails:
-      'Darkroom #1a1917 field, print-white #f4f1ea, amber #e0a458 safelight accent. Fraunces display, IBM Plex Sans body. Contact-sheet grids with frame numbers (▲24), print-border images (8px white), EXIF sidebars in mono, and a reading-rhythm caption block. Hover prints the negative.',
     colors: {
       primary: '#f4f1ea',
       secondary: '#9b968c',
@@ -244,24 +182,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Frame-number strip; current frame ambered',
       modals: 'Light-table: full dark, print centered, EXIF aside',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '24 / 56 / 104 / 168',
-      paddingScale: '20 / 40 / 64',
-      grid: 'Contact sheet: auto-fill minmax(220px, 1fr)',
-    },
-    motion: {
-      pageLoad: 'Prints fade from negative, 500ms staggered 60ms',
-      hoverStates: 'Safelight amber warms the frame, 300ms',
-      transitions: 'Smooth darkroom-dim easing',
-      scroll: 'Contact sheet scrolls as one strip; captions settle',
-    },
-    accessibility:
-      '#f4f1ea on #1a1917 14.1:1; amber reserved for non-text accents and links with underlines. Focus 2px amber. All images carry real captions.',
-    responsive:
-      'Contact sheet drops to 2-col then 1-col prints. EXIF asides move under captions. Print borders stay (identity).',
-    codeExample:
-      '<section class="sheet">\n  <h1>Field notes, <em>printed.</em></h1>\n  <figure class="print"><img src="frame-24.jpg" alt="Harbor fog, dawn" /><figcaption>▲24 — harbor fog, 1/125 f8</figcaption></figure>\n  <button class="btn-print">Order a print</button>\n</section>',
     accent: '#e0a458',
     motif: 'grain-overlay',
     layout: 'asymmetric',
@@ -282,8 +202,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'Distributed work without the beige.',
     designPhilosophy:
       'Remote-work tools all bought the same purple gradient. Async Rally is what distributed teams actually feel like: overlapping timezones as a rally route, hand-stickered standup boards, and copy with a pulse. Friendly enough for a 7am standup, honest enough for a retro. For remote-first teams, retreats, and async tooling.',
-    designDetails:
-      'Route-cream #fdf6ec, rally-blue #2563a8, sticker-yellow #f5b31b, mark-green #3a9e63. Outfit display, Nunito body. Timezone ribbons (repeating-linear-gradient bands), hand-drawn arrows (border-radius elbows), sticker rotations (-2°/1.5°), and emoji-free status chips with dot language.',
     colors: {
       primary: '#2563a8',
       secondary: '#3a9e63',
@@ -310,24 +228,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Route ribbon with timezone bands and flag dots',
       modals: 'Postcard sheet with stamp corner and dashed airmail border',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 48 / 88 / 140',
-      paddingScale: '20 / 36 / 56',
-      grid: 'Rally 1120px; standup board 3-col',
-    },
-    motion: {
-      pageLoad: 'Cards drive in from left 24px, 260ms staggered',
-      hoverStates: 'Tilt + lift 200ms; flags wave 1.8s loop',
-      transitions: 'Springy but damped',
-      scroll: 'Timezone ribbons scroll at 0.95x; flags parallax',
-    },
-    accessibility:
-      '#33302a on #fdf6ec 11.9:1; blue on cream 6.4:1. Status never color-only (dot + word). Focus 3px #2563a8. Stickers are aria-hidden.',
-    responsive:
-      'Standup board stacks under 860px. Timezone ribbons go horizontal-scroll. Stickers lose rotation under 480px (legibility).',
-    codeExample:
-      '<section class="rally">\n  <h1>Standup, <em>wherever</em> you woke up.</h1>\n  <div class="ribbon">SF ● 9:04 — BER ● 18:04 — TYO ● 1:04</div>\n  <button class="btn-rally">Post update</button>\n</section>',
     accent: '#f5b31b',
     motif: 'rotated-stickers',
     layout: 'hero-cards',
@@ -348,8 +248,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'Wet noses, warm type, zero baby-talk.',
     designPhilosophy:
       'Pet brands condescend with paw-print clip art. Kennel & Co. respects the animal and the owner: earthy linen field, intelligent serif display, and photography treated like portraiture. For shelters, vets, groomers, and pet food that reads like it was made by people with dogs.',
-    designDetails:
-      'Linen #f6f1e7, moss #6f7d54, clay #b96a4b, ink #3b362e. Young Serif display, Mulish body. Portrait-framed animal photography (arched tops), adoption cards as file-folder tabs, vet-record tables with paw-free iconography, and a warm dashed rule system.',
     colors: {
       primary: '#6f7d54',
       secondary: '#b96a4b',
@@ -376,24 +274,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Linen bar with folder-tab active states',
       modals: 'File-folder sheet, tab header, dashed dividers',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 48 / 88 / 144',
-      paddingScale: '22 / 40 / 60',
-      grid: 'Kennel 1100px; portrait cards 3-col',
-    },
-    motion: {
-      pageLoad: 'Cards unzip from tab edge, 300ms staggered',
-      hoverStates: 'Tab lift + arch tilt 220ms',
-      transitions: 'Soft, warm, eager',
-      scroll: 'Dashed rules scroll with content; arches static',
-    },
-    accessibility:
-      '#3b362e on #f6f1e7 10.6:1; moss on linen 4.9:1 (large text + icons). Focus 3px #6f7d54. Arch crops never hide faces (safe-area).',
-    responsive:
-      'Portrait cards stack; arches keep safe area. Folder tabs become pill headers under 720px. Display clamps 2.5rem→3.6rem.',
-    codeExample:
-      '<section class="kennel">\n  <h1>Good dogs, <em>great</em> homes.</h1>\n  <article class="tab-card"><header>Biscuit · 4y</header><p>Knows “sit”, loves trains.</p></article>\n  <button class="btn-kennel">Meet the dogs</button>\n</section>',
     accent: '#e9dcc3',
     motif: 'soft-shadows',
     layout: 'hero-cards',
@@ -414,8 +294,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'Grassroots print energy, zero corporate gloss.',
     designPhilosophy:
       'Nonprofit design apologizes. Mutual Aid Press doesn’t: photocopied textures, marching headline stacks, and donation asks set like headlines. It reads like the good kind of flyer — the one you actually keep. For mutual-aid networks, organizers, and community fridges.',
-    designDetails:
-      'Newsprint #f3efe4, ink #1c1a17, march-red #c8331f, stamp-blue #274b8f. Permanent Marker accents, Zilla Slab body, Bungee Shade display reserved for one line per page. Halftone texture (radial-gradient dot fields), torn-edge dividers (polygon clip), rubber-stamp CTAs with rotate(-2°).',
     colors: {
       primary: '#c8331f',
       secondary: '#274b8f',
@@ -442,24 +320,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Ink masthead bar, red active underline, marquee ticker option',
       modals: 'Flyer sheet, torn top edge, stamp corner “URGENT”',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 44 / 80 / 132',
-      paddingScale: '18 / 32 / 52',
-      grid: 'Flyer 1040px; 2-col agenda + actions',
-    },
-    motion: {
-      pageLoad: 'Headline stacks march up 16px, 200ms staggered',
-      hoverStates: 'Stamp press 160ms; marker underline draws',
-      transitions: 'Fast, urgent, never smooth-jazz',
-      scroll: 'Halftone fields static; torn edges scroll 0.97x',
-    },
-    accessibility:
-      '#1c1a17 on #f3efe4 13.5:1; red on newsprint 5.1:1 (large/bold). Focus 3px #c8331f. Rotation never exceeds 2° (readability). Marker accents aria-hidden.',
-    responsive:
-      'Agenda stacks under 780px. Display line clamps to 2.25rem (Bungee Shade is loud). Stamps straighten under 480px.',
-    codeExample:
-      '<section class="flyer">\n  <h1>THE FRIDGE IS <em>FULL.</em></h1>\n  <p class="stamp">Take what you need · Leave what you can</p>\n  <button class="btn-aid">Volunteer tonight</button>\n</section>',
     accent: '#e8dfc9',
     motif: 'rotated-stickers',
     layout: 'manifesto',
@@ -480,8 +340,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'An engraver’s agency: stations, not sections.',
     designPhilosophy:
       'Agencies promise transformation with stock photos of lightbulbs. Studio Copperplate presents like an engraving house: a stationery-grade grid, engraved-line ornaments, case studies filed as “stations”, and copy set with a steady hand. For brand studios, design consultancies, and anyone who invoices by the quarter-hour and earns it.',
-    designDetails:
-      'Wove #f7f5f0, engraving ink #221f1a, copper #9a5b33. Marcellus display, EB Garamond body. Engraved rules (double hairlines), station numerals (01 — Discovery), copper-foil chip accents, and a case-study ledger with ruled columns. Ornaments are structural, never decorative-only.',
     colors: {
       primary: '#221f1a',
       secondary: '#6d675c',
@@ -508,24 +366,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Masthead with double rules; stations as numbered tabs',
       modals: 'Engraved plate with margin notes and seal corner',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '24 / 60 / 112 / 180',
-      paddingScale: '24 / 44 / 72',
-      grid: 'Stationery 1200px; ruled 12-col with visible baselines',
-    },
-    motion: {
-      pageLoad: 'Rules draw left-to-right 400ms; text settles 60ms later',
-      hoverStates: 'Hairline draws, foil warms 280ms',
-      transitions: 'Measured ease, engraver patience',
-      scroll: 'Ruled baselines scroll with the sheet; numerals pin',
-    },
-    accessibility:
-      '#221f1a on #f7f5f0 14.6:1; copper on wove 5.6:1. Focus 2px double outline. Ornament rules carry no meaning (aria-hidden).',
-    responsive:
-      'Ledger tables collapse to cards; station numerals stay. Display clamps 2.75rem→3.875rem. Double rules simplify to single under 480px.',
-    codeExample:
-      '<section class="station">\n  <h1>Brand, <em>engraved.</em></h1>\n  <dl class="ledger"><dt>01 — Discovery</dt><dd>Positioning, audits, appetite</dd></dl>\n  <button class="btn-copper">Open a station</button>\n</section>',
     accent: '#9a5b33',
     motif: 'ledger-rules',
     layout: 'editorial',
@@ -546,8 +386,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'Listings with the patience of a surveyor.',
     designPhilosophy:
       'Real-estate sites shout with red badges and countdowns. Parcel & Key works like a surveyor’s file: plat-map grids, lot-line rules, and listing cards that read like deeds. Trust comes from precision, not urgency. For brokerages, rental platforms, and land trusts.',
-    designDetails:
-      'Parchment #f4f2ec, surveyor green #3d6b4f, key brass #a9822f, ink #262b26. Cormorant Garamond display, IBM Plex Sans body. Plat-grid backgrounds (repeating-linear-gradient lot lines), listing cards with lot dims (52′ × 118′), map-pin chips, and deed-table data rows.',
     colors: {
       primary: '#3d6b4f',
       secondary: '#a9822f',
@@ -574,24 +412,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Survey bar with plat-tick active markers',
       modals: 'Deed sheet: title block, ruled table, seal corner',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 52 / 96 / 152',
-      paddingScale: '22 / 40 / 64',
-      grid: 'Plat 1180px; listings 3-col with map rail',
-    },
-    motion: {
-      pageLoad: 'Listings file in 40ms apart, 220ms each',
-      hoverStates: 'Plat grid warms, pin drops 3px, 200ms',
-      transitions: 'Even, surveyor-steady',
-      scroll: 'Map rail pins; plat background scrolls 0.98x',
-    },
-    accessibility:
-      '#262b26 on #f4f2ec 12.8:1; green on parchment 6.1:1. Prices/dims in mono with labels (never symbol-only). Focus 2px #3d6b4f.',
-    responsive:
-      'Map rail becomes full-width sheet under 900px. Listing cards 2-col → 1-col. Dims wrap on hyphens, never truncate.',
-    codeExample:
-      '<section class="plat">\n  <h1>Ground, <em>properly</em> measured.</h1>\n  <article class="listing"><header>Lot 14 · Cedar Row</header><p>52′ × 118′ · 3 bed · $612k</p></article>\n  <button class="btn-parcel">Book a viewing</button>\n</section>',
     accent: '#e4ddc9',
     motif: 'swiss-grid',
     layout: 'hero-cards',
@@ -612,8 +432,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'The morning paper, rebuilt for the phone.',
     designPhilosophy:
       'News sites buried the front page under banners. Deadline Gazette restores it: a broadsheet grid that survives 390px, ink-on-newsprint palette, columns that actually column, and a live “STOP PRESS” strip. For newsrooms, newsletters, and local papers that still employ editors.',
-    designDetails:
-      'Newsprint #f6f3ea, ink #191713, press-red #b3271e, rule-blue #2c4a7c. DM Serif Display headlines, Source Sans 3 body, Space Mono for timestamps. Column rules (1px ink), drop caps, kicker-deck-headline hierarchy, and a stop-press ticker with wire timestamps (14:02 GMT).',
     colors: {
       primary: '#191713',
       secondary: '#2c4a7c',
@@ -640,24 +458,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Masthead with date line + edition, section rule below',
       modals: 'Front-page plate: lead story + STOP PRESS strip',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 44 / 84 / 136',
-      paddingScale: '18 / 34 / 56',
-      grid: 'Broadsheet 1240px → 3-col → 1-col; column rules everywhere',
-    },
-    motion: {
-      pageLoad: 'Columns set in 30ms stagger, like typesetting',
-      hoverStates: 'Underline draws 180ms; ticker scrolls 45s',
-      transitions: 'Crisp, print-quick',
-      scroll: 'Masthead condenses to date line; rules persist',
-    },
-    accessibility:
-      '#191713 on #f6f3ea 13.9:1. Wire timestamps in mono with full dates for screen readers. Focus 2px ink. Ticker is duplicable as static list.',
-    responsive:
-      'Broadsheet reflows 4→2→1 with rules intact. Drop caps keep 3-line height. Stop-press becomes static strip under 640px.',
-    codeExample:
-      '<section class="front">\n  <h1 class="lead">Council votes to <em>save</em> the arcade.</h1>\n  <p class="deck">Narrow win follows six-hour session; owners pledge repairs by spring.</p>\n  <button class="btn-gazette">Read the full story</button>\n</section>',
     accent: '#b3271e',
     motif: 'ticker-marquee',
     layout: 'magazine',
@@ -678,8 +478,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'Learning at escape velocity (ages 6–10).',
     designPhilosophy:
       'Kids’ education design talks down or sugars up. Cosmo Explorers does neither: real space facts, chunky comet trails, missions instead of lessons, and type sturdy enough for small hands. For learning apps, children’s museums, and family science centers.',
-    designDetails:
-      'Deep-space #141b3d, comet-mint #7fe3c3, sun-yellow #ffcf4d, rocket-red #ff6b57. Fredoka display, Quicksand body. Planet-orbit progress rings, mission-patch badges (clip-path polygons), starfields (box-shadow stars), and comet-trail list markers. No gradients on text, ever.',
     colors: {
       primary: '#7fe3c3',
       secondary: '#ffcf4d',
@@ -706,24 +504,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Orbit bar; active planet dots to the label',
       modals: 'Mission-briefing sheet with patch header + countdown chip',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 48 / 88 / 140',
-      paddingScale: '22 / 40 / 60',
-      grid: 'Launchpad 1080px; mission cards 2-col big',
-    },
-    motion: {
-      pageLoad: 'Planets rise into orbit, 350ms staggered springs',
-      hoverStates: 'Orbit pulse 220ms; patches spin once',
-      transitions: 'Bouncy springs, damped 0.7',
-      scroll: 'Starfield parallax 0.9x; comets streak on enter',
-    },
-    accessibility:
-      '#f4f6ff on #141b3d 13.2:1; mint on deep-space 10.9:1. Focus 3px #ffcf4d. All motion springs off under reduced-motion. Facts never conveyed by color alone.',
-    responsive:
-      'Mission cards stack big; orbit rings scale to viewport. Starfield density halves under 480px (battery). Touch targets ≥ 52px.',
-    codeExample:
-      '<section class="mission">\n  <h1>Mission 04: <em>Io</em></h1>\n  <p>Io has 400 volcanoes. Your task: count the plumes.</p>\n  <button class="btn-cosmo">Begin mission</button>\n</section>',
     accent: '#ff6b57',
     motif: 'glow-pulse',
     layout: 'hero-cards',
@@ -744,8 +524,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'Research papers, shipped as products.',
     designPhilosophy:
       'AI sites either cosplay sci-fi or bury the model behind gradients. Tensor Atlas reads like the paper it shipped: figure-first layouts, numbered claims, eval tables in the open, and type that behaves like a good preprint. For ML research teams, model hubs, and eval platforms.',
-    designDetails:
-      'Paper-white #fbfbfa, graphite #232323, eval-teal #0f766e, caution-amber #b45309. Fraunces display, IBM Plex Sans body, Space Mono for numbers. Figure blocks with numbered captions (Figure 3b), eval tables with hairline rules, confidence chips (±0.4), and a claim/evidence two-column rhythm.',
     colors: {
       primary: '#0f766e',
       secondary: '#b45309',
@@ -772,24 +550,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Section-number rail (1. Intro, 2. Method…)',
       modals: 'Preprint plate: abstract block, figure, footnote rule',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 52 / 96 / 156',
-      paddingScale: '20 / 40 / 64',
-      grid: 'Two-column claim/evidence 1140px; figures full measure',
-    },
-    motion: {
-      pageLoad: 'Figures fade with caption slide, 240ms staggered',
-      hoverStates: 'Eval rows tint 180ms; chips settle',
-      transitions: 'Plain, paper-like',
-      scroll: 'Number rail tracks the section; figures pin briefly',
-    },
-    accessibility:
-      '#232323 on #fbfbfa 14.7:1; teal on paper 5.3:1. Confidence always numeric (±), never color-only. Focus 2px #0f766e. Tables have proper headers.',
-    responsive:
-      'Claim/evidence stacks under 880px. Eval tables scroll in plates. Figure captions stay attached (never float).',
-    codeExample:
-      '<section class="figure">\n  <h1>Eval 2: <em>Long context.</em></h1>\n  <table class="eval"><tr><th>Model</th><th>Acc ±</th></tr><tr><td>Ours</td><td>91.2 ±0.4</td></tr></table>\n  <button class="btn-tensor">Read the paper</button>\n</section>',
     accent: '#e7ebe9',
     motif: 'numbered-steps',
     layout: 'editorial',
@@ -810,8 +570,6 @@ export const wave5Designs: DesignSystem[] = [
     description: 'An invitation you can almost feel the weight of.',
     designPhilosophy:
       'Event sites shout with countdowns. Gilded Hour invites: deckled-edge cards, gilt-line rules, and an RSVP flow that feels like correspondence. The palette is candlelight, the type is engraved, and nothing moves faster than a held breath. For weddings, galas, and milestone celebrations.',
-    designDetails:
-      'Candle #faf6ec, ink #2c2620, gilt #b08d3e, blush rose #d8a7a0. Marcellus display, EB Garamond body, true italics kept for flourishes. Deckled edges (mask-image torn), gilt double rules, monogram seals (border-radius 50% with inset ring), and RSVP cards filed as correspondence.',
     colors: {
       primary: '#b08d3e',
       secondary: '#d8a7a0',
@@ -838,24 +596,6 @@ export const wave5Designs: DesignSystem[] = [
       navigation: 'Centered wordmark between gilt rules; events as tabs',
       modals: 'Invitation plate: monogram seal, date block, RSVP slit',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '24 / 64 / 116 / 188',
-      paddingScale: '26 / 48 / 76',
-      grid: 'Correspondence 1060px; single measured column with asides',
-    },
-    motion: {
-      pageLoad: 'Cards settle like paper on a desk, 400ms',
-      hoverStates: 'Gilt warms, edges lift 320ms',
-      transitions: 'Slow, ceremonial',
-      scroll: 'Parallax gilt rules 0.98x; seals static',
-    },
-    accessibility:
-      '#2c2620 on #faf6ec 12.4:1; gilt on candle 3.9:1 (decorative rules only, never body text). Focus 2px double gilt. Dates in full prose (no numerals-only).',
-    responsive:
-      'Single column throughout; asides fold under. Deckle edges simplify under 640px (mask cost). Display clamps 2.75rem→4rem.',
-    codeExample:
-      '<section class="invite">\n  <h1>Together with <em>joy</em></h1>\n  <p class="date">Saturday, the twelfth of September</p>\n  <button class="btn-gilt">Respond by post</button>\n</section>',
     accent: '#efe6d2',
     motif: 'serif-italic-hero',
     layout: 'centered',

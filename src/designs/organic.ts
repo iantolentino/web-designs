@@ -9,8 +9,6 @@ export const organicDesigns: DesignSystem[] = [
     description: 'Forest greens and topographic calm for outdoor brands.',
     designPhilosophy:
       'A trail map you can read at a glance. Deep forest green, cream paper, topo-line textures, and Manrope’s sturdy clarity. Sturdy without being stiff — like good hiking boots: reliable, comfortable, unremarkable in the best way.',
-    designDetails:
-      'Cream #f7f4ec paper with forest #2f4a3c primary and rust accents. Topo-line texture (concentric CSS radial gradients at 2% opacity) backgrounds hero sections. Manrope for everything; weight contrast does the hierarchy work. Cards have 1px earth borders and slight cream tints. Buttons are sturdy rectangles with 2px radius.',
     colors: {
       primary: '#2f4a3c',
       secondary: '#7ba05b',
@@ -37,24 +35,6 @@ export const organicDesigns: DesignSystem[] = [
       navigation: 'Cream bar with forest text, topo texture at 1% opacity',
       modals: 'Cream sheet with 1px earth border and leaf corner decoration',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 64 / 128',
-      paddingScale: '24 / 40 / 64',
-      grid: '12-col 1160px; feature sections in 2:1 splits',
-    },
-    motion: {
-      pageLoad: 'Hero fades up 16px, 500ms; topo lines drift in',
-      hoverStates: '200ms darken/lift; no springs, no bounce',
-      transitions: 'Grounded ease-out, nothing floats longer than 300ms',
-      scroll: 'Topo textures parallax 0.97x — barely there, like wind',
-    },
-    accessibility:
-      '#25332a on cream 12.8:1; white on forest 8.1:1. Focus is 3px forest ring. Topo textures aria-hidden. All icon buttons carry text labels or aria-labels.',
-    responsive:
-      'Feature splits stack under 820px. Display clamps 2.25rem→3.5rem. Nav condenses under 640px with forest hamburger. Cards stay bordered at all sizes.',
-    codeExample:
-      '<section class="trailhead">\n  <h1>Built for the long way round.</h1>\n  <p>Gear for people who read contour lines for fun.</p>\n  <button class="btn-forest">Plan your route</button>\n</section>',
     accent: '#2f4a3c',
     motif: 'leaf-divider',
     layout: 'split-hero',
@@ -77,8 +57,6 @@ signatureCss: `
     description: 'Spa serenity: sage, curves, and breathing-room rhythm.',
     designPhilosophy:
       'The interface inhales. Sage green and soft clay, blob and arch shapes, Cormorant’s elegance, and rhythm that mimics breathing — expand, hold, release. Built for wellness, spas, and anything that wants your shoulders to drop.',
-    designDetails:
-      'Sage #a8bfa8 and clay #c9a227-family warm the cream canvas. Cormorant Garamond display with Zilla Slab body — elegant but readable. Arches (border-radius 999px 999px 0 0) frame images; blob shapes via border-radius morph. Buttons are pill-shaped with slow fills. A breathing animation (scale 1→1.04 over 4s) lives in the hero orb.',
     colors: {
       primary: '#5f7a5f',
       secondary: '#c9a227',
@@ -105,24 +83,6 @@ signatureCss: `
       navigation: 'Transparent over hero, pill links, sage active dot',
       modals: 'Arch-topped cream sheet, slow fade 500ms',
     },
-    spacing: {
-      baseUnit: '16px',
-      marginScale: '16 / 48 / 96 / 160',
-      paddingScale: '32 / 56 / 88',
-      grid: 'Centered 1000px; alternating text/arch image rows',
-    },
-    motion: {
-      pageLoad: 'Hero orb breathes (scale 1→1.04, 4s loop); text fades 600ms',
-      hoverStates: '400ms fills; blobs morph 600ms',
-      transitions: 'Slow, organic ease-in-out, 400–600ms',
-      scroll: 'Sections rise 24px over 800ms; blobs counter-drift',
-    },
-    accessibility:
-      '#3d4a3d on cream 9.6:1; cream on sage 4.6:1 at button weights. Focus 3px sage ring. Breathing animation pauses under reduced-motion. Arch shapes never clip text.',
-    responsive:
-      'Arch frames become simple rounded tops under 640px. Display clamps 2.5rem→3.75rem. Alternating rows stack; orb shrinks and centers.',
-    codeExample:
-      '<section class="spa">\n  <div class="orb"></div>\n  <h1>Breathe in. Begin.</h1>\n  <p>Slow rituals for fast lives.</p>\n  <a class="pill" href="#">Book a session</a>\n</section>',
     accent: '#5f7a5f',
     motif: 'wave-section',
     layout: 'centered',
@@ -145,8 +105,6 @@ signatureCss: `
     description: 'Greenhouse romance: deep botanicals and vine ornaments.',
     designPhilosophy:
       'A Victorian greenhouse in web form. Deep botanical greens, rose accents, vine flourishes, and Cormorant italic display. Romantic without being frilly — think heritage seed catalogs with modern usability.',
-    designDetails:
-      'Deep green #1e3528 canvas for hero moments, cream #f6f3ea for content. Cormorant Garamond italics for display; EB Garamond for body. Vine ornaments are SVG-free CSS: curved border-radius flourishes and ✻ glyph dividers. Rose #c76b7e-family accents for links and one CTA. Cards look like seed packets: bordered, labeled, matted.',
     colors: {
       primary: '#1e3528',
       secondary: '#c76b7e',
@@ -173,24 +131,6 @@ signatureCss: `
       navigation: 'Cream bar with ✻ divider glyphs between links',
       modals: 'Cream sheet with double vine border and rose seal',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 40 / 80 / 144',
-      paddingScale: '24 / 40 / 56',
-      grid: '12-col 1140px; seed packets in 3-col rhythm',
-    },
-    motion: {
-      pageLoad: 'Vine flourishes draw (scaleX) 500ms; text fades after',
-      hoverStates: 'Tint shifts 200ms; vine underlines 300ms',
-      transitions: 'Gentle, botanical, 200–300ms',
-      scroll: 'Seed packets rise gently at 25% visibility',
-    },
-    accessibility:
-      '#22301f on cream 12.1:1; cream on deep green 11.2:1. Rose holds 5.2:1 on cream. Focus 3px deep-green outline. Vine glyphs decorative and aria-hidden.',
-    responsive:
-      'Seed packets stack under 760px. Display clamps 2.25rem→3.5rem. ✻ dividers wrap gracefully. Vine flourishes hide under 480px to save space.',
-    codeExample:
-      '<section class="greenhouse">\n  <p class="cultivar">Cultivar No. 12</p>\n  <h1>Gardens, <em>carefully</em> kept.</h1>\n  <p>Rare seeds and rarer patience.</p>\n  <a class="btn-seed" href="#">Request a catalog</a>\n</section>',
     accent: '#1e3528',
     motif: 'leaf-divider',
     layout: 'magazine',
@@ -212,8 +152,6 @@ signatureCss: `
     description: 'Granite patience and moss persistence in one quiet system.',
     designPhilosophy:
       'Things that grow slowly, made for interfaces that last. Granite gray carries the weight; moss green softens every edge; lichen copper marks what has weathered well. The page breathes at the pace of a forest floor.',
-    designDetails:
-      'Stone #edece6 ground with deep moss #5d7052, basalt #454a41, and lichen copper #a0623d. Young Serif rounds the headlines like river stones; Livvic keeps body text fresh and legible. Cards are moss-topped stones: stone bodies with a 4px moss cap. Rules are 1px granite; hover states bloom like spore prints.',
     colors: {
       primary: '#5d7052',
       secondary: '#454a41',
@@ -241,24 +179,6 @@ signatureCss: `
       navigation: 'Stone path nav: pill links on granite; the active step is moss with a copper end-cap',
       modals: 'Boulder overlay: stone sheet with a moss cap and rgba(38,42,36,.45) scrim',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 40 / 68 / 112 / 176',
-      paddingScale: '20 / 32 / 52',
-      grid: 'Centered 980px; feature boulders break to 2-col with 28px gaps',
-    },
-    motion: {
-      pageLoad: 'Stones settle: 10px drop with soft landings, staggered 70ms',
-      hoverStates: 'Bloom and spread only — 220ms, never springs',
-      transitions: 'ease-out; growth has no snap',
-      scroll: 'Moss caps fade in as cards enter, like growth on arrival',
-    },
-    accessibility:
-      'Text on stone 12.3:1; moss on stone 5.1:1 at UI sizes; copper marks 4.8:1. Focus is a 2px copper ring. Moss caps are paired with real borders so cards never rely on subtle color alone. Reduced-motion settles stones instantly.',
-    responsive:
-      'Boulders stack under 760px; the stone path becomes a copper-stepped list. Display clamps 2rem→3.6rem.',
-    codeExample:
-      '<section class="forest-floor">\n  <h1>Slow growth,<br/><em>deep roots.</em></h1>\n  <button class="moss">Take root</button>\n</section>',
     accent: '#5d7052',
     motif: 'leaf-divider',
     layout: 'centered',
@@ -279,8 +199,6 @@ signatureCss: `
     description: 'Low-tide wonder: kelp, anemone pink, and wet-stone calm.',
     designPhilosophy:
       'Look into a tide pool and the interface appears: layered shallows, one startling anemone, light refracting through salt water. Sections ebb and flow; content sits in pools; the cursor makes ripples.',
-    designDetails:
-      'Seafoam #f0f5f4 with tide teal #1f7a8c, wet stone #43565c, and anemone #e5989b. Familjen Grotesk holds the waterline headlines; Source Sans 3 keeps exploration copy clear. Cards are layered pools — concentric tints of the seafoam field with 1px tide rims. Wave underlines link back to the shore.',
     colors: {
       primary: '#1f7a8c',
       secondary: '#43565c',
@@ -308,24 +226,6 @@ signatureCss: `
       navigation: 'Driftwood bar with pill links; the active link pools anemone',
       modals: 'Deepest pool: layered seafoam sheet with a tide rim and rgba(22,50,58,.5) scrim',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 40 / 72 / 120 / 184',
-      paddingScale: '18 / 32 / 52',
-      grid: '2-col pools with 26px gaps, 1140px max; heroes get a full-bleed shallows band',
-    },
-    motion: {
-      pageLoad: 'The tide comes in: pools fill (opacity+scale .98→1) in shore order, 300ms',
-      hoverStates: 'Ripples and wave ticks, 240ms',
-      transitions: 'ease-in-out; tidal rhythm — slow in, slow out',
-      scroll: 'Sections bob ±6px like float lines, damped',
-    },
-    accessibility:
-      'Text on seafoam 11.8:1; tide teal 4.9:1 at 600 weight; anemone marks 3.2:1 — reserved for large decorative accents with text twins. Focus is a 2px tide ring. The bob pauses under reduced-motion; ripples render as static rings.',
-    responsive:
-      'Pools stack under 740px; driftwood bar folds into a tide-dot menu. Display clamps 2.1rem→3.75rem.',
-    codeExample:
-      '<section class="shallows">\n  <h1>What the tide<br/><em>left behind.</em></h1>\n  <button class="pool">Explore the pool</button>\n</section>',
     accent: '#1f7a8c',
     motif: 'wave-section',
     layout: 'split-hero',
@@ -346,8 +246,6 @@ signatureCss: `
     description: 'A forest lodge after dark: cedar, embers, and lantern-lit copy.',
     designPhilosophy:
       'The lodge at night — deep forest quiet, one warm fire, trails marked for the morning. The interface hosts like a good lodge: dark, warm, unmistakably clear about where everything is. Ember light guides; pine keeps the peace.',
-    designDetails:
-      'Forest night #1c2620 with ember #d98e32, pine #3f5c46, and river-mist #a3b8c2. Merriweather opens the guestbook headers; Karla keeps trail notes readable in low light. Cards are log-cabin panels with 1px pine seams and ember kindling marks. Lantern glows back the primary actions.',
     colors: {
       primary: '#d98e32',
       secondary: '#3f5c46',
@@ -375,24 +273,6 @@ signatureCss: `
       navigation: 'Trailhead bar with numbered trail links; the active trail is ember-marked',
       modals: 'Hearth overlay: log panel with an ember header glow and rgba(12,17,14,.7) scrim',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 40 / 68 / 112 / 176',
-      paddingScale: '20 / 32 / 52',
-      grid: '12-col 1160px; cabins alternate 7:5 guest-room spreads',
-    },
-    motion: {
-      pageLoad: 'Lanterns light in sequence down the path, 90ms apart, then content arrives',
-      hoverStates: 'Ember glows and walking dashes — 200ms, campfire patience',
-      transitions: 'ease-out; warmth settles, never flickers fast',
-      scroll: 'Trail numbers stay pinned until their section passes',
-    },
-    accessibility:
-      'Text on forest night 12.9:1; ember 7.4:1. Focus is a 2px ember ring with a 2px offset. Lantern glows are decorative; state also changes border color. Sequence lighting collapses under reduced-motion.',
-    responsive:
-      'Guest-room spreads stack mist-first under 840px; the trailhead becomes an ember-numbered drawer. Display clamps 2rem→3.9rem.',
-    codeExample:
-      '<header class="lodge">\n  <p class="trail">TRAIL 3 · SUMMIT PATH</p>\n  <h1>Warm fire,<br/><em>wild morning.</em></h1>\n</header>',
     accent: '#d98e32',
     motif: 'numbered-steps',
     layout: 'hero-cards',
@@ -413,8 +293,6 @@ signatureCss: `
     description: 'Arctic clarity: frost fields, steel-blue ice, aurora hints.',
     designPhilosophy:
       'The design inhales and the air comes out glacial. Frost-white fields, steel-blue ice masses, and one aurora-green hint on the horizon. Everything is clean, cold, and perfectly still — clarity as a natural force.',
-    designDetails:
-      'Frost #f2f7fa with arctic steel #33658a, ice #86bbd8, and aurora #6bbf8a. Jost cuts the ice with geometric headlines; Manrope keeps the thaw readable. Cards are ice sheets with 1px frost seams and 6px bevels of white. Aurora appears only as a thin top edge on the featured element — never as a fill.',
     colors: {
       primary: '#33658a',
       secondary: '#274b63',
@@ -442,24 +320,6 @@ signatureCss: `
       navigation: 'Ice-shelf bar with uppercase links; the active shelf is steel with an aurora under-edge',
       modals: 'Crevasse overlay: frost sheet with steel rim and rgba(22,50,79,.45) scrim',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 40 / 72 / 120 / 184',
-      paddingScale: '18 / 32 / 52',
-      grid: '12-col 1180px; reading measure 640px; ice masses split 5:7',
-    },
-    motion: {
-      pageLoad: 'Frost creeps: sections reveal with a 2px ice edge growing outward, 280ms',
-      hoverStates: 'Chill rings and aurora passes, 200ms',
-      transitions: 'ease-in-out; glacial — deliberate, silent',
-      scroll: 'Ice seams separate 4px as sections pass, like calving in slow motion',
-    },
-    accessibility:
-      'Text on frost 10.9:1; steel on frost 5.6:1. Aurora edges are decorative and paired with border-color changes for state. Focus is a 2px steel ring. Aurora shimmer runs once per hover and never loops; reduced-motion renders it static.',
-    responsive:
-      'Ice masses stack under 820px; the shelf folds to a frost hamburger with steel rules. Display clamps 2rem→3.5rem.',
-    codeExample:
-      '<section class="icefield">\n  <h1>Thin air,<br/><em>thick clarity.</em></h1>\n  <button class="steel">Breathe</button>\n</section>',
     accent: '#33658a',
     motif: 'soft-shadows',
     layout: 'editorial',
@@ -480,8 +340,6 @@ signatureCss: `
     description: 'A long farm table: barn red, honey, thyme, and second helpings.',
     designPhilosophy:
       'Everything good happens at a big wooden table. Barn-red doors, honey light, thyme sprigs, and place settings that make room for everyone. The interface feeds: generous portions, honest menus, and warmth you can taste.',
-    designDetails:
-      'Cream cloth #fbf3e4 with barn red #a63d2f, honey #cf9b3a, and thyme #586f47. Spectral sets the menu headers with old-world poise; Bitter writes the specials. Cards are place settings: cream plates with 2px barn rims and honey napkin accents. Rules are 1px butcher-paper; dividers are hand-drawn sprigs.',
     colors: {
       primary: '#a63d2f',
       secondary: '#6d4a2a',
@@ -509,24 +367,6 @@ signatureCss: `
       navigation: 'Menu board: walnut plank bar with cream course links; the active course is honey-marked',
       modals: 'Specials board overlay: chalk-cream sheet with barn frame and rgba(58,45,26,.5) scrim',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 40 / 72 / 120 / 184',
-      paddingScale: '20 / 34 / 56',
-      grid: '12-col 1200px; courses alternate full-width platters with 2-col place settings',
-    },
-    motion: {
-      pageLoad: 'Plates are set: place settings arrive clockwise from the head, 80ms apart',
-      hoverStates: 'Melts and drips at 240ms; comfort-food pacing',
-      transitions: 'ease-out; nothing rushes a good meal',
-      scroll: 'Course numbers arrive with a sprig divider that draws in',
-    },
-    accessibility:
-      'Text on cream 11.1:1; barn red 6.9:1; thyme 5.4:1. Honey is decorative and always paired with text or borders for meaning. Focus is a 3px honey ring. Reduced-motion serves all plates at once.',
-    responsive:
-      'Platters and settings stack under 760px; the menu board rolls up into a honey drawer. Display clamps 2.1rem→3.9rem.',
-    codeExample:
-      '<section class="table">\n  <p class="course">COURSE II</p>\n  <h1>Set a long table,<br/><em>invite the block.</em></h1>\n</section>',
     accent: '#a63d2f',
     motif: 'big-stat-row',
     layout: 'magazine',

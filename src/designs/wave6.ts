@@ -17,8 +17,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Tide told in feet, not in hours.',
     designPhilosophy:
       'Tide Clock is designed for people whose day is cut into twelve hours and twenty-five minutes by the moon, not by a clock face. Every screen answers one question — how much water, and how soon — so the page is arranged like a tide table: a ruled column of heights, flood and ebb labelled in the margin, and one italic line for slack water. For coastal research stations, harbour authorities, and sea-school programmes.',
-    designDetails:
-      'Foam paper #f6f3ec over wet sand #d9cdb9, estuary #123a3a for structure, and a single dune ochre #c98f4a reserved for the falling tide. Section rules are drawn as thin water lines, and every measurement is printed with its unit and its datum in a smaller mono-ish caption. Charts are hand-plotted ripples, not filled areas.',
     colors: {
       primary: '#123a3a',
       secondary: '#6f8f86',
@@ -45,24 +43,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A ruled datum bar with flood/ebb toggles and the station name in caps',
       modals: 'Slip of paper with a water-line header and a torn-bottom shadow',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '20 / 56 / 104 / 160',
-      paddingScale: '14 / 26 / 44',
-      grid: 'Reading measure 1080px, 12-col with a 4-col datum rail',
-    },
-    motion: {
-      pageLoad: 'Water lines draw left to right, 420ms ease-out, one row apart',
-      hoverStates: 'Rule thickening and faint tint, 140ms',
-      transitions: 'Ease-out only; nothing overshoots, because water does not bounce',
-      scroll: 'A horizontal tide ribbon tracks scroll position in the datum rail',
-    },
-    accessibility:
-      '#12211f on #f6f3ec is 14.6:1, and the ochre #c98f4a on foam is 4.9:1 — used for figures at 18px or larger only. Flood and ebb are labelled in words, never colour alone. Tables expose proper scope headers so screen readers announce heights with their datum.',
-    responsive:
-      'The datum rail collapses under the table below 880px and the tide ribbon moves above the fold. Chart columns reduce from 24 points to 12 by thinning, not truncating. All figures keep tabular alignment at 320px.',
-    codeExample:
-      '<section class="tide">\n  <p class="kicker">Station 02 · datum MLLW</p>\n  <h1>High water <em>arrives 04:12.</em></h1>\n  <table class="heights"><tr><th>03:00</th><td>1.8 m</td></tr><tr><th>04:12</th><td>2.6 m</td></tr></table>\n  <button class="btn-primary">Read the tide table</button>\n</section>',
     accent: '#123a3a',
     motif: 'wave-section',
     layout: 'full-bleed',
@@ -85,8 +65,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Run cards for the cleanroom floor.',
     designPhilosophy:
       'Silicon is grown in conditions nobody should ever see, so the software that watches it is best kept plain and legible. Wafer Line borrows the run card: one wafer lot per record, process step in the left margin, and a control chart with the specification limits printed on the chart itself rather than hidden in a tooltip. For fab operations, process engineering, and any team whose numbers must survive an audit.',
-    designDetails:
-      'Cleanroom white #f5f7f8 with a faint 28px horizontal rule so rows never drift, stepper blue #0f5c8c for anything actionable, photoresist orange #d9542b for out-of-control points only, silicon grey #7f8b95 for metrology. Every figure is tabular. Panels are square with a 3px blue spine, because a run card is a printed object that gets signed.',
     colors: {
       primary: '#0f5c8c',
       secondary: '#7f8b95',
@@ -113,24 +91,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'Shift bar with lot search, step stepper, and a signed-off initial',
       modals: 'Centre sheet with a header strip, no rounding, and a reason-for-change field',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '16 / 40 / 72 / 112',
-      paddingScale: '10 / 18 / 28',
-      grid: '1440px shell with a 220px step rail and a 12-col data grid',
-    },
-    motion: {
-      pageLoad: 'Rows populate top-down at 18ms intervals, no fade',
-      hoverStates: 'Spine and rule changes only, 100ms linear',
-      transitions: 'Linear and immediate — a process tool does not ease',
-      scroll: 'The step rail pins; the active step index updates as you pass sections',
-    },
-    accessibility:
-      '#161b1f on #f5f7f8 is 15.4:1; resist orange on white is 4.6:1 and always paired with a ▲/▼ marker and the words out of control. Control charts carry a text summary of the last five points, so the chart is never the only evidence. Focus ring 2px blue with a 1px white inner offset.',
-    responsive:
-      'The step rail becomes a horizontal scroller under 900px; run cards stack and the metrology table converts to a two-column definition list with the specification limits preserved verbatim. Chart x-axes drop tick labels before they drop data points.',
-    codeExample:
-      '<section class="run-card">\n  <p class="kicker">Lot 24-1188 · step 07 of 19</p>\n  <h1>Etch depth <em>in control.</em></h1>\n  <dl class="limits"><dt>LSL</dt><dd>41.2 nm</dd><dt>USL</dt><dd>44.8 nm</dd></dl>\n  <button class="btn-primary">Sign off step</button>\n</section>',
     accent: '#0f5c8c',
     motif: 'pcb-trace',
     layout: 'dashboard',
@@ -153,8 +113,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Momentum, taught with ramps.',
     designPhilosophy:
       'Marble Run explains itself the way a good toy does: you can see where the ball goes next. Everything is a track, a ramp, or a landing pad, and the page leans gently in the direction of travel so the eye is pulled forward by the same force the ball feels. For science classrooms, maker spaces, and toy workshops where the lesson is momentum, not menus.',
-    designDetails:
-      'Pine-board cream #fdf8ee with steel-blue rails #4f7fc4 and traffic orange #e4572e for anything that moves; a kinetic yellow #f4c145 marks the ball itself. Cards are thick pine beads with a solid bottom shadow, so they read as objects resting on a table. Small rotations (±1.5°) appear on alternating cards to suggest a track that is still settling.',
     colors: {
       primary: '#e4572e',
       secondary: '#4f7fc4',
@@ -181,24 +139,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'Pill bar with a sliding orange marble that marks the active section',
       modals: 'Rounded tray that slides up like a catch basin, with a chunky close bead',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '24 / 64 / 96 / 144',
-      paddingScale: '16 / 28 / 48',
-      grid: 'Fluid 1200px with a two-track zigzag on wide screens',
-    },
-    motion: {
-      pageLoad: 'Cards drop in 60ms apart with a short 4px settle bounce',
-      hoverStates: 'Compress-by-3px press plus a rolling dot, 180ms cubic-bezier(.5,1.6,.4,1)',
-      transitions: 'Springy but brief — one bounce, never a wobble loop',
-      scroll: 'A decorative ball travels the rail between sections, snapped to sections',
-    },
-    accessibility:
-      'The orange primary carries white text at 3.9:1 — accepted only at 18px/700 or larger, with every button also distinguishable by wording. Motion all sits behind prefers-reduced-motion, which swaps the rolling dot for a colour shift. Ramp and track states are labelled with words as well as shape.',
-    responsive:
-      'The zigzag flattens to a single column under 760px and card rotations are removed so text baselines stay level. Shadows drop from two layers to one under 480px to keep 320px paint cheap. Tap targets stay at least 48px.',
-    codeExample:
-      '<section class="ramp">\n  <p class="kicker">Kit 04 · gravity only</p>\n  <h1>Where does the <em>ball go?</em></h1>\n  <p class="sub">Drop it in. Follow the track. Predict the landing pad.</p>\n  <button class="btn-primary">Build a track</button>\n</section>',
     accent: '#e4572e',
     motif: 'soft-shadows',
     layout: 'split-hero',
@@ -221,8 +161,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'A service book for mechanical time.',
     designPhilosophy:
       'A mechanical watch is a tiny town of gears that must be serviced by hand, so Watch Room is a service book before it is a shopfront: reference numbers, service intervals, and an exploded movement drawn as quietly as a technical plate. Typography is engraved-small, rules are tick-marked, and the only flourish is a verdict — in service, or due. For watchmakers, restorers, and catalogues that sell patience.',
-    designDetails:
-      'Aged silver #f4f2ed with gunmetal #2a2a2c structure, verdigris bronze #6f8a72 for the one accent (patina, never gold), and an aged-silver grey #948d80 for secondary text. Section rules are literal tick marks; case references are set in a 0.16em tracked caps. Animations are a sweep-second cadence: six steps per second, no easing.',
     colors: {
       primary: '#2a2a2c',
       secondary: '#948d80',
@@ -249,24 +187,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'Tracked caps bar with a small seconds disc marking the active section',
       modals: 'Service slip: framed plate with reference table and a signature line',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '24 / 64 / 112 / 176',
-      paddingScale: '16 / 30 / 52',
-      grid: '1180px with a 5-col movement plate grid and symmetric margins',
-    },
-    motion: {
-      pageLoad: 'The seconds disc completes one full sweep, then content fades in at 240ms',
-      hoverStates: 'Third tick appears on the rule, 150ms linear — measured, never bouncy',
-      transitions: 'Linear, in six discrete steps per second where a continuous motion would be used',
-      scroll: 'Beats, not smooth scrolling: section marks click into place at 1/6s intervals',
-    },
-    accessibility:
-      '#1b1917 on #f4f2ed is 15.1:1; verdigris #6f8a72 on silver is 4.7:1 and only ever accompanies a written verdict. Service intervals are given as days and dates, never just as a gauge. The six-step motion collapses to a plain fade when prefers-reduced-motion is set.',
-    responsive:
-      'The movement plate grid falls from 5 columns to 2 at 900px and to a single ticked list at 560px, with every reference number kept intact. Case specs stay in definition lists under 420px so nothing is lost to truncation.',
-    codeExample:
-      '<section class="service">\n  <p class="kicker">Ref. 1188-A · serviced 2026</p>\n  <h1>Twelve jewels, <em>one owner.</em></h1>\n  <dl class="spec"><dt>Interval</dt><dd>every 5 years</dd><dt>Beat rate</dt><dd>28,800 vph</dd></dl>\n  <button class="btn-primary">Book a service</button>\n</section>',
     accent: '#6f8a72',
     motif: 'dashed-borders',
     layout: 'spotlight',
@@ -289,8 +209,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Stone sold by weight and honesty.',
     designPhilosophy:
       'Stone yards price in tonnes and tell you the flaws before you ask. Quarry Face is built for that transaction: monolith slabs of colour, cut-line rules, and a price list that behaves like a stencilled tag tied to the block. Nothing is rounded, nothing is polite, and every spec — dimension, finish, batch — is printed at the same volume. For quarries, stoneyards, and masonry suppliers.',
-    designDetails:
-      'Dust #e9e5dd ground with slate #2f3136 mass, machinery orange #dd7218 for weight and price only, and a dull #cdc7bb for the cut faces. Panels carry a 6px offset shadow like a slab standing proud of the floor. Headings are uppercase with a 0.06em track, and prices are set in the slab weight itself.',
     colors: {
       primary: '#2f3136',
       secondary: '#8a8378',
@@ -317,24 +235,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'Uppercase bar with a batch picker and a live tonnage counter',
       modals: 'Slab panel offset from the backdrop by 8px, with a cut-line divider and a stamped confirm',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '32 / 72 / 128 / 200',
-      paddingScale: '20 / 36 / 64',
-      grid: '1360px with a 3-col slab wall and hard 2px gutters',
-    },
-    motion: {
-      pageLoad: 'Slabs stack in 40ms apart with a hard 2px thunk — no fade at all',
-      hoverStates: 'Position shift plus border darkening, 90ms steps(2, end)',
-      transitions: 'steps() only: mechanical, counted, never eased',
-      scroll: 'Batch markers snap into a hard-edged progress rule',
-    },
-    accessibility:
-      '#191b1e on #e9e5dd is 14.2:1; machinery orange on dust is 3.4:1, so orange is only ever a 4px bar or a numeral set at 24px+, always with the weight printed in text. Focus is a 3px hard outline with zero offset so it reads like a cut line. Reduced motion removes the position shift entirely.',
-    responsive:
-      'The slab wall steps 3 → 2 → 1 columns at 1024/720px with borders kept intact so blocks stay legible. Dimension tables become stacked label/value pairs under 600px, with units repeated on every value. The tonnage counter moves to the top bar below 480px.',
-    codeExample:
-      '<section class="block">\n  <p class="kicker">Batch 114 · quarried 2026</p>\n  <h1>HONED GREY, <em>3.4 TONNES.</em></h1>\n  <dl class="spec"><dt>Finish</dt><dd>Honed</dd><dt>Price</dt><dd>£168 / tonne</dd></dl>\n  <button class="btn-primary">RESERVE THE SLAB</button>\n</section>',
     accent: '#dd7218',
     motif: 'hard-shadows',
     layout: 'hero-cards',
@@ -357,8 +257,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Surveyed in lines, not in boxes.',
     designPhilosophy:
       'Contour Sheet has no boxes. Every element is a rule, a tick, or a label sitting inside a line, the way a topographic sheet describes a hillside without ever shading it. There are no card fills and no shadows, only elevation: information is separated by distance and by how finely the line is drawn. For surveyors, land registries, and fieldwork tools where a hectare of hill needs to be legible at a glance.',
-    designDetails:
-      'Contour hairlines run at 0.5px in slope green #6d8a86 with a single water blue #2f6f8f reserved for drainage. Elevation labels sit inline inside the line that carries them, with a gap punched around the text. Buttons are underlined words with coordinate ticks on either side, never filled shapes.',
     colors: {
       primary: '#0f2c33',
       secondary: '#6d8a86',
@@ -385,24 +283,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A sheet index — six numbered rules, no background, no borders',
       modals: 'A larger sheet with a scale bar in the corner and no backdrop',
     },
-    spacing: {
-      baseUnit: '2px',
-      marginScale: '28 / 72 / 128 / 224',
-      paddingScale: '0 / 12 / 24',
-      grid: 'Sheet 1200px, 24 ruled rows at 22px baseline pitch',
-    },
-    motion: {
-      pageLoad: 'Lines draw progressively left to right, 300ms, in sheet order',
-      hoverStates: 'Underline weight only, 120ms — no colour change anywhere',
-      transitions: 'Linear, short, and identical in both directions',
-      scroll: 'The sheet index marks the row you are currently reading',
-    },
-    accessibility:
-      '#10201f on #fbfcfa is 15.8:1 and every label is 14px or larger, because a hairline interface cannot rely on fills to carry meaning. All interactive elements have a 2px underline even when unfocused, so affordance is never colour-only. Focus adds a 3px offset outline plus the tick extension.',
-    responsive:
-      'The 24-row sheet becomes 12 rows below 900px by merging adjacent rules, never by clipping labels. Inline elevation labels move above their line under 560px to keep the line unbroken. No element wraps mid-number.',
-    codeExample:
-      '<section class="sheet">\n  <p class="kicker">Sheet 07 · 1:2500</p>\n  <h1>Slope <em>18%</em>, drainage east.</h1>\n  <p class="sub">— 214 m — 218 m — 226 m —</p>\n  <button class="btn-primary">⌐ Open the sheet ¬</button>\n</section>',
     accent: '#2f6f8f',
     motif: 'swiss-grid',
     layout: 'editorial',
@@ -426,8 +306,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Nine words and one number per screen.',
     designPhilosophy:
       'Tare Weight assumes the operator is holding a sample in one hand. Every screen is a single right-aligned figure with its unit, a four-word instruction, and nothing else — because a balance is read, not browsed. Hierarchy comes entirely from numeral size, not from colour, weight, or position. For labs, calibration benches, and any instrument whose output is a number.',
-    designDetails:
-      'Bone white #f9fafb with ink #3a4a52 and a single calibration red #d1495b that is only ever used for out-of-tolerance readings. Display figures run to 120px in a tabular mono, always right-aligned against a shared decimal column. Labels are set at 11px in the same mono so the numbers keep the stage.',
     colors: {
       primary: '#3a4a52',
       secondary: '#90a4ae',
@@ -454,24 +332,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A 4-item numbered rail at 11px, current item marked with a filled square',
       modals: 'A full-bleed readout with a single dismiss word in the corner',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '36 / 88 / 144 / 240',
-      paddingScale: '0 / 16 / 32',
-      grid: 'Single 720px column, decimal-aligned, 120px row pitch',
-    },
-    motion: {
-      pageLoad: 'The figure counts up from zero in 12 discrete steps of 90ms, then stops dead',
-      hoverStates: 'Rule weight and 2px positional shift, 100ms in two steps',
-      transitions: 'Never eased: digits snap, rules step',
-      scroll: 'Nothing moves on scroll — the column is the whole document',
-    },
-    accessibility:
-      '#172125 on #f9fafb is 15.7:1 and figures are never colour-coded: tolerance state is written as PASS or OUT OF TOL, with calibration red only as a 4px bar beside it. Numeric inputs are type="text" with inputmode="decimal" so screen readers read digits individually. Reduced motion removes the count-up entirely.',
-    responsive:
-      'The 120px figure scales to 64px under 700px and 44px under 400px with the decimal column preserved, never wrapped. Units move below the figure at 320px rather than truncating. The rail becomes two columns of two.',
-    codeExample:
-      '<section class="readout">\n  <p class="kicker">PAN 02 · ZEROED</p>\n  <p class="figure">248.61 <span class="unit">G</span></p>\n  <p class="note">tare set, load sample</p>\n  <button class="btn-primary">calibrate</button>\n</section>',
     accent: '#d1495b',
     motif: 'mono-labels',
     layout: 'centered',
@@ -493,8 +353,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'A system for showing nothing well.',
     designPhilosophy:
       'Most design systems are judged on their densest screen. Null Set is built for the other one: the page that has no records, no results, no history. Emptiness is treated as the subject, not the failure — a large centred dash, one grey sentence explaining what would appear here, and a single quiet way forward. For archival tools, first-run experiences, and anything that spends its life blank.',
-    designDetails:
-      'Paper white #fafbf9 with ash #7c8280 for anything that speaks, and three greys of rule (#f0f1ef, #e2e4e1, #d3d6d2) carrying all structure. There are no fills, no accent colours, and no more than eleven words in any block. Where a value is absent it is printed as an em dash rather than hidden, so the shape of the missing thing stays visible.',
     colors: {
       primary: '#7c8280',
       secondary: '#a9aeac',
@@ -521,24 +379,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'Two items, separated by a vertical hairline, with everything else absent',
       modals: 'The page itself, dimmed by 4% — no modal chrome at all',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '48 / 104 / 176 / 260',
-      paddingScale: '20 / 40 / 72',
-      grid: 'Content measured at 560px inside a 1280px field of white',
-    },
-    motion: {
-      pageLoad: 'The em dash fades in at 400ms and stops; there is genuinely nothing else to animate',
-      hoverStates: 'A one-step outline darkening, 160ms',
-      transitions: 'Fade only, longest 240ms',
-      scroll: 'Nothing is revealed by scrolling — emptiness is not progressive',
-    },
-    accessibility:
-      '#6f7573 on #fafbf9 is 4.8:1 — deliberately below the body-copy 7:1 comfort line but above AA, and never used below 12px. Because colour carries almost nothing, every state is also words: "no records", "nothing scheduled". Dashes carry an aria-label naming the missing value. Focus outline is 2px #7c8280 with a 2px offset so it is visible on white.',
-    responsive:
-      'The 560px measure is preserved at all widths by adding margin, never by shrinking type. Below 480px the two nav items stack and the dash column reduces from 12 to 6. No horizontal scrollbar exists at 320px because the page never exceeds 32ch per line.',
-    codeExample:
-      '<section class="empty">\n  <p class="kicker">Archive · 0 entries</p>\n  <h1>—</h1>\n  <p class="sub">Nothing has been logged here yet.</p>\n  <button class="btn-primary">start an entry</button>\n</section>',
     accent: '#7c8280',
     motif: 'soft-shadows',
     layout: 'manifesto',
@@ -562,8 +402,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Offset on purpose, like a bonded wall.',
     designPhilosophy:
       'Brick Course refuses the centred hero on principle. Its grid is a running bond: every second column is offset by half a unit, so nothing can be symmetric and no heading can sit in the middle. That offset makes long tables of quantities readable at a glance, because the eye tracks the stagger instead of the numbers. For quantity surveyors, masonry contractors, and structural schedules.',
-    designDetails:
-      'Mortar grey #8d8b84 joints of exactly 2px hold clay #9c3b26 blocks, with slate #2f4858 kept for quantities. The 2px joint is the only spacing device — there are no margins inside components, only joints. Batches are numbered in Roman numerals in the margin, and a per-course counter runs down the left edge.',
     colors: {
       primary: '#9c3b26',
       secondary: '#8d8b84',
@@ -590,24 +428,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A course counter in the left margin plus three laid blocks',
       modals: 'A taller wall segment that slides up from the mortar line',
     },
-    spacing: {
-      baseUnit: '2px',
-      marginScale: '0 / 44 / 88 / 132',
-      paddingScale: '10 / 18 / 28',
-      grid: 'Running bond: 8 columns, even columns offset 50%, 2px joints, 2px gutter',
-    },
-    motion: {
-      pageLoad: 'Blocks are laid course by course, 30ms apart, each dropping 3px into its joint',
-      hoverStates: 'Positional settle plus joint weight, 90ms in two steps',
-      transitions: 'steps(2, end) everywhere; brick does not ease',
-      scroll: 'The course counter ticks as each row of blocks enters the viewport',
-    },
-    accessibility:
-      '#221d18 on #f6f4f0 is 15.2:1; clay #9c3b26 on the same ground is 6.2:1 and only carries quantities at 16px or bolder. The deliberate offset never changes DOM order, so reading order stays top-to-bottom and left-to-right. Focus is a 2px slate outline drawn inside the block so the joint stays visible.',
-    responsive:
-      'The running bond collapses to a single column under 760px and the offset step drops from 50% to 25% under 1024px. Quantities keep a fixed 62px numeric column at every width. Roman numerals are never abbreviated.',
-    codeExample:
-      '<section class="wall">\n  <p class="kicker">Course IV · 214 units</p>\n  <h1>Running bond, <em>no cuts wasted.</em></h1>\n  <dl class="qty"><dt>Stretchers</dt><dd>186</dd><dt>Headers</dt><dd>28</dd></dl>\n  <button class="btn-primary">Order the course</button>\n</section>',
     accent: '#2f4858',
     motif: 'swiss-grid',
     layout: 'asymmetric',
@@ -630,8 +450,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'The page has an x-axis.',
     designPhilosophy:
       'Aphelion is plotted rather than laid out. Mission elapsed time runs horizontally across the entire page, and every section is placed at the moment it belongs to — so a burn appears at T+00:14, and the ground-station pass sits where it actually falls. Nothing floats; everything is anchored to a moment. For satellite operators, launch planners, and any timeline where position is data.',
-    designDetails:
-      'Plotter white #f7f9fc with 12.5% vertical gridlines in #e8ecf2 and a single bold meridian every hour. Ink #0b1020 for axes, solar #e85d04 threaded only along the active pass. Type is set like a technical legend: 12px mono labels with leader lines to their point on the axis.',
     colors: {
       primary: '#0b1020',
       secondary: '#4a5568',
@@ -658,24 +476,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'The axis itself — hours as ticks, the current moment as a filled solar dot',
       modals: 'A zoomed plot window with its own axis, positioned over the parent axis point',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '24 / 64 / 120 / 200',
-      paddingScale: '12 / 22 / 36',
-      grid: 'Time grid: 24 columns of MEO hours, 1px meridian every 6, 8.33% column pitch',
-    },
-    motion: {
-      pageLoad: 'Sweeps left to right like a slow radar, 1.2s, revealing marks in time order',
-      hoverStates: 'Tick growth and gridline darkening, 100ms linear',
-      transitions: 'Linear, tied to the timeline — never springy',
-      scroll: 'Scrolling moves a fixed T+ readout; the axis labels stay pinned',
-    },
-    accessibility:
-      '#0a0e18 on #f7f9fc is 18.3:1 and solar #e85d04 reaches 3.3:1 on the plotter white, used only for the active pass and always with a written "pass" label. Every plotted mark has a text alternative naming its time and event, so the timeline is never the only representation. Reduced motion removes the sweep and shows all marks at once.',
-    responsive:
-      'The 24-hour axis halves to 12 hours below 900px and to 6 below 560px, keeping every mark and adding 6px of horizontal padding per dropped hour. Labels rotate 45° below 420px rather than overlapping. The axis never scrolls horizontally.',
-    codeExample:
-      '<section class="plot">\n  <p class="kicker">T+00:14:02 · 412 km</p>\n  <h1>Burn complete, <em>aphelion rising.</em></h1>\n  <p class="axis">|----|----|----|----|</p>\n  <button class="btn-primary">Plot the next pass</button>\n</section>',
     accent: '#e85d04',
     motif: 'mono-labels',
     layout: 'dashboard',
@@ -699,8 +499,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Everything is load-bearing marginalia.',
     designPhilosophy:
       'Footnote Press puts the argument in the margin. The main column carries only the numbered claim; every qualification, source, and caveat lives in the left gutter at 12px, ruled off from the body by a 1px margin rule. Navigation is a reference list, so the site is literally cited before it is read. For journals, research groups, and monographs that must show their work.',
-    designDetails:
-      'Cream stock #fbfcfd with sepia #6f7a74 secondary ink and rubrication red #b23b3b used sparingly for the numeral only. The margin rule runs the full page height, unbroken, and superscripts are the primary interactive element — hovering one lifts its note by 2px and thickens nothing else.',
     colors: {
       primary: '#1f2a37',
       secondary: '#6f7a74',
@@ -727,24 +525,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'An alphabetised reference list — letters as column heads, numbers as entries',
       modals: 'A pulled-out note expanded to body size inside the same margin column',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '20 / 48 / 84 / 130',
-      paddingScale: '8 / 16 / 28',
-      grid: 'Two tracks: 210px note gutter + 620px body, separated by a 1px rule',
-    },
-    motion: {
-      pageLoad: 'No animation. Notes are already on the page; the reader finds them',
-      hoverStates: 'A 2px lift and a leading dot, 130ms ease-out',
-      transitions: 'Fade and lift only, never longer than 200ms',
-      scroll: 'Notes stay in their gutter; the rule is continuous, so nothing follows you',
-    },
-    accessibility:
-      '#1f2a37 on #fbfcfd is 17.3:1 and notes at 12px still manage 5.1:1 against the stock. Superscripts are real buttons with aria-describedby pointing at their note, so the reference is announced rather than merely seen. Rubrication red is decorative — the numeral is also bracketed, so colour is never the only carrier.',
-    responsive:
-      'Below 900px the note gutter folds under each claim as an indented block with the same 12px size. Under 560px notes open on tap rather than sitting open, and the margin rule becomes a dashed top rule per claim. The body measure never exceeds 68 characters.',
-    codeExample:
-      '<article class="paper">\n  <p class="kicker">Chapter III · note 42</p>\n  <h1>On the <em>quiet</em> parts.<sup>[42]</sup></h1>\n  <p class="standfirst">Evidence, such as it exists, is thinner than the claim.</p>\n  <button class="btn-primary">Read the notes →</button>\n</article>',
     accent: '#b23b3b',
     motif: 'editorial-columns',
     layout: 'editorial',
@@ -767,8 +547,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Six prices competing for one glance.',
     designPhilosophy:
       'Haggle Market is designed to be shouted at from several directions at once, because that is what a night market is. Every vendor card carries its own price tag at its own rotation, three independent marquees run at different speeds, and the page refuses to establish a single reading order. Density is the wayfinding. For bazaars, flea markets, and classified listings that live on volume.',
-    designDetails:
-      'Warm oil-lamp cream #fff4e0 lit by chilli red #e8402f, spice green #1d7a5f and lantern yellow #ffd21e. Price tags are physical: rotated 4-8°, thick 2px borders, and a punched hole dot on one corner. Marquee rows use three different durations so they visibly drift against each other.',
     colors: {
       primary: '#e8402f',
       secondary: '#1d7a5f',
@@ -795,24 +573,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'Aisle strip — 8 rounded lantern tabs, all visible, none emphasised',
       modals: 'A stall front that unrolls downwards with three marquee rows inside it',
     },
-    spacing: {
-      baseUnit: '6px',
-      marginScale: '18 / 42 / 78 / 120',
-      paddingScale: '12 / 22 / 40',
-      grid: 'Masonry-ish 4-col stall grid, 2px borders, deliberate 6-18px vertical drift',
-    },
-    motion: {
-      pageLoad: 'Stalls pop in with a 6px scale overshoot, 40ms apart, tags arriving last',
-      hoverStates: 'Rotation plus shadow jump, 120ms',
-      transitions: 'Brief overshoot (cubic-bezier(.2,1.5,.4,1)) then settle — market energy',
-      scroll: 'Three marquees at 18s, 26s, and 41s; the page itself never parallaxes',
-    },
-    accessibility:
-      '#231608 on #fff4e0 is 15.9:1 and price tags use dark borders so contrast survives the rotation. Lantern yellow is never used for text on cream; it only ever appears as a background behind near-black type. Marquees pause on hover and focus, and are aria-hidden duplicates so screen readers hear the list once.',
-    responsive:
-      'The four-column stall grid becomes two at 1000px and one at 620px, with tag rotations reduced to ±2° under 620px so nothing overlaps text. Marquees drop to a single row below 560px. Price tags always stay inside their stall box at 320px.',
-    codeExample:
-      '<section class="stall">\n  <p class="kicker">Aisle 3 · vendor 118</p>\n  <h1>BRASS POTS, <em>MAKE ME AN OFFER</em></h1>\n  <p class="price-tag">£34 <span>or haggle</span></p>\n  <button class="btn-primary">START AT £18</button>\n</section>',
     accent: '#e8402f',
     motif: 'ticker-marquee',
     layout: 'magazine',
@@ -835,8 +595,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Three plates, deliberately out of register.',
     designPhilosophy:
       'Overprint is built on an accident that printers used to throw away: three spot plates landing 3px apart. Instead of a clean composite, every heading is drawn as cyan, magenta and yellow layers offset from each other, so the design is visibly made of ink rather than pixels. Colour mixing happens by overlap, which means the palette is generative — only three inks exist.',
-    designDetails:
-      'Three inks — cyan #00b8d4, magenta #ff2d78, yellow #f5c400 — over paper #f6f6f4. Headings use stacked text-shadows at ±3px so plate misregistration is literal; images are duotone and every shape has a 3px plate offset. Ink limits are respected: no area takes more than two plates.',
     colors: {
       primary: '#00b8d4',
       secondary: '#ff2d78',
@@ -863,24 +621,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A press bar with plate toggles (C / M / Y) that can be switched off live',
       modals: 'A second sheet laid on top, offset 6px, showing through where the overlaps land',
     },
-    spacing: {
-      baseUnit: '3px',
-      marginScale: '21 / 48 / 90 / 150',
-      paddingScale: '15 / 27 / 45',
-      grid: 'Base unit 3px — the registration offset itself is the spacing grid',
-    },
-    motion: {
-      pageLoad: 'Plates land one after another: yellow, then magenta, then cyan, 90ms apart',
-      hoverStates: 'Offset grows in two discrete steps, 140ms',
-      transitions: 'steps(2, end) so plate shifts look mechanical, never smooth',
-      scroll: 'A registration strip crawls across the footer showing current plate count',
-    },
-    accessibility:
-      '#16161a on #f6f6f4 is 16.8:1, and the three inks are treated as decorative layers: every heading is legible as black type alone if the plates are disabled. Cyan and magenta are never used for small text on paper (both under 4.5:1 there) — they only carry 23px+ display type or shape. Plate toggles are real buttons with aria-pressed.',
-    responsive:
-      'The 3px plate offset halves to 2px below 700px and to 1px below 420px, so text never fuzzes into illegibility on small screens. Stacked-shadow headings fall back to a single flat colour under 420px. Nothing scrolls horizontally at 320px.',
-    codeExample:
-      '<section class="press">\n  <p class="kicker">Plate run · 3 inks</p>\n  <h1>Ink lands <em>where it lands.</em></h1>\n  <p class="sub">C · M · Y — no composite, no apology.</p>\n  <button class="btn-primary">Pull a proof</button>\n</section>',
     accent: '#ff2d78',
     motif: 'gradient-hero',
     layout: 'full-bleed',
@@ -903,8 +643,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'No hero. Page twelve continues here.',
     designPhilosophy:
       'All Of It has no hero, no slogan, and no room to introduce itself. The page opens mid-sentence, continuing from an implied page twelve, and the reader is expected to catch up. Sections are separated by nothing more than a change of column width, so the whole document reads as one continuous sprawl that began before you arrived. For newsrooms, aggregators, and archives that value completeness over greeting.',
-    designDetails:
-      'Newsprint white #f2e9dc with a dirty gold #b5913f rule system and burnt-orange #e0521f for breaking items. Column counts change between two, three, four and five without warning, ruled by 1px gold lines that stop mid-page. The only large type is a drop cap, and there is no logo — the masthead is a dateline.',
     colors: {
       primary: '#2b1b2e',
       secondary: '#b5913f',
@@ -931,24 +669,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A dateline strip with 14 section words at 11px, all the same weight',
       modals: 'A wider column inserted into the flow — no backdrop, no shadow',
     },
-    spacing: {
-      baseUnit: '3px',
-      marginScale: '14 / 34 / 60 / 96',
-      paddingScale: '6 / 12 / 24',
-      grid: 'Variable column counts (2/3/4/5) with 1px gold column rules and 3px gutters',
-    },
-    motion: {
-      pageLoad: 'None. The page is already mid-argument; animating in would be dishonest',
-      hoverStates: 'Rule extension, 100ms linear',
-      transitions: 'Fades only, under 150ms',
-      scroll: 'Column count step-changes once at 60% scroll to signal a new section',
-    },
-    accessibility:
-      '#241a20 on #f2e9dc is 14.4:1; gold at 4.1:1 is used only for rules and never for text under 18px. Column changes are CSS-only, so the DOM stays a single linear article and screen readers read it straight through. Breaking items carry the word BREAKING before the accent colour, so urgency is never colour-only.',
-    responsive:
-      'Five columns collapse to three at 1200px, two at 900px, and one at 620px; the gold column rules disappear with the columns. The drop cap shrinks from 72px to 44px below 620px so it stops pushing the first line. Line length stays between 42ch and 68ch at every width.',
-    codeExample:
-      '<article class="sprawl">\n  <p class="dateline">MONDAY · 12 SECTIONS · CONTINUED FROM P.12</p>\n  <p class="lead"><span class="cap">T</span>he survey closed, as these things do, with nobody satisfied.</p>\n  <p class="break">BREAKING · port authority votes 7–2</p>\n  <button class="btn-primary">Continue this report</button>\n</article>',
     accent: '#e0521f',
     motif: 'editorial-columns',
     layout: 'manifesto',
@@ -973,8 +693,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Eleven colour bands, one route.',
     designPhilosophy:
       'Sirens Parade treats the page as a procession rather than a document. Each section is a float with its own colour band and its own type size, announced by a numbers strip so you always know how far the parade has come. Nothing is unified on purpose: the cost of a parade is that no two things match, and the reward is that you cannot look away. For festivals, carnivals, and city programming.',
-    designDetails:
-      'Rose #ff3d6e, carnival green #2f8f6b and marigold #ff9f1c demand attention over cream #fff7e6. Every section carries a 6px band of its own colour along the top edge, and the countdown to the first float uses 58px figures that never shrink. Type alternates between condensed display and rounded body so the rhythm feels like a crowd.',
     colors: {
       primary: '#ff3d6e',
       secondary: '#2f8f6b',
@@ -1001,24 +719,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A running-order strip showing all 11 floats as numbered pips',
       modals: 'The next float slides in from the left as if entering the route',
     },
-    spacing: {
-      baseUnit: '6px',
-      marginScale: '18 / 48 / 96 / 156',
-      paddingScale: '14 / 26 / 48',
-      grid: 'Procession column 1140px with alternating 3-col and 2-col float rows',
-    },
-    motion: {
-      pageLoad: 'Floats enter from the left, 90ms apart, with a 6px overshoot then settle',
-      hoverStates: 'Band growth and a 4px shift, 140ms',
-      transitions: 'Springy and quick; every float arrives a beat late on purpose',
-      scroll: 'The running-order pips fill as each float enters the viewport',
-    },
-    accessibility:
-      '#2a1118 on #fff7e6 is 15.6:1. Rose and marigold are never used for small text on cream (both fail 4.5:1 there) — they are bands and badges only, with the float name always in near-black. Each band carries a written float number, so the procession order is available to screen readers as an ordered list.',
-    responsive:
-      'Float rows go 2 → 1 column at 720px and the pips strip becomes a 6-pip scroller under 560px. Countdown figures clamp to 34px at 320px with no wrapping. Bands thin from 6px to 4px on small screens but never vanish.',
-    codeExample:
-      '<section class="float">\n  <p class="kicker">FLOAT 04 · 19:40</p>\n  <h1>THE BRASS <em>DISTRICT</em></h1>\n  <p class="sub">Fourteen horns, no amplification.</p>\n  <button class="btn-primary">Take the route</button>\n</section>',
     accent: '#ff9f1c',
     motif: 'rotated-stickers',
     layout: 'spotlight',
@@ -1042,8 +742,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'A mess with a declared z-order.',
     designPhilosophy:
       'Clutter Core is what a working desk looks like when nobody has tidied it: receipts, sticky notes, and samples overlapping at angles. The joke is that underneath the spill is a rigorous 4px lattice — every scrap is placed on the grid and has a declared z-order, so the mess is reproducible, not accidental. For studios, marketplaces, and archives that would rather show the work-in-progress than a mock-up of it.',
-    designDetails:
-      'Desk beige #fbf7f1 stacked with teal #3c6e71, trade red #d64c3a and ochre #f2a03d scraps. Layering is explicit: an ordered list of overlaps (2px, -18px, 6px) that repeats predictably. Every scrap carries a paper edge — a 1px inset shadow — and none of them are the same size.',
     colors: {
       primary: '#3c6e71',
       secondary: '#d64c3a',
@@ -1070,24 +768,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A stack of five tabs that fan out on hover, each with its own paper edge',
       modals: 'A sheet lifted off the pile, leaving a visible gap where it came from',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '12 / 32 / 64 / 112',
-      paddingScale: '10 / 18 / 30',
-      grid: 'Hidden 4px lattice; visible layout is a 3-col scrap pile with declared overlaps',
-    },
-    motion: {
-      pageLoad: 'Scraps land one on top of another, 45ms apart, each settling 2° into place',
-      hoverStates: 'Stack promotion plus a 1° straightening, 160ms ease-out',
-      transitions: 'Ease-out with a small overshoot; nothing spins or slides far',
-      scroll: 'The pile drifts 8px against scroll, but only the background layer',
-    },
-    accessibility:
-      '#2a2622 on #fbf7f1 is 15.8:1 and on every scrap material the text still clears 9:1, because the mess is limited to colour, rotation and shadow — never to opacity. Overlapping scraps never cover interactive text: the z-order list keeps buttons above their neighbours. Rotations are removed under prefers-reduced-motion, which also un-overlaps the pile into a plain grid.',
-    responsive:
-      'The three-size scrap pile becomes uniform cards below 720px, rotations halve to ±0.8°, and the -18px overlap becomes 0 so no card clips another. Marker headings drop one size at 420px. The fan-out nav becomes a horizontal scroller at 560px.',
-    codeExample:
-      '<section class="desk">\n  <p class="kicker">BENCH 3 · WEDNESDAY</p>\n  <h1>Still <em>mid-idea.</em></h1>\n  <p class="sub">Two proofs, one invoice, and the good pencil.</p>\n  <button class="btn-primary">Clear a space</button>\n</section>',
     accent: '#3c6e71',
     motif: 'rotated-stickers',
     layout: 'asymmetric',
@@ -1111,8 +791,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Cast at eleven hundred degrees.',
     designPhilosophy:
       'A foundry has no time for decoration: metal is at 1150°C and the screen is read through a visor. Bell Foundry is therefore stripped to hazard rules, cast weights, and one unmissable red for anything hot. Hover states change position instead of colour, because a colour change on a visor is invisible. For casting shops, heavy fabrication, and any interface used in gloves.',
-    designDetails:
-      'Scale #1d1d1f structure on mill floor #e8e8e6, with molten amber #f0b323 carrying temperature and nothing else. Hazard rules are 8px diagonal stripes drawn in CSS, used above every dangerous control. There are no images on the page — a cast weight table replaces the hero.',
     colors: {
       primary: '#1d1d1f',
       secondary: '#6b6b6f',
@@ -1139,24 +817,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A tall bar with three 48px targets and a live temperature readout',
       modals: 'A full-height sheet with hazard stripes on both edges and a stamped confirm',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '28 / 60 / 112 / 176',
-      paddingScale: '16 / 30 / 52',
-      grid: '1320px with a hard 4-col cast table and 2px rules',
-    },
-    motion: {
-      pageLoad: 'Rows strike in from the top, 25ms apart, with no opacity fade at all',
-      hoverStates: 'Positional translation of 2px and edge growth, 80ms in two steps',
-      transitions: 'steps(2, end) exclusively — machines move in clicks',
-      scroll: 'The temperature readout flickers between two values as you scroll, purely decorative',
-    },
-    accessibility:
-      '#141416 on #e8e8e6 is 14.6:1; amber #f0b323 on grey is 1.9:1 so it is used only as a 3px edge or stripe, never as text or icon. Hazard stripes are decorative and aria-hidden, with the word HOT beside them. Every target is at least 48px because the interface is used in gloves.',
-    responsive:
-      'The cast table drops from four columns to two at 900px and becomes stacked definition rows at 560px, with weights and units preserved. Hazard stripes halve in height rather than disappearing. The nav bar keeps 48px targets at 320px by reducing to icons plus labels underneath.',
-    codeExample:
-      '<section class="cast">\n  <p class="kicker">HEAT 04 · 1150 C</p>\n  <h1>POUR, THEN <em>WAIT.</em></h1>\n  <table class="weights"><tr><th>Bell 4</th><td>218 kg</td></tr><tr><th>Bell 5</th><td>402 kg</td></tr></table>\n  <button class="btn-primary">RELEASE THE LADLE</button>\n</section>',
     accent: '#f0b323',
     motif: 'dashed-borders',
     layout: 'dashboard',
@@ -1180,8 +840,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Every section begins with a number.',
     designPhilosophy:
       'Wind Tunnel is organised the way a test report is: no section starts with a title, every section starts with a measurement, and the heading is merely the caption underneath. Numbers are set at display scale in a condensed face so a single reading fills the fold, and the reader is trusted to want the figure before the explanation. For test rigs, engineering consultancies, and any research output where the value outranks the prose.',
-    designDetails:
-      'Instrument white #f3f6f7 with a 1px airflow grid and a single teal #12b0a0 reserved for the live channel. Figures are 96px condensed caps with the unit in a 13px superscript, and sections are separated by 4px ink bands rather than whitespace. Streamlines are drawn as 1px curves behind the figures only.',
     colors: {
       primary: '#16202b',
       secondary: '#7d8894',
@@ -1208,24 +866,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A grid ruler: 12 ticks with channel names at 11px, current channel in teal',
       modals: 'A full-bleed test sheet that replaces the page rather than floating over it',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '20 / 52 / 96 / 168',
-      paddingScale: '14 / 28 / 48',
-      grid: '1400px with 4px ink section bands and a 12-tick ruler header',
-    },
-    motion: {
-      pageLoad: 'Figures count from zero in 8 discrete steps of 60ms, then hold',
-      hoverStates: 'Band growth and 2px shift, 90ms in two steps',
-      transitions: 'steps() only, matching an instrument display',
-      scroll: 'The ruler marks the section you are in by filling its tick',
-    },
-    accessibility:
-      '#0f1720 on #f3f6f7 is 16.2:1 and every figure carries its unit in text, so 1.4 is never ambiguous. Teal on white is 3.1:1 — used for bands and 24px+ figures only, and each live channel is also labelled LIVE. Numbers are exposed as real table data so screen readers announce value with unit.',
-    responsive:
-      'Figures clamp from 96px to 44px at 420px, keeping the unit superscript attached. The four-column measurement grid becomes two at 940px and one at 620px, with ink bands retained as separators. The ruler collapses to its current tick plus two neighbours below 560px.',
-    codeExample:
-      '<section class="rig">\n  <p class="fig">1.42 <span>kN</span></p>\n  <p class="caption">Drag at 28 m/s · channel 3</p>\n  <button class="btn-primary">RUN NEXT SWEEP</button>\n</section>',
     accent: '#12b0a0',
     motif: 'big-stat-row',
     layout: 'full-bleed',
@@ -1249,8 +889,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'A docket you tear off at the kerb.',
     designPhilosophy:
       'Concrete Pour is a delivery docket pretending to be a website. Every screen is one truck, one batch, one slump value, and one signature line, because that is the object the site engineer actually handles — on a phone, in the rain, at the kerb. Dashed perforations and a stamped approval replace cards and CTAs. For ready-mix suppliers, site logistics, and anything that ends with a signature.',
-    designDetails:
-      'Wet grey #efeeea with form-work #4a4d52, one stamp red #d1453b for rejections, and a dark ink #23252a for the docket rules. All values are mono, all prose is not, and a dashed 2px line separates the tear-off stub from the record. The dashed line is the primary layout device.',
     colors: {
       primary: '#4a4d52',
       secondary: '#9096a0',
@@ -1277,24 +915,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A truck log strip: plate numbers in 13px mono with load status codes',
       modals: 'A carbon copy: identical to the underlying docket but with a 4% grey tint',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '18 / 44 / 78 / 128',
-      paddingScale: '12 / 22 / 36',
-      grid: 'Single docket column 780px with a 2-col value grid inset',
-    },
-    motion: {
-      pageLoad: 'The docket prints downward line by line over 500ms, 14 lines, no fade',
-      hoverStates: 'Dash offset plus one-step darkening, 110ms in four steps',
-      transitions: 'steps(4, end) for dashes, linear for everything else',
-      scroll: 'Nothing follows you; a docket is a flat object',
-    },
-    accessibility:
-      '#23252a on #efeeea is 13.6:1 and stamp red at 4.4:1 is only used with the words REJECTED or HOLD beside it. Dotted leaders are decorative — the label and value are adjacent in the DOM so reading order survives. Signature fields are text inputs with a 3px focus rule, not images.',
-    responsive:
-      'The value grid loses its second column at 640px and leaders shorten rather than truncate values. The truck log converts to a two-line stacked list at 520px. Dashed tear lines remain 2px at every width so they stay visible on wet screens.',
-    codeExample:
-      '<section class="docket">\n  <p class="stub">BATCH 8842 · TRUCK P-17</p>\n  <h1>Slump <em>75 mm.</em></h1>\n  <p class="row">ARRIVED ....... 06:41</p>\n  <button class="btn-primary">SIGN AND ACCEPT</button>\n</section>',
     accent: '#d1453b',
     motif: 'numbered-steps',
     layout: 'receipt',
@@ -1317,8 +937,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Perimeter priced by the metre.',
     designPhilosophy:
       'Static Fence is the chain-link supplier that answers the phone and quotes in metres. Its background is literally the product: a diamond mesh built from two crossed repeating gradients, with content punched through it like a sign wired to a fence. Gauge and mesh size are always the first two numbers on the page. For fencing contractors, site security, and industrial suppliers who sell in linear metres.',
-    designDetails:
-      'Galvanised #eef1f2 over zinc #455a64 with a rust #c2703a accent that never touches text. The mesh substrate sits behind every section at 96px pitch and is suppressed inside content panels so reading stays quiet. Prices are per metre with the gauge subscripted, and corners are square throughout.',
     colors: {
       primary: '#455a64',
       secondary: '#93a0aa',
@@ -1345,24 +963,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A perimeter bar with run-length markers and a gauge picker',
       modals: 'A quote sheet that shows the mesh substrate bleeding to its edges',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '22 / 54 / 96 / 152',
-      paddingScale: '14 / 28 / 44',
-      grid: '1280px with a 2-col quote rail and mesh pitched at 96px',
-    },
-    motion: {
-      pageLoad: 'Panels drop in 40ms apart, each bouncing 3px off the mesh before settling',
-      hoverStates: 'Swatch rotation plus edge growth, 100ms in two steps',
-      transitions: 'steps(2, end) for structural moves, linear for the swatch',
-      scroll: 'The mesh substrate holds still while panels scroll over it',
-    },
-    accessibility:
-      '#1c2126 on #eef1f2 is 15.1:1 and every panel sits on a solid backdrop so the mesh never interferes with text contrast. Rust #c2703a is 3.5:1 on the galvanised ground and is restricted to 2px edges and the word SPOT-RUST. Meterage inputs accept decimals and announce the running total politely.',
-    responsive:
-      'The mesh pitch tightens from 96px to 56px below 700px so the pattern stays legible without competing. Quote rails stack at 720px and prices stay right-aligned to the metre column. Nothing overflows at 320px because panels are fluid and the mesh is a background, not a layout.',
-    codeExample:
-      '<section class="perimeter">\n  <p class="kicker">MESH 50×50 · GAUGE 3.0</p>\n  <h1>PER METRE, <em>NOT PER PANEL.</em></h1>\n  <p class="sub">Rolls of 25 m, posts every 3 m, quoted as one line.</p>\n  <button class="btn-primary">QUOTE 120 M</button>\n</section>',
     accent: '#c2703a',
     motif: 'grain-overlay',
     layout: 'hero-cards',
@@ -1385,8 +985,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'No photographs. References only.',
     designPhilosophy:
       'Private Vault sells storage to people who do not want it photographed. There are no product images anywhere: a holding is described by reference, volume, and date, and access is requested rather than purchased. The interface reads as a ledger in a dark room, lit by one brass rule. For secure storage, private banks, and any service whose real product is discretion.',
-    designDetails:
-      'Vault dark #14131a with brass #8f6b3a rules and bone #ece7dc for type, all of it small and widely tracked. Ledgers are set as two-column records with generous leading and hairline rules only at the top of each entry. Nothing is bold; emphasis is achieved by tracking and by the single brass rule.',
     colors: {
       primary: '#8f6b3a',
       secondary: '#8a8272',
@@ -1413,24 +1011,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'Two items only — Holdings, Access — in 12px tracked caps',
       modals: 'A slower ledger page with a brass border and a request-for-access field',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '32 / 80 / 144 / 232',
-      paddingScale: '20 / 40 / 72',
-      grid: 'Ledger 840px centred with a 2-column record grid and 26px row leading',
-    },
-    motion: {
-      pageLoad: 'The brass rule draws across the top over 900ms ease-in-out, then entries fade in',
-      hoverStates: 'Rule brightness and a 1px rule appearing above, 260ms',
-      transitions: 'Long fades and slow ease-in-out; nothing snaps, nothing bounces',
-      scroll: 'The ledger scrolls at a deliberately even pace with no parallax or reveal',
-    },
-    accessibility:
-      '#ece7dc on #14131a is 14.9:1 and brass #8f6b3a on the same ground is 8.1:1 so it can carry both rules and links. Since there are no images, every holding carries a written description of at least six words. Access requests are a real form with labels, and focus is a 2px brass outline with a 3px offset.',
-    responsive:
-      'Record rows go from two columns to a stacked code/volume/date block at 700px. The 840px ledger reduces to a 560px measure by adding margin, not by shrinking type, and tracking eases from 0.24em to 0.14em below 480px so words do not fracture.',
-    codeExample:
-      '<section class="ledger">\n  <p class="kicker">HOLDING · REF 4471</p>\n  <h1>Deposited <em>1998.</em> Never opened.</h1>\n  <p class="row">VOLUME ..... 0.42 m³</p>\n  <button class="btn-primary">REQUEST ACCESS</button>\n</section>',
     accent: '#8f6b3a',
     motif: 'quote-band',
     layout: 'editorial',
@@ -1455,8 +1035,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Sold as letters, numbered by hand.',
     designPhilosophy:
       'Vault of Letters does not have pages; it has correspondence. Every screen is set as a formal letter — salutation, body, valediction — and bears a wax seal in the corner that doubles as the action. Editions are numbered in the salutation, so the object is unique before it is described. For stationers, bespoke publishers, and houses that sell in editions of ninety.',
-    designDetails:
-      'Cotton stock #fbf7ef with iron-gall #3a2f2a ink and sealing-wax #7d2c2c used once per letter. Rules are drawn as 1px hairlines inset 24px from the edge of the sheet, and the seal is a 76px disc with an embossed inset shadow. Display type is a calligraphic face used only for the salutation.',
     colors: {
       primary: '#3a2f2a',
       secondary: '#8b7a6a',
@@ -1483,24 +1061,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'An index of correspondents rather than sections — six names, no icons',
       modals: 'The same letter unfolded to full size with the seal broken and a 2px wax edge',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '28 / 72 / 124 / 196',
-      paddingScale: '32 / 56 / 96',
-      grid: 'Sheet 760px with 1px inset rules at 24px and 1.85 leading',
-    },
-    motion: {
-      pageLoad: 'The letter is set line by line over 700ms, then the seal presses in with a 2px settle',
-      hoverStates: 'Seal lift and shadow sharpening, 200ms ease-out',
-      transitions: 'Opening and closing ease differently — 240ms in, 180ms out, like a folded sheet',
-      scroll: 'The inset rule follows the scroll as a continuous margin, unbroken between letters',
-    },
-    accessibility:
-      '#2b2320 on #fbf7ef is 15.6:1; wax #7d2c2c reaches 7.8:1 so it can carry the seal initials and any error copy. The salutation is a real heading and the letter body a real paragraph sequence, so the correspondence metaphor never breaks the document outline. The seal is a button with a name, not a decorative image.',
-    responsive:
-      'The 760px sheet narrows to 100% with 20px padding at 560px and the inset rules move to 12px. Body type drops from 19px to 17px at 420px and leading tightens to 1.7. The seal shrinks to 56px but never moves out of the corner it is anchored to.',
-    codeExample:
-      '<article class="letter">\n  <p class="salutation">Dear Reader,</p>\n  <h1>Edition <em>ninety</em> of ninety.</h1>\n  <p class="body">Pressed on cotton, sealed in wax, posted flat.</p>\n  <button class="btn-primary">Yours →</button>\n</article>',
     accent: '#7d2c2c',
     motif: 'serif-italic-hero',
     layout: 'centered',
@@ -1523,8 +1083,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Vintages behind a cellar door.',
     designPhilosophy:
       'Cellar Index is a catalogue that opens like a cellar door: the vintage list sits behind two hinged panels that swing apart on interaction, revealing the bottles you were never shown on arrival. Tasting notes are set as footnotes, because they are commentary, not content. For wine merchants, cellars, and specialists whose stock is old enough to need an index.',
-    designDetails:
-      'Bottle dark #4b1f2f with cellar stone #e6ded4 and a gilt #b98b3a rule used for vintages only. The hinged panel is a two-panel reveal built with a shared perspective transform, and every vintage is set in a serif at 21px with the year tracked 0.12em. Dust is simulated with a very faint 2% warm overlay on the panels only.',
     colors: {
       primary: '#4b1f2f',
       secondary: '#8f7a6d',
@@ -1551,24 +1109,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'Two hinged panels: Allocazioni and Cantina, with a handle in the middle',
       modals: 'A bottle leaf: one-page detail with the label reproduced as flat colour blocks',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '24 / 64 / 116 / 184',
-      paddingScale: '18 / 34 / 60',
-      grid: '1220px with a 2-panel hinge grid (46% / 46%) and a 8% centre gutter',
-    },
-    motion: {
-      pageLoad: 'The two panels swing open over 900ms from a shared hinge axis, revealing the list',
-      hoverStates: 'Rule lift and a 0.6° panel tilt, 220ms ease-out',
-      transitions: 'Ease-out on open, ease-in on close, with a 120ms difference in duration',
-      scroll: 'Gilt rules mark the vintage you are reading in the left index column',
-    },
-    accessibility:
-      '#2a1c1e on #f6f1e9 is 14.2:1 and gilt #b98b3a at 4.6:1 carries vintages at 17px or larger. The hinge reveal is progressive enhancement — with reduced motion the panels open instantly, and the full list is always present in the DOM in order. Tasting-note footnotes use real superscript buttons with describedby targets.',
-    responsive:
-      'The hinge collapses to a single panel at 900px and the vintage list becomes a plain ledger. Tasting notes move inline beneath their bottle at 620px instead of into a footnote column. The bin locator becomes a two-field text entry under 480px.',
-    codeExample:
-      '<section class="cave">\n  <p class="kicker">BIN B4 · 1998</p>\n  <h1>Barolo, <em>one case left.</em></h1>\n  <p class="note">¹ Tar, roses, and a long quiet finish.</p>\n  <button class="btn-primary">OPEN THE CELLAR</button>\n</section>',
     accent: '#b98b3a',
     motif: 'editorial-columns',
     layout: 'magazine',
@@ -1592,8 +1132,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'A loupe over every detail.',
     designPhilosophy:
       'Goldsmiths Lane assumes you will want to look closer, so it hands you a loupe: hover any specification and a circular lens magnifies that region of the page in place. Bench work is tiny, and a site about it should admit that, then solve it rather than hiding it behind larger type. For jewellers, silversmiths, and restorers whose work only makes sense at 10× magnification.',
-    designDetails:
-      'Bench wood #efe7db with dark grain #33291f, brass #c98a2e for tool marks and hallmark text, and a single cool stone #7f8b8e reserved for stone-setting. The loupe is a 180px circle with a 3px brass ring and a 1.4× scale transform, positioned by the pointer with a transform-origin set on the magnified layer.',
     colors: {
       primary: '#33291f',
       secondary: '#9c8f7a',
@@ -1620,24 +1158,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A tool tray: five brass tabs with stamped labels',
       modals: 'A tray lift with the loupe active by default and a hallmark record beneath',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '22 / 56 / 100 / 160',
-      paddingScale: '16 / 30 / 52',
-      grid: '1180px with a 3-col tray grid and a 14px spec row pitch',
-    },
-    motion: {
-      pageLoad: 'Tools settle onto the bench one at a time, 60ms apart, each with a 2px drop',
-      hoverStates: 'The loupe fades in over 120ms and tracks the pointer with no easing beyond 60ms',
-      transitions: 'Ease-out, short, and never longer than 240ms',
-      scroll: 'The loupe deactivates on scroll so magnification never fights reading',
-    },
-    accessibility:
-      '#241c14 on #efe7db is 13.4:1; brass #c98a2e at 4.3:1 is restricted to hallmarks at 17px or larger and always accompanied by the spelled-out value. The loupe is decorative: reduced motion disables it entirely, and every magnified specification is already present as text at readable size. Focus is a 2px brass outline with a white inner offset.',
-    responsive:
-      'The loupe is disabled below 1024px, where specifications simply render 2px larger instead. The three-column tray grid becomes two at 880px and one at 600px. Ring sizes always print diameter and circumference so nothing depends on the gauge bar.',
-    codeExample:
-      '<section class="bench">\n  <p class="kicker">HALLMARK 375 · BENCH 04</p>\n  <h1>Nine carat, <em>set by hand.</em></h1>\n  <p class="spec">BAND ..... 2.1 mm</p>\n  <button class="btn-primary">BOOK THE BENCH</button>\n</section>',
     accent: '#c98a2e',
     motif: 'glow-pulse',
     layout: 'spotlight',
@@ -1660,8 +1180,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Five stars for a mud pie.',
     designPhilosophy:
       'Mud Kitchen is for four-year-olds cooking in the garden, and it refuses to be tidy: puddle-blobs instead of rectangles, splash marks instead of icons, and a ranking board where the highest-rated dish is a mud pie. The design proves that a cheerful interface does not need pastel gradients or mascots — it needs things to be out of line on purpose. For outdoor play brands, nurseries, and garden shops.',
-    designDetails:
-      'Mud #6b4f2a over grass #7ba05b with marigold #f2913d as the only bright and a paper towel #f8f2e2 as the ground. Every container is a blob made from asymmetric border-radius (58% 42% 47% 53%), and rules are drawn as wobbly 2px lines using two overlaid gradients. Nothing is perfectly aligned to anything else by design, but the 6px spacing base keeps it navigable.',
     colors: {
       primary: '#6b4f2a',
       secondary: '#7ba05b',
@@ -1688,24 +1206,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'Five blobs in a row, each labelled and none of them the same size',
       modals: 'A bigger puddle that spreads open from the point it was tapped',
     },
-    spacing: {
-      baseUnit: '6px',
-      marginScale: '20 / 48 / 88 / 140',
-      paddingScale: '16 / 26 / 42',
-      grid: 'Fluid 1100px with deliberate 6-24px misalignments from a 6px base',
-    },
-    motion: {
-      pageLoad: 'Blobs land with a squash-and-stretch, 70ms apart, marigold badges arriving last',
-      hoverStates: 'Squash then spring back, 260ms cubic-bezier(.34,1.56,.64,1)',
-      transitions: 'Springy, never linear, but capped at two bounces',
-      scroll: 'Puddle shapes stretch downward 6px as each section enters, then settle',
-    },
-    accessibility:
-      '#2f2416 on #f8f2e2 is 14.1:1; marigold #f2913d is 2.2:1 on the paper ground so it never carries text — it is a blob, a badge fill, or a 4px edge only. The wobbled rules are decorative (aria-hidden) and all real separators are also real elements. Squash animation is disabled under reduced motion, which leaves the blobs static and identical in shape to the touch-friendly 48px targets they already were.',
-    responsive:
-      'The blob containers become 3-column, then 1-column below 560px with radius simplified to 30px so nothing clips. Misalignment reduces from 24px to 6px under 620px. Tap targets stay 48px at 320px and the pebble stepper becomes two stacked buttons.',
-    codeExample:
-      '<section class="puddle">\n  <p class="kicker">MENU 03 · OUTSIDE</p>\n  <h1>Mud pie, <em>five stars.</em></h1>\n  <p class="sub">Makes 6. Serves nobody. Best eaten with a stick.</p>\n  <button class="btn-primary">Start cooking</button>\n</section>',
     accent: '#f2913d',
     motif: 'leaf-divider',
     layout: 'full-bleed',
@@ -1728,8 +1228,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Messages delivered by birds you named.',
     designPhilosophy:
       'Pigeon Post takes messaging literally: you write on a slip, fold it into a triangle, hand it to a named bird, and watch it fly off the edge of the screen. The interface is a paper plane with wings, and the acknowledgement is not a tick but a small flapping animation leaving frame. For children, pen-pal services, and any product that would rather be charming than instantaneous.',
-    designDetails:
-      'Sky #fafbfd with post-blue #3f6fb5, stamp red-orange #d9622b and a soft cloud grey #eceff5 for surfaces. Slips are folded triangles with 2px crease lines drawn as hairline gradients, and every message carries a small stamp in its corner. Type is handwritten for display and rounded for body, and nothing sits perfectly horizontal — slips rest at 1° to 3° tilt.',
     colors: {
       primary: '#3f6fb5',
       secondary: '#8fa3c4',
@@ -1756,24 +1254,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A roost bar: four named birds in a row, each with a small wing glyph',
       modals: 'The slip unfolds into a full page with the crease remaining visible',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '22 / 52 / 92 / 148',
-      paddingScale: '16 / 28 / 46',
-      grid: '1080px with a 3-col slip grid and 10px vertical drift between columns',
-    },
-    motion: {
-      pageLoad: 'Birds enter from the left edge with a two-beat wing flap, 200ms per beat, 90ms apart',
-      hoverStates: 'Tilt plus 3px lift, 180ms ease-out',
-      transitions: 'Ease-out with one small overshoot; never a loop',
-      scroll: 'A flock drifts across the header at 60s, aria-hidden and pausable',
-    },
-    accessibility:
-      '#1e2a3d on #fafbfd is 15.3:1; post-blue 4.7:1 and stamp orange 4.4:1 both clear AA for 16px+ text. Sending a message is a real form with a label and a status message, and the flying-bird acknowledgement is announced as "message sent to Bramble". Wing flap and the drifting flock are removed under reduced motion.',
-    responsive:
-      'The three-column slip grid becomes two at 880px and one at 560px with tilts reduced to ±0.5°. The fold-preview is hidden under 760px so the note field keeps full width. Named birds remain a single horizontal row and wrap, rather than truncating.',
-    codeExample:
-      '<section class="slip">\n  <p class="kicker">TO · BRAMBLE (BIRD 04)</p>\n  <h1>Dear Sam, <em>meet at the shed.</em></h1>\n  <p class="note">Bring the good biscuits and the blue string.</p>\n  <button class="btn-primary">Fold and send</button>\n</section>',
     accent: '#d9622b',
     motif: 'wave-section',
     layout: 'split-hero',
@@ -1797,8 +1277,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Viscosity is a design token here.',
     designPhilosophy:
       'Slime Lab tests a single idea: what if the interaction physics were a token the visitor could change? A stretchiness slider at the top of the page rewrites border radii, transition durations, and easing coefficients live, so the visitor feels the difference between a brittle system and a gooey one. The subject happens to be slime, but the argument is about tokens. For science kits, classroom experiments, and design-system playgrounds that want to be felt rather than read.',
-    designDetails:
-      'Bright goo #7bd14f over lab-bright #fbfdf8 with reactive cyan #4aa3c7 and a warning yellow #f4d13d for the stretch meter. Panels have a wet highlight along their top edge (a 1px inset light line) and drip shapes hang from the bottom of active components. Nothing is ever still for more than a second at the default setting.',
     colors: {
       primary: '#7bd14f',
       secondary: '#4aa3c7',
@@ -1825,24 +1303,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A stretch meter at the top that rewrites the whole kit, shown as a labelled slider',
       modals: 'The sheet pours downward from the top edge with a 6px drip, splashing at 96% height',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '20 / 50 / 92 / 148',
-      paddingScale: '16 / 30 / 48',
-      grid: '1120px fluid with 4-token rows and a slider rail across the top',
-    },
-    motion: {
-      pageLoad: 'Panels pour in from the top edge, 80ms apart, each overshooting 8px then settling',
-      hoverStates: '6% stretch with a gooey cubic-bezier(.68,-0.4,.27,1.4), 320ms',
-      transitions: 'Long, elastic, and deliberately different lengths on open (320ms) and close (480ms)',
-      scroll: 'Drips elongate as sections pass, snapping back 6px behind the scroll position',
-    },
-    accessibility:
-      '#1d2a1a on #fbfdf8 is 15.9:1; goo green carries dark text and still clears 9:1. The stretchiness slider is a real range input with aria-valuetext describing the setting in words ("firm", "standard", "gooey"). Reduced motion locks the token to "firm" and removes drips, wobble, and the pour entirely, so the page becomes a calm, quiet version of itself.',
-    responsive:
-      'The stretch meter moves below the header at 720px and remains usable with keyboard arrows. Panels go 2-column at 880px and 1-column at 560px, with drips removed under 560px. At 320px the wobble is disabled so nothing shifts under a thumb.',
-    codeExample:
-      '<section class="pour">\n  <p class="kicker">BATCH 7 · VISCOSITY 42%</p>\n  <h1>Stretch it to <em>400%.</em></h1>\n  <p class="sub">Change one token. Watch the whole kit give way.</p>\n  <button class="btn-primary">Pour a new batch</button>\n</section>',
     accent: '#7bd14f',
     motif: 'pill-nav',
     layout: 'centered',
@@ -1866,8 +1326,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Lap times, shouted at 120px.',
     designPhilosophy:
       'Kart Klub is a timing board that happens to have a website attached. The fastest lap sits at the top of every screen in 120px numerals, because a clubhouse argument is settled by the clock and by nothing else. Everything else is taped to the board: entry forms, heat sheets, and a starting-light sequence that replaces the primary button. For kart clubs, track days, and any fixture list where seconds matter more than prose.',
-    designDetails:
-      'Asphalt #37474f with signal red #ff4d1a and flag yellow #ffd54f, on a pit-lane #fafafa ground. A checkered strip runs along the top of the header and along every section break, drawn as a repeating conic pattern. Numbers are mono, everything else is condensed, and the fastest three laps are ordered by a yellow stripe rather than by size.',
     colors: {
       primary: '#ff4d1a',
       secondary: '#37474f',
@@ -1894,24 +1352,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A pit board: gear number, closed/open flag, and the current session in 13px caps',
       modals: 'A scrutineering sheet that slides in from the right like a timing slip',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '20 / 48 / 88 / 144',
-      paddingScale: '14 / 26 / 42',
-      grid: '1240px with a 4-col timing grid and an 8px checkered section strip',
-    },
-    motion: {
-      pageLoad: 'The five lights illuminate in sequence at 200ms apart, then everything appears on green',
-      hoverStates: 'Single light plus a 2px shift, 120ms in five steps',
-      transitions: 'steps() only, quantised to the five lights',
-      scroll: 'A lap ticker scrolls the last ten times at 22s, pausing on hover',
-    },
-    accessibility:
-      '#1b1b1b on #fafafa is 17.1:1; signal red carries white text at only 4.3:1 so it is restricted to 18px/700 or larger and every light has a written position beside it. Lap tables use real table markup with scope headers so times are announced with their driver. The countdown respects reduced motion by showing the lights statically and reading the sequence aloud.',
-    responsive:
-      'The 120px lap figure clamps to 52px at 560px, keeping the hundredths column visible. The four-column timing grid becomes two at 860px and one at 560px. The pit board collapses to gear plus flag under 480px, and the checkered strip thins from 8px to 4px.',
-    codeExample:
-      '<section class="board">\n  <p class="kicker">HEAT 06 · KART 41</p>\n  <p class="lap">41.28</p>\n  <p class="sub">Pos. 2 of 12 · gap +0.41</p>\n  <button class="btn-primary">ENTER THE HEAT</button>\n</section>',
     accent: '#ff4d1a',
     motif: 'ticker-marquee',
     layout: 'dashboard',
@@ -1935,8 +1375,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Brush away sixty-eight million years.',
     designPhilosophy:
       'Dino Dig is an excavation, not a product page. Sand strata are layered across the background, finds arrive as dashed bone outlines that fill in when you brush over them, and every specimen is dated not by an era but by a count of years. The interface teaches patience by asking for a small physical gesture before revealing anything. For natural-history museums, schools, and dig-kit makers.',
-    designDetails:
-      'Sandstone #8d6e63 and moss #558b2f over dig-cream #faf3e0, with fossil amber #f9a825 only inside a find. Strata are drawn as four repeating bands of differing opacity, and every specimen card has a dashed bone border that turns solid once found. Type is chunky display plus a rounded body, and tooth counts are always spelled out numerically.',
     colors: {
       primary: '#8d6e63',
       secondary: '#558b2f',
@@ -1963,24 +1401,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A trench bar: four numbered grid squares, the active one excavated-looking',
       modals: 'A specimen drawer that slides open from the top with a layer of sand falling away',
     },
-    spacing: {
-      baseUnit: '6px',
-      marginScale: '20 / 48 / 90 / 148',
-      paddingScale: '16 / 28 / 46',
-      grid: '1120px with a 3-col find grid and 4 sand strata bands of 96px',
-    },
-    motion: {
-      pageLoad: 'Sand layers settle top-down in 120ms steps, then specimens outline themselves in dashed strokes',
-      hoverStates: 'Radial brush mask reveals a circle at the pointer, 400ms ease-out',
-      transitions: 'Ease-out, generous, never faster than 240ms',
-      scroll: 'Stratum bands shift 6px out of phase to give the ground some depth',
-    },
-    accessibility:
-      '#2e2418 on #faf3e0 is 13.8:1 and every specimen is fully readable before it is found, so the brush reveal is decoration rather than gating. Fossil amber at 2.9:1 is only ever a fill or a 3px outline. Brushing works with keyboard focus (reveals on focus) and the whole effect is skipped under reduced motion.',
-    responsive:
-      'The three-column find grid becomes two at 900px and one at 600px, with strata bands halving in height. The brush gesture is disabled below 700px where it would fight scrolling; specimens then show a solid bone outline instead. Field numbers stay at 44px tap size.',
-    codeExample:
-      '<section class="trench">\n  <p class="kicker">SITE 4 · LAYER 3 · 68 Ma</p>\n  <h1>A tooth, and <em>half a jaw.</em></h1>\n  <p class="sub">Field 12 · brushed and bagged · 4 of 9 recovered</p>\n  <button class="btn-primary">Start brushing</button>\n</section>',
     accent: '#f9a825',
     motif: 'grain-overlay',
     layout: 'hero-cards',
@@ -2004,8 +1424,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Prints line by line, at modem speed.',
     designPhilosophy:
       'Fax Machine refuses to render the whole page at once. Content arrives printhead-style, one scan line at a time, beneath a transmission header carrying the time, the number, and the page count — because a fax is a document that announces its own mechanics. Nothing on the page is allowed to be prettier than a thermal print. For archival services, legal couriers, and anyone who misses the transmission report.',
-    designDetails:
-      'Thermal paper #f5f5f4 with grey dot-matrix #757575 filler and one error red #d32f2f used only on a failed page. Every block sits under a 24px header strip of 13px mono, and vertical edges are torn rather than cut, drawn with a 2px repeating gradient. Type is VT323 at large sizes, which reads as printhead output rather than as display type.',
     colors: {
       primary: '#212121',
       secondary: '#757575',
@@ -2032,24 +1450,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A header strip with date, time, and page count in 12px mono',
       modals: 'A reprint: the same page printed again with the header timestamped two minutes later',
     },
-    spacing: {
-      baseUnit: '2px',
-      marginScale: '14 / 36 / 68 / 112',
-      paddingScale: '8 / 16 / 28',
-      grid: 'Single 720px thermal column with 24px printhead pitch and torn side edges',
-    },
-    motion: {
-      pageLoad: 'Lines print top-down at 18ms each over 600ms, with the header appearing only when complete',
-      hoverStates: 'Torn-edge ripple in four discrete phases, 160ms',
-      transitions: 'steps(4, end) everywhere; the machine has no interpolation',
-      scroll: 'Scrolling pages in a fresh header strip, timestamped with the current time',
-    },
-    accessibility:
-      '#1a1a1a on #f5f5f4 is 16.6:1 and the 24px printhead pitch keeps long text readable despite the noise theme. The print-on-load effect is disabled under reduced motion, which shows the document fully rendered instead of line by line. Error red at 4.5:1 is paired with the words PAGE FAILED so colour is never the message.',
-    responsive:
-      'The 720px thermal column narrows to 100% with 12px padding at 520px; the printhead pitch reduces to 20px so fewer lines are needed. Header strips keep their 12px mono size because shrinking them would lose the date. Torn edges remain 2px at all widths.',
-    codeExample:
-      '<section class="page">\n  <p class="hdr">10:41  0714 228 1130  PAGE 01/03</p>\n  <h1>Order 4471: <em>received.</em></h1>\n  <p class="body">Twelve pallets, dock 4, 06:30 Friday. Signed, R. Okafor.</p>\n  <button class="btn-primary">REDIAL</button>\n</section>',
     accent: '#d32f2f',
     motif: 'mono-labels',
     layout: 'editorial',
@@ -2073,8 +1473,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Two nights. Be kind, rewind.',
     designPhilosophy:
       'Betamax Rental is a shelf, not a catalogue. Titles are arranged as box spines standing shoulder to shoulder, each with a hand-written shelf label above it and a due-back stamp in the corner, and the whole page is organised by aisle rather than by category. The rental contract is the loudest thing on the page, because the shop only cares about the return date. For film archives, repertory cinemas, and shops with a membership and a late fee.',
-    designDetails:
-      'Shelf wood #e8eaf0 cooled by video blue #1a237e, with rental orange #ff7043 for due-back dates and a spine grey #455a64 for cases. Every title sits in a 3px-raised case with a 6px bottom ledge, and the release year is printed in an 11px caps label taped to the top-left of each case. There are no images — a spine is a coloured block with type on it.',
     colors: {
       primary: '#1a237e',
       secondary: '#455a64',
@@ -2101,24 +1499,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'An aisle strip: four shelves labelled A to D with counts',
       modals: 'The case opens like a clamshell, revealing the tape and the rental slip inside',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '18 / 44 / 80 / 132',
-      paddingScale: '12 / 24 / 40',
-      grid: '1200px shelf grid of 5 spines per row with 6px ledges and 2px gaps',
-    },
-    motion: {
-      pageLoad: 'Spines slide into the shelf from the left, 35ms apart, settling 1px down',
-      hoverStates: 'Pull-out of 8px with a 1° tilt and longer shadow, 200ms ease-out',
-      transitions: 'Ease-out, short, never bouncy — plastic cases are stiff',
-      scroll: 'Aisles mark themselves with a taped label that unpeels as you pass',
-    },
-    accessibility:
-      '#14173a on #f7f8fb is 15.2:1; rental orange at 3.1:1 is restricted to stamps and 2px edges, never body text. Each spine carries a real title and year as text, so the block-colour shelf metaphor never replaces information. Overdue state is written as OVERDUE with the date, not as a colour change.',
-    responsive:
-      'Five spines per row become three at 900px and two at 600px, with the 6px ledge retained so cases still read as objects. Shelf labels shorten to initials below 480px and the due-date stamp moves above the title. Nothing in a case clips at 320px.',
-    codeExample:
-      '<section class="shelf">\n  <p class="kicker">AISLE B · RELEASED 1987</p>\n  <h1>Two nights, <em>be kind, rewind.</em></h1>\n  <p class="row">MEMBER 1188 · DUE BACK THURSDAY</p>\n  <button class="btn-primary">Rent this tape</button>\n</section>',
     accent: '#ff7043',
     motif: 'pill-nav',
     layout: 'hero-cards',
@@ -2142,8 +1522,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'The menu is the placemat.',
     designPhilosophy:
       'Diner Placemat takes the laminated mat as the entire information architecture: menu columns down the middle, a crossword to the left, a maze for the kids on the right, and the specials printed upside down so two people can read one mat. Nothing is a card, because a mat is one continuous surface. For roadside diners, coffee counters, and anywhere the menu and the entertainment are the same object.',
-    designDetails:
-      'Ketchup #d8232a and booth blue #1b3a6b over mat cream #fdf8ec, with mustard #f2b705 for the specials band. A gloss sheen runs diagonally across the whole page as a 6% white gradient, and the mat has a 12px rounded border with a 2px inner rule, like a laminated edge. Type is heavy slab for prices and a plain grotesque for everything else.',
     colors: {
       primary: '#d8232a',
       secondary: '#1b3a6b',
@@ -2170,24 +1548,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A mat edge strip: four tabbed corners (Breakfast, Grill, Shakes, Kids)',
       modals: 'The mat turns over: a second side with the dinner menu and a fresh crossword',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '16 / 40 / 76 / 124',
-      paddingScale: '14 / 26 / 44',
-      grid: 'Placemat 1180px: 3 tracks (puzzle 1fr / menu 1.6fr / maze 1fr) on one surface',
-    },
-    motion: {
-      pageLoad: 'The mat unrolls from the top-left corner over 500ms and the sheen sweeps once',
-      hoverStates: 'Sheen slide plus price bolding, 180ms ease-out',
-      transitions: 'Ease-out, quick; nothing in a diner moves slowly except the coffee',
-      scroll: 'The gloss sheen tracks the scroll at a 0.2 ratio, as if the light source moved',
-    },
-    accessibility:
-      '#241a12 on #fdf8ec is 14.7:1 and the dotted leaders are decorative since prices sit in the same table cell as their item. The crossword is a real table with row and column headers, not a canvas. Ketchup red at 4.6:1 carries menu headings at 18px+, and the upside-down specials have a visible rotate control for anyone who prefers not to read inverted.',
-    responsive:
-      'The three mat tracks stack to menu-only at 820px, then the specials band moves above the menu at 560px. Dotted leaders shorten but prices never wrap away from their item. The 12px mat radius reduces to 6px at 400px so the surface keeps usable width.',
-    codeExample:
-      '<section class="mat">\n  <p class="kicker">OPEN 24 HOURS · BOOTH 7</p>\n  <h1>Two eggs, <em>any way.</em></h1>\n  <p class="row">Blue plate special .......... $8.50</p>\n  <button class="btn-primary">Order at the counter</button>\n</section>',
     accent: '#d8232a',
     motif: 'rotated-stickers',
     layout: 'magazine',
@@ -2211,8 +1571,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Output is the only argument.',
     designPhilosophy:
       'Soviet Control is constructivism with a clipboard: output quotas in three type sizes only, diagonal red bands cutting across every section, and photographs replaced by geometric masses because a control room reports rather than illustrates. The layout tilts, never centres, and the reader is addressed as an operator with a number. For factories, utilities, and any dashboard whose rhetoric is that the numbers speak.',
-    designDetails:
-      'Poster cream #f2efe8 with ink #14140f, hammer red #b71c1c and a single industrial gold #e8b100 for the shift record. 45° bands are drawn as skewed blocks behind content, and every section heading is set in exactly one of three sizes — 68, 34, or 18px. Quota figures are printed with their percentage plan in an 11px superscript.',
     colors: {
       primary: '#b71c1c',
       secondary: '#4a4a48',
@@ -2239,24 +1597,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A tall bar with the shift number, the date, and a gold record strip',
       modals: 'A wall notice that arrives skewed and settles at 0° only when fully open',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '26 / 56 / 100 / 160',
-      paddingScale: '16 / 30 / 54',
-      grid: '1340px with skewed 45° band sections and a 3-col quota grid',
-    },
-    motion: {
-      pageLoad: 'Sections arrive skewed -6° and settle to 0°, 80ms apart, in 3 discrete steps',
-      hoverStates: 'Skew of -6° and band growth, 110ms in two steps',
-      transitions: 'steps(3, end) so movement looks printed, not animated',
-      scroll: 'The gold record strip fills by section, like a plan being met',
-    },
-    accessibility:
-      '#14140f on #f2efe8 is 16.9:1; hammer red on cream is 5.2:1 so it can carry headings, and gold at 2.4:1 is restricted to bands entirely. Percentages are written after the figure, never implied by a bar length. The three-size type rule keeps a clear h1/h2/h3 outline for assistive tech even though sizes are unconventional.',
-    responsive:
-      'Diagonal bands reduce from 45° to 12° below 760px so they no longer cut through text, and disappear under 420px. The 68px size clamps to 42px at 420px. Quota grids go 3 → 2 → 1 columns at 1000/620px with superscript percentages retained.',
-    codeExample:
-      '<section class="notice">\n  <p class="kicker">SHIFT 3 · PLAN 118%</p>\n  <p class="quota">41,208 <span>units</span></p>\n  <p class="caption">Wet line, bay 4, plan exceeded for the eleventh day.</p>\n  <button class="btn-primary">LOG THE SHIFT</button>\n</section>',
     accent: '#b71c1c',
     motif: 'big-stat-row',
     layout: 'manifesto',
@@ -2281,8 +1621,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Forty channels, one squelch.',
     designPhilosophy:
       'CB Radio is a faceplate you happen to be able to read. The header is the radio itself — a channel selector, an LED signal meter, and a squelch control — and everything below it is what came over the air: load offers, convoy requests, and weather notices. The interface accepts that hardware reads poorly and compensates with chrome bezels, chunky switches, and a single bright channel display. For haulage networks, dispatch desks, and radio clubs.',
-    designDetails:
-      'Chrome #eff2f4 with charcoal face #263238 and a signal-green LED #ffab00 amber readout, plus a monitor blue #90a4ae for bezels. Every control has a bevelled chrome ring drawn with a two-stop inset gradient, and the channel display is a 46px amber seven-segment-style figure on near-black. Type is a pixel face for the display and a mono for everything transmitted.',
     colors: {
       primary: '#263238',
       secondary: '#90a4ae',
@@ -2309,24 +1647,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A 40-channel selector strip with the active channel displayed at 22px',
       modals: 'The unit faceplate doubles in size with all knobs live and a receive-only notice',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '18 / 42 / 78 / 128',
-      paddingScale: '12 / 22 / 38',
-      grid: '1180px faceplate with a 3-col module grid and 6px bezel gutters',
-    },
-    motion: {
-      pageLoad: 'Meters sweep to their level in 3 steps, then the channel display settles on 19',
-      hoverStates: '2px depression plus one meter bar, 120ms in three steps',
-      transitions: 'steps(3, end) — a radio has detents, not easing',
-      scroll: 'The signal meter flickers ±1 bar with scroll velocity, capped at two changes per second',
-    },
-    accessibility:
-      '#16202a on #eff2f4 is 15.4:1 and the amber readout on charcoal is 9.8:1, so the display face can carry the channel number. Signal strength is always written as a number of bars as well as lit bars. The squelch toggle is a real switch with aria-checked, and the flicker is disabled under reduced motion.',
-    responsive:
-      'Modules go from three columns to two at 900px and one at 560px, with bezels thinning from 6px to 3px. The 40-channel selector becomes a horizontal scroller with the active channel pinned left. The 46px channel display reduces to 30px at 360px without clipping.',
-    codeExample:
-      '<section class="face">\n  <p class="kicker">CH 19 · HIGHWAY</p>\n  <p class="channel">19</p>\n  <p class="rx">SIGNAL 4 BARS · squelch set</p>\n  <button class="btn-primary">PRESS TO TALK</button>\n</section>',
     accent: '#ffab00',
     motif: 'glow-pulse',
     layout: 'spotlight',
@@ -2350,8 +1670,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Every link branches, none run straight.',
     designPhilosophy:
       'Mycelium Net takes the underground network as its layout: navigation branches from a single node instead of sitting in a bar, and every relationship is drawn as a hairline that forks rather than connects two boxes. Reading is a matter of following a strand. For ecology groups, mycology research, and any knowledge base whose real structure is a graph rather than a list.',
-    designDetails:
-      'Forest floor #f7f4ec with mycelium #7cb342 strands, spore rust #3e2723 for structure, and a wheat #d4a373 for fruiting bodies. Strands are 1px gradients that fork at 30° increments, and each branch point carries a 4px spore dot. Panels have no borders at all — they are simply where strands thicken.',
     colors: {
       primary: '#3e2723',
       secondary: '#7cb342',
@@ -2378,24 +1696,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A branching diagram: one root node, three forks, each a real link, drawn with SVG strands',
       modals: 'A node expands in place, pushing strands outward as it grows',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '22 / 52 / 92 / 148',
-      paddingScale: '14 / 26 / 44',
-      grid: '1280px with a branching 1-3-6 node cascade and 28px strand rhythm',
-    },
-    motion: {
-      pageLoad: 'Strands grow from the root over 1.4s, rendering two levels of fork, then nodes fade in',
-      hoverStates: 'Strand thickening and a spore dot appearing, 200ms ease-out',
-      transitions: 'Ease-out, growth-shaped; never a slide or a spin',
-      scroll: 'New strand segments draw as their nodes enter, one fork at a time',
-    },
-    accessibility:
-      '#26201a on #f7f4ec is 14.9:1 and mycelium green at 3.2:1 is used for strands only — never for text. The branching navigation is backed by a real nested list directly beneath it, so screen readers get a tree. Playback of the strand growth is disabled under reduced motion, leaving the diagram fully drawn.',
-    responsive:
-      'The 1-3-6 cascade becomes 1-2-3 at 900px and a single vertical strand at 620px, with fork angles reduced from 30° to 12°. The branching nav collapses to a two-level disclosure list below 760px. Strands never overlap text at any width.',
-    codeExample:
-      '<section class="mat">\n  <p class="kicker">SITE 3 · STRAND A-6</p>\n  <h1>Everything is <em>connected underground.</em></h1>\n  <p class="sub">Follow the strand from the birch to the third fruiting node.</p>\n  <button class="btn-primary">Follow the strand</button>\n</section>',
     accent: '#7cb342',
     motif: 'leaf-divider',
     layout: 'editorial',
@@ -2420,8 +1720,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Stored at minus eighteen, forever.',
     designPhilosophy:
       'Seed Vault is an archive where the temperature is part of the interface: a −18°C rail runs the full height of every screen, because viability depends on nothing else being off by a degree. Accessions are identified by number before name, and germination percentages are printed to one decimal place. For seed banks, conservation programmes, and long-horizon archives that measure their value in decades.',
-    designDetails:
-      'Permafrost #1c3b4a with a frost #4fc3f7 accent used exclusively on the temperature rail, glacier blue #7b8f9a for secondary data, and lab snow #f6fafb as the ground. Accession numbers are set in mono at 17px with a leading zero pad, and every record carries a two-decimal viability figure. There is no imagery of the vault itself — only its numbers.',
     colors: {
       primary: '#1c3b4a',
       secondary: '#7b8f9a',
@@ -2448,24 +1746,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A temperature rail down the left edge with −18, −12 and −6 marks and the current reading',
       modals: 'An accessions drawer with the rail extended through it, unbroken',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '18 / 44 / 84 / 140',
-      paddingScale: '12 / 24 / 40',
-      grid: '1260px with an 18px temperature rail and a 3-col accession grid',
-    },
-    motion: {
-      pageLoad: 'The rail draws downward over 700ms and accessions fade in as the rail passes them',
-      hoverStates: 'Rail growth and decimal reveal, 130ms linear',
-      transitions: 'Linear and slow — nothing in permafrost hurries',
-      scroll: 'The −18°C reading holds at the top of the rail; accession numbers tick as rows pass',
-    },
-    accessibility:
-      '#0f1e26 on #f6fafb is 16.2:1; frost #4fc3f7 at 2.6:1 is confined to the rail and to 2px edges, with the temperature also written as text. Viability is always a number with a percent sign, never a bar. The rail is decorative and aria-hidden, with its reading duplicated in the page heading.',
-    responsive:
-      'The rail narrows from 18px to 8px below 700px and moves above the content as a horizontal strip at 520px. Accession grids go 3 → 2 → 1 columns at 1000/620px. Decimal viability figures are never rounded for space.',
-    codeExample:
-      '<section class="accession">\n  <p class="kicker">ACC 0044712 · LOGGED 2026-09-24</p>\n  <h1>Barley, <em>high-latitude line.</em></h1>\n  <p class="fig">VIABILITY 94.2% · 1.8 kg · −18.0 °C</p>\n  <button class="btn-primary">Request a sample</button>\n</section>',
     accent: '#4fc3f7',
     motif: 'leaf-divider',
     layout: 'dashboard',
@@ -2488,8 +1768,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Count the lichen, read the air.',
     designPhilosophy:
       'Lichen Index is a survey you can read at a glance: each species carries a stripe of layered tints whose depth encodes the nitrogen tolerance of the species, so air quality is legible before a single label is read. Plates are arranged like a herbarium sheet and annotated in the margin, because the identification is the argument. For environmental charities, air-quality monitoring, and botany groups who publish their transects.',
-    designDetails:
-      'Pale sage #f7f8f3 with foliose #4e5d3a and crustose #93a07d, dry-lime #c2b280 for spore detail, and a herbarium rule #e6e8dd. Each card carries a five-band air-quality stripe built from stacked linear-gradients, and species names are set with their authority in 11px italic. Margin annotations sit in 12px and are allowed to be handwritten-feeling.',
     colors: {
       primary: '#4e5d3a',
       secondary: '#93a07d',
@@ -2516,24 +1794,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A survey strip: four transect numbers with a nitrogen-scale legend',
       modals: 'A plate enlarged to sheet size with the full air-quality scale in the margin',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '20 / 46 / 84 / 136',
-      paddingScale: '14 / 26 / 42',
-      grid: '1200px with a 4-col plate grid and a 78px margin column for annotations',
-    },
-    motion: {
-      pageLoad: 'Air stripes fill one band at a time over 400ms, in survey order',
-      hoverStates: 'One extra band plus an underline, 150ms linear',
-      transitions: 'Linear; a survey does not animate',
-      scroll: 'Margin annotations slide into the margin column as their plate arrives',
-    },
-    accessibility:
-      '#23291d on #f7f8f3 is 14.8:1 and the five air-quality bands each carry a number and a word (very low, low, moderate, high, very high) so the tint depth is never the only signal. Species authorities are included in the accessible name. Annotations are real text with a described association to their plate.',
-    responsive:
-      'The four-column plate grid becomes two at 940px and one at 600px, and annotations move from the margin to directly beneath their plate at 760px. Air stripes keep all five bands at every width by narrowing rather than merging them.',
-    codeExample:
-      '<section class="plate">\n  <p class="kicker">TRANSECT 4 · TREE 12</p>\n  <h1>Xanthoria parietina, <em>very high.</em></h1>\n  <p class="note">Cover 38% · nitrogen run-off from the north field.</p>\n  <button class="btn-primary">Add to the survey</button>\n</section>',
     accent: '#4e5d3a',
     motif: 'grain-overlay',
     layout: 'hero-cards',
@@ -2557,8 +1817,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Four thousand metres, no sunlight.',
     designPhilosophy:
       'Abyssal Drift is designed for the dark, because that is where the data comes from. Depth is the only navigation: a vertical rail runs from surface to abyssal plain, and each reading sits at the pressure where it was taken. Contrast is deliberately low between surfaces and sharp between text and ground, mimicking the way a submersible pilot sees only what is lit. For marine research, subsea engineering, and deep-ocean surveys.',
-    designDetails:
-      'Abyss #06131a with midnight #0d222b panels, bioluminescent cyan #35c1d4 and a single warning amber #ffd166 for equipment faults. Depth rails are drawn as a 1px cyan line with 100-metre ticks, and every specimen dot carries a soft 8px radial glow. Type is a technical display face for depth figures and a neutral sans for everything else.',
     colors: {
       primary: '#35c1d4',
       secondary: '#4a7f8c',
@@ -2585,24 +1843,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A depth rail from 0 to 6000 m with the current station marked in cyan',
       modals: 'A dive sheet that rises from the bottom edge, darkening everything above it',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '20 / 48 / 90 / 148',
-      paddingScale: '14 / 26 / 44',
-      grid: '1240px with a 24px depth rail and a 3-col station grid',
-    },
-    motion: {
-      pageLoad: 'The depth rail descends over 1.6s and specimens fade in as their depth passes',
-      hoverStates: 'Glow radius growth and one-step lightening, 180ms ease-out',
-      transitions: 'Ease-out, slow and pressure-weighted; nothing springs',
-      scroll: 'The rail tracks scroll position, so scrolling genuinely feels like descending',
-    },
-    accessibility:
-      '#dff1f5 on #06131a is 16.8:1, and panel surfaces sit 1.3:1 from the ground so structure is readable without harsh edges. Cyan at 8.9:1 on abyss carries both text and rails. Depth is always written in metres as text, and the rail is aria-hidden with a described current station. All glow is removed under reduced motion.',
-    responsive:
-      'The depth rail moves from the left edge to a 6px strip across the top below 760px, where it becomes a scroll progress indicator. Station grids go 3 → 2 → 1 at 1000/620px. The 48px depth figures clamp to 30px at 360px.',
-    codeExample:
-      '<section class="dive">\n  <p class="kicker">STATION C · 4,012 M</p>\n  <h1>No sunlight, <em>403 atmospheres.</em></h1>\n  <p class="sub">Three specimens logged, two still unidentified.</p>\n  <button class="btn-primary">Open the dive log</button>\n</section>',
     accent: '#35c1d4',
     motif: 'glow-pulse',
     layout: 'full-bleed',
@@ -2628,8 +1868,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Cooled by chimneys, not by compressors.',
     designPhilosophy:
       'Termite Mound is a buildings page that behaves like a section drawing: the hero is a cross-section, and the argument is carried by airflow arrows rather than adjectives. Cooling is explained as a sequence of chimney effects, with every claim attached to a temperature delta. For passive-house architects, biomimicry studios, and engineering practices that would rather show a diagram than a render.',
-    designDetails:
-      'Earth #7c5c3b with mound clay #a1887f over wind cream #f8f3ea, and furnace orange #d98324 used only for warm-air arrows. Cross-sections are drawn with 1px rules and 4px arrowheads, and the chimney shafts are literal vertical voids cut out of the layout. Type is a serif for the argument and a sans for every measurement, so numbers never sit in the reading prose.',
     colors: {
       primary: '#7c5c3b',
       secondary: '#a1887f',
@@ -2656,24 +1894,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A section strip showing five horizontal cuts through the building, each numbered',
       modals: 'A full section drawing with all voids open and airflow paths animated once',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '24 / 56 / 100 / 160',
-      paddingScale: '16 / 30 / 50',
-      grid: '1200px two-track drawing sheet: 1.4fr section, 1fr notes, 8px void gutters',
-    },
-    motion: {
-      pageLoad: 'Airflow arrows draw their paths over 900ms, warm paths last, then readings appear',
-      hoverStates: 'Arrow ascent and delta increment, 220ms ease-out',
-      transitions: 'Ease-out, unhurried, in the direction of the airflow',
-      scroll: 'Arrow paths redraw for each section as it enters, once only',
-    },
-    accessibility:
-      '#2a2118 on #f8f3ea is 14.1:1; furnace orange at 3.4:1 only ever fills arrowheads and 2px edges, with each airflow path also described in a caption. Every cross-section has a text summary of its dimensions and deltas, so the diagram is never the sole carrier. Arrow animation is skipped under reduced motion.',
-    responsive:
-      'The drawing sheet becomes a single column at 860px with notes beneath each section, and voids narrow from 8px to 4px. Arrows are simplified from paths to single stems below 560px. Readings stay on one line each at 320px instead of wrapping mid-unit.',
-    codeExample:
-      '<section class="section-draw">\n  <p class="kicker">SECTION B · DELTA 6.4 °C</p>\n  <h1>Cooled by <em>chimneys.</em></h1>\n  <p class="note">Inlet 1.2 m² · outlet 0.8 m² · stack 9.4 m</p>\n  <button class="btn-primary">Open the thermal brief</button>\n</section>',
     accent: '#d98324',
     motif: 'numbered-steps',
     layout: 'full-bleed',
@@ -2698,8 +1918,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Frequency first, everything else second.',
     designPhilosophy:
       'Grid Dispatch is a control room that admits there is only one number that matters: system frequency, held at 50 hertz. That value sits in the header on every screen and is the only element allowed to change colour. Everything else is a single-line diagram, an alarm list, and a breaker state, drawn with the discipline of an electrical schematic. For utilities, network operators, and industrial control rooms.',
-    designDetails:
-      'Switchgear grey #f5f8fa with schematic ink #1a2b4a for conductors, and a single alarm amber #b25b00 reserved for out-of-band frequency and open breakers. Single-line diagrams are drawn with 1px hairlines and 3px bus bars; every alarm carries a timestamp to the second. Type is a technical display face for bus labels and a plain sans for the alarm log.',
     colors: {
       primary: '#1a2b4a',
       secondary: '#6f7f95',
@@ -2726,24 +1944,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A topology bar: substation names with a live frequency readout',
       modals: 'A full single-line diagram that replaces the page, still carrying the frequency header',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '16 / 40 / 74 / 124',
-      paddingScale: '12 / 22 / 38',
-      grid: '1380px with an 18-col schematic grid and 12px conductor gutters',
-    },
-    motion: {
-      pageLoad: 'Bus bars draw left to right over 500ms, then alarm rows populate instantly',
-      hoverStates: 'Conductor stub growth, 100ms linear',
-      transitions: 'Linear and immediate; a control room does not decorate',
-      scroll: 'The frequency readout stays pinned in the header and re-renders as you move',
-    },
-    accessibility:
-      '#0e1b28 on #f5f8fa is 16.3:1; alarm amber at 4.5:1 is only used with the word ALARM or a listed breaker state, never as a bare indicator. Frequency carries its unit and its nominal band in text. Alarm rows are a real ordered list with timestamps so assistive tech reads the sequence in order.',
-    responsive:
-      'The schematic grid drops from 18 to 8 columns at 1100px and to 4 at 700px, with bus bars reflowing as vertical stubs under 700px. The alarm log becomes a stacked two-line format at 560px. The frequency readout stays in the header at every width.',
-    codeExample:
-      '<section class="board">\n  <p class="kicker">SUBSTATION 4 · FEEDER B2</p>\n  <p class="freq">50.01 <span>Hz</span></p>\n  <p class="row">06:14:02 BREAKER OPEN · B2 · RESTORED</p>\n  <button class="btn-primary">DISPATCH CLOSE</button>\n</section>',
     accent: '#b25b00',
     motif: 'swiss-grid',
     layout: 'dashboard',
@@ -2767,8 +1967,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Paper strips in bays, one per aircraft.',
     designPhilosophy:
       'Tower Approach is a flight-strip board. Each aircraft is a paper strip in a bay, ordered by sequence and moved by hand, and the controller reads across bays rather than down a list. The design is deliberately calm — one colour for the board, amber only for a conflict — because a screen shouted at is a screen misread. For aviation operations, sequencing tools, and any workflow that runs on ordered slips.',
-    designDetails:
-      'Board green #1f3a2e on quiet grey #f4f5f2, with caution amber #e0a021 reserved for spacing conflicts and a strip white #e6e9e2 for the slips themselves. Strips carry a callsign, an altitude, and a squawk, all in 12px mono with fixed columns so the eye can scan a column at speed. Bays are separated by 2px printed grooves.',
     colors: {
       primary: '#1f3a2e',
       secondary: '#7f8f86',
@@ -2795,24 +1993,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A bay header strip with the active runway and a wind readout',
       modals: 'A strip enlarged to a full clearance sheet, keeping its column grid',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '14 / 36 / 66 / 112',
-      paddingScale: '8 / 16 / 30',
-      grid: '1360px with 6 bays of 200px and 2px grooves between them',
-    },
-    motion: {
-      pageLoad: 'Strips drop into bays top-down, 35ms apart, landing 1px into the groove',
-      hoverStates: 'A 2px lift and a groove widening, 110ms linear',
-      transitions: 'Linear and brief; strips are moved by hand, not animated',
-      scroll: 'Bays stay fixed while strips reorder within them once per scroll pause',
-    },
-    accessibility:
-      '#14201a on #f4f5f2 is 15.6:1 and strip white sits 1.2:1 from the board, so structure is legible without contrast strain. Caution amber is always paired with the word CONFLICT and the spacing figure. Strips are a real ordered list per bay, so a screen reader gets sequence as sequence rather than as a grid of numbers.',
-    responsive:
-      'Six bays become four at 1100px, two at 800px, and one at 560px with strips stacked in sequence order. Fixed 62px columns narrow to 48px below 480px but keep their alignment. The wind readout moves from the bay header into the page header at 480px.',
-    codeExample:
-      '<section class="bay">\n  <p class="kicker">BAY 3 · RWY 09 · WIND 240/12</p>\n  <p class="strip">BAW214  FL240  4312</p>\n  <p class="row">SEQUENCE 4 OF 9 · SPACING 6 NM</p>\n  <button class="btn-primary">HAND OFF TO APPROACH</button>\n</section>',
     accent: '#e0a021',
     motif: 'pill-nav',
     layout: 'full-bleed',
@@ -2837,8 +2017,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Every price carries its reasoning.',
     designPhilosophy:
       'Underwriter Desk is a worksheet, not a dashboard. Questions are numbered in nested clauses (4.2.1.a), each answer carries the loading it produces, and the declined stamp sits beside the reason rather than hidden behind a tooltip. Nothing is summarised away, because in risk a summary is a liability. For insurers, brokers, and any assessment where the working must be shown to a regulator.',
-    designDetails:
-      'Ledger paper #fdfcf7 with ink blue #1f2a44 rules, a load grey #7d7f8c for secondary figures, and a decline red #a8342c used only on the stamp and the clause that caused it. The worksheet is ruled at 26px with clause numbers in the left gutter, and loadings are printed with a plus or minus sign and one decimal.',
     colors: {
       primary: '#1f2a44',
       secondary: '#7d7f8c',
@@ -2865,24 +2043,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A clause tree: sections 1 to 7, expanded to two levels',
       modals: 'A full worksheet page with the decline stamp applied to the header',
     },
-    spacing: {
-      baseUnit: '2px',
-      marginScale: '16 / 40 / 72 / 118',
-      paddingScale: '10 / 20 / 34',
-      grid: '1100px worksheet with a 46px clause gutter and a 78px loading column',
-    },
-    motion: {
-      pageLoad: 'Rows rule themselves in over 300ms, then loadings count up by 0.1 steps',
-      hoverStates: 'Rule appearance plus figure bolding, 130ms linear',
-      transitions: 'Linear, minimal; a worksheet should not move while being read',
-      scroll: 'The clause gutter stays in view so a number is never lost mid-scroll',
-    },
-    accessibility:
-      '#1b1f2b on #fdfcf7 is 16.4:1 and loading figures sit at 12px with 5.4:1, so small numbers remain legible. Clause numbers are real list markers, so the nested numbering survives in the accessibility tree. Decline red is 6.2:1 and always accompanies the stamped word DECLINED plus its clause reference.',
-    responsive:
-      'The loading column moves beneath each clause row at 760px, keeping its sign and decimal. The clause gutter narrows from 46px to 28px at 560px. Nested numbering is preserved at every width rather than being flattened into bullets.',
-    codeExample:
-      '<section class="sheet">\n  <p class="kicker">REF 4471 · SECTION 4.2</p>\n  <h1>Flood loading <em>+18.5%.</em></h1>\n  <p class="row">4.2.1.a  River within 200 m .......... DECLINED</p>\n  <button class="btn-primary">Apply the loading</button>\n</section>',
     accent: '#a8342c',
     motif: 'dashed-borders',
     layout: 'editorial',
@@ -2907,8 +2067,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Two hundred and fourteen sensors, no excursions.',
     designPhilosophy:
       'Cold Chain exists to answer one question: did anything leave its band. The page is therefore a temperature band chart with the permissible range printed as a shaded corridor, and every sensor log sits at the point it was taken. Excursions are counted, listed, and stamped, never smoothed over. For pharmaceutical logistics, food safety, and clinical supply chains under audit.',
-    designDetails:
-      'Sterile white #f7fbfd with corridor blue #12556f for the band, sensor grey #86a3b0 for readings, and excursion amber #e08a1e used only on a flagged row. The band is drawn as two 1px edges with a 6% cyan fill, and exceedance rows carry a hard 4px amber bar bleeding into the margin. Type is a plain grotesque for prose and a condensed face for device IDs.',
     colors: {
       primary: '#12556f',
       secondary: '#86a3b0',
@@ -2935,24 +2093,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A lane strip with four legs and a running excursion count',
       modals: 'An audit report with the band reproduced at full width and every flagged row listed',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '18 / 44 / 80 / 134',
-      paddingScale: '14 / 26 / 42',
-      grid: '1300px with a 4-col device grid and a 96px band chart area',
-    },
-    motion: {
-      pageLoad: 'The band draws along its length over 600ms and readings appear at their positions',
-      hoverStates: 'Band tint deepening and a decimal appearing, 130ms linear',
-      transitions: 'Linear and calm; refrigeration is not expressive',
-      scroll: 'Sensor readings tick as they pass the centre line, never on a timer',
-    },
-    accessibility:
-      '#0c1f28 on #f7fbfd is 16.4:1; corridor blue at 7.4:1 carries headings and band edges. Exceedance amber is 2.6:1 on white and is therefore restricted to the 4px margin bar, with the row itself stating EXCURSION plus the temperature and duration. Band limits are printed as numbers above and below the chart, so the corridor is never the only evidence.',
-    responsive:
-      'The band chart stays full width at every size and reduces its tick density instead of its span. Four device columns become two at 1000px and one at 620px, with the amber margin bar retained at 4px. Device IDs never truncate.',
-    codeExample:
-      '<section class="lane">\n  <p class="kicker">LANE 2 · LEG 3 · 214 SENSORS</p>\n  <h1>Excursions <em>0 of 214.</em></h1>\n  <p class="row">2.0–8.0 °C · worst reading 5.4 °C · 41 h elapsed</p>\n  <button class="btn-primary">Print the audit report</button>\n</section>',
     accent: '#e08a1e',
     motif: 'big-stat-row',
     layout: 'split-hero',
@@ -2976,8 +2116,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Every parcel has a number and a stamp.',
     designPhilosophy:
       'Deed Office is a registry before it is a website: navigation is a filing index, and a parcel is identified by its deed number before its address. There are no cards, only entries ruled into a register with an archival stamp and a folio reference, because a record is only useful if it can be cited. For land registries, notaries, and archives whose output is a citation.',
-    designDetails:
-      'Document cream #f5f4f0 with registry ink #2f3238, a filing grey #7f7a70 for marginalia, and a stamp blue #4a5aa8 used once per entry. Entries are ruled with a 1px top rule and indented by folio depth, and every citation is printed in full rather than abbreviated. Type is a book serif for entries and a sans for the index, so the two never blur.',
     colors: {
       primary: '#2f3238',
       secondary: '#7f7a70',
@@ -3004,24 +2142,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A filing index: letters of the alphabet with parcel counts',
       modals: 'A folio sheet showing the full chain of title as a numbered list',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '18 / 42 / 76 / 128',
-      paddingScale: '12 / 22 / 36',
-      grid: '1140px register with 18px folio indents per depth level and 1px rules',
-    },
-    motion: {
-      pageLoad: 'Entries appear in filing order over 400ms, folio rules drawing last',
-      hoverStates: 'Rule plus margin citation, 150ms linear',
-      transitions: 'Linear; records do not ease in and out',
-      scroll: 'Folio depth markers persist in the left margin throughout the register',
-    },
-    accessibility:
-      '#24262b on #f5f4f0 is 13.8:1 and 0.5px rules are decorative only — every separation also has spacing, so nothing depends on a hairline. Deed numbers are announced with their folio and access status. The registry is a definition list so number and description stay associated for assistive tech.',
-    responsive:
-      'Folio indents halve from 18px to 9px below 760px and the four-column search becomes two at 640px, then one at 460px. Citations wrap at their commas rather than mid-number. Rules stay 1px at every width so the register still reads as ruled.',
-    codeExample:
-      '<section class="entry">\n  <p class="kicker">REGISTER · PARCEL 4471 · FOLIO 214</p>\n  <h1>Title <em>held since 1931.</em></h1>\n  <p class="citation">Deed 4471/214, Parish of Ashwell, transferred 14 June 1931.</p>\n  <button class="btn-primary">Request a certified copy</button>\n</section>',
     accent: '#4a5aa8',
     motif: 'quote-band',
     layout: 'magazine',
@@ -3045,8 +2165,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'One blue, no silver.',
     designPhilosophy:
       'Cyanotype Lab is printed in a single colour because that is the process: iron salts, sunlight, water, and prussian blue. Photographs appear as reverse-outs — white forms on blue — and exposure test strips are shown as graded steps rather than explained. The whole site is a darkroom note about a 1842 process, argued in one hue. For photographers, print studios, and workshops that teach an obsolete method on purpose.',
-    designDetails:
-      'Prussian blue #16385e as the only strong colour, on a towel white #eef4f8 with wash-grey #dbe6ee for surface variation and a deeper blue #0d2340 for shadows. Exposure grades are five stacked tints, and every image frame carries a 1px deckle edge. Type is a display serif for headings and a mono for process notes, because timings must not be misread.',
     colors: {
       primary: '#16385e',
       secondary: '#4a7ba6',
@@ -3073,24 +2191,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A process strip: five numbered stages from coat to wash',
       modals: 'A full plate with its reverse-out inverted and the grade strip extended',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '24 / 56 / 100 / 164',
-      paddingScale: '18 / 32 / 54',
-      grid: '1160px with a 3-col plate grid and 5-step grade strips',
-    },
-    motion: {
-      pageLoad: 'Plates appear as if developing, rising from 12% to full opacity over 900ms, in order',
-      hoverStates: 'A 300ms inversion of the frame',
-      transitions: 'Ease-in-out, slow, like a print developing in the wash',
-      scroll: 'The grade strip extends by one step per section passed',
-    },
-    accessibility:
-      '#10233a on #eef4f8 is 15.3:1 and the monochrome discipline means no meaning rests on hue. Exposure grades carry both a number and a seconds value, and process stages are an ordered list rather than an implied sequence. The inversion hover is also triggered on focus so keyboard users get identical feedback.',
-    responsive:
-      'The three-column plate grid becomes two at 900px and one at 600px, with grade strips staying five steps wide. Process notes drop from 17px to 15px below 480px. The deckle frame thins from 1px to 1px but its inset shadow reduces so nothing smudges.',
-    codeExample:
-      '<section class="plate">\n  <p class="kicker">GRADE 3 · 6 MIN IN SUN</p>\n  <h1>Reverse-out, <em>no silver.</em></h1>\n  <p class="note">Coat 1.5 ml · dry 20 min · wash 8 min · dry flat</p>\n  <button class="btn-primary">Calculate an exposure</button>\n</section>',
     accent: '#16385e',
     motif: 'gradient-hero',
     layout: 'full-bleed',
@@ -3115,8 +2215,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Over-inked, and proud of it.',
     designPhilosophy:
       'Letterpress Crash celebrates the mistakes a real press makes: squeezed ink, a kiss that went too deep, a forme that shifted half a millimetre. Headings are debossed into the page with inset shadows, and every block carries a slight ink halo where pressure was highest. Instead of pretending to be flat design, it is honestly dimensional. For print studios, workshops, and typography projects that want to be touched.',
-    designDetails:
-      'Press-board #f5f0e6 with ink black #232a33, a bruised plum #857f76 for secondary and over-ink red #b03024 for any text that was hit twice. Debossing is done with a 1px dark inset on the top edge and a 1px light inset below, which reads as relief at any size. Paper texture is a 3% grain, and every panel has a 2px press edge.',
     colors: {
       primary: '#232a33',
       secondary: '#857f76',
@@ -3143,24 +2241,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A forme strip: five locked-up panels with registration crosses',
       modals: 'A press sheet sliding out of the frame with ink still visible at its leading edge',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '22 / 50 / 92 / 150',
-      paddingScale: '16 / 30 / 50',
-      grid: '1180px with a 2-col forme layout and 3px press offsets',
-    },
-    motion: {
-      pageLoad: 'Each block presses down 3px and settles, 70ms apart, with the halo appearing on impact',
-      hoverStates: 'A 2px deeper press plus a wider halo, 140ms ease-out',
-      transitions: 'Ease-out with a hard stop; a press does not glide',
-      scroll: 'Blocks press in as they enter, once, then stay struck',
-    },
-    accessibility:
-      '#1b2026 on #f5f0e6 is 15.4:1 and the deboss effect never carries contrast on its own — text stays ink-black in all states. Over-ink red at 5.1:1 marks anything struck twice and always duplicates a word. Inset shadows are decorative and removed under reduced motion, which leaves clean struck type.',
-    responsive:
-      'The two-column forme becomes one at 780px and press offsets reduce from 3px to 1px below 560px so blocks do not appear misaligned. Display sizes clamp from 56px to 34px at 400px. Halos are disabled under 480px where they would blur text.',
-    codeExample:
-      '<section class="forme">\n  <p class="kicker">JOB 114 · 2 PRESSES</p>\n  <h1>Ink too deep, <em>press it anyway.</em></h1>\n  <p class="note">Cotton 300gsm · 4 passes · impression 0.3 mm</p>\n  <button class="btn-primary">Book a forme</button>\n</section>',
     accent: '#b03024',
     motif: 'hard-shadows',
     layout: 'spotlight',
@@ -3184,8 +2264,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Twelve frames a second, no tweening.',
     designPhilosophy:
       'Stop Motion Bench is shot at 12fps and refuses to hide it. Nothing on the page interpolates smoothly: transitions happen in twelve discrete steps per second, and interactive elements show onion-skin ghosts of their previous three states, exactly as an animator checks a walk cycle. Charming motion comes from discipline, not from easing curves. For animation studios, set builders, and frame-by-frame workshops.',
-    designDetails:
-      'Set grey #f5f2ee with puppet charcoal #3b3a38, a clay orange #d97a35 for the moving part, and steel rig #98938c for armatures. Every transition runs in twelve steps per second, and interactive elements carry three onion-skin ghosts at decreasing opacity. Frames are numbered in the corner of every block, because everything here is a frame.',
     colors: {
       primary: '#3b3a38',
       secondary: '#98938c',
@@ -3212,24 +2290,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A timeline strip of 12 numbered frames per second with the playhead marked',
       modals: 'A frame held up to the light, with its two neighbours ghosted behind it',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '18 / 44 / 80 / 132',
-      paddingScale: '12 / 24 / 40',
-      grid: '1200px with a 12-frame timeline and a 3-col shot grid',
-    },
-    motion: {
-      pageLoad: 'Everything enters over exactly 12 steps at 12fps, with three ghost states behind each element',
-      hoverStates: '12 discrete steps with onion-skin ghosts at 20% and 10%, 1000ms total',
-      transitions: 'steps(12, end) at 12fps — no interpolation is permitted anywhere in this system',
-      scroll: 'A frame counter in the corner advances by exactly one per section passed',
-    },
-    accessibility:
-      '#2a2724 on #f5f2ee is 14.6:1; clay orange at 3.6:1 only fills 3px edges and frame badges, never text. Onion-skin ghosts are decorative duplicates with aria-hidden, and nothing important is ever only a ghost. Reduced motion replaces the 12-step animation with instant state changes and removes the ghosts entirely — the honest fallback for a system built on stepped motion.',
-    responsive:
-      'The 12-frame timeline becomes a 6-frame strip below 800px and a progress bar below 520px, keeping the frame count in text. Shot grids go 3 → 2 → 1 columns at 980/620px. Ghost offsets reduce from 6px to 2px under 560px so nothing smears.',
-    codeExample:
-      '<section class="frame">\n  <p class="kicker">SHOT 14 · FRAMES 41–53 · 12 FPS</p>\n  <h1>Twelve frames, <em>one second.</em></h1>\n  <p class="note">Puppet move 38 mm · exposure double on 4 frames</p>\n  <button class="btn-primary">Shoot the next second</button>\n</section>',
     accent: '#d97a35',
     motif: 'numbered-steps',
     layout: 'split-hero',
@@ -3254,8 +2314,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Ruled five millimetres, taped at the corners.',
     designPhilosophy:
       'Grid Paper is somebody else has been working here: illustrations taped in at their corners, annotations pencilled into the margin, and one hot marker colour used for whatever mattered that day. The ruled 5mm grid is never hidden, because the substrate is part of the work. For illustrators, teaching studios, and portfolios that would rather show the sketchbook than the case study.',
-    designDetails:
-      'Pencil blue #2b3a67 rules at 5mm over graph cream #fbfcfd, with marker red #e2574c as the single loud colour and a graphite #8c9bb5 for annotations. Tapes are drawn as 14px whitened rectangles at 45° and 315° on the top corners, and panels sit at sub-degree rotations. Annotations are genuine margin notes at 12px, annotated in a hand-feel face.',
     colors: {
       primary: '#2b3a67',
       secondary: '#8c9bb5',
@@ -3282,24 +2340,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A desk strip: four taped tabs with hand-written labels',
       modals: 'A plate unpeeled from the page, revealing bare grid where it was',
     },
-    spacing: {
-      baseUnit: '5px',
-      marginScale: '20 / 45 / 85 / 140',
-      paddingScale: '15 / 30 / 50',
-      grid: '5mm grid base (20px at 4x) with a 2-col plate layout and a 96px annotation margin',
-    },
-    motion: {
-      pageLoad: 'Plates settle into place with a 1° tilt correction, 60ms apart, tape appearing last',
-      hoverStates: 'Tape lift plus a marker underline doubling, 150ms ease-out',
-      transitions: 'Ease-out, brief, with a slight paper settle at the end',
-      scroll: 'Annotation leader lines draw toward their plate as it enters the viewport',
-    },
-    accessibility:
-      '#22293a on #fbfcfd is 15.1:1 and the 5mm grid is drawn at 6% opacity so it cannot interfere with text contrast. Marker red at 3.9:1 only underlines headings and marks required fields, which also carry the word REQUIRED. Annotations are real text tied to their plate by aria-describedby, not free-floating labels.',
-    responsive:
-      'The 5mm grid scales from 20px to 15px below 700px so it stays visible without moiring. The two-column plate layout becomes one at 780px and annotations move from the margin to directly beneath their plate at 620px. Tape corners are retained at 14px.',
-    codeExample:
-      '<section class="plate">\n  <p class="kicker">DESK · TUESDAY MORNING</p>\n  <h1>Sketch first, <em>then the vector.</em></h1>\n  <p class="note">margin: three values tested, two survived</p>\n  <button class="btn-primary">Pin the brief</button>\n</section>',
     accent: '#e2574c',
     motif: 'rotated-stickers',
     layout: 'asymmetric',
@@ -3323,8 +2363,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Left and right, drawn as a room.',
     designPhilosophy:
       'Binaural Room treats a mix as a plan view: the hero is a floor plan with speaker positions you can click, and the layout itself splits left and right like a stereo field, so the page literally has a channel per column. Panning is explained spatially rather than numerically, and levels are shown as distance from the listener. For spatial-audio studios, mastering rooms, and audio-tool documentation.',
-    designDetails:
-      'Room dark #100d16 with monitor violet #8f7ae0 for anything routed, a level amber #e5a76f for clipping, and slate #4b5563 for surfaces. Speaker positions are 8px violet dots with a 4px ring when active, and the floor plan is drawn in 1px hairlines with a 24px radius grid. Type is a technical display for channel labels and a plain sans for the notes.',
     colors: {
       primary: '#8f7ae0',
       secondary: '#4b5563',
@@ -3351,24 +2389,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A channel strip: L, C, R, LFE, LS, RS with live activity dots',
       modals: 'A plan view enlarged with speaker positions draggable and levels updating live',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '20 / 46 / 84 / 140',
-      paddingScale: '14 / 28 / 46',
-      grid: '1280px two-channel split (1fr / 1fr) with a 24px radius plan grid',
-    },
-    motion: {
-      pageLoad: 'Speaker dots activate in clockwise order over 700ms, then levels settle',
-      hoverStates: 'Ring appearance and a level brightening, 150ms ease-out',
-      transitions: 'Ease-out, short; only levels and rings animate, nothing slides',
-      scroll: 'Active channel dots pulse in time with a 4/4 bar as sections pass',
-    },
-    accessibility:
-      '#e6e1f0 on #100d16 is 15.0:1; violet at 5.5:1 carries labels, and level amber is reserved for clipping at 24px+ figures so its 2.3:1 stays decorative. Every panning position is written as a value and a side, never as an x-coordinate alone. The pulsing activity dots stop under reduced motion.',
-    responsive:
-      'The two-channel split stacks to a single column at 820px, with the floor plan above the notes. Speaker dots stay 8px with 44px hit areas at every size. The channel strip wraps to two rows below 520px rather than scrolling.',
-    codeExample:
-      '<section class="room">\n  <p class="kicker">ROOM B · 5.1 LAYOUT · PAIR 2</p>\n  <h1>Left and right, <em>forty degrees apart.</em></h1>\n  <p class="level">L −6.0 dBFS · R −5.8 dBFS · balance +0.2</p>\n  <button class="btn-primary">Open the plan</button>\n</section>',
     accent: '#8f7ae0',
     motif: 'glow-pulse',
     layout: 'centered',
@@ -3394,8 +2414,6 @@ export const wave6Designs: DesignSystem[] = [
     description: 'Fourteen frames, one revolution.',
     designPhilosophy:
       'Zoetrope is about pre-cinema animation, so the page is a drum: a horizontal strip of fourteen frames you scrub through, with a slit-viewer metaphor that only reveals one frame at a time until you turn it. Motion is derived from rotation, not from scroll position, and the whole system is built from brass rules and ink. For animation archives, museums, and studios that care where the frame came from.',
-    designDetails:
-      'Aged paper #f1f0ec with Victorian mauve #622277, brass #a8742c rules, and a faded gilt #8f7a58 for secondary figures. Frames are drawn as 14 equal strips with 1px brass separators, and the slit is a 2px mauve bar that masks all but the active frame. Type is a display wood-face paired with a typewriter mono, so captions read as labels in a museum vitrine.',
     colors: {
       primary: '#622277',
       secondary: '#8f7a58',
@@ -3422,24 +2440,6 @@ export const wave6Designs: DesignSystem[] = [
       navigation: 'A drum strip of 14 numbered frames with the slit position marked',
       modals: 'A drum opened flat, showing all fourteen frames at once with their captions',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '22 / 50 / 90 / 148',
-      paddingScale: '14 / 28 / 46',
-      grid: '1240px with a 14-frame strip (each 1fr) and 1px brass separators',
-    },
-    motion: {
-      pageLoad: 'The drum advances one frame every 90ms until it settles on frame 1, then captions appear',
-      hoverStates: 'A 1/14 rotation in seven discrete steps, 220ms',
-      transitions: 'steps(7, end) so rotation reads as frames rather than a smooth turn',
-      scroll: 'One revolution per two sections scrolled, always quantised to a frame',
-    },
-    accessibility:
-      '#241c12 on #f1f0ec is 14.6:1; brass at 4.5:1 is confined to rules and frame numerals at 17px+. Because the slit metaphor intentionally hides frames, the strip is a real list with every frame caption present in the DOM, and the mask is aria-hidden. Reduced motion replaces rotation with instant frame changes and shows all captions.',
-    responsive:
-      'The fourteen-frame strip becomes a seven-frame strip below 860px and a scrubber with a frame counter below 560px, with the slit retained as a 2px mauve bar. Captions move below their frame at 620px. Brass separators reduce from 1px to 1px but spacing halves so the drum stays legible.',
-    codeExample:
-      '<section class="drum">\n  <p class="kicker">DRUM 4 · 14 FRAMES · 1834</p>\n  <h1>One revolution, <em>fourteen frames.</em></h1>\n  <p class="caption">FRAME 07 · the horse runs · slit at 2 mm</p>\n  <button class="btn-primary">Turn the drum</button>\n</section>',
     accent: '#a8742c',
     motif: 'ticker-marquee',
     layout: 'magazine',

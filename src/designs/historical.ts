@@ -9,8 +9,6 @@ export const historicalDesigns: DesignSystem[] = [
     description: 'Kintsugi calm: faded earth, visible seams, honesty.',
     designPhilosophy:
       'Perfection is suspicious. Wabi-sabi design keeps the seams visible: mismatched neutrals, off-grid alignments of a few degrees, textures that admit wear. It is minimalism that forgives. For wellness, artisan goods, therapy platforms, and anything that wants to feel human rather than optimized.',
-    designDetails:
-      'Faded clay palette — ash #8c857c, ochre #c2a878, muted moss — on unbleached linen #f4f1ea. EB Garamond display (soft, warm); Karla body. Kintsugi gold seams: thin irregular gradient lines (linear-gradient with stops) that "repair" section breaks. Cards have uneven radii (12px 20px 14px 22px) and offset shadows like paper on paper.',
     colors: {
       primary: '#8c857c',
       secondary: '#c2a878',
@@ -37,24 +35,6 @@ export const historicalDesigns: DesignSystem[] = [
       navigation: 'Quiet row, active link underlined by a gold seam',
       modals: 'Linen sheet with kintsugi seam down one side',
     },
-    spacing: {
-      baseUnit: '16px',
-      marginScale: '16 / 48 / 88 / 160',
-      paddingScale: '28 / 48 / 72',
-      grid: 'Soft 12-col with intentional 1–2% offsets, 1100px',
-    },
-    motion: {
-      pageLoad: 'Content arrives like breath: 700ms fade + 8px settle',
-      hoverStates: '400ms settle; nothing springs',
-      transitions: 'Slow, forgiving, 400–700ms',
-      scroll: 'Sections settle into place (8px overshoot back), no parallax',
-    },
-    accessibility:
-      '#3f3a33 on linen 10.4:1; linen on ash 4.7:1 at 500 weight. Focus 3px ochre outline. Imperfection is in decoration, never in contrast or semantics. Reduced-motion keeps simple fades.',
-    responsive:
-      'Offsets relax to aligned single column under 760px. Display clamps 2rem→3.25rem. Kintsugi seams persist as horizontal rules. Uneven radii simplify slightly on mobile.',
-    codeExample:
-      '<section class="teabowl">\n  <h1>Nothing here<br/>is <em>finished.</em></h1>\n  <p>Objects and software, mended with gold.</p>\n  <a class="seam-link" href="#">See the collection</a>\n</section>',
     accent: '#9a8873',
     motif: 'leaf-divider',
     layout: 'editorial',
@@ -76,8 +56,6 @@ export const historicalDesigns: DesignSystem[] = [
     description: 'Mucha frames: whiplash vines, orchid tones, panels.',
     designPhilosophy:
       'The poster as total artwork. Whiplash vine ornaments, halo arches, ornamental type, and a palette of orchid, olive, and faded gilt. Structure and ornament are the same thing — borders bloom, frames grow. For perfumeries, teas, theaters, and brands that want elegance with tendrils.',
-    designDetails:
-      'Orchid cream #f3ecdf with olive #6b6b3a, muted mauve #9b6b7c, and faded gold. Cormorant Garamond display (italic in flourishes); Karla body. Halo arch behind heroes (radial gradient ring), vine borders via layered radial gradients on edges, ornamental corner fleurons ❦ ✦. Panel cards have arched tops and vine-ruled borders.',
     colors: {
       primary: '#9b6b7c',
       secondary: '#6b6b3a',
@@ -104,24 +82,6 @@ export const historicalDesigns: DesignSystem[] = [
       navigation: 'Arched center wordmark; hairline vines flanking links',
       modals: 'Halo-framed panel with vine corners and gold seal',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 40 / 80 / 152',
-      paddingScale: '24 / 44 / 64',
-      grid: 'Tall poster proportion: centered 980px, generous verticals',
-    },
-    motion: {
-      pageLoad: 'Halo arch draws (scaleY) 500ms; vines fade in after',
-      hoverStates: '300ms bloom effects; nothing snaps',
-      transitions: 'Organic ease-in-out, 300–450ms',
-      scroll: 'Vine borders grow along the scroll direction, subtly',
-    },
-    accessibility:
-      '#3c3529 on cream 11.6:1; cream on mauve 5.8:1. Focus 3px mauve outline. Vines and fleurons aria-hidden. Ornaments never carry information.',
-    responsive:
-      'Arched frames become rounded tops under 640px. Display clamps 2.25rem→3.5rem. Vine borders simplify to double rules on small screens.',
-    codeExample:
-      '<section class="panneau">\n  <p class="maison">MAISON FLEUVE</p>\n  <h1>Teas of the <em>Evening</em> Garden</h1>\n  <a class="vine-link" href="#">Taste the collection</a>\n</section>',
     accent: '#9b6b7c',
     motif: 'leaf-divider',
     layout: 'centered',
@@ -143,8 +103,6 @@ export const historicalDesigns: DesignSystem[] = [
     description: 'Modern healthcare: teal, white, and calm competence.',
     designPhilosophy:
       'Healthcare design patients actually trust. Reassuring teal, generous white, rounded-but-professional forms, and typography that explains rather than impresses. Every state (info, warning, critical) is designed. For clinics, health tech, insurance, and anything where confusion has a cost.',
-    designDetails:
-      'White canvas, trust teal #0e7490-family, calm mint surfaces, amber warnings, red reserved for critical. Livvic display for clinical legibility at 400–600; IBM Plex Sans for prose. Cards have 12px radii and colored top status strips. Icons precede every status. Buttons are 6px-radius, 44px minimum height (gloved hands exist).',
     colors: {
       primary: '#0e7490',
       secondary: '#155e75',
@@ -171,24 +129,6 @@ export const historicalDesigns: DesignSystem[] = [
       navigation: '64px white bar, teal active underline, emergency number right',
       modals: 'Radius 12px with status icon header and clear action hierarchy',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '8 / 24 / 48 / 96',
-      paddingScale: '16 / 24 / 40',
-      grid: '12-col 1200px; forms in 2-col with 24px gutters',
-    },
-    motion: {
-      pageLoad: 'Fast fades 200ms — clarity before delight',
-      hoverStates: '150ms color shifts only',
-      transitions: 'Functional 150–200ms',
-      scroll: 'Sticky section anchors; nothing else moves',
-    },
-    accessibility:
-      '#1e3a45 on white 11.9:1; white on teal 5.9:1. Status never color-only: icons + text labels on every alert. Focus 3px teal ring. Tap targets ≥44px. Errors announced via aria-live.',
-    responsive:
-      'Forms single-column under 640px. Status cards stack with strips intact. Display clamps 1.875rem→2.75rem. Nav condenses; emergency number persists.',
-    codeExample:
-      '<section class="care">\n  <h1>Your results, <em>explained.</em></h1>\n  <p>Plain-language reports from real clinicians.</p>\n  <div class="status info">◉ Next available: Tomorrow 9:40</div>\n  <button class="btn-care">Book appointment</button>\n</section>',
     accent: '#0e7490',
     motif: 'big-stat-row',
     layout: 'split-hero',
@@ -210,8 +150,6 @@ export const historicalDesigns: DesignSystem[] = [
     description: 'Spotlit monochrome: film-noir drama for photography.',
     designPhilosophy:
       'A single spotlight in a black room. High-contrast monochrome, dramatic crops, white-on-black typography that whispers and then snaps. Everything defers to the image. For photographers, filmmakers, galleries, and portfolios where the work is the entire argument.',
-    designDetails:
-      'True black #0a0a0a with silver #d4d4d4 text and a single warm spotlight accent (#e8c47a used once per viewport). Oswald condensed display, tall and cinematic; Karla body. Images get vignette frames (inset box-shadow). Film-strip perforations (repeating gradient) as section dividers. Hover: images scale inside their frames like a slow zoom.',
     colors: {
       primary: '#d4d4d4',
       secondary: '#525252',
@@ -238,24 +176,6 @@ export const historicalDesigns: DesignSystem[] = [
       navigation: 'Hairline-bottom bar, condensed uppercase links, gold active',
       modals: 'Full-bleed lightbox with silver hairline frame',
     },
-    spacing: {
-      baseUnit: '16px',
-      marginScale: '16 / 48 / 96 / 176',
-      paddingScale: '24 / 48 / 80',
-      grid: 'Cinema: full-width frames, 1200px text measure 640px',
-    },
-    motion: {
-      pageLoad: 'Fade from black 600ms; images develop (brightness 0.7→1)',
-      hoverStates: 'Slow zooms 600ms; quick button fills 250ms',
-      transitions: 'Cinematic patience on media, snap on controls',
-      scroll: 'Images develop as they enter (brightness ramp); text fades',
-    },
-    accessibility:
-      '#ededed on black 16.9:1; silver on black 13.1:1. Gold spotlight reserved for large elements (7.9:1). Focus 2px silver outline offset 3px. Zoom effects respect reduced-motion (become brightness shifts).',
-    responsive:
-      'Frames stay full-width; captions overlay on mobile to save space. Display clamps 2rem→3.5rem. Film-strip dividers thin to 8px. Lightbox swallows full screen under 640px.',
-    codeExample:
-      '<section class="frame">\n  <p class="reel">REEL 03 — SELECTED WORK</p>\n  <h1>LIGHT, <em>SHADOW</em>, TRUTH</h1>\n  <a class="enter" href="#">View the series</a>\n</section>',
     accent: '#e8c47a',
     motif: 'grain-overlay',
     layout: 'magazine',

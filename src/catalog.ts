@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { DesignSystem } from './types'
+import { primeUseCaseIndex } from './designs/usecases'
 
 /**
  * The catalog registry.
@@ -51,9 +52,18 @@ export function loadCatalog(): Promise<void> {
   inflight = import('./designs')
     .then((m) => {
       registerCatalog(m.DESIGN_SYSTEMS)
-      // The website-type index is derived from the whole catalog and is only
-      // needed for filtering — warm it off the critical path.
-      void import('./designs/usecases').then((u) => u.primeUseCaseIndex())
+      // Build the website-type index now, synchronously.
+      //
+      // This used to be a dynamic import, on the theory that the index could be
+      // warmed "off the critical path". It could not: App, Sidebar, Preview and
+      // the kit explorer all import this module statically, so Vite never split
+      // it out and the request ran on the same tick anyway.
+      //
+      // Synchronous is also the correct behaviour. Filtering consults the index
+      // on the very next render, and the top-up pass *mutates* each design's
+      // derived website types — so a filter that ran before the index existed
+      // would return a different set than the same filter run after it.
+      primeUseCaseIndex()
     })
     .catch((err) => {
       console.error('[design-vault] catalog failed to load', err)

@@ -3,7 +3,7 @@
 
    Base chrome + shared primitives live here; each pattern ships its
    own unique canvas arrangement (grid-template, flow, offsets) that
-   the board injects from `patterns.ts`. The palette is deliberately
+   the board injects from patterns.ts. The palette is deliberately
    neutral so layouts are judged on structure, not color.
    ============================================================ */
 
@@ -382,7 +382,7 @@
 .pt-heat i { aspect-ratio: 1; border-radius: 2px; background: var(--p-surface-2); display: block; }
 
 /* ---------- block containers ----------
-   Every block root is a direct child of `.pt-canvas` and spans the full
+   Every block root is a direct child of .pt-canvas and spans the full
    canvas by default; a canvas arrangement narrows it when a layout calls
    for two things side by side. */
 .pt-canvas > * { grid-column: 1 / -1; min-width: 0; }

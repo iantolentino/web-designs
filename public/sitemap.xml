@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  One URL, deliberately.
+
+  The vault is a client-rendered single page: filters, views and previews all
+  live in the query string, so `?view=patterns` and `?design=minimalist-tech`
+  are the *same document* with different state. Listing them would ask crawlers
+  to index 550 near-identical, JS-dependent pages. Give each design its own
+  indexable page (a build-time render of the design's tokens and preview) and
+  this file becomes the place to enumerate them.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://iantolentino.github.io/web-designs/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

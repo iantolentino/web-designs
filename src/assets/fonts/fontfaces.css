@@ -3,7 +3,7 @@
  * Bricolage Grotesque — SIL Open Font License 1.1
  * IBM Plex Mono — SIL Open Font License 1.1
  * Regenerate: fetch the css2 URL with a desktop Chrome UA, keep the
- * `/* latin */` blocks, rewrite src to the sibling .woff2 files.
+ * latin-only subset blocks, rewrite src to the sibling .woff2 files.
  */
 @font-face { font-family: 'Bricolage Grotesque';
   font-style: normal;

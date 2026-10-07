@@ -282,7 +282,10 @@ export function voicePerks(p: VoicePack, i: number): string[] {
  * defaults, so nothing renders without a complete pack.
  */
 export function voicePack(d: DesignSystem): VoicePack {
-  const haystack = `${d.id} ${d.name} ${d.tags.join(' ')} ${d.useCases.join(' ')} ${d.category} ${d.designDetails}`
+  // The preview prose (`designDetails`) is not consulted: it ships in its own
+  // chunk, so a voice would otherwise depend on whether a preview had opened.
+  // Identity, tags, website types and category carry the same signals.
+  const haystack = `${d.id} ${d.name} ${d.tags.join(' ')} ${d.useCases.join(' ')} ${d.category}`
   const seed = voiceHash(d.id)
 
   const voiceKey: VoiceKey =

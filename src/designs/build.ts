@@ -1,4 +1,16 @@
-import type { Category, Colors, ComponentSpec, DesignSystem, Layout, Motion, Motif, Spacing, Typography, UseCase } from '../types'
+import type {
+  Category,
+  Colors,
+  ComponentSpec,
+  DesignDetails,
+  DesignSystem,
+  Layout,
+  Motion,
+  Motif,
+  Spacing,
+  Typography,
+  UseCase,
+} from '../types'
 import { contrastRatio, readableOn } from './palette'
 
 /**
@@ -411,6 +423,17 @@ const stripMarkers = (hero: string): string => hero.replace(/\*/g, '')
 const DEFAULT_MOTIONS: MotionProfile[] = ['calm', 'mechanical', 'spring', 'cinematic', 'instant', 'drift', 'ceremonial', 'analog']
 
 /**
+ * Seeds, kept so the preview prose can be derived on demand.
+ *
+ * `sys()` used to compute the six detail fields eagerly for every seeded
+ * design — ~2.5 kB of derived strings each, built at module load for 324
+ * designs that nothing reads until one of them is previewed. The seed is
+ * retained instead and the prose is derived on first read.
+ */
+const SEEDS = new Map<string, Seed>()
+const DETAIL_CACHE = new Map<string, DesignDetails>()
+
+/**
  * Compact row format for high-volume waves.
  *
  * The order is fixed and documented so a row reads like a ledger line:
@@ -480,11 +503,14 @@ export function row(
   })
 }
 
+function codeExampleFor(s: Seed): string {
+  return `<section class="${s.id}">\n  <h1>${stripMarkers(s.hero)}</h1>\n  <p>${s.description}</p>\n  <button class="btn-${s.id}">${s.cta ?? 'Start'}</button>\n</section>`
+}
+
 export function sys(s: Seed): DesignSystem {
   const n = hash(s.id)
-  const density = s.density ?? 'regular'
-  const motionProfile = s.motion ?? pick(DEFAULT_MOTIONS, n)
   const c = s.colors
+  SEEDS.set(s.id, s)
   return {
     id: s.id,
     name: s.name,
@@ -492,15 +518,9 @@ export function sys(s: Seed): DesignSystem {
     tags: s.tags,
     description: s.description,
     designPhilosophy: s.philosophy,
-    designDetails: detailsFor(s),
     colors: c,
     typography: typographyFor(s),
     components: componentsFor(s),
-    spacing: SPACING[density](n),
-    motion: MOTION_PROFILES[motionProfile],
-    accessibility: accessibilityFor(s),
-    responsive: RESPONSIVE_STEPS[density],
-    codeExample: `<section class="${s.id}">\n  <h1>${stripMarkers(s.hero)}</h1>\n  <p>${s.description}</p>\n  <button class="btn-${s.id}">${s.cta ?? 'Start'}</button>\n</section>`,
     accent: c.accent,
     stage: s.stage,
     motif: s.motif,
@@ -513,5 +533,30 @@ export function sys(s: Seed): DesignSystem {
     popularity: s.popularity ?? 70 + (n % 25),
     trending: s.trending,
   }
+}
+
+/**
+ * Preview prose for a seeded design, derived on first read and memoised.
+ *
+ * Returns undefined for designs whose prose is authored rather than derived —
+ * those live in the lazily-imported src/designs/details.ts table.
+ */
+export function derivedDetails(id: string): DesignDetails | undefined {
+  const hit = DETAIL_CACHE.get(id)
+  if (hit) return hit
+  const s = SEEDS.get(id)
+  if (!s) return undefined
+  const n = hash(id)
+  const density = s.density ?? 'regular'
+  const out: DesignDetails = {
+    designDetails: detailsFor(s),
+    codeExample: codeExampleFor(s),
+    accessibility: accessibilityFor(s),
+    responsive: RESPONSIVE_STEPS[density],
+    spacing: SPACING[density](n),
+    motion: MOTION_PROFILES[s.motion ?? pick(DEFAULT_MOTIONS, n)],
+  }
+  DETAIL_CACHE.set(id, out)
+  return out
 }
 

@@ -356,6 +356,26 @@ export interface Motion {
   scroll?: string
 }
 
+/**
+ * The preview-only prose for a design.
+ *
+ * Six fields read by nothing on the gallery or thumbnail path — only the
+ * Preview's Details and Code tabs and the prompt copier. In the hand-authored
+ * design files they are ~1.2 kB of literal prose per design, which is a third
+ * of the catalog chunk every first paint waits on, so they are deliberately
+ * *not* part of `DesignSystem`: they live in a lazily-imported module
+ * (src/designs/previewDetails.ts) and are derived from the seed on demand for
+ * designs built through `sys()`/`row()`.
+ */
+export interface DesignDetails {
+  designDetails: string
+  codeExample: string
+  accessibility: string
+  responsive: string
+  spacing: Spacing
+  motion: Motion
+}
+
 export interface Colors {
   primary: string
   secondary: string
@@ -380,15 +400,9 @@ export interface DesignSystem {
   tags: string[]
   description: string
   designPhilosophy: string
-  designDetails: string
   colors: Colors
   typography: Typography
   components: ComponentSpec
-  spacing: Spacing
-  motion: Motion
-  accessibility: string
-  responsive: string
-  codeExample: string
   /** Curated accent the shell UI uses around this design */
   accent: string
   /** Optional deep background for the preview stage */

@@ -9,8 +9,6 @@ export const urbanDesigns: DesignSystem[] = [
     description: 'Cyanotype drafting table: grids, dimensions, annotations.',
     designPhilosophy:
       'Every interface is a drawing that has not been built yet. Cyanotype paper, drafting grids, dimension lines with arrowheads, and annotation labels in drafting caps. Engineering romance — the beauty of the plan. For architecture tools, engineering software, and B2B products that sell precision.',
-    designDetails:
-      'Cyanotype #123a5c-family canvas with white drafting lines (grid + dimension marks), Chakra Petch display for annotations, IBM Plex Mono for dimension lines, IBM Plex Sans body. Dimension lines (|←→|) annotate components themselves. Dashed cut-lines, section markers (A, B, C in circles), and a title block in the footer like real drawings. White-on-blue throughout.',
     colors: {
       primary: '#4a9fd8',
       secondary: '#9db8cc',
@@ -37,24 +35,6 @@ export const urbanDesigns: DesignSystem[] = [
       navigation: 'Title-block bar: project name, sheet number, revision date',
       modals: 'Detail-callout panel with leader line to origin',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '8 / 24 / 48 / 96',
-      paddingScale: '16 / 24 / 48',
-      grid: 'Visible 24px drafting grid underlies all sections',
-    },
-    motion: {
-      pageLoad: 'Lines draw (scaleX/scaleY) 400ms like a plotter printing',
-      hoverStates: '200ms border/dimension shifts',
-      transitions: 'Mechanical, 200ms',
-      scroll: 'Grid stays fixed; sections align to it precisely',
-    },
-    accessibility:
-      '#eaf3fa on #123a5c 10.8:1; blueprint text on yellow 9.4:1. Focus 2px yellow outline. Dimension lines aria-hidden (decorative annotations). Grid is background, never content.',
-    responsive:
-      'Drafting grid opacity reduces under 768px. Title block condenses to sheet number only. Annotations hide under 640px (content stays). Display clamps 1.875rem→3rem.',
-    codeExample:
-      '<div class="sheet">\n  <div class="tblock">DWG-042 · REV C · 2026-07-28</div>\n  <h1>PLAN 07 — <em>STRUCTURE</em></h1>\n  <span class="dim">|◄— 1200px —►|</span>\n  <button class="btn-approve">APPROVE</button>\n</div>',
     accent: '#4a9fd8',
     motif: 'swiss-grid',
     layout: 'dashboard',
@@ -76,8 +56,6 @@ export const urbanDesigns: DesignSystem[] = [
     description: 'Spray paint, stickers, and concrete energy.',
     designPhilosophy:
       'The wall at 2am. Layered tags, paste-up posters, spray textures, and stickers half-peeled. Rebellious but composed — the chaos has rhythm. For streetwear, music venues, skate brands, and anyone whose audience flinches at corporate gloss.',
-    designDetails:
-      'Concrete #2a2a2a canvas with spray-tag gradients (Permanent Marker font for accent words), sticker cards (white border + drop shadow + slight rotation), and torn-paper edges via clip-path polygons. Neon spray accents (#f5f5f5, lime, hot pink). Work Sans body; Permanent Marker display moments.',
     colors: {
       primary: '#e6e6e6',
       secondary: '#c6ff4e',
@@ -104,24 +82,6 @@ export const urbanDesigns: DesignSystem[] = [
       navigation: 'Paste-up bar with tag-style logo, sticker links',
       modals: 'Poster panel with torn edges and wheat-paste texture',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 56 / 104',
-      paddingScale: '20 / 32 / 48',
-      grid: 'Deliberately collaged; clusters align on load',
-    },
-    motion: {
-      pageLoad: 'Stickers slap in with rotation and scale, staggered 80ms',
-      hoverStates: 'Peel physics 200ms; spray underlines draw',
-      transitions: 'Fast, physical, 200ms',
-      scroll: 'Posters parallax at different speeds (0.9x–1.05x)',
-    },
-    accessibility:
-      '#f5f5f5 on #2a2a2a 12.9:1; concrete on lime 12.1:1. Focus 3px lime outline. Marker font ≥24px only. Rotations stay ≤3° — hit areas remain usable. Springs off under reduced-motion.',
-    responsive:
-      'Collage stacks under 720px; rotations reduce to ±1°. Marker display clamps 2rem→3.25rem. Torn edges simplify under 640px.',
-    codeExample:
-      '<section class="wall">\n  <h1><span class="tag">FRESH</span> PAINT</h1>\n  <p>Drops every friday. No restocks.</p>\n  <button class="btn-spray">Cop the drop</button>\n</section>',
     accent: '#c6ff4e',
     motif: 'rotated-stickers',
     layout: 'hero-cards',
@@ -144,8 +104,6 @@ export const urbanDesigns: DesignSystem[] = [
     description: 'KA-POW panels: halftone dots, word balloons, action.',
     designPhilosophy:
       'The comic panel as interface. Halftone dot shading, bold ink outlines, word balloons for testimonials, and onomatopoeia bursting from corners. Lichtenstein primary palette. Every section is a panel; every CTA is a POW. For kids’ media, event promos, and brands with effervescent energy.',
-    designDetails:
-      'Paper white with primary red/yellow/blue (Lichtenstein triad) and heavy 3px ink outlines. Bangers display font; Nunito body. Halftone dot fills (radial-gradient repeating), word balloons (rounded boxes with CSS triangle tails), action bursts (clip-path star polygons). Panel gutters are thick black bars.',
     colors: {
       primary: '#ef4b1b',
       secondary: '#f1c40f',
@@ -172,24 +130,6 @@ export const urbanDesigns: DesignSystem[] = [
       navigation: 'Panel-gutter bar: black bar with white links, red active',
       modals: 'Word balloon with pointer tail and burst background',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 56 / 104',
-      paddingScale: '20 / 32 / 48',
-      grid: 'Comic page: 2–3 panel rows with 10px black gutters',
-    },
-    motion: {
-      pageLoad: 'Panels slide in from alternating sides, 300ms staggered',
-      hoverStates: 'Action-burst: rotate + shadow grow 180ms',
-      transitions: 'Snap like page turns, 180–250ms',
-      scroll: 'Bursts explode (scale in) at 20% visibility',
-    },
-    accessibility:
-      'Ink on white 18.0:1; white on red 4.2:1 at 800 weight. Focus 3px ink outline. Halftones/bursts aria-hidden. Onomatopoeia have aria-labels ("Success!"). Rotations small and slow.',
-    responsive:
-      'Panels stack under 720px (gutters persist as horizontal bars). Bangers clamps 2.25rem→4rem (it is narrow). Shadows shrink to 3px mobile.',
-    codeExample:
-      '<div class="panel">\n  <h1>KA-POW!</h1>\n  <p class="balloon">Your ideas, but louder.</p>\n  <button class="btn-pow">ZOOM IN →</button>\n</div>',
     accent: '#ef4b1b',
     motif: 'hard-shadows',
     layout: 'magazine',
@@ -212,8 +152,6 @@ export const urbanDesigns: DesignSystem[] = [
     description: 'Dayglo poster wall: clashing neon, big type, wristbands.',
     designPhilosophy:
       'The poster wall outside the venue: layers of dayglo flyers, each screaming, together singing. Clashing brights that somehow harmonize, type so big it blocks the sun, and energy you can hear. For festivals, club nights, tour merch, and event platforms of every decibel.',
-    designDetails:
-      'Near-black stage #121212 with dayglo layers: hot pink, acid green, electric yellow, cyan — each section block gets one. Archivo Black display at enormous sizes; Be Vietnam Pro body. Wristband stripes (repeating gradients) as dividers, ticket-stub perforated edges (dashed borders + circle notches), and lineup-style stacked typography.',
     colors: {
       primary: '#ff2fb3',
       secondary: '#a4ff2f',
@@ -240,24 +178,6 @@ export const urbanDesigns: DesignSystem[] = [
       navigation: 'Wristband stripe bar (4-color repeating gradient) with black logo plate',
       modals: 'Ticket-stub panel with perforation line and barcode footer',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 64 / 120',
-      paddingScale: '24 / 40 / 64',
-      grid: 'Lineup stacked full-width; 12-col for info blocks',
-    },
-    motion: {
-      pageLoad: 'Posters slam up (scale 1.15→1 + fade) staggered 70ms',
-      hoverStates: 'Glow/invert 200ms, impatient like a crowd',
-      transitions: 'Fast 150–250ms',
-      scroll: 'Lineup rows reveal with slight y-offset; wristbands scroll horizontally',
-    },
-    accessibility:
-      '#f6f6f2 on #121212 17.3:1; black on dayglo pink 8.1:1, on lime 12.9:1. Focus 3px cyan outline. Never two dayglos on adjacent text. Flashes none; glows static under reduced-motion.',
-    responsive:
-      'Poster blocks stack full-width under 720px. Archivo Black clamps 2.5rem→4.5rem. Wristband bar condenses. Ticket notches stay (identity).',
-    codeExample:
-      '<section class="mainstage">\n  <p class="act">SATURDAY // MAIN STAGE</p>\n  <h1>NEON<br/>DUST</h1>\n  <button class="btn-wrist">Get wristband</button>\n</section>',
     accent: '#ff2fb3',
     motif: 'gradient-hero',
     layout: 'hero-cards',

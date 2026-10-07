@@ -9,8 +9,6 @@ export const homestyleDesigns: DesignSystem[] = [
     description: 'Linen, wildflowers, and bread from the oven.',
     designPhilosophy:
       'The life we imagine when we close our eyes at a desk: linen drying in wind, jam in mismatched jars, a dog asleep on the draft excluder. Design that feels handmade — soft edges, gingham checks, botanical flourishes, and type with warmth instead of gloss. For farms, bakeries, craft marketplaces, and retreats.',
-    designDetails:
-      'Oatmeal #f8f3e7 canvas, butter #f2d8a7, sage #8a9b6e, and berry #b0575c accents. Figtree body; Fraunces soft display. Gingham pattern strips (repeating-conic-gradient), scalloped borders (radial-gradient dots), and botanical ✿ ❀ ornaments. Cards look like paper labels tied with twine (dashed border top).',
     colors: {
       primary: '#8a9b6e',
       secondary: '#b0575c',
@@ -37,24 +35,6 @@ export const homestyleDesigns: DesignSystem[] = [
       navigation: 'Linen bar with gingham underline strip, sage active dot',
       modals: 'Paper sheet with scalloped edge and twine bow header',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 40 / 72 / 128',
-      paddingScale: '24 / 40 / 56',
-      grid: 'Cozy centered 1080px; patchwork 2-col features',
-    },
-    motion: {
-      pageLoad: 'Elements sway in (rotate ±2° settle), 450ms',
-      hoverStates: 'Lift + bloom 250ms; ornaments sway 2s loop',
-      transitions: 'Soft ease-out, unhurried',
-      scroll: 'Gingham strips parallax 0.97x; botanicals drift',
-    },
-    accessibility:
-      '#4a4238 on oatmeal 9.8:1; oatmeal on sage 3.4:1 (large/bold UI text only, paired with icons). Focus 3px sage ring. Gingham and scallops decorative. Springs off under reduced-motion.',
-    responsive:
-      'Patchwork stacks under 760px. Display clamps 2.25rem→3.375rem. Scallops simplify under 480px. Buttons stay leaf-cornered (identity).',
-    codeExample:
-      '<section class="larder">\n  <h1>Jam, bread, &amp; <em>slow light.</em></h1>\n  <p>From our kitchen, by hand, since always.</p>\n  <button class="btn-sprout">Order a box ❀</button>\n</section>',
     accent: '#8a9b6e',
     motif: 'soft-shadows',
     layout: 'hero-cards',
@@ -77,8 +57,6 @@ export const homestyleDesigns: DesignSystem[] = [
     description: 'Woollen minimalism: warm greys, soft light, exhale.',
     designPhilosophy:
       'Scandinavian design with the candles lit. The minimalism stays — clean forms, honest materials, no clutter — but the palette warms and the shadows soften. Everything invites you to stay a while. For wellness, D2C home goods, and services that promise calm without promising emptiness.',
-    designDetails:
-      'Warm grey #eceae5 canvas, charcoal #2d2a26, oat and terracotta accents. Manrope display with Mulish body, weights doing quiet work. Rounded 20px forms, wool-texture subtle noise, and shadows like lamplight (large, soft, warm-tinted). Photography frames are arched. One candle-flame amber accent for actions.',
     colors: {
       primary: '#c97b4a',
       secondary: '#6e675e',
@@ -105,24 +83,6 @@ export const homestyleDesigns: DesignSystem[] = [
       navigation: 'Transparent-to-solid scroll bar, pill links, amber active dot',
       modals: 'Warm white sheet, radius 28px, dimmed warm backdrop rgba(45,42,38,.4)',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 40 / 80 / 152',
-      paddingScale: '24 / 40 / 64',
-      grid: 'Centered 1080px; alternating text/arch-media rows',
-    },
-    motion: {
-      pageLoad: 'Elements fade and rise 12px over 500ms, like lamps warming',
-      hoverStates: '250ms lift with shadow bloom — nothing snaps',
-      transitions: 'Soft ease-out throughout, 250–400ms',
-      scroll: 'Sections settle gently; no parallax — hygge does not perform',
-    },
-    accessibility:
-      'Charcoal on warm grey 12.4:1; warm white on terracotta 4.8:1 at 600. Focus 3px amber ring. Lamplight shadows are decoration. All animation is fade/rise — reduced-motion keeps fades.',
-    responsive:
-      'Arch frames become rounded rects under 640px. Display clamps 2.25rem→3.25rem. Pill nav condenses. Shadow depth halves on mobile for performance.',
-    codeExample:
-      '<section class="stue">\n  <h1>Kom inn.<br/>Det er <em>varmt</em> herinne.</h1>\n  <p>Home essentials for the dark months.</p>\n  <button class="btn-candle">Shop the winter edit</button>\n</section>',
     accent: '#c97b4a',
     motif: 'soft-shadows',
     layout: 'split-hero',
@@ -144,8 +104,6 @@ export const homestyleDesigns: DesignSystem[] = [
     description: 'Candlelit libraries, worn leather, and marginalia.',
     designPhilosophy:
       'The library at closing time: brass lamps, leather chairs, Latin inscriptions. Romanticism for learning itself — typography that feels set by a university press, palettes of oxblood and oak, and texture that suggests centuries of use. For education, publishing, archives, and brands with a syllabus.',
-    designDetails:
-      'Deep oak #1e1a16 with oxblood #6e1423-family, aged gold, and cream manuscript text. Playfair Display display; Spectral body (book-like). Double-rule frames, marginalia-style asides (italic, smaller, in the gutter), drop caps, and footnote superscripts. Texture via subtle paper-grain gradient. Latin mottos in small-caps labels.',
     colors: {
       primary: '#6e1423',
       secondary: '#c5a253',
@@ -172,24 +130,6 @@ export const homestyleDesigns: DesignSystem[] = [
       navigation: 'Double-rule band with centered serif wordmark, small-caps links',
       modals: 'Manuscript panel with red-ink header rule and ❦ finial',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 40 / 80 / 144',
-      paddingScale: '24 / 40 / 64',
-      grid: 'Scholarly: centered 680px text measure; 12-col for folios',
-    },
-    motion: {
-      pageLoad: 'Candle-flicker: content fades with 2 subtle opacity dips, 600ms',
-      hoverStates: '300ms gold draws and texture deepens',
-      transitions: 'Weighted, 300–400ms',
-      scroll: 'Marginalia fade in slightly after main text (100ms delay)',
-    },
-    accessibility:
-      'Cream on oak 12.8:1; gold on oak 6.9:1. Focus 2px gold outline offset 3px. Drop caps semantic (::first-letter). Latin flourishes aria-hidden. Flicker is subtle (2 dips) and removed under reduced-motion.',
-    responsive:
-      'Text measure holds; marginalia become inline asides under 800px. Display clamps 2.25rem→3.25rem. Fleurons simplify. Double rules persist at all sizes.',
-    codeExample:
-      '<article class="folio">\n  <p class="motto">LUX ET VERITAS</p>\n  <h1>On the <em>Pleasures</em> of Rereading</h1>\n  <p class="dropcap">The second reading is where the book begins…</p>\n</article>',
     accent: '#6e1423',
     motif: 'quote-band',
     layout: 'editorial',
@@ -213,8 +153,6 @@ export const homestyleDesigns: DesignSystem[] = [
     description: 'Wanted posters and woodtype: rodeo typography.',
     designPhilosophy:
       'Main street, 1885. Woodtype posters, bandana red, rope borders, and letters tall enough to read off a horse. Modern inside: real hierarchy, real contrast, real buttons. For rodeos, BBQ joints, western wear, whiskey, and anyone selling authenticity by the yard.',
-    designDetails:
-      'Parchment #f2e3c8, leather brown #6b3f23, bandana red #7d3320, and rope tan. Rye/Bungee-style slab western display (Rye loaded); Karla body. Rope borders via repeating-radial-gradient dots, star badges ★, and halftone corner shading. Buttons are woodcut blocks with heavy borders.',
     colors: {
       primary: '#7d3320',
       secondary: '#6b3f23',
@@ -241,24 +179,6 @@ export const homestyleDesigns: DesignSystem[] = [
       navigation: 'Rope-border bar with woodtype logo and star separators',
       modals: 'Wanted-poster panel: "$REWARD$" header strip',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 56 / 112',
-      paddingScale: '20 / 32 / 48',
-      grid: '12-col 1160px; poster-style centered heroes',
-    },
-    motion: {
-      pageLoad: 'Posters pin up (drop + slight rotate settle), 350ms',
-      hoverStates: '150ms press-flat physics',
-      transitions: 'Quick and physical, 150ms',
-      scroll: 'Tumbleweed-free zone. Static scroll, honest borders.',
-    },
-    accessibility:
-      '#3a2418 on parchment 12.3:1; parchment on red 5.4:1 at 800. Focus 3px red outline. Rope borders and halftones aria-hidden. Rye used ≥28px only — Karla carries body text.',
-    responsive:
-      'Posters stack under 720px; halftones simplify. Rye clamps 2rem→3.5rem. Rope borders persist (identity). Shadows shrink 4px→2px mobile.',
-    codeExample:
-      '<section class="saloon">\n  <p class="reward">★ GRAND OPENING ★</p>\n  <h1>SUNDAY.<br/>HIGH NOON.</h1>\n  <button class="btn-wood">Saddle up</button>\n</section>',
     accent: '#7d3320',
     motif: 'hard-shadows',
     layout: 'hero-cards',

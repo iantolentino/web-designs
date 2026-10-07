@@ -10,8 +10,6 @@ export const brutalismDesigns: DesignSystem[] = [
     description: 'Concrete, mono type, hard shadows, zero polish.',
     designPhilosophy:
       'Structure exposed on purpose. Visible grid, default-feeling controls, monospace everywhere, hard offset shadows, and a single acid yellow used like highlighter on industrial drawings. It refuses to charm — and that refusal is the style.',
-    designDetails:
-      'Everything is squared: buttons, inputs, cards, even the wordmark. 2px black borders and hard offset shadows everywhere. Space Mono carries labels AND headings (weight 700). Acid yellow marks interactive states. Blue links remain classic underlined blue — a deliberate nod to the web before branding.',
     colors: {
       primary: '#f5e617',
       secondary: '#111111',
@@ -38,24 +36,6 @@ export const brutalismDesigns: DesignSystem[] = [
       navigation: '2px bottom border, mono uppercase links with [bracket] hover states',
       modals: 'Square panel, 4px border, 10px 10px 0 #111 shadow, no backdrop blur',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '8 / 24 / 48 / 96',
-      paddingScale: '16 / 24 / 48',
-      grid: '12-col with 2px visible borders, 1200px max',
-    },
-    motion: {
-      pageLoad: 'None. Content appears. Instantly.',
-      hoverStates: 'Physical translate + shadow growth, instant (0ms)',
-      transitions: 'Zero transitions by default; 100ms only for focus states',
-      scroll: 'Static. The scrollbar is the only animation.',
-    },
-    accessibility:
-      'Black on white 18.7:1; yellow highlight on black borders readable. Focus = 3px solid #111 outline offset 2px. Interactive targets ≥44px despite the hard edges. Semantics preserved — rawness is visual only.',
-    responsive:
-      'Grid collapses 12→6→1 with borders intact. Mono type reduces two steps under 640px. Hard shadows shrink from 6px to 3px on mobile to protect layout.',
-    codeExample:
-      '<section class="block">\n  <h1>NO FRILLS. ALL STRUCTURE.</h1>\n  <p>Built like a warehouse. Loads like one too.</p>\n  <button class="btn-acid">USE IT →</button>\n</section>',
     accent: '#f5e617',
     motif: M('hard-shadows'),
     layout: 'hero-cards',
@@ -78,8 +58,6 @@ signatureCss: `
     description: 'Brutalism with architectural manners and grey discipline.',
     designPhilosophy:
       'Concrete, but poured by a careful crew. The raw vocabulary — mono labels, squared edges, visible structure — is tempered by a sophisticated grey palette, generous padding, and measured motion. Feels like an architecture firm built a website.',
-    designDetails:
-      'Six-step greyscale with one restrained orange for interactive emphasis. IBM Plex Mono for labels and numbers, IBM Plex Sans for prose, Archivo Black for the load-bearing headlines. Structure is visible: thin rules divide cells; section numbers run down the left margin. Shadows are almost never used — depth comes from greys.',
     colors: {
       primary: '#e8590c',
       secondary: '#343a40',
@@ -106,24 +84,6 @@ signatureCss: `
       navigation: 'Thin top rule, mono section index left (00–04), links right',
       modals: 'Square, 1px border, header row with mono index and close ×',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 64 / 128',
-      paddingScale: '24 / 32 / 48',
-      grid: '12-col, 1320px max, 1px #dee2e6 column rules visible',
-    },
-    motion: {
-      pageLoad: 'Section numbers slide in from left 300ms, content fades',
-      hoverStates: '250ms on structural accents (bars, rules) only',
-      transitions: 'Measured, structural — motion belongs to rules and bars, not text',
-      scroll: 'Margin index tracks scroll position (highlights current section)',
-    },
-    accessibility:
-      'Text 14.9:1; orange reserved for large/bold and non-text accents. Focus is 3px orange outline. The visible grid is decorative — content order is semantic.',
-    responsive:
-      'Column rules hide under 768px; margin index becomes a top progress bar. Display clamps 2.5rem→3.5rem. Padding steps down one level per breakpoint.',
-    codeExample:
-      '<section class="cell">\n  <span class="idx">02</span>\n  <h2>Load-bearing typography</h2>\n  <p>Every rule has a reason.</p>\n</section>',
     accent: '#e8590c',
     motif: M('corner-brackets'),
     layout: 'magazine',
@@ -145,8 +105,6 @@ signatureCss: `
     description: '1998 called. Bevels, starfields, hit counters, guestbooks.',
     designPhilosophy:
       'The early web, lovingly reconstructed. Beveled panels, classic blue links, a hit counter, and VT323 marquee moments — a fan shrine from 1999, except every component is deliberate, accessible, and modern under the hood.',
-    designDetails:
-      'Navy starfield generated in pure CSS, #c0c0c0 Windows-95-style beveled panels, underlined #0000ee links, and VT323 for marquee and title bars. Deliberate anachronisms: a hit counter, "best viewed in Netscape" badge, blinking text used exactly once. Under the nostalgia, everything is semantic HTML.',
     colors: {
       primary: '#0000ee',
       secondary: '#00c4c4',
@@ -173,24 +131,6 @@ signatureCss: `
       navigation: 'Title-bar nav with [Home] [Files] [Links] bracket links',
       modals: 'True Win95 dialog: title bar, bevel, OK/Cancel buttons',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '8 / 16 / 24 / 48',
-      paddingScale: '8 / 16 / 24',
-      grid: 'Table-like rows: 25% / 50% / 25% panels',
-    },
-    motion: {
-      pageLoad: 'Marquee scrolls in immediately — that IS the load animation',
-      hoverStates: 'Bevel inverts instantly',
-      transitions: 'None except the marquee and one deliberate blink',
-      scroll: 'The page is short. Scrolls are rare. As nature intended.',
-    },
-    accessibility:
-      '#e8e8f8 on #0f1035 is 14.2:1; links stay underlined for a11y. Focus is the browser default (never removed). One blink ≤5s per minute per WCAG. All nostalgia is CSS, not images, so it scales.',
-    responsive:
-      'Panels stack vertically under 640px. VT323 sizes bump for readability. The hit counter stays. It always stays.',
-    codeExample:
-      '<div class="panel">\n  <div class="titlebar">welcome.htm</div>\n  <marquee>★ thanks for visiting ★ sign the guestbook ★</marquee>\n  <p>You are visitor #0001337</p>\n</div>',
     accent: '#ffcc00',
     motif: M('pixel-grid'),
     layout: 'hero-cards',
@@ -215,8 +155,6 @@ signatureCss: `
     description: 'Poured-concrete pages with stencil type and zero finish.',
     designPhilosophy:
       'Structure exposed. The page is a slab: board-formed gray, rebar grid lines, stencil caps for signage. Nothing decorative survives the pour. If it does not hold weight, it does not ship.',
-    designDetails:
-      'Board-formed concrete #d8d3c9 with near-black ink #1d1b18 and oxide-orange #a04d16 stamp marks. Oswald condensed caps carry signage at heavy tracking; Archivo does the labor below. Buttons are 0px stencil plates; cards are form-work panels with visible 1px seam lines. Shadows are cast, not soft: 6px hard offset.',
     colors: {
       primary: '#2e2c28',
       secondary: '#6b675e',
@@ -244,24 +182,6 @@ signatureCss: `
       navigation: 'Top stencil bar with boxed uppercase links; the active link carries an oxide stamp corner',
       modals: 'Slab overlay with 2px ink frame and concrete scrim rgba(29,27,24,.55)',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '0 / 24 / 48 / 96 / 160',
-      paddingScale: '16 / 32 / 56',
-      grid: 'Visible 12-col with 1px seam rules; 1280px max, no gutters under 24px',
-    },
-    motion: {
-      pageLoad: 'Panels drop 12px and settle with a one-bounce thud, staggered 70ms',
-      hoverStates: 'Presses are mechanical: 90ms down, 120ms up, no easing comfort',
-      transitions: 'steps(2) for color, cubic-bezier(.2,0,0,1) for movement',
-      scroll: 'Sections butt against each other; seams never overlap',
-    },
-    accessibility:
-      'Ink on concrete 11.5:1; oxide stamps 3.9:1 at 600 weight. Focus is a 3px oxide outline. Uppercase signage has sentence-case aria-labels. Reduced-motion replaces drops with hard cuts.',
-    responsive:
-      'Slabs stack with seams preserved under 820px; stencil display clamps 2.6rem→5rem. Press shadows shrink to 3px on touch.',
-    codeExample:
-      '<section class="slab">\n  <h1>FORMWORK<br/>NO. 04</h1>\n  <button class="stamp">POUR ORDER</button>\n</section>',
     accent: '#a04d16',
     motif: 'hard-shadows',
     layout: 'manifesto',
@@ -284,8 +204,6 @@ signatureCss: `
     description: 'Photocopy punk: black, white, one red, and the toner stays visible.',
     designPhilosophy:
       'Run the design through a Xerox until it screams. Black ink, photocopy paper, one crimson for the parts that matter. Nothing is centered by accident and nothing is smoothed — misregistration is the style.',
-    designDetails:
-      'Photocopy paper #f0ede4 with toner black #161616 and crimson #d92b2b. Archivo Black headlines get double-exposure offsets (1px ink over 1px red); Space Mono carries copy like typewritten ransom notes. Borders are 2px ink at slight rotations, and halftone grain sits over every surface.',
     colors: {
       primary: '#d92b2b',
       secondary: '#1a1a1a',
@@ -313,24 +231,6 @@ signatureCss: `
       navigation: 'Torn-strip nav: rotated boxed links that overlap 4px',
       modals: 'Full-bleed xerox sheet with a crimson masthead and ink scrim rgba(22,22,22,.6)',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 64 / 104 / 168',
-      paddingScale: '14 / 28 / 44',
-      grid: 'Broken 12-col: elements deliberately overlap the rules; 1200px max',
-    },
-    motion: {
-      pageLoad: 'Sheets slam in rotated −2deg→0 with a toner shake, 120ms',
-      hoverStates: 'Misprint offsets slide 100ms; redaction bars wipe 140ms',
-      transitions: 'linear, mostly — punk means abrupt',
-      scroll: 'Halftone band positions jitter ±2px between sections',
-    },
-    accessibility:
-      'Ink on paper 15.4:1; crimson 4.8:1 with 700 weight. Rotations stay ≤2deg to preserve legibility; all rotated elements keep axis-aligned hit areas. Reduced-motion kills shakes and wipes.',
-    responsive:
-      'Rotations flatten to 0 under 720px; the torn nav becomes a stacked list with crimson index numbers. Display clamps 2.5rem→4.75rem.',
-    codeExample:
-      '<main class="xerox">\n  <h1>STAPLED<br/>TOGETHER.</h1>\n  <button class="misprint">READ ISSUE 7</button>\n</main>',
     accent: '#d92b2b',
     motif: 'grain-overlay',
     layout: 'hero-cards',
@@ -353,8 +253,6 @@ signatureCss: `
     description: 'Control-room HMI for software that runs actual machines.',
     designPhilosophy:
       'A SCADA screen you can love. Dark steel chassis, safety-orange actuators, gauge-blue readouts, and labels a night shift can read at arm’s length. Every panel is an instrument; every button a physical switch.',
-    designDetails:
-      'Chassis #15181c with panel #20262c, safety-orange #ff7a1a actuators, gauge-blue #4f9bc4 readouts, and #e6e9ec text. Oswald caps label each instrument; IBM Plex Mono renders values and readouts. Buttons are guarded switches: 4px radius, 2px orange border, depressed state inverts. Panels carry 1px #2c343b weld seams and 45° corner cuts on alarms.',
     colors: {
       primary: '#ff7a1a',
       secondary: '#20262c',
@@ -382,24 +280,6 @@ signatureCss: `
       navigation: 'Left 200px chassis rail with instrument groups; the active group carries an orange LED dot',
       modals: 'Alarm modal: chassis panel with 45°-cut corners and a 2px orange border, steel scrim rgba(21,24,28,.7)',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '12 / 24 / 40 / 72 / 120',
-      paddingScale: '12 / 18 / 28',
-      grid: 'Dashboard: 200px rail + fluid gauges on 1240px; rows snap to 4px',
-    },
-    motion: {
-      pageLoad: 'Panels power on row by row: border flashes orange then settles, 200ms each',
-      hoverStates: 'LEDs light instantly (80ms); gauges ease 300ms',
-      transitions: 'steps for LEDs, ease-out for gauges — machines mix both',
-      scroll: 'Alarm headers stay pinned until their group passes',
-    },
-    accessibility:
-      'Text on chassis 11.2:1; orange on chassis 6.3:1. Focus is a 2px orange ring. The blinking caret pauses under prefers-reduced-motion; gauges render numeric values alongside needles.',
-    responsive:
-      'The rail folds to a top switch strip under 900px; gauges keep 120px minimums. Mono values scale with clamp() so readouts never wrap.',
-    codeExample:
-      '<div class="instrument">\n  <span class="label">LINE PRESSURE</span>\n  <strong class="value">4.82 <em>bar</em></strong>\n  <button class="switch-armed">ENGAGE</button>\n</div>',
     accent: '#ff7a1a',
     motif: 'corner-brackets',
     layout: 'dashboard',
@@ -420,8 +300,6 @@ signatureCss: `
     description: 'Palm Springs brutalism: baked stucco, deep shade, one oasis teal.',
     designPhilosophy:
       'Brutalism that grew up in the desert. Baked-stucco warmth instead of gray gloom, deep-shade masses for structure, and one oasis teal that reads like water. Sun-hard shadows do the ornament so nothing else has to.',
-    designDetails:
-      'Stucco #efe6d8 walls with clay #b4552d masses, shade concrete #4a4640, and oasis teal #2e6e5e accents. Bebas Neue wayfinding caps tower over Karla body copy, sun-printed. Buttons are 0px baked-clay plates with 4px sun shadows. Cards are shade blocks — dark panels that cool the page rhythm like a covered walk.',
     colors: {
       primary: '#b4552d',
       secondary: '#4a4640',
@@ -449,24 +327,6 @@ signatureCss: `
       navigation: 'Full-width clay bar with boxed stucco links; the active link casts an inner shadow',
       modals: 'Stucco slab with a 2px clay frame and shade scrim rgba(38,32,25,.55)',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 40 / 72 / 120 / 184',
-      paddingScale: '20 / 36 / 60',
-      grid: 'Deep 12-col with dramatic 2/3 + 1/3 masses; 1240px max',
-    },
-    motion: {
-      pageLoad: 'Masses slide in from the sun side, 240ms, like shade advancing',
-      hoverStates: 'Shadow lengthening only, 160ms — heat, not bounce',
-      transitions: 'ease-in for shadows, ease-out for text',
-      scroll: 'Shade cards stick briefly to cool the scroll rhythm',
-    },
-    accessibility:
-      'Text on stucco 12.1:1; stucco on clay 4.5:1 at 600 weight and ≥18px. Focus is a 3px teal outline. All uppercase wayfinding has sentence-case duplicates for assistive tech.',
-    responsive:
-      'Masses stack shade-first under 840px; the clay bar condenses to a sun-dial menu. Display clamps 2.4rem→4.5rem.',
-    codeExample:
-      '<section class="sunbelt">\n  <h1>BUILT FOR<br/>HIGH NOON.</h1>\n  <button class="clay-plate">TOUR THE GROUNDS</button>\n</section>',
     accent: '#b4552d',
     motif: 'hard-shadows',
     layout: 'split-hero',
@@ -488,8 +348,6 @@ signatureCss: `
     description: 'One black slab, white type, a single signal of electric blue.',
     designPhilosophy:
       'Reduction until it hurts. A black monolith, white type, and exactly one electric-blue signal per view — the color of a single LED on a dark machine. If the page needs a second accent, the page needs editing.',
-    designDetails:
-      'Void #070707 with white #f0f0f0 type and signal blue #2f6bff reserved for one action or marker per screen. Archivo Black headlines sit flush to edges; Archivo body stays small and exact. Cards are darker-than-void panels with 1px #262626 edges. Full-bleed sections stack like monolith faces.',
     colors: {
       primary: '#ffffff',
       secondary: '#141414',
@@ -517,24 +375,6 @@ signatureCss: `
       navigation: 'Flush top bar with uppercase white links; the active link carries the blue signal dot',
       modals: 'Full-bleed void with a single white rule frame and rgba(0,0,0,.7) scrim',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '24 / 48 / 88 / 144 / 224',
-      paddingScale: '24 / 48 / 80',
-      grid: 'Full-bleed bands; inner column 1080px; type bleeds to the viewport edge on heroes',
-    },
-    motion: {
-      pageLoad: 'Faces slide over one another like a closing shutter, 300ms',
-      hoverStates: 'Signal under-edge only, 140ms — restrained as a status LED',
-      transitions: 'cubic-bezier(.3,0,.2,1); heavy but silent',
-      scroll: 'Bands stack with 1px #262626 seams; heroes pin for half a viewport',
-    },
-    accessibility:
-      'White on void 19.3:1; signal blue on void 4.9:1 for large UI. Focus is a 2px blue outline offset 3px. The single-signal rule is enforced: blue never decorates, it only marks action or state.',
-    responsive:
-      'Heroes clamp 2.8rem→5.25rem; bands collapse seams and pin less on mobile to save scroll budget.',
-    codeExample:
-      '<section class="monolith">\n  <h1>ONE SLAB.<br/>ONE SIGNAL.</h1>\n  <button class="signal">ENTER</button>\n</section>',
     accent: '#2f6bff',
     motif: 'mono-labels',
     layout: 'full-bleed',
@@ -556,8 +396,6 @@ signatureCss: `
     description: 'Brutalist bookkeeping: ruled paper, stamped totals, green ink.',
     designPhilosophy:
       'The design is an audit trail. Ledger-ruled paper, banker’s green stamps, dashed cut lines, and totals that refuse to be rounded. Every section is a numbered entry; nothing is unaccounted for.',
-    designDetails:
-      'Ledger paper #f5f2e6 with ink #1f231d, banker’s green #1d5c3f, and stamp red-orange #d95d2b. IBM Plex Mono sets every number; Karla carries prose between the rules. Rows sit on 1px #d8d3bd rulings with dashed cut lines between entries. Stamps rotate −3° with 2px ink borders.',
     colors: {
       primary: '#1d5c3f',
       secondary: '#23281f',
@@ -585,24 +423,6 @@ signatureCss: `
       navigation: 'Ruled header strip with mono entry numbers; the active section gets a green margin stamp',
       modals: 'Paper entry sheet with a double rule top, stamp masthead, ink scrim rgba(31,35,29,.5)',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '16 / 32 / 56 / 96 / 152',
-      paddingScale: '12 / 24 / 40',
-      grid: '12-col with visible column rules in tables; 1180px max, measure 620px',
-    },
-    motion: {
-      pageLoad: 'Entries rule themselves in top to bottom, 40ms per row',
-      hoverStates: 'Highlighter wipes and stamp rotations, 120ms — audit-fast',
-      transitions: 'ease-out, short; nothing lingers',
-      scroll: 'A running total bar sticks to the top and updates per section',
-    },
-    accessibility:
-      'Ink on ledger paper 13.8:1; green 6.8:1. Numeric tables keep real table semantics. Dashed cut lines are aria-hidden. Stamps carry text duplicates of their meaning without the rotation.',
-    responsive:
-      'Ledger tables scroll horizontally in a ruled frame under 760px; stamps flatten to 0°. Display clamps 2rem→3.5rem.',
-    codeExample:
-      '<article class="entry">\n  <span class="no">047</span>\n  <h2>Quarterly Reckoning</h2>\n  <table class="ruled">…</table>\n</article>',
     accent: '#1d5c3f',
     motif: 'dashed-borders',
     layout: 'magazine',
@@ -623,8 +443,6 @@ signatureCss: `
     description: 'Scaffold poles, hazard tape, and a grid honest enough to climb.',
     designPhilosophy:
       'The site is always under construction — and proud of it. Scaffold poles frame a visible grid, hazard yellow marks every work zone, and planks carry the content. Honesty over polish: you can see exactly how it stands.',
-    designDetails:
-      'Plank gray #ebe9e4 with charcoal #1c1c1c poles, hazard #f2c230 tape, and safety white #f2f0ea panels. Archivo 800 caps bolt the headlines; IBM Plex Mono tags every measurement. Cards are plank boards with visible end-grain tops; hazard tape stripes key sections. Pole borders are 3px double lines.',
     colors: {
       primary: '#222222',
       secondary: '#f2c230',
@@ -652,24 +470,6 @@ signatureCss: `
       navigation: 'Pole frame: double-ruled top bar with bracketed mono links; the active link tapes hazard',
       modals: 'Work-zone sheet with a hazard tape header and charcoal 3px frame, plank scrim rgba(28,28,28,.5)',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 56 / 96 / 160',
-      paddingScale: '16 / 32 / 48',
-      grid: 'Visible 24-col micro-grid (2px rules at 8% opacity) under a 12-col content grid, 1200px',
-    },
-    motion: {
-      pageLoad: 'Planks slot into the frame one row at a time, 90ms each',
-      hoverStates: 'Tape slides and presses drop — mechanical, 150ms',
-      transitions: 'steps(3) for tape, ease-out for slots',
-      scroll: 'Pole rules stay fixed while planks scroll behind them',
-    },
-    accessibility:
-      'Charcoal on plank 13.5:1; hazard 9.8:1 with ink text. Focus is a 3px hazard outline. Stripes are aria-hidden; measurements decorative. Reduced-motion stops tape sliding.',
-    responsive:
-      'The micro-grid hides under 700px; the pole frame folds to corner brackets. Display clamps 2.2rem→4.25rem.',
-    codeExample:
-      '<section class="zone">\n  <span class="tag">[ WORK ZONE 03 ]</span>\n  <h1>STILL BUILDING.<br/>ALREADY STANDING.</h1>\n</section>',
     accent: '#f2c230',
     motif: 'pixel-grid',
     layout: 'centered',

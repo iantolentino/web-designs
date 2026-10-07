@@ -1,7 +1,8 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useStore } from '../store'
 import { CATEGORY_ACCENT, LAYOUT_LABEL } from '../types'
-import type { DesignSystem, DeviceMode, Layout, PreviewTab } from '../types'
+import type { DesignDetails, DesignSystem, DeviceMode, Layout, PreviewTab } from '../types'
+import { detailsOf, loadDetails } from '../designs/previewDetails'
 import { useCatalog } from '../catalog'
 import { layoutSetFor, primaryLayout } from '../designs/extras'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
@@ -46,6 +47,9 @@ export function Preview({ ids }: { ids: string[] }) {
   if (!d) return null
 
   const copied = useCopiedState(d.id)
+  const det = usePreviewDetails(d.id)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  useDialogFocus(dialogRef)
   const [previewLayout, setPreviewLayout] = useState<Layout | null>(null)
   useEffect(() => {
     setPreviewLayout(null)
@@ -68,7 +72,15 @@ export function Preview({ ids }: { ids: string[] }) {
   const onAccent = onColor(accent)
 
   return (
-    <div className="preview-overlay" onClick={closeDesign} role="dialog" aria-modal="true" aria-label={`${d.name} preview`}>
+    <div
+      className="preview-overlay"
+      onClick={closeDesign}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${d.name} preview`}
+      ref={dialogRef}
+      tabIndex={-1}
+    >
       <div className="preview-panel" onClick={(e) => e.stopPropagation()} style={{ '--copy-accent': accent, '--copy-on-accent': onAccent } as React.CSSProperties}>
         <header className="preview-header">
           <div className="preview-navbtns">
@@ -172,8 +184,8 @@ export function Preview({ ids }: { ids: string[] }) {
             </Suspense>
           </div>
         )}
-        {previewTab === 'code' && <CodeView d={view} />}
-        {previewTab === 'details' && <DetailsView d={view} />}
+        {previewTab === 'code' && <CodeView d={view} det={det} />}
+        {previewTab === 'details' && <DetailsView d={view} det={det} />}
       </div>
     </div>
   )
@@ -185,8 +197,96 @@ function useCopiedState(id: string) {
   return copied
 }
 
-function CodeView({ d }: { d: DesignSystem }) {
-  const code = useMemo(() => buildCodeSample(d), [d])
+/**
+ * Keyboard contract for the preview overlay.
+ *
+ * `aria-modal` promises the rest of the page is inert. Without moving focus
+ * that promise is a lie: focus stays on the card in the gallery, so the first
+ * Tab press walks the 550 cards *behind* the open preview.
+ *
+ * So the overlay takes focus when it opens (which also announces its label and
+ * the design's name), Tab cycles inside it, and closing hands focus back to
+ * whatever opened it.
+ */
+function useDialogFocus(ref: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const dialog = ref.current
+    if (!dialog) return
+    const opener = document.activeElement as HTMLElement | null
+
+    const focusable = () =>
+      Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => el.getClientRects().length > 0)
+
+    dialog.focus()
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return
+      const items = focusable()
+      if (items.length === 0) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    dialog.addEventListener('keydown', onKey)
+    return () => {
+      dialog.removeEventListener('keydown', onKey)
+      opener?.focus?.()
+    }
+  }, [ref])
+}
+
+/**
+ * The Details and Code tabs read prose that deliberately does not ship with the
+ * catalog — see src/designs/previewDetails.ts. A preview always opens on the
+ * Live tab, so the fetch starts on an idle callback: it never competes with the
+ * live render, and the tabs are normally warm before anyone clicks them.
+ *
+ * Seeded designs (`sys()`/`row()`) answer immediately from their own derivation,
+ * so only the hand-authored ones ever show the pending state.
+ */
+function usePreviewDetails(id: string) {
+  const [det, setDet] = useState<DesignDetails | undefined>(() => detailsOf(id))
+
+  useEffect(() => {
+    let live = true
+    const read = () => {
+      if (live) setDet(detailsOf(id))
+    }
+    read()
+    const kick = () => void loadDetails().then(read)
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(kick, { timeout: 2000 })
+    } else {
+      window.setTimeout(kick, 400)
+    }
+    return () => {
+      live = false
+    }
+  }, [id])
+
+  return det
+}
+
+const DetailsPending = () => (
+  <div className="code-view">
+    <div style={{ padding: '48px 0', textAlign: 'center', color: '#777' }}>Loading design details…</div>
+  </div>
+)
+
+function CodeView({ d, det }: { d: DesignSystem; det?: DesignDetails }) {
+  const code = useMemo(() => (det ? buildCodeSample(d, det) : ''), [d, det])
+  if (!det) return <DetailsPending />
   return (
     <div className="code-view">
       {code}
@@ -195,7 +295,7 @@ function CodeView({ d }: { d: DesignSystem }) {
 }
 
 /** Simplified, readable HTML/CSS sample — a taste, not a dump. */
-function buildCodeSample(d: DesignSystem): string {
+function buildCodeSample(d: DesignSystem, det: DesignDetails): string {
   const c = d.colors
   const t = d.typography
   return `<!-- ${d.name} — ${d.category} design system -->
@@ -249,9 +349,9 @@ function buildCodeSample(d: DesignSystem): string {
   <button class="btn-primary">Get started</button>
 </header>
 
-<!-- Spacing: base ${d.spacing.baseUnit} · scale ${d.spacing.marginScale} -->
-<!-- Motion: ${d.motion.pageLoad.split('.')[0]}. -->
-<!-- ${d.accessibility.split('.')[0]}. -->`
+<!-- Spacing: base ${det.spacing.baseUnit} · scale ${det.spacing.marginScale} -->
+<!-- Motion: ${det.motion.pageLoad.split('.')[0]}. -->
+<!-- ${det.accessibility.split('.')[0]}. -->`
 }
 
 function plainHero(d: DesignSystem): string {
@@ -263,7 +363,7 @@ function extractRadius(d: DesignSystem): string {
   return m ? `${m[1]}px` : d.components.radius.includes('999') ? '999px' : '8px'
 }
 
-function DetailsView({ d }: { d: DesignSystem }) {
+function DetailsView({ d, det }: { d: DesignSystem; det?: DesignDetails }) {
   const copy = async (text: string, msg: string) => {
     const ok = await copyText(text)
     useStore.getState().showToast(ok ? msg : '✗ Copy failed')
@@ -279,7 +379,10 @@ function DetailsView({ d }: { d: DesignSystem }) {
     URL.revokeObjectURL(url)
   }
 
-  const prompt = buildDesignPrompt(d)
+  // No hooks above this early return — the details view is plain markup.
+  if (!det) return <DetailsPending />
+
+  const prompt = buildDesignPrompt(d, det)
   const cssVars = `:root {\n  --dv-primary: ${d.colors.primary};\n  --dv-secondary: ${d.colors.secondary};\n  --dv-accent: ${d.colors.accent};\n  --dv-neutral: ${d.colors.neutral};\n  --dv-background: ${d.colors.background};\n  --dv-text: ${d.colors.text};\n  --dv-font-display: '${d.typography.displayFont}', sans-serif;\n  --dv-font-body: '${d.typography.bodyFont}', sans-serif;\n}\n`
   // Token exports a developer can paste straight into a project: a Tailwind v4
   // `@theme` block and the raw token JSON.
@@ -309,12 +412,12 @@ function DetailsView({ d }: { d: DesignSystem }) {
     ...scaleLines,
     '',
     '  /* Spacing rhythm */',
-    `  --spacing: ${d.spacing.baseUnit};`,
-    `  --margin-scale: ${d.spacing.marginScale};`,
+    `  --spacing: ${det.spacing.baseUnit};`,
+    `  --margin-scale: ${det.spacing.marginScale};`,
     '',
     '  /* Motion */',
-    `  /* load: ${d.motion.pageLoad} */`,
-    `  /* hover: ${d.motion.hoverStates} */`,
+    `  /* load: ${det.motion.pageLoad} */`,
+    `  /* hover: ${det.motion.hoverStates} */`,
     '}',
     '',
   ].join('\n')
@@ -327,10 +430,10 @@ function DetailsView({ d }: { d: DesignSystem }) {
       colors: d.colors,
       typography: d.typography,
       radius,
-      spacing: d.spacing,
-      motion: d.motion,
+      spacing: det.spacing,
+      motion: det.motion,
       components: d.components,
-      accessibility: d.accessibility,
+      accessibility: det.accessibility,
     },
     null,
     2,
@@ -377,7 +480,7 @@ function DetailsView({ d }: { d: DesignSystem }) {
         <section>
           <h3 className="details-h">Design philosophy</h3>
           <p className="details-philosophy">{d.designPhilosophy}</p>
-          <p className="details-details">{d.designDetails}</p>
+          <p className="details-details">{det.designDetails}</p>
         </section>
 
         {/* Colors */}
@@ -449,11 +552,11 @@ function DetailsView({ d }: { d: DesignSystem }) {
         <section>
           <h3 className="details-h">Spacing · Motion · Accessibility</h3>
           <div className="spec-grid">
-            <SpecCard title="Spacing" body={`Base ${d.spacing.baseUnit} · margins ${d.spacing.marginScale} · padding ${d.spacing.paddingScale}`} />
-            <SpecCard title="Grid" body={d.spacing.grid} />
-            <SpecCard title="Motion" body={`Load: ${d.motion.pageLoad} Hover: ${d.motion.hoverStates} Transitions: ${d.motion.transitions}`} />
-            <SpecCard title="Accessibility" body={d.accessibility} />
-            <SpecCard title="Responsive" body={d.responsive} />
+            <SpecCard title="Spacing" body={`Base ${det.spacing.baseUnit} · margins ${det.spacing.marginScale} · padding ${det.spacing.paddingScale}`} />
+            <SpecCard title="Grid" body={det.spacing.grid} />
+            <SpecCard title="Motion" body={`Load: ${det.motion.pageLoad} Hover: ${det.motion.hoverStates} Transitions: ${det.motion.transitions}`} />
+            <SpecCard title="Accessibility" body={det.accessibility} />
+            <SpecCard title="Responsive" body={det.responsive} />
           </div>
         </section>
 

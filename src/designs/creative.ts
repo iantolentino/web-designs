@@ -9,8 +9,6 @@ export const creativeDesigns: DesignSystem[] = [
     description: 'Bauhaus playground: primary shapes floating on cream.',
     designPhilosophy:
       'A Kandinsky canvas that learned to scroll. Primary red/yellow/blue geometry on warm cream, circles overlapping rectangles, and display type as composition. The layout IS the artwork — but buttons still look pressable.',
-    designDetails:
-      'Cream #faf3e3 with pure geometry: #b5173c circles, #f1c40f triangles (clip-path), #3557a7 rectangles, all flat with no shadows. Fraunces black italic display collides deliberately with geometric blocks. Thin ink rules connect sections like gallery labels. Decorative shapes drift slowly on scroll (translateY parallax at different rates).',
     colors: {
       primary: '#b5173c',
       secondary: '#3557a7',
@@ -37,24 +35,6 @@ export const creativeDesigns: DesignSystem[] = [
       navigation: 'Ink top rule, geometric logo (circle+triangle), uppercase links',
       modals: 'Cream plate framed by overlapping geometric shapes',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 40 / 80 / 160',
-      paddingScale: '24 / 40 / 64',
-      grid: 'Deliberately asymmetric: 5:7, 3:9 splits; 1200px max',
-    },
-    motion: {
-      pageLoad: 'Shapes slide in from different directions, 500ms staggered',
-      hoverStates: 'Rotation + scale 300ms; playful but composed',
-      transitions: 'ease-in-out 300ms; parallax slow and steady',
-      scroll: 'Decorative shapes parallax at 0.85x / 1.1x rates',
-    },
-    accessibility:
-      'Ink on cream 15.4:1; cream on red 4.6:1 (large/bold). Focus 3px ink outline. All decorative shapes aria-hidden with role=presentation. Color never alone: plates carry text labels.',
-    responsive:
-      'Asymmetric grids stack under 768px; shapes scale down 40%. Display clamps 2.75rem→4.5rem. Parallax disabled on touch and reduced-motion.',
-    codeExample:
-      '<section class="canvas">\n  <div class="shape circle"></div>\n  <div class="shape bar"></div>\n  <h1>Form follows<br/><em>feeling.</em></h1>\n  <a class="btn-round" href="#">See the work</a>\n</section>',
     accent: '#b5173c',
     motif: 'editorial-columns',
     layout: 'hero-cards',
@@ -78,8 +58,6 @@ signatureCss: `
     description: 'Op-art tiling and pattern-as-interface.',
     designPhilosophy:
       'Pattern is the interface. Morandi-meets-op-art tiles, checker interruptions, and Bricolage Grotesque’s quirky geometry. Sections ARE tiles in a larger composition — the page reads as one artwork that happens to be usable.',
-    designDetails:
-      'Warm greys (#8d8477-family) with terracotta and ochre accents tile the page. Bricolage Grotesque display with Space Grotesk body. Checkerboard strips, half-circle scallop borders (repeating radial gradients), and diagonal stripe fills create rhythm. Buttons are squares with 1px ink borders and pattern-fill hovers.',
     colors: {
       primary: '#c65d3b',
       secondary: '#8d8477',
@@ -106,24 +84,6 @@ signatureCss: `
       navigation: 'Scallop-edged bar with checker active state',
       modals: 'Tiled panel with pattern header band',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 64 / 128',
-      paddingScale: '24 / 40 / 56',
-      grid: 'Strict 8px tiling rhythm; page IS a grid',
-    },
-    motion: {
-      pageLoad: 'Tiles flip in (rotateY) sequentially, 400ms staggered',
-      hoverStates: 'Pattern sweeps and tile shifts, 250ms',
-      transitions: 'Mechanical ease, 250ms',
-      scroll: 'Checker strips scroll at 1.1x (slightly faster) for op-art effect',
-    },
-    accessibility:
-      '#2b2724 on cream 13.9:1; cream on terracotta 4.8:1 (large/bold). Focus 3px ink outline. Patterns are aria-hidden backgrounds; content sits on solid areas. No strobing patterns — all static or ≤3Hz.',
-    responsive:
-      'Tiles stack under 720px; scallop borders persist. Display clamps 2.25rem→3.75rem. Checker strips narrow on mobile.',
-    codeExample:
-      '<section class="tiles">\n  <h1>PATTERN ≠<br/>DECORATION.</h1>\n  <p>It’s structure you can feel.</p>\n  <button class="btn-tile">Enter the grid</button>\n</section>',
     accent: '#c65d3b',
     motif: 'pixel-grid',
     layout: 'magazine',
@@ -145,8 +105,6 @@ signatureCss: `
     description: 'A sketchbook that shipped: doodles, wobble, charm.',
     designPhilosophy:
       'The sketchbook became the product. Hand-drawn borders, Patrick Hand annotations, wobbly sketch boxes, and paper texture. Every component looks drawn — but hit targets, contrast, and semantics are rigorously digital.',
-    designDetails:
-      'Paper #fffef5 with pencil-grey ink #33312c. Patrick Hand for annotations/labels; Bitter for real body text (readability). Sketch borders use border-radius asymmetry (255px 15px 225px 15px/15px 225px 15px 255px) for wobble. Caveat for pull quotes. Doodle decorations: CSS squiggles, stars, arrows. Buttons look outlined with a hand-drawn double-line effect (box-shadow offset).',
     colors: {
       primary: '#e76f51',
       secondary: '#2a9d8f',
@@ -173,24 +131,6 @@ signatureCss: `
       navigation: 'Top row with hand-drawn underline scribbles under active links',
       modals: 'Big sketch box with taped corners and doodle margin stars',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 56 / 104',
-      paddingScale: '20 / 32 / 48',
-      grid: 'Loose masonry that aligns on load; 1120px max',
-    },
-    motion: {
-      pageLoad: 'Doodles draw in (stroke-dashoffset effect via opacity), cards pop',
-      hoverStates: 'Press-flat physics 200ms; arrows scoot',
-      transitions: '200ms ease; wobble springs on decorations',
-      scroll: 'Margin doodles parallax gently (0.95x)',
-    },
-    accessibility:
-      '#33312c on paper 13.3:1; white on terracotta 3.6:1 (large/bold only, paired with ink outlines). Focus 3px ink outline. Hand fonts used ≥18px only; body text is Bitter for readability. Doodles aria-hidden.',
-    responsive:
-      'Masonry stacks under 720px. Patrick Hand clamps 2.25rem→3.5rem. Tape strips shrink; margin doodles hide under 640px.',
-    codeExample:
-      '<section class="sketch">\n  <h1>big ideas, drawn first ✏️</h1>\n  <p>Every feature started as a margin doodle.</p>\n  <button class="btn-sketch">start sketching</button>\n</section>',
     accent: '#e76f51',
     motif: 'rotated-stickers',
     layout: 'hero-cards',
@@ -213,8 +153,6 @@ signatureCss: `
     description: 'Storybook coziness with warm inks and rounded serif.',
     designPhilosophy:
       'A picture book for grown-ups. Warm tea-stain palette, rounded serif display, hand-drawn spot illustrations (CSS shapes), and gentle, rounded everything. It feels like a favorite chair: soft, warm, familiar.',
-    designDetails:
-      'Tea-stain cream #f9f3e3, warm brown ink, terracotta and moss accents. Fraunces soft (SOFT axis via weight 500) display; Bitter body. Rounded blob frames (organic border-radius), spot decorations (CSS mushrooms, leaves, moons via border-radius combos), and generous line-height. Buttons are rounded pebbles.',
     colors: {
       primary: '#b3541e',
       secondary: '#6a7f4f',
@@ -241,24 +179,6 @@ signatureCss: `
       navigation: 'Cozy rounded bar with pebble active state',
       modals: 'Cream rounded sheet with moon glyph top-right',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 40 / 72 / 136',
-      paddingScale: '24 / 40 / 56',
-      grid: 'Cozy centered 1040px; storybook spreads (2:1) for features',
-    },
-    motion: {
-      pageLoad: 'Elements rise like a curtain, 500ms; blobs settle with soft springs',
-      hoverStates: 'Lift + bloom 300ms; nothing snaps',
-      transitions: 'Soft ease-out 300ms',
-      scroll: 'Spot illustrations bob gently; blobs drift',
-    },
-    accessibility:
-      '#40342a on cream 10.9:1; cream on terracotta 4.7:1 (large/bold buttons). Focus 3px terracotta ring. Spot illustrations decorative. Body text stays ≥16px Bitter for comfort.',
-    responsive:
-      'Spreads stack under 760px. Display clamps 2.25rem→3.5rem. Blob frames simplify under 640px. Pebble buttons stay full-width on mobile forms.',
-    codeExample:
-      '<section class="cozy">\n  <h1>Warm drinks, warm pixels.</h1>\n  <p>A reading app that feels like a blanket.</p>\n  <button class="btn-pebble">Pour a cup</button>\n</section>',
     accent: '#b3541e',
     motif: 'soft-shadows',
     layout: 'split-hero',
@@ -280,8 +200,6 @@ signatureCss: `
     description: 'Torn paper, washi tape, and scissors you can hear.',
     designPhilosophy:
       'The page is a desk after a good crafting session: torn edges, overlapping scraps, tape holding the important parts. Nothing is precious — the joy is in the layering. Every element looks placed by hand, even when the grid underneath is exact.',
-    designDetails:
-      'Torn-paper cream #f3eee4 with india ink #211e1a, washi teal #3e8f7c tape, and thread red #b3402e stitches. Archivo Black anchors the pasted headlines; Karla writes the margin notes. Cards are paper scraps with clip-path torn edges, rotated ±2°, held down by washi-tape strips at the corners. Shadows are 3px paper-lift, never blur.',
     colors: {
       primary: '#3e8f7c',
       secondary: '#211e1a',
@@ -309,24 +227,6 @@ signatureCss: `
       navigation: 'Scrap header: rotated pill links taped across the top; the active scrap is teal',
       modals: 'Full collage sheet with layered scraps and ink scrim rgba(33,30,26,.5)',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 36 / 64 / 108 / 168',
-      paddingScale: '18 / 30 / 48',
-      grid: 'Deliberately collaged: a 12-col 1200px under-grid with clusters breaking it on purpose',
-    },
-    motion: {
-      pageLoad: 'Scraps drop onto the desk in collage order, 90ms apart, slight rotation settle',
-      hoverStates: 'Peels, lifts, and stitches at 180ms',
-      transitions: 'ease-out with a papery settle (no bounce)',
-      scroll: 'Layers parallax ±8px like loose sheets',
-    },
-    accessibility:
-      'Ink on cream 14.1:1; teal 4.6:1 at UI weights; thread red 5.3:1. Rotations ≤2° keep text scannable; hit areas stay axis-aligned. Tape and threads are aria-hidden. Reduced-motion drops the parallax and rotations settle to 0–1°.',
-    responsive:
-      'Collage clusters re-stack under 760px with rotations flattened; nav scraps fold into a taped drawer. Display clamps 2.3rem→4.1rem.',
-    codeExample:
-      '<section class="desk">\n  <h1>Cut. Paste.<br/><em>Mean it.</em></h1>\n  <button class="scrap-teal">Start the zine</button>\n</section>',
     accent: '#3e8f7c',
     motif: 'rotated-stickers',
     layout: 'asymmetric',
@@ -348,8 +248,6 @@ signatureCss: `
     description: 'A type foundry’s specimen book — ink plates, registration marks.',
     designPhilosophy:
       'The product is the alphabet. Every section is a specimen plate: giant glyphs on the left, metadata on the right, registration crosses in the corners. Typography is the interface — weights, widths, and spacing do all the talking.',
-    designDetails:
-      'Specimen paper #f6f4ef with plate ink #161616 and registration red-orange #e0492f crosses. Archivo 900 headlines display at specimen sizes with optical sizing notes in the margins; IBM Plex Sans sets metadata tables. Cards are plates with hairline frames and crop marks. Red appears only on registration marks, hovers, and one specimen per view.',
     colors: {
       primary: '#161616',
       secondary: '#f6f4ef',
@@ -377,24 +275,6 @@ signatureCss: `
       navigation: 'Plate index bar: uppercase hairline links; the active plate carries the red mark',
       modals: 'Full-bleed plate with crop marks and ink scrim rgba(22,22,22,.55)',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 40 / 72 / 120 / 192',
-      paddingScale: '20 / 36 / 56',
-      grid: '12-col 1180px; plates hold 8:4 glyph-to-metadata splits; measure 620px',
-    },
-    motion: {
-      pageLoad: 'Plates ink in: frames draw, then glyphs fill, 260ms',
-      hoverStates: 'Registration stamps, 140ms',
-      transitions: 'ease-out; pressroom precise',
-      scroll: 'Plates snap-align to their index like a specimen binder',
-    },
-    accessibility:
-      'Ink on paper 15.7:1; red 4.9:1 used for marks and states, never body text. Glyph walls are decorative with real headings beneath. Focus is a 2px red outline. Metadata tables use real tables.',
-    responsive:
-      'Glyph walls scale via clamp and plates stack metadata-below under 840px. Display clamps 2.6rem→6rem.',
-    codeExample:
-      '<section class="plate">\n  <h1 class="specimen">Aa Gg Rr</h1>\n  <table class="meta"><tr><td>Weight</td><td>900</td></tr></table>\n  <button class="ink">License the cut</button>\n</section>',
     accent: '#e0492f',
     motif: 'outline-type',
     layout: 'editorial',
@@ -417,8 +297,6 @@ signatureCss: `
     description: 'A hand-sewn stage: curtain crimson, gold stars, showtime joy.',
     designPhilosophy:
       'All the world’s a stage, and this design knows it. Hand-stitched crimson curtains, gold-star footlights, and characters that peek from the wings. The craft is visible — every stitch and seam is part of the show.',
-    designDetails:
-      'Stage crimson #8c2f39 with deep curtain #5a2430, footlight gold #e0b84e, and cream #fbf5e9 playbills. Gaegu’s hand-lettering writes the playbill headlines; Nunito keeps the programme readable. Cards are hand-sewn playbills with dashed stitch borders and corner star patches. Buttons are wooden toggle knobs.',
     colors: {
       primary: '#8c2f39',
       secondary: '#5a2430',
@@ -446,24 +324,6 @@ signatureCss: `
       navigation: 'Valance bar: scalloped crimson top with playbill pill links; the active show is gold-starred',
       modals: 'Stage box: crimson curtain frame with a cream playbill center and rgba(43,18,24,.6) scrim',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '20 / 36 / 60 / 104 / 160',
-      paddingScale: '18 / 30 / 48',
-      grid: 'Centered 1020px stage; acts alternate curtain-full-bleed with 2-col playbill spreads',
-    },
-    motion: {
-      pageLoad: 'Curtains part: crimson panels slide out, playbills pop with a spring, 340ms',
-      hoverStates: 'Sways, spins, and toggle rocks at 200ms — hand-operated feel',
-      transitions: 'cubic-bezier(.34,1.4,.64,1); puppet-string bounce',
-      scroll: 'The valance stays pinned; playbills rise like a rotating stage',
-    },
-    accessibility:
-      'Ink on cream 11.4:1; crimson 7.1:1; gold decorative with text twins. Hand-lettering stays ≥20px and never carries body copy. Focus is a 3px gold ring. Reduced-motion pins curtains open and settles all sways.',
-    responsive:
-      'Playbill spreads stack under 780px; the valance folds to a crimson curtain drawer. Display clamps 2.2rem→3.8rem.',
-    codeExample:
-      '<section class="stage">\n  <p class="act">TONIGHT ONLY</p>\n  <h1>All the world’s<br/><em>a stage.</em></h1>\n  <button class="toggle">Raise the curtain</button>\n</section>',
     accent: '#8c2f39',
     motif: 'rotated-stickers',
     layout: 'spotlight',
@@ -484,8 +344,6 @@ signatureCss: `
     description: 'A mastering studio after hours: mint waveforms on console black.',
     designPhilosophy:
       'Sound you can see. The page is a mastering console at night: mint waveforms pulse on black, meters breathe with the cursor, and every section has a BPM. Dark, focused, and alive — but the faders stay where you put them.',
-    designDetails:
-      'Console black #0f1115 with mint #3ddc97 waveforms, ice #9ad7ff meters, and panel #1a1e24. Space Grotesk headlines carry studio weight; Space Mono renders timecode and metadata. Cards are channel strips with 1px #262c33 seams and real animated waveform bars. Ice-blue marks meters; mint marks interaction.',
     colors: {
       primary: '#3ddc97',
       secondary: '#1a1e24',
@@ -513,24 +371,6 @@ signatureCss: `
       navigation: 'Top transport bar: mono track links with a live waveform underline; the active track pulses mint',
       modals: 'Master bus overlay: channel strip with a waveform header and rgba(5,7,9,.8) scrim',
     },
-    spacing: {
-      baseUnit: '4px',
-      marginScale: '16 / 32 / 56 / 96 / 152',
-      paddingScale: '14 / 24 / 40',
-      grid: 'Full-bleed stages; inner 1140px channel racks in 2-col with 20px gaps',
-    },
-    motion: {
-      pageLoad: 'Waveforms draw left→right, meters sweep once, 400ms',
-      hoverStates: 'Faders snap, waveforms play through once, 300ms',
-      transitions: 'ease-out for faders, linear for waves — mixers do both',
-      scroll: 'A thin transport progress bar rides the top like a playhead',
-    },
-    accessibility:
-      'Text on console 12.9:1; mint 9.8:1; ice 10.6:1. Waveforms are decorative with track names as text; meters show numeric dB. All pulse animations pause under prefers-reduced-motion. Playhead is duplicated by a visible scroll indicator.',
-    responsive:
-      'Channel racks stack under 760px; the transport bar keeps 44px touch targets. Mono timecodes scale with clamp() and never wrap.',
-    codeExample:
-      '<section class="studio">\n  <p class="timecode">[00:42:17 — TAKE 3]</p>\n  <h1>Feel it in<br/><em>the waveform.</em></h1>\n  <button class="fader">▶ Master</button>\n</section>',
     accent: '#3ddc97',
     motif: 'glow-pulse',
     layout: 'full-bleed',
@@ -551,8 +391,6 @@ signatureCss: `
     description: 'Photocopied skate zine energy — xerox blue, safety orange, all DIY.',
     designPhilosophy:
       'Made in a garage, duplicated at the copy shop, stapled by hand. Xerox-blue ink on cheap paper, safety-orange highlights, and Rubik Mono One screaming the trade secrets. DIY means every reader could make this page themselves — and the design invites them to try.',
-    designDetails:
-      'Copy-paper blue #e8eef8 with xerox-blue #1f3bb3 ink, safety orange #ff5f00 cuts, and #101820 text. Rubik Mono One stamps the headlines like crate stencils; Space Mono writes the trick tips. Cards are photocopied tip sheets with 2px ink frames, misaligned 1px, and orange highlighter slashes on the trick names.',
     colors: {
       primary: '#1f3bb3',
       secondary: '#101820',
@@ -580,24 +418,6 @@ signatureCss: `
       navigation: 'Stapled header strip: boxed mono links; the active page carries the orange staple',
       modals: 'Full-bleed photocopy with an ink masthead bar and rgba(16,24,32,.6) scrim',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 56 / 96 / 152',
-      paddingScale: '14 / 26 / 44',
-      grid: 'Broken 12-col: tip sheets rotate ±1° and overlap the 1180px rules on purpose',
-    },
-    motion: {
-      pageLoad: 'Sheets fan out from the stack, 80ms apart, landing misaligned',
-      hoverStates: 'Misprints and highlighter wipes, 140ms — copy-shop fast',
-      transitions: 'linear, mostly; the machine has one speed',
-      scroll: 'A staple progress mark rides the right edge',
-    },
-    accessibility:
-      'Ink on copy paper 13.9:1; xerox blue 8.3:1; orange 3.9:1 — reserved for large marks with ink text nearby. Misalignments ≤1px and rotations ≤1° keep reading comfort. Focus is a 2px orange outline. Reduced-motion flattens the fan to a straight deal.',
-    responsive:
-      'Tip sheets stack straight under 720px; the stapled strip wraps to two rows. Display clamps 2rem→3.75rem.',
-    codeExample:
-      '<main class="zine">\n  <h1>PHOTOCOPY THE<br/>REVOLUTION.</h1>\n  <p class="tip">trick_04.txt — keep your weight centered</p>\n  <button class="xerox">READ ISSUE 12</button>\n</main>',
     accent: '#1f3bb3',
     motif: 'grain-overlay',
     layout: 'manifesto',

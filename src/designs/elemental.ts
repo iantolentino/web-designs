@@ -9,8 +9,6 @@ export const elementalDesigns: DesignSystem[] = [
     description: 'Abyssal blues, bioluminescent cyan, weightless depth.',
     designPhilosophy:
       'The ocean floor at 200 meters: pressure-dark blues, creatures that make their own light, and a silence that focuses. Interfaces here float — cards drift on soft shadows, accents glow like plankton, and every gradient moves vertically, descending. For marine tech, diving, aquariums, and anything that benefits from awe.',
-    designDetails:
-      'Vertical gradients from #07182b to #0d2c47, bioluminescent cyan #22d3ee-family accents with soft glow shadows, and pale foam text. Outfit rounded display; Manrope body. Cards have bubble-soft 16px radii and layered shadows (ambient + glow). Caustic light pattern via overlapping radial gradients at 4% opacity. Waves via border-radius scallops.',
     colors: {
       primary: '#0ea5c9',
       secondary: '#155e75',
@@ -37,24 +35,6 @@ export const elementalDesigns: DesignSystem[] = [
       navigation: 'Floating glass bar, blur 12px, cyan active underline wave',
       modals: 'Deep panel radius 20px with cyan border glow, rise-in 300ms',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 64 / 128',
-      paddingScale: '24 / 40 / 64',
-      grid: '12-col 1200px; feature rows in 2:1 splits',
-    },
-    motion: {
-      pageLoad: 'Sections rise from depth (24px + blur 4px→0) 500ms staggered',
-      hoverStates: 'Glow bloom and gentle buoyancy, 250ms',
-      transitions: 'Fluid ease-out, weightless, never abrupt',
-      scroll: 'Caustic light drifts slowly; cards rise at 20% visibility',
-    },
-    accessibility:
-      'Foam on abyss 13.4:1; cyan on abyss 9.2:1. Focus 3px cyan ring. Glows are additive decoration, aria-hidden. prefers-reduced-motion keeps opacity fades only.',
-    responsive:
-      'Splits stack under 820px. Display clamps 2.25rem→3.5rem. Floating nav condenses under 640px. Glow shadows halve on mobile for performance.',
-    codeExample:
-      '<section class="reef">\n  <h1>Descend into <em>clarity</em>.</h1>\n  <p>Marine data platforms, without the murk.</p>\n  <button class="btn-glow">Dive in</button>\n</section>',
     accent: '#22d3ee',
     motif: 'wave-section',
     layout: 'split-hero',
@@ -77,8 +57,6 @@ export const elementalDesigns: DesignSystem[] = [
     description: 'Canyon clay, sunset terracotta, palm-spring modernism.',
     designPhilosophy:
       'Palm Springs at golden hour: adobe walls, rust and clay layered against a sky that refuses blue. This system is warm architecture — thick borders instead of shadows, sun-baked neutrals, and geometry borrowed from mid-century desert modernism. For hospitality, travel, and artisan goods with heat in their story.',
-    designDetails:
-      'Sand #f6ede1 canvas, terracotta #c05b3c-family primary, canyon rust and sage secondary, ink-brown text. Jost geometric display; Karla body. Borders before shadows: 2px solid ink-brown frames everything. Arched image frames. Sunburst/step patterns (CSS repeating gradients) as section dividers. Buttons are chunky rectangles with offset pressed-state shadows.',
     colors: {
       primary: '#c05b3c',
       secondary: '#8a6f4d',
@@ -105,24 +83,6 @@ export const elementalDesigns: DesignSystem[] = [
       navigation: '2px bottom border bar with uppercase letter-spaced links',
       modals: 'Arch-topped panel with 2px border and hard shadow',
     },
-    spacing: {
-      baseUnit: '8px',
-      marginScale: '16 / 32 / 56 / 112',
-      paddingScale: '24 / 40 / 56',
-      grid: '12-col 1180px; postcard-style 2:3 feature cards',
-    },
-    motion: {
-      pageLoad: 'Cards rise 12px, 400ms staggered, like sun-bleached film fades',
-      hoverStates: 'Press-flat physics 150ms — tactile, physical, warm',
-      transitions: 'Snappy ease-out; nothing floats',
-      scroll: 'Step-pattern dividers parallax 0.97x',
-    },
-    accessibility:
-      'Ink-brown on sand 11.3:1; sand on terracotta 4.6:1 at bold weights. Focus 3px terracotta outline. Borders carry state alongside color. Springs disabled under reduced-motion.',
-    responsive:
-      'Postcard cards stack under 760px; shadows shrink 5px→3px. Display clamps 2.25rem→3.75rem. Arches become rounded rects under 640px to save vertical space.',
-    codeExample:
-      '<section class="mesa">\n  <h1>Stay where the <em>air</em> is dry.</h1>\n  <p>Desert modern stays, 1962–today.</p>\n  <button class="btn-clay">Book a room</button>\n</section>',
     accent: '#c05b3c',
     motif: 'hard-shadows',
     layout: 'hero-cards',
@@ -145,8 +105,6 @@ export const elementalDesigns: DesignSystem[] = [
     description: 'Sumi-e brush minimalism: ink, paper, and emptiness.',
     designPhilosophy:
       'One brushstroke says more than a thousand divs. Sumi-e discipline: greyscale ink on warm paper, asymmetric balance, and negative space treated as the primary material. The interface breathes like a hand scroll — unhurried, deliberate, precise where it matters and empty where it does not.',
-    designDetails:
-      'Cool paper #f6f8fa with indigo ink #263a52. Zilla Slab light for display with manual brush-weight contrast; Karla for function. Single vermilion hanko-stamp accent (used at most twice per page). Brushstroke divider: a CSS gradient that tapers. Layouts are asymmetric (7:5) with deliberate emptiness. Hover states are ink spreading (background tint grows).',
     colors: {
       primary: '#263a52',
       secondary: '#7b8290',
@@ -173,24 +131,6 @@ export const elementalDesigns: DesignSystem[] = [
       navigation: 'Sparse top row; active link carries the vermilion seal dot',
       modals: 'Paper sheet with single brush rule top, fade 400ms',
     },
-    spacing: {
-      baseUnit: '16px',
-      marginScale: '16 / 64 / 128 / 224',
-      paddingScale: '32 / 64 / 96',
-      grid: 'Asymmetric 7:5 ma grid, 1100px, emptiness preserved',
-    },
-    motion: {
-      pageLoad: 'Content fades like ink absorbing, 600ms, no movement',
-      hoverStates: '300ms tint spread only — motion as absorption',
-      transitions: 'Slow, absorbent, 300–600ms',
-      scroll: 'Vertical reveal masked like a scroll painting (clip-path)',
-    },
-    accessibility:
-      'Ink on paper 10.9:1; vermilion only at large sizes (7.0:1). Focus 2px ink outline offset 4px. Emptiness is layout, not hidden content — all sections have text alternatives. Reduced-motion: fades only.',
-    responsive:
-      'Asymmetry relaxes to single column under 760px; emptiness preserved via padding, not removal. Display clamps 2rem→3.375rem. Vermilion seal becomes underline under 480px.',
-    codeExample:
-      '<section class="scroll">\n  <h1>One stroke.<br/><em>Enough.</em></h1>\n  <p class="quiet">A portfolio for work that waits.</p>\n  <a class="seal" href="#">View</a>\n</section>',
     accent: '#9d2c22',
     motif: 'serif-italic-hero',
     layout: 'editorial',

@@ -126,14 +126,23 @@ bucket is 5 designs, and `npm run verify` fails the build if that stops being tr
 
 ## Speed
 
-Three things keep the vault fast as the catalog grows past 550 systems:
+Four things keep the vault fast as the catalog grows past 550 systems:
 
 - **The catalog loads lazily.** `src/designs/*` is more than two thirds of the app's
   JavaScript, so the shell (topbar, sidebar, search, theme) paints from its own markup while
-  the design data streams in behind it through a dynamic import. The entry chunk is ~85 kB
-  gzipped, the catalog ~315 kB, and the gallery shows shimmer cards — never an empty page —
+  the design data streams in behind it through a dynamic import. The entry chunk is ~94 kB
+  gzipped, the catalog ~207 kB, and the gallery shows shimmer cards — never an empty page —
   for the frames in between. `src/catalog.ts` is the only module that touches the data
   module directly.
+- **Preview prose is a third chunk, not part of the catalog.** Six fields (`designDetails`,
+  `codeExample`, `accessibility`, `responsive`, `spacing`, `motion`) are read *only* by the
+  preview's Details/Code tabs and the prompt copier — never by a card, a thumbnail, or a
+  filter. They were ~1.2 kB of literal prose per hand-authored design, a third of the
+  catalog chunk that every first paint waited on, so they live in `src/designs/details.ts`
+  (~101 kB gzipped) and are fetched when a preview opens. Designs built through `sys()` /
+  `row()` never had literals at all — `src/designs/build.ts` derives theirs from the seed on
+  first read — and `src/designs/previewDetails.ts` answers for both cases behind one call.
+  Net effect on the critical path: **400 kB → 301 kB gzipped**.
 - **Everything else is prefetched on intent.** Hovering a card, a view button, or a palette
   result warms the chunk the click will need, so the preview, pattern board, and kit open
   with no loading state (`src/prefetch.ts`).
@@ -141,6 +150,22 @@ Three things keep the vault fast as the catalog grows past 550 systems:
   build-time manifest (`vite.config.ts` → `closeBundle`) precaches the shell, the catalog,
   the fonts, and every hashed asset; navigation is stale-while-revalidate and `/assets/`
   plus the font CDN are cache-first, so a second visit renders from disk with no network.
+
+## Metadata & link previews
+
+The vault is one client-rendered page, so its `<head>` does the describing: a canonical URL,
+Open Graph and Twitter cards with a 1200×630 image, `theme-color` per color scheme, and
+JSON-LD (`WebSite` + `CollectionPage`). A `<noscript>` block carries the same description a
+crawler that does not run JavaScript would otherwise miss, and `robots.txt` points at a
+`sitemap.xml` that lists the single URL — the query-string views are the same document with
+different state, so enumerating them would ask crawlers to index 550 near-identical pages.
+Giving each design its own indexable page needs a build-time render, which is the natural
+next step.
+
+The card is generated, not hand-drawn: `scripts/og-card.html` draws it on a canvas with the
+site's own self-hosted faces and `scripts/og-sink.mjs` writes the JPEG to `public/og.jpg`.
+`npm run build` emits no source maps by default (they were ~3.5 MB of artifact per deploy);
+`SOURCEMAP=1 npm run build` turns them back on.
 
 ## Command palette (⌘K)
 
@@ -164,6 +189,9 @@ src/
 ├── designs/              # 29 design files + registry + theming + use-case index
 │   ├── theme.ts          #   themeOf(), contrast/onColor, withAlpha, sorting
 │   ├── usecases.ts       #   derived website-type index (rules + top-up)
+│   ├── build.ts          #   sys()/row() seed builders + on-demand details
+│   ├── details.ts        #   GENERATED preview prose (scripts/extract-details.cjs)
+│   ├── previewDetails.ts #   on-demand accessor + loader for both paths
 │   └── extras.ts         #   per-design layout sets, block sets, dashboard extras
 ├── patterns/
 │   ├── patterns.ts       #   153 pattern recipes + the CSS builder

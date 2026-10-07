@@ -22,8 +22,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'A hopeful future, wired to the sun.',
     designPhilosophy:
       'Dystopia got all the good designers. Solarpunk takes the opposite bet: technology and nature as allies, abundance instead of scarcity, and a palette that looks like photosynthesis under glass. Warm sunlight accents over living green, rounded architecture, and type that smiles without trying. For climate projects, community energy, and civic optimism.',
-    designDetails:
-      'Leaf green #2f9e44 over sunlit canvas #f5f9ee, brass #f4b400 reserved for buttons and highlights. Young Serif display against Karla body. Arched corners, canopy gradients, and a radial wave crest that reads as sunrise over a roof.',
     colors: { primary: '#2f9e44', secondary: '#0b6e4f', accent: '#f4b400', neutral: '#e9f2df', background: '#f5f9ee', text: '#0f2419' },
     typography: {
       displayFont: 'Young Serif',
@@ -43,19 +41,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Sticky translucent bar over a sunrise gradient',
       modals: '18px radius, 40% green-tinted scrim, scale-in 0.97→1',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 28 / 48 / 80', paddingScale: '10 / 20 / 32 / 56', grid: '12-column, 1180px max, 24px gutter' },
-    motion: {
-      pageLoad: 'Hero fades up 14px over 520ms; solar wash pans once',
-      hoverStates: 'Lift 2px with a 200ms cubic-bezier(.3,0,.2,1)',
-      transitions: 'Opacity and transform only',
-      scroll: 'Canopy sections reveal once at 12% visibility',
-    },
-    accessibility:
-      'Body text 11.4:1 on the canvas; green used for fills pairs with a white label for 3.6:1. Focus is a 3px #2f9e44 ring, never removed. Motion collapses to opacity under prefers-reduced-motion.',
-    responsive:
-      'Three-up energy stats become one column under 720px; the arched card grid reflows to two then one. Buttons keep 44px targets.',
-    codeExample:
-      '<section class="solar">\n  <h1>Power the block, not <em>just the building.</em></h1>\n  <p>Community solar with a dashboard anyone can read.</p>\n  <button class="btn-solar">See the grid</button>\n</section>',
     accent: '#2f9e44',
     motif: 'wave-section',
     layout: 'hero-cards',
@@ -77,8 +62,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Instrument readouts for very small things.',
     designPhilosophy:
       'A physics lab does not decorate. Quantum Lab is a control surface: cool violet instrumentation, cyan for live channels, and type that never gets in the way of a number. It assumes the reader is smart and the monitor is good. For research platforms, ML tooling, and any dashboard where precision is the brand.',
-    designDetails:
-      'Deep indigo #0c1030 context on a cool canvas #f4f5ff, signal cyan #22d3ee for active channels, violet #5b6cff for structure. Space Grotesk display with IBM Plex Sans body; dotted pixel-grid backing behind the hero. Tabular figures on every metric.',
     colors: { primary: '#5b6cff', secondary: '#2b2f6b', accent: '#22d3ee', neutral: '#e7e9fb', background: '#f4f5ff', text: '#0c1030' },
     typography: {
       displayFont: 'Space Grotesk',
@@ -98,19 +81,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Left rail with active-channel indicator and a hairline rule',
       modals: 'Panel sheet, title row with a close ✕, hairline sections',
     },
-    spacing: { baseUnit: '4px', marginScale: '16 / 32 / 64 / 120', paddingScale: '12 / 20 / 32', grid: '1360px full-width, 12-col instrument grid' },
-    motion: {
-      pageLoad: 'Channels fade in 30ms apart',
-      hoverStates: 'Border + background brighten 120ms',
-      transitions: 'Snappy ease-out; no bounce',
-      scroll: 'Sparklines draw on first enter',
-    },
-    accessibility:
-      'Text 13.9:1 on the canvas; cyan accents pair with ✦ icons rather than carrying meaning alone. Focus 2px #5b6cff. Live metrics announce politely via aria-live.',
-    responsive:
-      'The rail collapses to a top bar under 900px; tables become stacked records. Figures never truncate mid-number.',
-    codeExample:
-      '<section class="lab">\n  <h1>Measure the <em>impossible</em>, calmly.</h1>\n  <div class="grid-3"><div class="metric">σ 0.0004</div><div class="metric">Q 1.2e6</div><div class="metric">T 15 mK</div></div>\n</section>',
     accent: '#5b6cff',
     motif: 'pixel-grid',
     layout: 'dashboard',
@@ -131,8 +101,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Speckled surfaces with a friendly counter.',
     designPhilosophy:
       'Terrazzo is the friendliest material in architecture: a hundred scraps made precious. This system treats a menu the same way — many small things, arranged with care. Warm plaster background, confetti-fleck accents, and rounded chunky type that feels hand-set. For cafes, delis, and independent retail.',
-    designDetails:
-      'Rose #d94f7a and teal #2f9e9e flecks over plaster #fdf7f0, marigold #f2c14e for prices and tags. Baloo 2 display with Nunito body. Bracketed card corners, speckled section dividers, and a chunky 999px pill everywhere.',
     colors: { primary: '#d94f7a', secondary: '#2f9e9e', accent: '#f2c14e', neutral: '#f6efe6', background: '#fdf7f0', text: '#2a2320' },
     typography: {
       displayFont: 'Baloo 2',
@@ -152,19 +120,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Pill navigation floating over the counter',
       modals: '20px radius, soft scrim, pop-in 0.96→1',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 24 / 40 / 64', paddingScale: '12 / 20 / 32 / 48', grid: '12-column, 1160px max, 22px gutter' },
-    motion: {
-      pageLoad: 'Cards pop in 60ms apart, 240ms each',
-      hoverStates: 'Scale 1.03, 160ms ease-out',
-      transitions: 'Transform and opacity only',
-      scroll: 'Sections reveal once with a slight overshoot',
-    },
-    accessibility:
-      'Body 12.1:1 on plaster; rose/teal pair with a ✓ or icon so colour is never the only signal. Focus 3px rose ring. All tap targets ≥ 46px.',
-    responsive:
-      'The menu grid drops 3 → 2 → 1; the pill nav condenses to a sheet under 640px.',
-    codeExample:
-      '<section class="counter">\n  <h1>Today&rsquo;s <em>special:</em> a little of everything.</h1>\n  <p>Hand-made, speckled, and priced with a straight face.</p>\n  <button class="btn-terrazzo">See the menu</button>\n</section>',
     accent: '#d94f7a',
     motif: 'corner-brackets',
     layout: 'catalog',
@@ -184,8 +139,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'A case file, typed twice and filed once.',
     designPhilosophy:
       'The case file is the most atmospheric document in fiction: manila, carbon, red string. Noir Dossier builds a reading experience out of it — typewriter display type, stamped labels, and the confidence that comes from a period where every word cost paper. For true-crime publishing, archives, and narrative journalism.',
-    designDetails:
-      'Aged manila #efe6d0 ground, ink #14120f text, rubber-stamp red #a8352a for emphasis only. Courier Prime display with Spectral body. Rule lines like a typed form, stamped uppercase labels, and hanging-indent paragraphs.',
     colors: { primary: '#33261c', secondary: '#5a5348', accent: '#a8352a', neutral: '#e7dcc3', background: '#efe6d0', text: '#14120f' },
     typography: {
       displayFont: 'Courier Prime',
@@ -205,18 +158,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Typed masthead bar with a rule beneath',
       modals: 'Dossier sheet, 0 radius, stamped header',
     },
-    spacing: { baseUnit: '6px', marginScale: '12 / 24 / 48 / 80', paddingScale: '14 / 24 / 40', grid: '68ch measure, 1040px max, 28px gutter' },
-    motion: {
-      pageLoad: 'Content appears with a 2-step typewriter cadence',
-      hoverStates: 'Underline draws left-to-right, 140ms',
-      transitions: 'Opacity and background only',
-    },
-    accessibility:
-      'Ink 14.6:1 on manila; red used at ≥ 5.3:1 and always with a label. Focus is a 2px ink outline offset 2px.',
-    responsive:
-      'The two-column dossier stacks under 760px; the measure stays under 68 characters.',
-    codeExample:
-      '<article class="dossier">\n  <p class="stamp">Case 4471 · Open</p>\n  <h1>The <em>quiet</em> disappearance.</h1>\n  <p>Filed Tuesday. Never followed up.</p>\n</article>',
     accent: '#a8352a',
     motif: 'mono-labels',
     layout: 'magazine',
@@ -238,8 +179,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Your eyes move before your mind does.',
     designPhilosophy:
       'Optical art is interaction design for the retina. Op Art Aperture strips the page to black, white, and one alarm red, then uses scale and outline to make the layout itself vibrate. Nothing is decorative; every line is doing perceptual work. For galleries, posters, and studios that would rather be remembered than liked.',
-    designDetails:
-      'Paper white #fbfcfe with true black #111111 and a single indigo #4338ca. Archivo Black outlined headlines (stroke, not fill), Archivo body, and concentric ring dividers. Zero radius, zero shadow, maximum contrast.',
     colors: { primary: '#111111', secondary: '#eef2f7', accent: '#4338ca', neutral: '#e9edf3', background: '#fbfcfe', text: '#08090c' },
     typography: {
       displayFont: 'Archivo Black',
@@ -259,18 +198,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Thin black bar with letterspaced uppercase links',
       modals: 'Full-bleed plate with a 2px black frame',
     },
-    spacing: { baseUnit: '4px', marginScale: '8 / 16 / 32 / 64 / 128', paddingScale: '12 / 24 / 48 / 96', grid: '12-column, 1280px max, 16px gutter' },
-    motion: {
-      pageLoad: 'Headlines wipe from outline to outline-red, 320ms',
-      hoverStates: 'Instant invert, 90ms linear',
-      transitions: 'No easing curves — mechanical on/off',
-    },
-    accessibility:
-      'Black on white is 18.4:1; indigo is used at 7.7:1 and always with a rule or label so it is not colour-only. Focus is a 3px black outline with 2px offset.',
-    responsive:
-      'The poster headline scales with clamp(); concentric grids collapse 4 → 2 under 700px.',
-    codeExample:
-      '<section class="op">\n  <h1>Form follows <em>feeling.</em></h1>\n  <p>Pattern is not decoration. It is argument.</p>\n  <button class="btn-op">Enter the grid</button>\n</section>',
     accent: '#4338ca',
     motif: 'outline-type',
     layout: 'poster',
@@ -292,8 +219,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Be kind. Rewind. Ship it.',
     designPhilosophy:
       'The video store was a social recommendation engine with carpet. VHS Rental romanticises the physical tape: CRT scanlines, tracking-error colour, and PLAY ► affordances. Loud enough to be fun, structured enough to browse. For streaming catalogs, film archives, and retro gaming.',
-    designDetails:
-      'Near-black #0d0a1a with violet #7c3aed and cyan #22d3ee bleed, bubblegum #f472b6 for accents. VT323 display with Space Mono body. Scanline overlay, glow on headings, and the ⊕ record indicator as a motif.',
     colors: { primary: '#7c3aed', secondary: '#22d3ee', accent: '#f472b6', neutral: '#1a1329', background: '#0d0a1a', text: '#f1ecff' },
     typography: {
       displayFont: 'VT323',
@@ -313,19 +238,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Top bar with a REC dot and tracking-error hairline',
       modals: 'Tape-case sheet with slot labels',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 32 / 56 / 96', paddingScale: '12 / 20 / 36', grid: '12-column, 1240px max, 24px gutter' },
-    motion: {
-      pageLoad: 'Headings flicker on like a CRT warming up',
-      hoverStates: 'Glow +30%, 140ms ease-out',
-      transitions: 'Transform and filter only',
-      scroll: 'Tracklist rows stagger 24ms',
-    },
-    accessibility:
-      'Text 15.8:1 on the tape-black ground; violet/cyan pair with ▶ and ● glyphs. Focus is a 2px cyan ring. Scanline overlay is aria-hidden and reduced-motion-safe.',
-    responsive:
-      'The shelf grid drops 4 → 2 → 1; the REC bar stays fixed and readable under 640px.',
-    codeExample:
-      '<section class="tape">\n  <h1>Tonight&rsquo;s <em>double feature.</em></h1>\n  <p>Two tapes, one late fee, no refunds.</p>\n  <button class="btn-vhs">▶ Play</button>\n</section>',
     accent: '#7c3aed',
     motif: 'scanlines',
     layout: 'hero-cards',
@@ -347,8 +259,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Two inks, one press, endless editions.',
     designPhilosophy:
       'Risograph forces discipline: you get two inks and a misregistration you learn to love. Riso Atelier is that constraint as a system — loud flat colour, duotone imagery, and type set with a printmaker&rsquo;s confidence. For studios, indie publishers, and anyone who still smells paper.',
-    designDetails:
-      'Warm paper #f8f3e8 with riso red #ff4f5a and riso blue #2643c8, marigold #ffd23f as the third spot. Archivo Black display with Familjen Grotesk body. Duotone-gradient imagery, offset plate shadows, and a slight 0.5° rotation on tags to mimic a hand-fed sheet.',
     colors: { primary: '#ff4f5a', secondary: '#2643c8', accent: '#ffd23f', neutral: '#efe6d6', background: '#f8f3e8', text: '#15120f' },
     typography: {
       displayFont: 'Archivo Black',
@@ -368,18 +278,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Press bar with a registration cross',
       modals: 'Edition sheet with plate numbers',
     },
-    spacing: { baseUnit: '6px', marginScale: '12 / 24 / 44 / 72', paddingScale: '14 / 24 / 40', grid: '12-column, 1180px max, 22px gutter' },
-    motion: {
-      pageLoad: 'Plates stamp in, 180ms each, offset 40ms',
-      hoverStates: 'Offset shadow +2px, 140ms ease-out',
-      transitions: 'Transform only; colours snap',
-    },
-    accessibility:
-      'Ink 13.2:1 on paper; red keeps 4.6:1 and pairs with a plate number rather than alone. Focus is a 3px blue outline offset 2px.',
-    responsive:
-      'Duotone feature rows stack under 780px; the registration grid collapses to one column.',
-    codeExample:
-      '<section class="press">\n  <h1>Two inks. <em>No apologies.</em></h1>\n  <p>An edition of 150, signed at the corner.</p>\n  <button class="btn-riso">Buy the print</button>\n</section>',
     accent: '#ff4f5a',
     motif: 'duotone-media',
     layout: 'asymmetric',
@@ -400,8 +298,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Fabrication data, laid out like a board.',
     designPhilosophy:
       'A PCB is a document: silkscreen labels, copper traces, drill hits. Circuit Foundry treats a hardware product page the same way — dense, labelled, and traceable. Solder-mask green over dark substrate, copper as the accent, and monospace everywhere a part number lives. For hardware, supply chain, and manufacturing.',
-    designDetails:
-      'Board substrate #0a120e with solder green #1b8f4b, copper #c98a3a for accents, silkscreen #dff3e6 text. Chakra Petch display with IBM Plex Mono body. Tape-label kickers, trace-line dividers, and a drill-hit dot grid.',
     colors: { primary: '#1b8f4b', secondary: '#0b5d33', accent: '#c98a3a', neutral: '#0f1c16', background: '#0a120e', text: '#dff3e6' },
     typography: {
       displayFont: 'Chakra Petch',
@@ -421,19 +317,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Silkscreen bar with a revision tag',
       modals: 'Fab sheet with revision stamp',
     },
-    spacing: { baseUnit: '4px', marginScale: '16 / 32 / 64 / 112', paddingScale: '12 / 20 / 32', grid: '1360px, 12-col board grid, 2mm-equivalent gutters' },
-    motion: {
-      pageLoad: 'Rows trace in left-to-right, 160ms each',
-      hoverStates: 'Border → copper, 110ms linear',
-      transitions: 'Linear, machine-like',
-      scroll: 'Trace dividers animate once',
-    },
-    accessibility:
-      'Text 14.1:1 on substrate; green/copper deltas pair with ▲▼ and labels. Focus 2px green. Live fab status uses aria-live=polite.',
-    responsive:
-      'The bill-of-materials table scrolls horizontally with a pinned first column; the board grid stacks under 880px.',
-    codeExample:
-      '<section class="board">\n  <h1>Rev C, <em>fab-ready.</em></h1>\n  <p>Four layers, 0.8mm, panelised twelve-up.</p>\n  <button class="btn-fab">Download gerbers</button>\n</section>',
     accent: '#c98a3a',
     motif: 'tape-labels',
     layout: 'bento',
@@ -455,8 +338,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Cut, fold, and glue the interface.',
     designPhilosophy:
       'Paper craft mistakes are cheap, so paper craft children are brave. This system borrows that: layered shapes, visible glue-tabs, and a palette that looks like construction paper. It is deliberately imperfect, because perfect is intimidating to a seven-year-old. For kids&rsquo; brands, classrooms, and workshops.',
-    designDetails:
-      'Warm paper #fff9f0 with tangerine #ff7a59, blue #3aa6b9, and marigold #ffd166. Amatic SC display with Patrick Hand body. Bracketed card corners read as corner tabs, with soft drop shadows that suggest glued layers.',
     colors: { primary: '#ff7a59', secondary: '#3aa6b9', accent: '#ffd166', neutral: '#fdf2e3', background: '#fff9f0', text: '#2b2118' },
     typography: {
       displayFont: 'Amatic SC',
@@ -476,19 +357,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Washi-tape nav strip',
       modals: 'Layered card, tabs at the corners',
     },
-    spacing: { baseUnit: '8px', marginScale: '10 / 20 / 36 / 60 / 96', paddingScale: '14 / 24 / 40 / 64', grid: '12-column, 1120px max, 26px gutter' },
-    motion: {
-      pageLoad: 'Layers drop in with a soft bounce, 260ms',
-      hoverStates: 'Tilt 1.5° + lift, 180ms ease-out',
-      transitions: 'Transform with a gentle overshoot',
-      scroll: 'Sections peel in once',
-    },
-    accessibility:
-      'Ink 14.8:1 on paper; every colour pair sits above 4.5:1 and orange is never the sole signal. Focus is a 3px tangerine ring. Large targets (≥ 52px) suit younger hands.',
-    responsive:
-      'The craft board goes 3 → 2 → 1; display type stays generous rather than shrinking to nothing.',
-    codeExample:
-      '<section class="craft">\n  <h1>Make something <em>slightly wonky.</em></h1>\n  <p>Scissors, glue, and a grown-up.</p>\n  <button class="btn-craft">✂ Start cutting</button>\n</section>',
     accent: '#ff7a59',
     motif: 'corner-brackets',
     layout: 'centered',
@@ -509,8 +377,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Cold water, warm light, nothing else.',
     designPhilosophy:
       'A good spa removes things. Glacier Spa is subtraction as luxury: glacial blues, mineral greys, and a single warm gold that appears once per screen like a lantern in a cold room. Wide spacing, thin type, and a spotlight that never rushes. For wellness retreats, premium hotels, and clinics.',
-    designDetails:
-      'Ice #f4fafc ground with glacial #7fb2c9, fjord #33586b for structure, and mineral gold #d9c48a used sparingly. Marcellus display with Jost body. Soft radial washes, hairline rules, and 60ch measures.',
     colors: { primary: '#7fb2c9', secondary: '#33586b', accent: '#d9c48a', neutral: '#e8f1f4', background: '#f4fafc', text: '#10242c' },
     typography: {
       displayFont: 'Marcellus',
@@ -530,19 +396,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Minimal sticky bar, generous links, no shadow',
       modals: '20px radius, 30% fog scrim, slow 280ms scale-in',
     },
-    spacing: { baseUnit: '8px', marginScale: '16 / 32 / 56 / 88 / 140', paddingScale: '16 / 28 / 48 / 80', grid: '12-column, 1140px max, 28px gutter' },
-    motion: {
-      pageLoad: 'Breathing fade over 700ms, no slide',
-      hoverStates: 'Lift 2px, 240ms ease-out',
-      transitions: 'Opacity and transform, long durations',
-      scroll: 'Sections fade once at 20% visibility',
-    },
-    accessibility:
-      'Text 13.6:1 on ice; glacial blue at 4.8:1 for links, never for body. Focus 3px fjord ring. Long animation durations respect prefers-reduced-motion.',
-    responsive:
-      'The treatment grid drops 3 → 1 under 760px; the measure widens only slightly to keep the calm.',
-    codeExample:
-      '<section class="spa">\n  <h1>Come in from the <em>cold.</em></h1>\n  <p>Fifteen treatments. One intention.</p>\n  <button class="btn-spa">Book a soak</button>\n</section>',
     accent: '#7fb2c9',
     motif: 'gradient-hero',
     layout: 'spotlight',
@@ -563,8 +416,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Point the telescope, forget the pixel.',
     designPhilosophy:
       'Space content fails when it feels like a dashboard. Cosmic Observatory treats the page as night sky: deep field-black, star-chart gold, and labels that read like coordinates. It is dark without being a gamer rig, and it lets images be enormous. For astronomy, science museums, and premium data storytelling.',
-    designDetails:
-      'Field black #08071a with nebula violet #8b7cf6, comet gold #f4d35e, and chart-paper text #eae7ff. Outfit display with IBM Plex Sans body. Glow reserved for headings, faint starfield behind sections, and monospaced coordinate labels.',
     colors: { primary: '#8b7cf6', secondary: '#1b1a3a', accent: '#f4d35e', neutral: '#12112b', background: '#08071a', text: '#eae7ff' },
     typography: {
       displayFont: 'Outfit',
@@ -584,19 +435,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Transparent bar that solidifies on scroll',
       modals: 'Star-chart sheet with corner coordinates',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 40 / 72 / 120', paddingScale: '14 / 24 / 40 / 72', grid: '1440px full-bleed stage, 12-col chart grid' },
-    motion: {
-      pageLoad: 'Stars fade in, headline glow settles over 600ms',
-      hoverStates: 'Glow +25%, 200ms ease-out',
-      transitions: 'Opacity, transform, filter',
-      scroll: 'Parallax star layers at 0.15 and 0.3',
-    },
-    accessibility:
-      'Text 16.4:1 on field black; violet/gold pair with ✦ and ◇ markers. Focus 2px gold. Parallax is disabled under prefers-reduced-motion.',
-    responsive:
-      'The observatory stage scales images full-width; data tables scroll horizontally under 760px.',
-    codeExample:
-      '<section class="sky">\n  <p class="coords">RA 05h 34m · Dec +22°</p>\n  <h1>There is a <em>planet</em> there.</h1>\n  <p>Four hundred and thirty light years, and counting.</p>\n</section>',
     accent: '#8b7cf6',
     motif: 'glow-pulse',
     layout: 'full-bleed',
@@ -618,8 +456,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Public weather data, legible to everyone.',
     designPhilosophy:
       'A weather forecast is public infrastructure: it must be fast, legible, and honest about uncertainty. Weather Bureau is a civil-service design — high-contrast, no flourish, and a Swiss grid that lets numbers be numbers. For government, agriculture, and logistics.',
-    designDetails:
-      'Sky canvas #f5f9fd, bureau blue #0b63c5, teal #0f7a8c, and caution amber #f4a300 for advisories. Archivo display with IBM Plex Sans body. Swiss rules with index numbers, tabular figures, and a condition-glyph legend.',
     colors: { primary: '#0b63c5', secondary: '#0f7a8c', accent: '#f4a300', neutral: '#e6eef7', background: '#f5f9fd', text: '#0d1b2a' },
     typography: {
       displayFont: 'Archivo',
@@ -639,18 +475,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Official bar with a grid rule and section index',
       modals: 'Document sheet with a numbered heading',
     },
-    spacing: { baseUnit: '4px', marginScale: '16 / 32 / 64 / 104', paddingScale: '12 / 20 / 32', grid: '12-column, 1200px max, 20px gutter' },
-    motion: {
-      pageLoad: 'Content fades in, 260ms, no movement',
-      hoverStates: 'Background darkens, 130ms linear',
-      transitions: 'Colour only',
-    },
-    accessibility:
-      'Text 14.9:1 on the sky canvas; advisories use amber at 4.6:1 plus an icon and text. Focus 3px blue ring. Tables carry real headers and captions.',
-    responsive:
-      'The forecast table becomes stacked day cards under 820px; the grid keeps tabular figures aligned.',
-    codeExample:
-      '<section class="bureau">\n  <p class="kicker">Issued 06:00 local</p>\n  <h1>Clear, then <em>turning.</em></h1>\n  <p>High 21°, low 9°. Wind from the north-west, 12 km/h.</p>\n</section>',
     accent: '#0b63c5',
     motif: 'scanlines',
     layout: 'dashboard',
@@ -671,8 +495,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Twelve stories, one cracked spine.',
     designPhilosophy:
       'Pulp covers promised more than they delivered, gloriously. Pulp Anthology is that promise as a reading experience: slab headlines, cheap-and-proud colour, and borders that frame each story like a cover. It is loud, warm, and unembarrassed about entertainment. For publishers, fiction platforms, and archive collections.',
-    designDetails:
-      'Newsprint cream #f3e9d2 with pulp red #c0392b, ink #1d1a16, and cover gold #e0a800. Alfa Slab One display with Bitter body. Double rules, drop caps, and a corner flash on featured stories.',
     colors: { primary: '#c0392b', secondary: '#2f2a26', accent: '#e0a800', neutral: '#ece0c8', background: '#f3e9d2', text: '#1d1a16' },
     typography: {
       displayFont: 'Alfa Slab One',
@@ -692,18 +514,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Masthead bar with double rule',
       modals: 'Cover panel with a spine stripe',
     },
-    spacing: { baseUnit: '6px', marginScale: '12 / 24 / 44 / 76', paddingScale: '14 / 22 / 36', grid: '12-column, 1120px max, 24px gutter' },
-    motion: {
-      pageLoad: 'Covers flip in, 200ms each, 50ms apart',
-      hoverStates: 'Shadow +2px, 150ms ease-out',
-      transitions: 'Transform only',
-    },
-    accessibility:
-      'Ink 12.7:1 on cream; red at 5.1:1 with a ◆ marker, never alone. Focus 3px ink outline offset 2px.',
-    responsive:
-      'The anthology grid drops 3 → 2 → 1; slab type clamps so covers never overflow.',
-    codeExample:
-      '<article class="pulp">\n  <p class="issue">Vol. 12 · 25¢</p>\n  <h1>The <em>Midnight</em> Line</h1>\n  <p>He took the last train. It was going the wrong way.</p>\n</article>',
     accent: '#c0392b',
     motif: 'editorial-columns',
     layout: 'editorial',
@@ -724,8 +534,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'What came out of the oven this morning.',
     designPhilosophy:
       'A bakery window sells by honesty: today&rsquo;s loaves, today&rsquo;s prices, sold until gone. Bakery Window is warm, earthy, and slightly rustic — crust browns, wheat greens, and a list that changes daily. For artisan food, farm shops, and local grocery.',
-    designDetails:
-      'Warm flour #fbf4e8 with crust #9c5a2c, wheat #5f7a4a, and honey #d9a441. Young Serif display with Karla body. Botanical dividers, a dotted day-list, and warm shadows that read like paper bags.',
     colors: { primary: '#9c5a2c', secondary: '#5f7a4a', accent: '#d9a441', neutral: '#f0e3cf', background: '#fbf4e8', text: '#2c2015' },
     typography: {
       displayFont: 'Young Serif',
@@ -745,19 +553,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Chalkboard-style bar with a hand-written feel',
       modals: 'Paper-bag sheet with a folded corner',
     },
-    spacing: { baseUnit: '8px', marginScale: '8 / 16 / 28 / 48 / 78', paddingScale: '14 / 24 / 38 / 60', grid: '12-column, 1160px max, 24px gutter' },
-    motion: {
-      pageLoad: 'List items rise 8px and fade, 240ms, 40ms apart',
-      hoverStates: 'Lift 2px, 200ms ease-out',
-      transitions: 'Transform and opacity',
-      scroll: 'Sections reveal once',
-    },
-    accessibility:
-      'Text 12.9:1 on flour; crust/wheat pair with labels and icons. Focus 3px honey ring. Day-list uses a real definition list.',
-    responsive:
-      'The counter grid goes 3 → 2 → 1; the price column stays aligned with tabular figures.',
-    codeExample:
-      '<section class="window">\n  <h1>Baked <em>this morning,</em> gone by noon.</h1>\n  <p>Sourdough, seeded rye, and cinnamon knots.</p>\n  <button class="btn-bakery">See today&rsquo;s list</button>\n</section>',
     accent: '#9c5a2c',
     motif: 'leaf-divider',
     layout: 'catalog',
@@ -778,8 +573,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Eyes only, amber on black.',
     designPhilosophy:
       'Security tooling is read under pressure. Espionage Console is a war-room terminal: amber phosphor on deep olive-black, red for active threats only, and monospace everywhere identification matters. It assumes a competent operator and refuses to be pretty at the cost of legible. For cybersecurity, government, and infrastructure.',
-    designDetails:
-      'Olive-black #0f1210 with amber #e0a41c, threat red #d64545, and phosphor text #e8ecdf. Oswald display with Space Mono body. Tape-label kickers, classification stamps, and blinking status pips that respect reduced-motion.',
     colors: { primary: '#e0a41c', secondary: '#2b2f2a', accent: '#d64545', neutral: '#1f221e', background: '#0f1210', text: '#e8ecdf' },
     typography: {
       displayFont: 'Oswald',
@@ -799,19 +592,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Console bar with clock and clearance level',
       modals: 'Classified sheet with stamped header',
     },
-    spacing: { baseUnit: '4px', marginScale: '16 / 32 / 64 / 112', paddingScale: '12 / 20 / 30', grid: '1360px, 12-col console grid' },
-    motion: {
-      pageLoad: 'Lines type on, 120ms each',
-      hoverStates: 'Amber brighten, 110ms linear',
-      transitions: 'Linear only',
-      scroll: 'Status pips pulse once at 1.4s intervals',
-    },
-    accessibility:
-      'Text 13.1:1 on olive-black; amber/red pair with ◈/▲ and text. Focus 2px amber. Blink is replaced by a static dot under prefers-reduced-motion.',
-    responsive:
-      'The console grid stacks under 880px; tables scroll with pinned identifiers.',
-    codeExample:
-      '<section class="console">\n  <p class="stamp">CLEARANCE · LEVEL 3</p>\n  <h1>Two attempts, <em>one origin.</em></h1>\n  <p>Both failed at the same hop.</p>\n</section>',
     accent: '#e0a41c',
     motif: 'scanlines',
     layout: 'bento',
@@ -833,8 +613,6 @@ export const wave8Designs: DesignSystem[] = [
     description: 'Classical proportion, contemporary nerve.',
     designPhilosophy:
       'Classical architecture is a two-thousand-year argument about proportion. Marble Atelier takes the argument seriously and the ornament out: stone palettes, engraved letterforms, and outlines instead of fills. It is austere, confident, and a little cold — which is the point. For architecture studios, galleries, and premium property.',
-    designDetails:
-      'Stone #f6f4ef ground with basalt #1a1713, travertine #8d8577, and laurel gold #b08d57. Cormorant Garamond display set in outline with Livvic body. Engraved rules, colonnade dividers, and Roman numerals for plates.',
     colors: { primary: '#8d8577', secondary: '#2f2b26', accent: '#b08d57', neutral: '#eae6de', background: '#f6f4ef', text: '#1a1713' },
     typography: {
       displayFont: 'Cormorant Garamond',
@@ -854,18 +632,6 @@ export const wave8Designs: DesignSystem[] = [
       navigation: 'Colonnade bar with engraved wordmark',
       modals: 'Plaque sheet with an engraved border',
     },
-    spacing: { baseUnit: '8px', marginScale: '16 / 32 / 64 / 110 / 160', paddingScale: '20 / 34 / 56 / 88', grid: '12-column, 1180px max, 32px gutter' },
-    motion: {
-      pageLoad: 'Fade only, 620ms, no movement',
-      hoverStates: 'Outline fills with ink, 200ms ease-out',
-      transitions: 'Colour and border only',
-    },
-    accessibility:
-      'Ink 14.4:1 on stone; travertine used at 4.6:1 for rules and labels, never body. Focus 2px ink outline offset 3px. Outline display type is paired with solid small text.',
-    responsive:
-      'The colonnade grid collapses 4 → 2 → 1; the outlined headline clamps rather than wrapping awkwardly.',
-    codeExample:
-      '<section class="atelier">\n  <p class="plate">Plate I</p>\n  <h1>Drawn before <em>built.</em></h1>\n  <p>Stone, light, and an argument about proportion.</p>\n</section>',
     accent: '#b08d57',
     motif: 'paper-cut',
     layout: 'poster',

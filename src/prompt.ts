@@ -1,10 +1,13 @@
-import type { DesignSystem } from './types'
+import type { DesignDetails, DesignSystem } from './types'
 
 /**
  * Builds the full, copyable design-system prompt for a design.
  * Deterministic and pure — no side effects.
+ *
+ * `det` is passed rather than read off the design because the prose lives in a
+ * lazily-imported module — see src/designs/previewDetails.ts.
  */
-export function buildDesignPrompt(d: DesignSystem): string {
+export function buildDesignPrompt(d: DesignSystem, det: DesignDetails): string {
   return `You are a senior product designer and front-end engineer. Build a web page using the following design system, applying it consistently across typography, color, components, spacing, motion, responsive behavior, and accessibility. Commit fully to this aesthetic — do not blend it with generic defaults, and do not use Inter, Roboto, Arial, or any system font stack.
 
 === DESIGN SYSTEM: ${d.name} — ${d.category} ===
@@ -17,7 +20,7 @@ DESIGN PHILOSOPHY
 ${d.designPhilosophy}
 
 DETAILS
-${d.designDetails}
+${det.designDetails}
 
 TYPOGRAPHY
 - Display font: ${d.typography.displayFont}
@@ -42,25 +45,25 @@ COMPONENT SPECIFICATIONS
 - Modals: ${d.components.modals}
 
 SPACING & LAYOUT RHYTHM
-- Base unit: ${d.spacing.baseUnit}
-- Margin scale: ${d.spacing.marginScale}
-- Padding scale: ${d.spacing.paddingScale}
-- Grid: ${d.spacing.grid}
+- Base unit: ${det.spacing.baseUnit}
+- Margin scale: ${det.spacing.marginScale}
+- Padding scale: ${det.spacing.paddingScale}
+- Grid: ${det.spacing.grid}
 
 MOTION & INTERACTIONS
-- Page load: ${d.motion.pageLoad}
-- Hover states: ${d.motion.hoverStates}
-- Transitions: ${d.motion.transitions}
-- Scroll: ${d.motion.scroll ?? 'None specified'}
+- Page load: ${det.motion.pageLoad}
+- Hover states: ${det.motion.hoverStates}
+- Transitions: ${det.motion.transitions}
+- Scroll: ${det.motion.scroll ?? 'None specified'}
 
 RESPONSIVE RULES
-${d.responsive}
+${det.responsive}
 
 ACCESSIBILITY
-${d.accessibility}
+${det.accessibility}
 
 USAGE EXAMPLE
-${d.codeExample}
+${det.codeExample}
 
 LAYOUT GUIDANCE
 Structure the page as a "${d.layout}" layout: hero-cards = centered hero + 3 feature cards + stats band; split-hero = 50/50 text/visual hero + pricing tiers; magazine = masthead + article grid + cover story; dashboard = sidebar nav + KPI row + chart + data table; centered = single centered column with steps and final CTA; editorial = article head + long-form body with pull quotes; asymmetric = 70/30 offset hero with stat cards right and split proof section; full-bleed = edge-to-edge gradient hero + full-width stat band; spotlight = centered stage-lit object + 3 explanation cards; manifesto = large display-type statement block + numbered proof words.

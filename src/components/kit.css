@@ -479,7 +479,7 @@
 }
 
 /* The modal is a *specimen*, not a page takeover: it opens inside the card it
-   belongs to (`.kit-specimen-body` is the containing block). A fixed backdrop
+   belongs to (the specimen body is the containing block). A fixed backdrop
    would blanket the whole app — sidebar, gallery, everything — from inside a
    thumbnail-sized demo. */
 .kit-modal-backdrop {

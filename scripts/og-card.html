@@ -1,0 +1,179 @@
+<!doctype html>
+<!--
+  Source for public/og.png — the 1200x630 link-preview card.
+
+  Dev-only: this lives outside public/ so it is never deployed or crawled. It
+  draws the card on a canvas (rather than relying on a screenshot) so the
+  captured pixels contain the card and nothing else.
+
+  Regenerate:
+
+    npm run dev                     # serves this at /scripts/og-card.html
+    node scripts/og-sink.mjs &      # receives the render
+    # open http://localhost:5180/scripts/og-card.html and run window.dvSendCard()
+    # -> writes public/og.jpg (referenced by index.html's og:image)
+
+  The canvas uses the same self-hosted faces as the site, so the card matches
+  the app's typography. Layout constants mirror the design below.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>The Design Vault — social card generator</title>
+    <link rel="stylesheet" href="/src/assets/fonts/fontfaces.css" />
+    <style>
+      body { margin: 0; background: #2a2724; display: grid; place-items: center; min-height: 100vh; }
+      canvas { box-shadow: 0 24px 80px rgba(0,0,0,.5); }
+    </style>
+  </head>
+  <body>
+    <canvas id="card" width="1200" height="630"></canvas>
+    <script>
+      const W = 1200
+      const H = 630
+      const PAD = 72
+      const F = (spec) => `'${spec.family}', sans-serif`
+
+      const INK = '#f7f5f2'
+      const GOLD = '#d4b26a'
+      const SUB = '#c9c4bb'
+      const LABEL = '#8d867c'
+      const SWATCHES = [
+        '#0d9488', '#f5e617', '#e63317', '#642b47', '#32437b',
+        '#622277', '#4f4096', '#a9a6b0', '#7bb661', '#c77dff',
+      ]
+
+      function glow(x, cx, cy, r, rgb, alpha) {
+        const g = x.createRadialGradient(cx, cy, 0, cx, cy, r)
+        g.addColorStop(0, `rgba(${rgb},${alpha})`)
+        g.addColorStop(1, `rgba(${rgb},0)`)
+        x.fillStyle = g
+        x.fillRect(0, 0, W, H)
+      }
+
+      function rr(x, px, py, w, h, r) {
+        x.beginPath()
+        x.moveTo(px + r, py)
+        x.arcTo(px + w, py, px + w, py + h, r)
+        x.arcTo(px + w, py + h, px, py + h, r)
+        x.arcTo(px, py + h, px, py, r)
+        x.arcTo(px, py, px + w, py, r)
+        x.closePath()
+        x.fill()
+      }
+
+      function tracked(x, text, px, py, spacing) {
+        // Canvas letterSpacing is Chromium-only; fall back to manual kerning.
+        let cx = px
+        for (const ch of text) {
+          x.fillText(ch, cx, py)
+          cx += x.measureText(ch).width + spacing
+        }
+      }
+
+      async function draw() {
+        await Promise.all([
+          document.fonts.load(`800 100px 'Bricolage Grotesque'`),
+          document.fonts.load(`500 100px 'Bricolage Grotesque'`),
+          document.fonts.load(`400 25px 'IBM Plex Mono'`),
+          document.fonts.load(`400 20px 'IBM Plex Mono'`),
+        ])
+        await document.fonts.ready
+
+        const x = document.getElementById('card').getContext('2d')
+        x.fillStyle = '#12100e'
+        x.fillRect(0, 0, W, H)
+
+        glow(x, 0.12 * W, 0, 0.62 * W, '212,178,106', 0.2)
+        glow(x, 0.96 * W, 0.08 * H, 0.54 * W, '199,125,255', 0.16)
+        glow(x, 0.5 * W, 1.18 * H, 0.72 * W, '62,207,178', 0.16)
+
+        x.textBaseline = 'alphabetic'
+
+        // Eyebrow
+        x.font = `400 20px ${F({ family: 'IBM Plex Mono' })}`
+        x.fillStyle = GOLD
+        tracked(x, 'THE DESIGN VAULT', PAD, 190, 6.8)
+
+        // Headline
+        x.font = `800 100px ${F({ family: 'Bricolage Grotesque' })}`
+        x.fillStyle = INK
+        x.fillText('550 design systems,', PAD, 290)
+        x.font = `500 100px ${F({ family: 'Bricolage Grotesque' })}`
+        x.fillStyle = GOLD
+        x.fillText('previewed live.', PAD, 388)
+
+        // Supporting line
+        x.font = `400 25px ${F({ family: 'IBM Plex Mono' })}`
+        x.fillStyle = SUB
+        x.fillText('Production-grade tokens, type pairings and palettes —', PAD, 450)
+        x.fillText('plus 153 layout patterns and 110 components.', PAD, 486)
+        x.fillText('Recolor, export, copy the prompt.', PAD, 522)
+
+        // Swatch strip
+        SWATCHES.forEach((hex, i) => {
+          x.fillStyle = hex
+          rr(x, PAD + i * 43, 548, 34, 34, 5)
+        })
+
+        // Stats, right-aligned
+        const stats = [
+          ['550', 'DESIGN SYSTEMS'],
+          ['153', 'PATTERNS'],
+          ['110', 'COMPONENTS'],
+        ]
+        let right = W - PAD
+        for (const [n, label] of [...stats].reverse()) {
+          x.font = `400 15px ${F({ family: 'IBM Plex Mono' })}`
+          const labelW = label.length * 8.7 + label.length * 3.3
+          x.font = `800 44px ${F({ family: 'Bricolage Grotesque' })}`
+          const numW = x.measureText(n).width
+          const w = Math.max(labelW, numW)
+          x.textAlign = 'right'
+          x.fillStyle = INK
+          x.fillText(n, right, 545)
+          x.font = `400 15px ${F({ family: 'IBM Plex Mono' })}`
+          x.fillStyle = LABEL
+          x.fillText(label, right, 578)
+          x.textAlign = 'left'
+          right -= w + 44
+        }
+
+        // Spectrum rule
+        const rule = x.createLinearGradient(0, 0, W, 0)
+        rule.addColorStop(0, '#d4b26a')
+        rule.addColorStop(0.38, '#c77dff')
+        rule.addColorStop(0.72, '#3ecfb2')
+        rule.addColorStop(1, '#ff6b35')
+        x.fillStyle = rule
+        x.fillRect(0, H - 6, W, 6)
+      }
+
+      window.dvDrawCard = async () => {
+        await draw()
+        return true
+      }
+
+      /**
+       * Draw the card and POST it to the local sink in scripts/og-sink.mjs.
+       *
+       * JPEG, not PNG: the card is a full-bleed gradient, which PNG stores
+       * almost uncompressed (~495 kB). The browser's own encoder at q0.92 lands
+       * near 85 kB with no visible loss at this size.
+       */
+      window.dvSendCard = async (port = 5199, ext = 'jpg') => {
+        await draw()
+        const mime = ext === 'jpg' ? 'image/jpeg' : 'image/png'
+        const b64 = document.getElementById('card').toDataURL(mime, 0.92).split(',')[1]
+        const res = await fetch(`http://localhost:${port}/og?ext=${ext}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: b64,
+        })
+        return { ok: res.ok, status: res.status, ext, base64Bytes: b64.length }
+      }
+
+      void window.dvDrawCard()
+    </script>
+  </body>
+</html>
