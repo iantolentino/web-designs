@@ -204,9 +204,11 @@ const HERO_TAILS = [
   'Priced *to come back to.*', 'No secret but *the recipe.*', 'On the board *until it sells.*',
 ]
 const HEROES = []
-for (let i = 0; i < HERO_HEADS.length; i++) {
-  HEROES.push(HERO_HEADS[i])
-  HEROES.push(HERO_HEADS[i] + ' ' + HERO_TAILS[i % HERO_TAILS.length])
+for (const head of HERO_HEADS) {
+  for (const tail of HERO_TAILS) {
+    HEROES.push(head)
+    HEROES.push(head + ' ' + tail)
+  }
 }
 
 const DESCS = [
