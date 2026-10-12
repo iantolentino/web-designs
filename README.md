@@ -4,7 +4,7 @@ A production-grade design-system showcase: **550 curated, intentionally distinct
 systems**, a **153-layout pattern library**, and a **110-component kit** — all browsable,
 previewable live, and copyable as ready-to-use AI design prompts. 
 Built to kill AI design slop — no Inter, no purple-on-white, no generic layouts.
-
+ 
 ## Quick start
 
 ```bash
