@@ -437,6 +437,10 @@ export interface PageStructure {
   columns: number
   /** Card treatment for generated sections. */
   card: number
+  /** Where the generated sections sit relative to the opener's own sections. */
+  placement: number
+  /** Which side of the composition leads: opener left/right or rail left/right. */
+  side: number
   /** The unique ordered content-section sequence for this design. */
   sections: PageSectionKind[]
   /** Stable key used by verify/scan to prove structural uniqueness. */

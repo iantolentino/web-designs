@@ -62,19 +62,31 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
     '--dv-cat-gap': `${0.55 + (structure.rhythm % 3) * 0.35}em`,
     '--dv-cat-media-h': `${5.5 + structure.card * 1.8}em`,
     '--dv-cat-rail-w': `${8 + structure.columns * 2}em`,
+    /* Geometry for the expanded compositions. These keep pages that share an
+     * opener + layout from collapsing back to the same split ratio or measure. */
+    '--dv-split': `${30 + ((structure.chrome * 7 + structure.nav * 5 + structure.footer * 3 + structure.card * 2 + structure.placement) % 19)}%`,
+    '--dv-rail': `${17 + ((structure.chrome * 5 + structure.nav * 7 + structure.footer * 2 + structure.rhythm) % 15)}%`,
+    '--dv-measure': `${44 + ((structure.rhythm * 3 + structure.columns * 2 + structure.card * 3 + structure.placement) % 14)}em`,
+    '--dv-overlap': `${-2 - ((structure.rhythm * 2 + structure.card * 3 + structure.placement) % 5)}em`,
+    '--dv-band': `${20 + ((structure.nav * 4 + structure.footer * 3 + structure.chrome) % 12)}%`,
+    '--dv-col-a': `${0.8 + ((structure.chrome * 2 + structure.columns + structure.card) % 5) * 0.08}`,
+    '--dv-col-b': `${1.2 - ((structure.nav * 3 + structure.footer + structure.rhythm) % 5) * 0.08}`,
+    '--dv-frame': `${1 + ((structure.rhythm + structure.nav) % 3) * 0.3}em`,
   } as React.CSSProperties
 
   const activeLayout = layoutOverride ?? structure.openerLayout
+  const isWrapper = ['dashboard', 'catalog', 'docs', 'field-notes', 'receipt', 'split-scroll', 'bento'].includes(activeLayout)
+  const fontClass = `dv-font-${t.display.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
   const ctx = { setModalOpen, openFaq, setOpenFaq }
 
   return (
     <div
-      className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} dv-ov${structure.opener} dv-nv${structure.nav} dv-ch${structure.chrome} dv-ft${structure.footer} dv-rh${structure.rhythm} dv-uc${structure.columns} dv-uk${structure.card} ${compact ? 'dv-compact' : ''}`}
+      className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} dv-ol-${activeLayout} dv-side${structure.side} ${fontClass} dv-ov${structure.opener} dv-nv${structure.nav} dv-ch${structure.chrome} dv-ft${structure.footer} dv-rh${structure.rhythm} dv-uc${structure.columns} dv-uk${structure.card} ${compact ? 'dv-compact' : ''}`}
       style={cssVars}
       data-dv-structure={structure.signature}
     >
       <style>{scopedCss}</style>
-      <div className="dv-stage">
+      <div className={`dv-stage ${isWrapper ? 'dv-wrapper' : 'dv-direct'}`}>
         <nav className="dv-nav">
           <span className="dv-logo">◈ {d.name}</span>
           <div className="dv-links">
@@ -294,35 +306,63 @@ function renderLayout(
 function composePage(body: ReactNode, d: DesignSystem, structure: PageStructure, compact: boolean): ReactNode {
   const parts = Children.toArray(body)
   const sections = compact ? structure.sections.slice(0, 2) : structure.sections
-  const stream = <UniqueSections d={d} structure={structure} sections={sections} compact={compact} />
-  if (!parts.length) return stream
-  if (compact) return <>{parts[0]}{stream}</>
-  if (parts.length === 1) return <>{body}{stream}</>
-  return <>{parts[0]}{stream}{parts.slice(1)}</>
+  const stream = (slice: typeof sections, offset = 0) => (
+    <UniqueSections d={d} structure={structure} sections={slice} offset={offset} compact={compact} />
+  )
+  if (!parts.length) return stream(sections)
+  if (compact) return <>{parts[0]}{stream(sections)}</>
+
+  // Wrapper layouts (dashboard, docs, catalog, receipt, field notes...) are one
+  // composed child. They still get three page-level placements so the generated
+  // sections do not always land in the same place after the shell.
+  if (parts.length === 1) {
+    if (structure.placement === 2) return <>{stream(sections)}{body}</>
+    if (structure.placement === 3) {
+      return <>{stream(sections.slice(0, 2))}{body}{stream(sections.slice(2), 2)}</>
+    }
+    return <>{body}{stream(sections)}</>
+  }
+
+  const head = parts[0]
+  const rest = parts.slice(1)
+  switch (structure.placement) {
+    case 1:
+      return <>{head}{rest[0]}{stream(sections)}{rest.slice(1)}</>
+    case 2:
+      return <>{head}{rest}{stream(sections)}</>
+    case 3:
+      return <>{head}{stream(sections.slice(0, 2))}{rest}{stream(sections.slice(2), 2)}</>
+    case 4:
+      return <>{head}{[...rest].reverse()}{stream(sections)}</>
+    default:
+      return <>{head}{stream(sections)}{rest}</>
+  }
 }
 
 function UniqueSections({
   d,
   structure,
   sections,
+  offset = 0,
   compact,
 }: {
   d: DesignSystem
   structure: PageStructure
   sections: PageSectionKind[]
+  offset?: number
   compact: boolean
 }) {
   return (
     <div className="dv-usec-stream">
       {sections.map((kind, i) => (
         <UniqueSection
-          key={`${kind}-${i}`}
+          key={`${kind}-${offset + i}`}
           d={d}
           kind={kind}
-          index={i}
-          rhythm={(structure.rhythm + i * 2) % 6}
-          columns={2 + ((structure.columns + i) % 3)}
-          card={(structure.card + i) % 4}
+          index={offset + i}
+          rhythm={(structure.rhythm + (offset + i) * 2) % 6}
+          columns={2 + ((structure.columns + offset + i) % 3)}
+          card={(structure.card + offset + i) % 4}
           compact={compact}
         />
       ))}

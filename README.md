@@ -92,7 +92,8 @@ line built from the design's name and tags.
 `src/designs/structure.ts` is the structural pass. Every design gets its own page DNA:
 
 - an opening arrangement chosen from that design's own arrangement set;
-- one of eight opener variations, plus per-page hero measure and section spacing;
+- one of sixteen opener variations, plus a five-way section placement, a two-way
+  leading-side axis, and per-page hero measure and section spacing;
 - a unique ordered sequence of five sections drawn from eighteen section kinds
   (`18P5 = 1,028,160` sequences, assigned with a bijective permutation walk);
 - page chrome, nav arrangement, footer arrangement, column count, and card treatment;

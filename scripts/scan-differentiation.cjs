@@ -51,7 +51,7 @@ console.log(JSON.stringify(DESIGN_SYSTEMS.map((d) => ({
   structure: d.structure ? d.structure.signature : '',
   openerLayout: d.structure ? d.structure.openerLayout : '',
   topScreen: d.structure
-    ? d.structure.openerLayout + '|o' + d.structure.opener + '|c' + d.structure.chrome + '|n' + d.structure.nav
+    ? d.structure.openerLayout + '|o' + d.structure.opener + '|c' + d.structure.chrome + '|n' + d.structure.nav + '|s' + d.structure.side
     : '',
   sections: d.structure ? d.structure.sections : [],
   radius: d.components.radius,

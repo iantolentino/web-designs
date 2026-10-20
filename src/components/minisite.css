@@ -1872,3 +1872,703 @@
 @container (max-width: 440px) {
   .dv-catalog-grid { grid-template-columns: minmax(0, 1fr) !important; }
 }
+
+/* ===== Expanded opener compositions (8–15) =====
+ * The first eight variations mostly changed alignment and type scale. These
+ * eight change the page's actual composition: split deck, rail, overlap,
+ * bands, numbered index, frame, two-column stream and narrow reading column.
+ * They are desktop-only; mobile keeps the collapsed authored layout.
+ */
+@media (min-width: 721px) {
+
+  /* --- ov8: split deck. Opener sits left, generated sections run beside it. --- */
+  .dv-ov8 .dv-stage { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+  .dv-ov8 .dv-stage > * { flex: 0 0 100%; min-width: 0; }
+  .dv-ov8 .dv-stage > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head, .dv-fn-head,
+    .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero) {
+    flex: 0 0 38%;
+    position: sticky;
+    top: 1em;
+    padding-right: 1.4em;
+  }
+  .dv-ov8 .dv-stage > .dv-usec-stream { flex: 0 0 62%; }
+
+  /* --- ov9: rail. A narrow identity column with the page reading beside it. --- */
+  .dv-ov9 .dv-stage {
+    display: grid;
+    grid-template-columns: minmax(13em, 0.27fr) minmax(0, 1fr);
+    column-gap: 2.4em;
+    align-items: start;
+  }
+  .dv-ov9 .dv-stage > * { grid-column: 1 / -1; min-width: 0; }
+  .dv-ov9 .dv-stage > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head, .dv-fn-head,
+    .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero) {
+    grid-column: 1;
+    position: sticky;
+    top: 1em;
+    padding-right: 1em;
+  }
+  .dv-ov9 .dv-stage > .dv-usec-stream { grid-column: 2; }
+  .dv-ov9 .dv-stage > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head, .dv-fn-head,
+    .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero) :is(h1, .dv-poster-title, .dv-masthead-title) {
+    font-size: clamp(1.9rem, 3.2cqi, 3rem);
+  }
+
+  /* --- ov10: overlap. The first generated section rides up over the opener. --- */
+  .dv-ov10 .dv-stage > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head, .dv-fn-head,
+    .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero) { padding-bottom: 5.4em; }
+  .dv-ov10 .dv-usec-stream { margin-top: -3.6em; position: relative; z-index: 3; }
+  .dv-ov10 .dv-usec:first-child {
+    background: var(--dv-bg);
+    border: 1px solid color-mix(in srgb, var(--dv-text) 22%, transparent);
+    box-shadow: 0 24px 60px color-mix(in srgb, var(--dv-text) 12%, transparent);
+  }
+
+  /* --- ov11: bands. Each generated section becomes a full-width labelled band. --- */
+  .dv-ov11 .dv-usec {
+    border-top: 3px solid var(--dv-primary);
+    background: color-mix(in srgb, var(--dv-primary) 5%, transparent);
+  }
+  .dv-ov11 .dv-usec:nth-child(even) { background: transparent; }
+  .dv-ov11 .dv-usec-inner {
+    max-width: 82em;
+    display: grid;
+    grid-template-columns: minmax(10em, 0.26fr) minmax(0, 1fr);
+    gap: 2em;
+    align-items: start;
+  }
+  .dv-ov11 .dv-usec-head { position: sticky; top: 1em; margin-bottom: 0; }
+
+  /* --- ov12: index. Numbered, dense, editorial index entries. --- */
+  .dv-ov12 .dv-usec-stream { counter-reset: dvindex; }
+  .dv-ov12 .dv-usec {
+    counter-increment: dvindex;
+    display: grid;
+    grid-template-columns: 2.6em minmax(0, 1fr);
+    gap: 1em;
+    padding: 2.2em 2em;
+    border-top: 1px solid color-mix(in srgb, var(--dv-text) 20%, transparent);
+  }
+  .dv-ov12 .dv-usec::before {
+    content: counter(dvindex, decimal-leading-zero);
+    font-family: var(--dv-display);
+    font-size: 0.9em;
+    color: var(--dv-primary);
+    padding-top: 0.35em;
+  }
+  .dv-ov12 .dv-usec-inner {
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(9em, 0.24fr) minmax(0, 1fr);
+    gap: 1.6em;
+  }
+  .dv-ov12 .dv-usec-head { margin: 0; }
+  .dv-ov12 .dv-stage > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head, .dv-fn-head,
+    .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero) :is(h1, .dv-poster-title, .dv-masthead-title) {
+    font-size: clamp(2rem, 4.4cqi, 3.6rem);
+  }
+
+  /* --- ov13: frame. The page becomes an inset, ruled gallery object. --- */
+  .dv-ov13 .dv-stage {
+    margin: 1.1em;
+    border: 2px solid var(--dv-text);
+    background: var(--dv-bg);
+    box-shadow: 8px 8px 0 color-mix(in srgb, var(--dv-primary) 28%, transparent);
+  }
+  .dv-ov13 .dv-nav { border-bottom: 2px solid var(--dv-text); }
+  .dv-ov13 .dv-usec { padding: 2.6em 2.2em; }
+  .dv-ov13 .dv-usec-inner { border: 1px solid color-mix(in srgb, var(--dv-text) 18%, transparent); padding: 1.4em; }
+  .dv-ov13 .dv-stage > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head, .dv-fn-head,
+    .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero) { border-bottom: 2px solid var(--dv-text); }
+
+  /* --- ov14: columns. The generated stream becomes a two-column spread. --- */
+  .dv-ov14 .dv-usec-stream {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: color-mix(in srgb, var(--dv-text) 18%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--dv-text) 18%, transparent);
+  }
+  .dv-ov14 .dv-usec { border-top: 0; background: var(--dv-bg); }
+  .dv-ov14 .dv-usec-inner { display: block; max-width: none; }
+  .dv-ov14 .dv-usec-head { margin-bottom: 1em; }
+
+  /* --- ov15: inset reading column. --- */
+  .dv-ov15 .dv-stage { max-width: 49em; margin-inline: auto; }
+  .dv-ov15 .dv-usec { padding: 2.4em 1.6em; }
+  .dv-ov15 .dv-usec-inner { max-width: 43em; }
+  .dv-ov15 .dv-stage > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head, .dv-fn-head,
+    .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero) { padding-inline: 1.8em; }
+
+  /* ===== Family-specific compositions ===== */
+
+  /* Hero + cards: no extra rules needed beyond the stage modes, but the card
+   * grid follows the host composition instead of always staying three-up. */
+  .dv-ol-hero-cards.dv-ov11 .dv-cards { grid-template-columns: 1fr; }
+  .dv-ol-hero-cards.dv-ov12 .dv-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-ol-hero-cards.dv-ov15 .dv-cards { grid-template-columns: 1fr; }
+
+  /* Split hero: alternate which side leads and how the visual is framed. */
+  .dv-ol-split-hero.dv-ov8 .dv-split { grid-template-columns: 0.78fr 1.22fr; gap: 2em; }
+  .dv-ol-split-hero.dv-ov9 .dv-split { grid-template-columns: 1fr; }
+  .dv-ol-split-hero.dv-ov9 .dv-split-visual { order: -1; }
+  .dv-ol-split-hero.dv-ov10 .dv-split-visual { margin-top: -2em; transform: scale(1.04); }
+  .dv-ol-split-hero.dv-ov11 .dv-split { border-block: 3px solid var(--dv-primary); }
+  .dv-ol-split-hero.dv-ov12 .dv-split { grid-template-columns: 1fr; }
+  .dv-ol-split-hero.dv-ov14 .dv-split { grid-template-columns: 0.9fr 1.1fr; }
+  .dv-ol-split-hero.dv-ov15 .dv-split { grid-template-columns: 1fr; }
+
+  /* Magazine: cover, newspaper, feature overlap, article rows, index. */
+  .dv-ol-magazine.dv-ov8 .dv-masthead { text-align: left; }
+  .dv-ol-magazine.dv-ov8 .dv-masthead-rule { margin-inline: 0; }
+  .dv-ol-magazine.dv-ov8 .dv-grid-3 { grid-template-columns: 1fr; gap: 1.2em; }
+  .dv-ol-magazine.dv-ov8 .dv-article {
+    display: grid;
+    grid-template-columns: 12em 1fr;
+    gap: 1.4em;
+    align-items: baseline;
+    border-top: 1px solid color-mix(in srgb, var(--dv-text) 18%, transparent);
+    padding-top: 1em;
+  }
+  .dv-ol-magazine.dv-ov8 .dv-article > :is(h3, p, .dv-link) { grid-column: 2; }
+  .dv-ol-magazine.dv-ov8 .dv-article .dv-badge { grid-column: 1; grid-row: 1 / span 3; justify-self: start; }
+  .dv-ol-magazine.dv-ov9 .dv-grid-3 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2em; }
+  .dv-ol-magazine.dv-ov10 .dv-feature-row {
+    margin-top: -3.4em;
+    position: relative;
+    z-index: 2;
+    background: var(--dv-bg);
+  }
+  .dv-ol-magazine.dv-ov11 .dv-grid-3 { display: flex; flex-direction: column; gap: 0; }
+  .dv-ol-magazine.dv-ov11 .dv-article { border-top: 1px solid color-mix(in srgb, var(--dv-text) 18%, transparent); padding: 1.2em 0; }
+  .dv-ol-magazine.dv-ov12 .dv-masthead-title { font-size: clamp(2rem, 4.2cqi, 3.4rem); }
+  .dv-ol-magazine.dv-ov12 .dv-grid-3 { grid-template-columns: 1fr 1fr; }
+  .dv-ol-magazine.dv-ov14 .dv-grid-3 { grid-template-columns: 1fr 1fr; }
+  .dv-ol-magazine.dv-ov15 .dv-grid-3 { grid-template-columns: 1fr; }
+
+  /* Spotlight: split, rail, oversized object, inline object, object grid. */
+  .dv-ol-spotlight.dv-ov8 .dv-spotlight,
+  .dv-ol-spotlight.dv-ov9 .dv-spotlight,
+  .dv-ol-spotlight.dv-ov14 .dv-spotlight {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 2em;
+    align-items: center;
+  }
+  .dv-ol-spotlight.dv-ov8 .dv-spotlight-stage,
+  .dv-ol-spotlight.dv-ov9 .dv-spotlight-stage,
+  .dv-ol-spotlight.dv-ov14 .dv-spotlight-stage { grid-column: 1; grid-row: 1; }
+  .dv-ol-spotlight.dv-ov8 .dv-spotlight-caption,
+  .dv-ol-spotlight.dv-ov9 .dv-spotlight-caption,
+  .dv-ol-spotlight.dv-ov14 .dv-spotlight-caption {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: left;
+    align-items: flex-start;
+    padding: 0;
+  }
+  .dv-ol-spotlight.dv-ov9 .dv-spotlight { grid-template-columns: 0.42fr 1fr; }
+  .dv-ol-spotlight.dv-ov9 .dv-spotlight-object { width: 8em; height: 8em; }
+  .dv-ol-spotlight.dv-ov10 .dv-spotlight-object { width: 16em; height: 16em; }
+  .dv-ol-spotlight.dv-ov10 .dv-spotlight-caption { margin-top: -3.4em; }
+  .dv-ol-spotlight.dv-ov11 .dv-spotlight {
+    display: grid;
+    grid-template-columns: 0.45fr 1fr;
+    gap: 2em;
+    align-items: center;
+  }
+  .dv-ol-spotlight.dv-ov11 .dv-spotlight-stage { grid-row: span 2; }
+  .dv-ol-spotlight.dv-ov11 .dv-spotlight-caption { text-align: left; align-items: flex-start; padding: 0; }
+  .dv-ol-spotlight.dv-ov11 .dv-spotlight-row { grid-template-columns: 1fr; }
+  .dv-ol-spotlight.dv-ov12 .dv-spotlight { display: flex; flex-direction: row; align-items: flex-start; gap: 2em; }
+  .dv-ol-spotlight.dv-ov12 .dv-spotlight-stage { padding: 0; }
+  .dv-ol-spotlight.dv-ov12 .dv-spotlight-object { width: 6em; height: 6em; }
+  .dv-ol-spotlight.dv-ov12 .dv-spotlight-caption { text-align: left; align-items: flex-start; padding: 0; }
+  .dv-ol-spotlight.dv-ov12 .dv-spotlight-row { grid-template-columns: 1fr; }
+  .dv-ol-spotlight.dv-ov15 .dv-spotlight-object { width: 7em; height: 7em; }
+
+  /* Bento: head rail, head overlay, single-column bands, dense grid. */
+  .dv-ol-bento.dv-ov8 .dv-bento,
+  .dv-ol-bento.dv-ov9 .dv-bento {
+    display: grid;
+    grid-template-columns: 0.62fr 1.38fr;
+    gap: 2em;
+    align-items: start;
+  }
+  .dv-ol-bento.dv-ov9 .dv-bento { grid-template-columns: 0.45fr 1.55fr; }
+  .dv-ol-bento.dv-ov8 .dv-bento-head,
+  .dv-ol-bento.dv-ov9 .dv-bento-head { grid-column: 1; position: sticky; top: 1em; margin-bottom: 0; }
+  .dv-ol-bento.dv-ov8 .dv-bento-grid,
+  .dv-ol-bento.dv-ov9 .dv-bento-grid { grid-column: 2; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-ol-bento.dv-ov10 .dv-bento-head { position: relative; z-index: 2; background: var(--dv-bg); }
+  .dv-ol-bento.dv-ov10 .dv-bento-grid { margin-top: -2em; }
+  .dv-ol-bento.dv-ov11 .dv-bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .dv-ol-bento.dv-ov11 .dv-bento-tile { min-height: 8em; }
+  .dv-ol-bento.dv-ov11 :is(.dv-bento-tile-lg, .dv-bento-tile-stat, .dv-bento-tile-wide) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .dv-ol-bento.dv-ov12 .dv-bento-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dv-ol-bento.dv-ov14 .dv-bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-ol-bento.dv-ov15 .dv-bento { max-width: 44em; }
+
+  /* Timeline: horizontal roll, single ledger, compact index. */
+  .dv-ol-timeline.dv-ov8 .dv-tl {
+    display: flex;
+    gap: 1em;
+    overflow-x: auto;
+    padding-bottom: 2em;
+  }
+  .dv-ol-timeline.dv-ov8 .dv-tl::before { display: none; }
+  .dv-ol-timeline.dv-ov8 .dv-tl-entry { flex: 0 0 18em; display: block; padding: 0; }
+  .dv-ol-timeline.dv-ov8 .dv-tl-node { display: none; }
+  .dv-ol-timeline.dv-ov8 :is(.dv-tl-left, .dv-tl-right) .dv-tl-card { text-align: left; }
+  .dv-ol-timeline.dv-ov9 .dv-tl { max-width: none; }
+  .dv-ol-timeline.dv-ov9 .dv-tl::before { left: 0.4em; }
+  .dv-ol-timeline.dv-ov9 .dv-tl-entry { grid-template-columns: 1fr; padding-left: 1.6em; }
+  .dv-ol-timeline.dv-ov9 .dv-tl-node { left: 0.4em; }
+  .dv-ol-timeline.dv-ov9 :is(.dv-tl-left, .dv-tl-right) .dv-tl-card { grid-column: 1; text-align: left; }
+  .dv-ol-timeline.dv-ov11 .dv-tl-entry { border-top: 3px solid var(--dv-primary); padding-top: 1em; }
+  .dv-ol-timeline.dv-ov12 .dv-tl { max-width: 54em; }
+  .dv-ol-timeline.dv-ov12 .dv-tl-entry { grid-template-columns: 5em 1fr; gap: 1em; }
+  .dv-ol-timeline.dv-ov12 .dv-tl-node { display: none; }
+  .dv-ol-timeline.dv-ov12:hover .dv-tl-node { display: none; }
+  .dv-ol-timeline.dv-ov12 :is(.dv-tl-left, .dv-tl-right) .dv-tl-card { grid-column: 2; text-align: left; }
+  .dv-ol-timeline.dv-ov15 .dv-tl { max-width: 42em; }
+
+  /* Manifesto and poster: split thesis, margin notes, and index variants. */
+  .dv-ol-manifesto.dv-ov8 .dv-manifesto {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2.4em;
+  }
+  .dv-ol-manifesto.dv-ov8 .dv-manifesto-lines { grid-column: 1; }
+  .dv-ol-manifesto.dv-ov8 .dv-manifesto-sign { grid-column: 2; align-self: end; }
+  .dv-ol-manifesto.dv-ov11 .dv-manifesto-proof { justify-content: flex-start; gap: 1.6em; }
+  .dv-ol-manifesto.dv-ov12 .dv-manifesto-line { font-size: clamp(1.2rem, 2.4cqi, 1.8rem); }
+  .dv-ol-manifesto.dv-ov14 .dv-manifesto { max-width: 76em; }
+  .dv-ol-manifesto.dv-ov15 .dv-manifesto { max-width: 42em; }
+  .dv-ol-poster.dv-ov8 .dv-poster {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 1.6em;
+    align-items: start;
+  }
+  .dv-ol-poster.dv-ov8 .dv-poster-title { grid-column: 1; }
+  .dv-ol-poster.dv-ov8 .dv-poster-meta { grid-column: 2; align-self: start; }
+  .dv-ol-poster.dv-ov8 .dv-poster-cta { grid-column: 2; }
+  .dv-ol-poster.dv-ov9 .dv-poster { padding-top: 2em; }
+  .dv-ol-poster.dv-ov11 .dv-poster-list { columns: 2; column-gap: 2.4em; }
+  .dv-ol-poster.dv-ov11 .dv-poster-row { break-inside: avoid; }
+  .dv-ol-poster.dv-ov12 .dv-poster-title { font-size: clamp(2.2rem, 5.6cqi, 4rem); }
+  .dv-ol-poster.dv-ov15 .dv-poster { max-width: 40em; }
+
+  /* Catalog: filter topbar, narrow rail, feature tile, list rows, dense grid. */
+  .dv-ol-catalog.dv-ov8 .dv-catalog { grid-template-columns: 1fr; }
+  .dv-ol-catalog.dv-ov8 .dv-catalog-rail {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    position: static;
+    width: auto;
+    gap: 0.4em;
+  }
+  .dv-ol-catalog.dv-ov8 .dv-catalog-rail .dv-label { display: none; }
+  .dv-ol-catalog.dv-ov8 .dv-catalog-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .dv-ol-catalog.dv-ov9 .dv-catalog { grid-template-columns: 8em minmax(0, 1fr); }
+  .dv-ol-catalog.dv-ov9 .dv-catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-ol-catalog.dv-ov10 .dv-catalog-item:first-child { grid-column: span 2; grid-row: span 2; }
+  .dv-ol-catalog.dv-ov10 .dv-catalog-item:first-child .dv-catalog-media { min-height: 17em; }
+  .dv-ol-catalog.dv-ov11 .dv-catalog-grid { grid-template-columns: 1fr; }
+  .dv-ol-catalog.dv-ov11 .dv-catalog-item { flex-direction: row; align-items: center; gap: 1em; }
+  .dv-ol-catalog.dv-ov11 .dv-catalog-media { width: 28%; flex: 0 0 28%; min-height: 5em; }
+  .dv-ol-catalog.dv-ov12 .dv-catalog-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .dv-ol-catalog.dv-ov14 .dv-catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-ol-catalog.dv-ov15 .dv-catalog { max-width: 48em; }
+
+  /* Dashboard: topbar, split analytics, dense console, narrow shell. */
+  .dv-ol-dashboard.dv-ov8 .dv-dash { display: flex; flex-direction: column; }
+  .dv-ol-dashboard.dv-ov8 .dv-dash-side {
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: static;
+    align-items: center;
+    gap: 0.35em;
+  }
+  .dv-ol-dashboard.dv-ov8 .dv-dash-logo { margin: 0 0.8em 0 0; }
+  .dv-ol-dashboard.dv-ov9 .dv-dash-main {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1em;
+    align-items: start;
+  }
+  .dv-ol-dashboard.dv-ov9 .dv-dash-head,
+  .dv-ol-dashboard.dv-ov9 .dv-kpi-row,
+  .dv-ol-dashboard.dv-ov9 .dv-dash-extra { grid-column: 1 / -1; }
+  .dv-ol-dashboard.dv-ov10 .dv-kpi-row { margin-bottom: -2em; position: relative; z-index: 2; }
+  .dv-ol-dashboard.dv-ov10 .dv-chart-card { margin-top: 2em; }
+  .dv-ol-dashboard.dv-ov11 .dv-kpi-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .dv-ol-dashboard.dv-ov11 .dv-chart-card { border-top: 3px solid var(--dv-primary); }
+  .dv-ol-dashboard.dv-ov12 .dv-dash { grid-template-columns: 8em minmax(0, 1fr); }
+  .dv-ol-dashboard.dv-ov12 .dv-kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-ol-dashboard.dv-ov12 .dv-dash-main { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+  .dv-ol-dashboard.dv-ov12 .dv-dash-head,
+  .dv-ol-dashboard.dv-ov12 .dv-kpi-row,
+  .dv-ol-dashboard.dv-ov12 .dv-dash-extra { grid-column: 1 / -1; }
+  .dv-ol-dashboard.dv-ov14 .dv-dash { grid-template-columns: 1fr; }
+  .dv-ol-dashboard.dv-ov14 .dv-dash-side { flex-direction: row; flex-wrap: wrap; position: static; }
+  .dv-ol-dashboard.dv-ov14 .dv-dash-main { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+  .dv-ol-dashboard.dv-ov14 .dv-dash-head,
+  .dv-ol-dashboard.dv-ov14 .dv-kpi-row,
+  .dv-ol-dashboard.dv-ov14 .dv-dash-extra { grid-column: 1 / -1; }
+  .dv-ol-dashboard.dv-ov15 .dv-dash { grid-template-columns: 1fr; max-width: 44em; }
+  .dv-ol-dashboard.dv-ov15 .dv-dash-side { flex-direction: row; flex-wrap: wrap; position: static; }
+  .dv-ol-dashboard.dv-ov15 .dv-kpi-row { grid-template-columns: 1fr 1fr; }
+
+  /* Docs: tree on top, tree-only rail, article bands, compact manual. */
+  .dv-ol-docs.dv-ov8 .dv-docs { grid-template-columns: 1fr; }
+  .dv-ol-docs.dv-ov8 .dv-docs-tree { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 0.4em; }
+  .dv-ol-docs.dv-ov8 .dv-docs-tree .dv-docs-group { flex-direction: row; flex-wrap: wrap; }
+  .dv-ol-docs.dv-ov8 .dv-docs-toc { display: none; }
+  .dv-ol-docs.dv-ov9 .dv-docs { grid-template-columns: 160px minmax(0, 1fr); }
+  .dv-ol-docs.dv-ov9 .dv-docs-toc { display: none; }
+  .dv-ol-docs.dv-ov10 .dv-docs { grid-template-columns: 1fr; }
+  .dv-ol-docs.dv-ov10 .dv-docs-tree { flex-direction: row; flex-wrap: wrap; }
+  .dv-ol-docs.dv-ov10 .dv-docs-toc { flex-direction: row; flex-wrap: wrap; position: static; }
+  .dv-ol-docs.dv-ov11 .dv-docs-article { border-left: 3px solid var(--dv-primary); padding-left: 1.6em; }
+  .dv-ol-docs.dv-ov12 .dv-docs { grid-template-columns: 140px minmax(0, 1fr) 120px; gap: 1.2em; }
+  .dv-ol-docs.dv-ov14 .dv-docs { grid-template-columns: 160px minmax(0, 1fr); }
+  .dv-ol-docs.dv-ov14 .dv-docs-toc { display: none; }
+  .dv-ol-docs.dv-ov15 .dv-docs { max-width: 48em; grid-template-columns: 1fr; }
+  .dv-ol-docs.dv-ov15 .dv-docs-tree,
+  .dv-ol-docs.dv-ov15 .dv-docs-toc { display: none; }
+
+  /* Field notes: head rail, split spread, compact ledger. */
+  .dv-ol-field-notes.dv-ov8 .dv-fn,
+  .dv-ol-field-notes.dv-ov9 .dv-fn {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 2em;
+  }
+  .dv-ol-field-notes.dv-ov9 .dv-fn { grid-template-columns: 0.45fr 1.55fr; }
+  .dv-ol-field-notes.dv-ov8 .dv-fn-head,
+  .dv-ol-field-notes.dv-ov9 .dv-fn-head { grid-column: 1; }
+  .dv-ol-field-notes.dv-ov8 .dv-fn-spread,
+  .dv-ol-field-notes.dv-ov9 .dv-fn-spread { grid-column: 2; }
+  .dv-ol-field-notes.dv-ov10 .dv-fn-margin { margin-top: -2em; }
+  .dv-ol-field-notes.dv-ov12 .dv-fn-spread { grid-template-columns: minmax(0, 1fr) 180px; }
+  .dv-ol-field-notes.dv-ov15 .dv-fn { max-width: 44em; }
+
+  /* Receipt: reverse, stacked, narrow. */
+  .dv-ol-receipt.dv-ov8 .dv-receipt { grid-template-columns: 1.1fr 0.9fr; }
+  .dv-ol-receipt.dv-ov8 .dv-receipt-side { order: -1; }
+  .dv-ol-receipt.dv-ov9 .dv-receipt { grid-template-columns: 1fr; }
+  .dv-ol-receipt.dv-ov9 .dv-receipt-side { order: -1; }
+  .dv-ol-receipt.dv-ov12 .dv-receipt { grid-template-columns: minmax(0, 340px); justify-content: center; }
+  .dv-ol-receipt.dv-ov15 .dv-receipt { max-width: 40em; }
+
+  /* Split scroll: rail on top, rail left, narrow column. */
+  .dv-ol-split-scroll.dv-ov8 .dv-ss { grid-template-columns: 1fr; }
+  .dv-ol-split-scroll.dv-ov8 .dv-ss-rail { position: static; border-right: 0; border-bottom: 1px solid; padding-bottom: 1.4em; }
+  .dv-ol-split-scroll.dv-ov12 .dv-ss { grid-template-columns: 14em minmax(0, 1fr); }
+  .dv-ol-split-scroll.dv-ov15 .dv-ss { max-width: 46em; grid-template-columns: 1fr; }
+  .dv-ol-split-scroll.dv-ov15 .dv-ss-rail { position: static; border-right: 0; border-bottom: 1px solid; }
+
+  /* Editorial: wide head, columns, overlap. */
+  .dv-ol-editorial.dv-ov8 .dv-ed-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+    align-items: end;
+  }
+  .dv-ol-editorial.dv-ov8 .dv-ed-body { columns: 2; column-gap: 2.4em; }
+  .dv-ol-editorial.dv-ov10 .dv-ed-body { margin-top: -2em; background: var(--dv-bg); position: relative; z-index: 2; }
+  .dv-ol-editorial.dv-ov12 .dv-ed-body { columns: 2; column-gap: 2.4em; }
+  .dv-ol-editorial.dv-ov14 .dv-ed-body { columns: 2; column-gap: 2.4em; }
+  .dv-ol-editorial.dv-ov15 .dv-ed-body { max-width: 38em; }
+
+  /* Centered / full bleed / asymmetric: break the centered stack. */
+  .dv-ol-centered.dv-ov8 .dv-hero-centered,
+  .dv-ol-full-bleed.dv-ov8 .dv-bleed-hero,
+  .dv-ol-asymmetric.dv-ov8 .dv-asym-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2em;
+    align-items: end;
+    text-align: left;
+  }
+  .dv-ol-centered.dv-ov8 .dv-hero-centered :is(.dv-sub, .dv-cta-row, .dv-mini-note),
+  .dv-ol-full-bleed.dv-ov8 .dv-bleed-hero :is(.dv-sub, .dv-cta-row),
+  .dv-ol-asymmetric.dv-ov8 .dv-asym-main :is(.dv-sub, .dv-cta-row) { grid-column: 2; }
+  .dv-ol-centered.dv-ov8 .dv-orb { grid-column: 1; grid-row: 1 / span 4; width: 12em; height: 12em; }
+  .dv-ol-centered.dv-ov12 .dv-steps { grid-template-columns: 1fr; }
+  .dv-ol-centered.dv-ov12 .dv-step { border-top: 1px solid color-mix(in srgb, var(--dv-text) 18%, transparent); padding-top: 1em; }
+  .dv-ol-full-bleed.dv-ov10 .dv-bleed-hero { padding-block: 7em; }
+  .dv-ol-asymmetric.dv-ov9 .dv-asym-hero { grid-template-columns: 1fr; }
+  .dv-ol-asymmetric.dv-ov12 .dv-asym-feature { grid-template-columns: 1fr 1fr; }
+  .dv-ol-asymmetric.dv-ov15 .dv-asym-feature { grid-template-columns: 1fr; }
+
+  /* Mosaic: crop, rail, dense, narrow. */
+  .dv-ol-mosaic.dv-ov8 .dv-mosaic { grid-template-columns: 1.4fr 1fr; }
+  .dv-ol-mosaic.dv-ov9 .dv-mosaic { grid-template-columns: 1fr; }
+  .dv-ol-mosaic.dv-ov9 .dv-mos-lead { position: sticky; top: 1em; }
+  .dv-ol-mosaic.dv-ov12 .dv-mosaic { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dv-ol-mosaic.dv-ov15 .dv-mosaic { max-width: 44em; }
+
+  /* Film strip: horizontal roll is the authored shape; alternate the notes. */
+  .dv-ol-film-strip.dv-ov8 .dv-fs-frames { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-ol-film-strip.dv-ov12 .dv-fs-notes { grid-template-columns: 1fr; }
+  .dv-ol-film-strip.dv-ov15 .dv-fs-frames { grid-template-columns: 1fr; }
+
+  /* Map plate: rail, wide plate, compact index. */
+  .dv-ol-map-plate.dv-ov8 .dv-map { grid-template-columns: 1fr; }
+  .dv-ol-map-plate.dv-ov9 .dv-map { grid-template-columns: 1fr 1fr; }
+  .dv-ol-map-plate.dv-ov12 .dv-map-row { grid-template-columns: 1fr 1fr; }
+  .dv-ol-map-plate.dv-ov15 .dv-map { max-width: 44em; }
+}
+
+
+/* ===== Second pass: strengthen old opener modes and wrapper alignment ===== */
+@media (min-width: 721px) {
+  /* Spotlight originally only had a centered opening. Give every old mode a
+   * different object/caption relationship so spotlight pages stop reading as
+   * the same orb-with-text page in a new palette. */
+  .dv-ol-spotlight.dv-ov1 .dv-spotlight {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: 2em;
+    align-items: center;
+  }
+  .dv-ol-spotlight.dv-ov1 .dv-spotlight-stage { grid-column: 1; grid-row: 1; padding: 0; }
+  .dv-ol-spotlight.dv-ov1 .dv-spotlight-caption {
+    grid-column: 2; grid-row: 1; text-align: left; align-items: flex-start; padding: 0;
+  }
+  .dv-ol-spotlight.dv-ov1 .dv-spotlight-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .dv-ol-spotlight.dv-ov2 .dv-spotlight {
+    display: grid;
+    grid-template-columns: 1.18fr 0.82fr;
+    gap: 2em;
+    align-items: center;
+  }
+  .dv-ol-spotlight.dv-ov2 .dv-spotlight-stage { grid-column: 2; grid-row: 1; padding: 0; }
+  .dv-ol-spotlight.dv-ov2 .dv-spotlight-caption {
+    grid-column: 1; grid-row: 1; text-align: left; align-items: flex-start; padding: 0;
+  }
+  .dv-ol-spotlight.dv-ov2 .dv-spotlight-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .dv-ol-spotlight.dv-ov3 .dv-spotlight { display: block; padding: 0; }
+  .dv-ol-spotlight.dv-ov3 .dv-spotlight-stage { display: block; padding: 0; width: 100%; }
+  .dv-ol-spotlight.dv-ov3 .dv-spotlight-object {
+    width: 100%; height: 15em; border-radius: var(--dv-r);
+  }
+  .dv-ol-spotlight.dv-ov3 .dv-spotlight-caption {
+    display: block; text-align: left; align-items: flex-start; padding: 1.8em 0 0;
+    max-width: 60em;
+  }
+  .dv-ol-spotlight.dv-ov3 .dv-spotlight-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .dv-ol-spotlight.dv-ov4 .dv-spotlight {
+    display: flex; align-items: flex-start; gap: 1.6em; padding: 2em;
+  }
+  .dv-ol-spotlight.dv-ov4 .dv-spotlight-stage { padding: 0; }
+  .dv-ol-spotlight.dv-ov4 .dv-spotlight-object { width: 6em; height: 6em; }
+  .dv-ol-spotlight.dv-ov4 .dv-spotlight-caption {
+    text-align: left; align-items: flex-start; padding: 0;
+  }
+  .dv-ol-spotlight.dv-ov4 .dv-spotlight-row { grid-template-columns: 1fr; }
+
+  .dv-ol-spotlight.dv-ov5 .dv-spotlight {
+    display: grid; grid-template-columns: 0.3fr 1fr; gap: 2em; align-items: center;
+  }
+  .dv-ol-spotlight.dv-ov5 .dv-spotlight-stage { grid-column: 1; grid-row: 1; padding: 0; }
+  .dv-ol-spotlight.dv-ov5 .dv-spotlight-caption {
+    grid-column: 2; grid-row: 1; text-align: left; align-items: flex-start; padding: 0;
+  }
+  .dv-ol-spotlight.dv-ov5 .dv-spotlight-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .dv-ol-spotlight.dv-ov6 .dv-spotlight { position: relative; display: block; min-height: 25em; padding: 0; overflow: hidden; }
+  .dv-ol-spotlight.dv-ov6 .dv-spotlight-stage { position: absolute; inset: 0; padding: 0; }
+  .dv-ol-spotlight.dv-ov6 .dv-spotlight-object { width: 100%; height: 100%; border-radius: 0; opacity: 0.9; }
+  .dv-ol-spotlight.dv-ov6 .dv-spotlight-caption {
+    position: relative; z-index: 2; display: flex; min-height: 25em;
+    justify-content: flex-end; text-align: left; align-items: flex-start;
+    padding: 14em 2em 2em; background: linear-gradient(180deg, transparent 25%, var(--dv-bg) 82%);
+  }
+
+  .dv-ol-spotlight.dv-ov7 .dv-spotlight {
+    display: grid; grid-template-columns: 1fr 0.35fr; gap: 2em; align-items: center;
+  }
+  .dv-ol-spotlight.dv-ov7 .dv-spotlight-stage { grid-column: 2; grid-row: 1; padding: 0; }
+  .dv-ol-spotlight.dv-ov7 .dv-spotlight-caption {
+    grid-column: 1; grid-row: 1; text-align: left; align-items: flex-start; padding: 0;
+  }
+  .dv-ol-spotlight.dv-ov7 .dv-spotlight-row { grid-template-columns: 1fr; }
+
+  /* Wrapper layouts keep their own shell, so the generated stream should align
+   * with that shell instead of becoming a narrow leftover column. */
+  .dv-ol-dashboard.dv-ov8 .dv-usec-stream,
+  .dv-ol-catalog.dv-ov8 .dv-usec-stream,
+  .dv-ol-docs.dv-ov8 .dv-usec-stream,
+  .dv-ol-field-notes.dv-ov8 .dv-usec-stream,
+  .dv-ol-receipt.dv-ov8 .dv-usec-stream,
+  .dv-ol-split-scroll.dv-ov8 .dv-usec-stream,
+  .dv-ol-dashboard.dv-ov9 .dv-usec-stream,
+  .dv-ol-catalog.dv-ov9 .dv-usec-stream,
+  .dv-ol-docs.dv-ov9 .dv-usec-stream,
+  .dv-ol-field-notes.dv-ov9 .dv-usec-stream,
+  .dv-ol-receipt.dv-ov9 .dv-usec-stream,
+  .dv-ol-split-scroll.dv-ov9 .dv-usec-stream {
+    flex: 0 0 100%;
+    grid-column: 1 / -1;
+    max-width: 76em;
+    margin-inline: auto;
+  }
+
+  /* Frame: make it a real inset object instead of a 2px hairline. */
+  .dv-ov13 .dv-stage {
+    margin: 1.4em;
+    border: 3px solid var(--dv-text);
+    padding: 1.2em;
+    background: color-mix(in srgb, var(--dv-primary) 5%, var(--dv-bg));
+    box-shadow: 0 0 0 1px var(--dv-bg), 0 0 0 4px var(--dv-primary),
+      12px 12px 0 color-mix(in srgb, var(--dv-primary) 24%, transparent);
+  }
+  .dv-ov13 .dv-nav { border-bottom: 2px solid var(--dv-text); }
+
+  /* Inset: give the narrow reading column visible paper edges. */
+  .dv-ov15 .dv-stage {
+    max-width: 52em;
+    margin-inline: auto;
+    padding-inline: 1.2em;
+    border-inline: 1px solid color-mix(in srgb, var(--dv-text) 20%, transparent);
+    background: var(--dv-bg);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--dv-bg) 88%, transparent),
+      0 26px 80px color-mix(in srgb, var(--dv-text) 12%, transparent);
+  }
+  .dv-ol-dashboard.dv-ov15 .dv-dash,
+  .dv-ol-catalog.dv-ov15 .dv-catalog,
+  .dv-ol-docs.dv-ov15 .dv-docs,
+  .dv-ol-field-notes.dv-ov15 .dv-fn,
+  .dv-ol-receipt.dv-ov15 .dv-receipt,
+  .dv-ol-split-scroll.dv-ov15 .dv-ss { margin-inline: auto; }
+}
+
+/* ===== Per-page geometry for shared composition modes ===== */
+@media (min-width: 721px) {
+  .dv-ov8 .dv-stage > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head, .dv-fn-head,
+    .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero) { flex-basis: var(--dv-split); }
+  .dv-ov8 .dv-stage > .dv-usec-stream { flex-basis: calc(100% - var(--dv-split)); }
+
+  .dv-ov9 .dv-stage { grid-template-columns: minmax(13em, var(--dv-rail)) minmax(0, 1fr); }
+
+  .dv-ov10 .dv-usec-stream { margin-top: var(--dv-overlap); }
+
+  .dv-ov11 .dv-usec-inner { grid-template-columns: minmax(10em, var(--dv-band)) minmax(0, 1fr); }
+
+  .dv-ov13 .dv-stage { margin: var(--dv-frame); padding: calc(var(--dv-frame) * 0.8); }
+
+  .dv-ov14 .dv-usec-stream { grid-template-columns: var(--dv-col-a)fr var(--dv-col-b)fr; }
+
+  .dv-ov15 .dv-stage { max-width: var(--dv-measure); }
+
+  .dv-ol-spotlight.dv-ov1 .dv-spotlight { grid-template-columns: var(--dv-col-a)fr var(--dv-col-b)fr; }
+  .dv-ol-spotlight.dv-ov2 .dv-spotlight { grid-template-columns: var(--dv-col-b)fr var(--dv-col-a)fr; }
+  .dv-ol-spotlight.dv-ov5 .dv-spotlight { grid-template-columns: calc(var(--dv-col-a) * 0.55)fr minmax(0, 1fr); }
+}
+
+/* ===== Side variants: same composition, opposite leading side ===== */
+@media (min-width: 721px) {
+  .dv-side1.dv-ov8 .dv-stage.dv-direct > * { order: 4; }
+  .dv-side1.dv-ov8 .dv-stage.dv-direct > .dv-nav,
+  .dv-side1.dv-ov8 .dv-stage.dv-direct > .dv-layout-bar { order: 0; }
+  .dv-side1.dv-ov8 .dv-stage.dv-direct > .dv-usec-stream { order: 2; }
+  .dv-side1.dv-ov8 .dv-stage.dv-direct > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head,
+    .dv-fn-head, .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero, .dv-hero-centered,
+    .dv-spotlight, .dv-split, .dv-asym-hero, .dv-mosaic) { order: 3; }
+
+  .dv-side1.dv-ov9 .dv-stage.dv-direct {
+    grid-template-columns: minmax(0, 1fr) minmax(13em, var(--dv-rail));
+  }
+  .dv-side1.dv-ov9 .dv-stage.dv-direct > :is(.dv-hero, .dv-masthead, .dv-tl-head, .dv-fs-head,
+    .dv-fn-head, .dv-ed-head, .dv-poster, .dv-manifesto, .dv-bleed-hero, .dv-hero-centered,
+    .dv-spotlight, .dv-split, .dv-asym-hero, .dv-mosaic) { grid-column: 2; }
+  .dv-side1.dv-ov9 .dv-stage.dv-direct > .dv-usec-stream { grid-column: 1; }
+
+  /* Spotlight side swaps */
+  .dv-side1.dv-ol-spotlight.dv-ov1 .dv-spotlight-stage,
+  .dv-side1.dv-ol-spotlight.dv-ov5 .dv-spotlight-stage,
+  .dv-side1.dv-ol-spotlight.dv-ov8 .dv-spotlight-stage,
+  .dv-side1.dv-ol-spotlight.dv-ov9 .dv-spotlight-stage,
+  .dv-side1.dv-ol-spotlight.dv-ov14 .dv-spotlight-stage { grid-column: 2; }
+  .dv-side1.dv-ol-spotlight.dv-ov1 .dv-spotlight-caption,
+  .dv-side1.dv-ol-spotlight.dv-ov5 .dv-spotlight-caption,
+  .dv-side1.dv-ol-spotlight.dv-ov8 .dv-spotlight-caption,
+  .dv-side1.dv-ol-spotlight.dv-ov9 .dv-spotlight-caption,
+  .dv-side1.dv-ol-spotlight.dv-ov14 .dv-spotlight-caption { grid-column: 1; }
+
+  .dv-side1.dv-ol-spotlight.dv-ov2 .dv-spotlight-stage,
+  .dv-side1.dv-ol-spotlight.dv-ov7 .dv-spotlight-stage { grid-column: 1; }
+  .dv-side1.dv-ol-spotlight.dv-ov2 .dv-spotlight-caption,
+  .dv-side1.dv-ol-spotlight.dv-ov7 .dv-spotlight-caption { grid-column: 2; }
+
+  .dv-side1.dv-ol-spotlight.dv-ov4 .dv-spotlight { flex-direction: row-reverse; }
+  .dv-side1.dv-ol-spotlight.dv-ov12 .dv-spotlight { flex-direction: row-reverse; }
+
+  .dv-side1.dv-ol-bento.dv-ov8 .dv-bento,
+  .dv-side1.dv-ol-bento.dv-ov9 .dv-bento {
+    grid-template-columns: 1.38fr 0.62fr;
+  }
+  .dv-side1.dv-ol-bento.dv-ov8 .dv-bento-head,
+  .dv-side1.dv-ol-bento.dv-ov9 .dv-bento-head { grid-column: 2; }
+  .dv-side1.dv-ol-bento.dv-ov8 .dv-bento-grid,
+  .dv-side1.dv-ol-bento.dv-ov9 .dv-bento-grid { grid-column: 1; }
+
+  .dv-side1.dv-ol-dashboard:not(.dv-ov8):not(.dv-ov9):not(.dv-ov12):not(.dv-ov14):not(.dv-ov15) .dv-dash {
+    grid-template-columns: minmax(0, 1fr) 12em;
+  }
+  .dv-side1.dv-ol-dashboard:not(.dv-ov8):not(.dv-ov9):not(.dv-ov12):not(.dv-ov14):not(.dv-ov15) .dv-dash-side { order: 2; }
+  .dv-side1.dv-ol-dashboard:not(.dv-ov8):not(.dv-ov9):not(.dv-ov12):not(.dv-ov14):not(.dv-ov15) .dv-dash-main { order: 1; }
+
+  .dv-side1.dv-ol-catalog:not(.dv-ov8):not(.dv-ov11):not(.dv-ov12):not(.dv-ov15) .dv-catalog {
+    grid-template-columns: minmax(0, 1fr) 13em;
+  }
+  .dv-side1.dv-ol-catalog:not(.dv-ov8):not(.dv-ov11):not(.dv-ov12):not(.dv-ov15) .dv-catalog-rail { order: 2; }
+  .dv-side1.dv-ol-catalog:not(.dv-ov8):not(.dv-ov11):not(.dv-ov12):not(.dv-ov15) .dv-catalog-main { order: 1; }
+
+  .dv-side1.dv-ol-field-notes.dv-ov8 .dv-fn,
+  .dv-side1.dv-ol-field-notes.dv-ov9 .dv-fn { grid-template-columns: 1.3fr 0.7fr; }
+  .dv-side1.dv-ol-field-notes.dv-ov8 .dv-fn-head,
+  .dv-side1.dv-ol-field-notes.dv-ov9 .dv-fn-head { grid-column: 2; }
+  .dv-side1.dv-ol-field-notes.dv-ov8 .dv-fn-spread,
+  .dv-side1.dv-ol-field-notes.dv-ov9 .dv-fn-spread { grid-column: 1; }
+
+  .dv-side1.dv-ol-receipt.dv-ov8 .dv-receipt { grid-template-columns: 0.9fr 1.1fr; }
+  .dv-side1.dv-ol-receipt.dv-ov8 .dv-receipt-side { order: 0; }
+
+  .dv-side1.dv-ol-split-scroll:not(.dv-ov8):not(.dv-ov15) .dv-ss {
+    grid-template-columns: minmax(0, 1fr) 16em;
+  }
+  .dv-side1.dv-ol-split-scroll:not(.dv-ov8):not(.dv-ov15) .dv-ss-rail { order: 2; border-right: 0; border-left: 1px solid; padding-left: 1.6em; padding-right: 0; }
+
+  .dv-side1.dv-ol-split-hero .dv-split,
+  .dv-side1.dv-ol-asymmetric .dv-asym-hero,
+  .dv-side1.dv-ol-mosaic .dv-mosaic { direction: rtl; }
+  .dv-side1.dv-ol-split-hero .dv-split > *,
+  .dv-side1.dv-ol-asymmetric .dv-asym-hero > *,
+  .dv-side1.dv-ol-mosaic .dv-mosaic > * { direction: ltr; }
+}
+
+/* Doodle Shadow has a built-in offset shadow; keep it for display type but
+ * switch small labels and card headings to the body face so they stay legible. */
+.dv-font-rubik-doodle-shadow h1,
+.dv-font-rubik-doodle-shadow h2 { letter-spacing: 0.01em; }
+.dv-font-rubik-doodle-shadow h3,
+.dv-font-rubik-doodle-shadow h4,
+.dv-font-rubik-doodle-shadow .dv-usec-head h3,
+.dv-font-rubik-doodle-shadow .dv-card h3,
+.dv-font-rubik-doodle-shadow .dv-label,
+.dv-font-rubik-doodle-shadow .dv-kicker {
+  font-family: var(--dv-body);
+  letter-spacing: 0.015em;
+}
