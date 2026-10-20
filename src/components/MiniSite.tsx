@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+import { Children, useMemo, useState } from 'react'
+import type { ReactNode } from 'react'
 import type { DesignSystem, Layout } from '../types'
 import { LAYOUT_LABEL } from '../types'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
@@ -25,6 +26,27 @@ import { voicePack, voicePerks, type VoicePack } from './miniVoice'
  */
 
 let dvScopeCounter = 0
+
+/** Deterministic composition variant: same design, same structure, every render. */
+function designVariant(id: string): number {
+  let h = 0
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0
+  return Math.abs(h) % 4
+}
+
+/** Reorder the sections after the opener so two designs sharing an archetype
+ *  do not share a page rhythm. The hero/first block always stays first. */
+function reorderSections(node: ReactNode, variant: number): ReactNode {
+  const parts = Children.toArray(node)
+  if (variant === 0 || parts.length < 3) return node
+  const [first, ...rest] = parts
+  if (variant === 1) return <>{first}{[...rest].reverse()}</>
+  if (variant === 2) return <>{first}{[...rest.slice(1), rest[0]]}</>
+  const last = rest.length - 1
+  const swapped = [...rest]
+  ;[swapped[last - 1], swapped[last]] = [swapped[last], swapped[last - 1]]
+  return <>{first}{swapped}</>
+}
 
 export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSystem; compact?: boolean; layoutOverride?: Layout | null }) {
   const t = useMemo(() => themeOf(d), [d])
@@ -53,9 +75,10 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
   } as React.CSSProperties
 
   const activeLayout = layoutOverride ?? primaryLayout(d)
+  const variant = useMemo(() => designVariant(d.id), [d.id])
 
   return (
-    <div className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} ${compact ? 'dv-compact' : ''}`} style={cssVars}>
+    <div className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} dv-v${variant} ${compact ? 'dv-compact' : ''}`} style={cssVars}>
       <style>{scopedCss}</style>
       <div className="dv-stage">
         <nav className="dv-nav">
@@ -87,7 +110,7 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
           </div>
         )}
 
-        {renderLayout(d, activeLayout, { setModalOpen, openFaq, setOpenFaq })}
+        {reorderSections(renderLayout(d, activeLayout, { setModalOpen, openFaq, setOpenFaq }), variant)}
 
         {!compact && (
           <section className="dv-section dv-blocks-section">
@@ -380,17 +403,22 @@ function MagazineBody({ d }: { d: DesignSystem }) {
         <div className="dv-masthead-rule" />
       </header>
       <section className="dv-grid-3">
-        <article className="dv-article"><span className="dv-badge" style={{ background: withAlpha(t.accent, 0.15), color: t.accent }}>Feature</span><h3>{d.name} wins Design System of the Year</h3><p>The vote was unanimous: intentionality over decoration.</p><span className="dv-link">Read →</span></article>
-        <article className="dv-article"><h3>Opinion: your landing page has 12 words to live</h3><p>Ruthless editing is the highest-leverage design tool.</p><span className="dv-link">Read →</span></article>
-        <article className="dv-article"><h3>How 40 teams ship with {d.name}</h3><p>We asked for numbers. They sent spreadsheets.</p><span className="dv-link">Read →</span></article>
+        {v.page.articles.map((a) => (
+          <article key={a.title} className="dv-article">
+            <span className="dv-badge" style={{ background: withAlpha(t.accent, 0.15), color: t.accent }}>{a.tag}</span>
+            <h3>{a.title}</h3>
+            <p>{a.dek}</p>
+            <span className="dv-link">Read →</span>
+          </article>
+        ))}
       </section>
       <section className="dv-feature-row">
         <div className="dv-feature-media" style={{ background: `linear-gradient(160deg, ${t.primary}, ${t.secondary})` }} />
         <div className="dv-feature-text">
-          <span className="dv-badge" style={{ background: withAlpha(t.primary, 0.12), color: t.primary }}>Cover story</span>
-          <h2>The quiet rebellion against AI slop</h2>
-          <p>{d.designPhilosophy.split('.')[0]}. A generation of tools looked the same; this one refuses.</p>
-          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Read the story</button>
+          <span className="dv-badge" style={{ background: withAlpha(t.primary, 0.12), color: t.primary }}>{v.page.feature.tag}</span>
+          <h2>{v.page.feature.title}</h2>
+          <p>{v.page.feature.body}</p>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
         </div>
       </section>
       <section className="dv-stats-band">
@@ -465,8 +493,8 @@ function CenteredBody({ d }: { d: DesignSystem }) {
         <p className="dv-mini-note">{v.stats[2][0]} pages shipped on {d.name}</p>
       </header>
       <section className="dv-steps">
-        {[['01', v.dash.items[0] ?? 'Connect', 'Start from the first token — nothing else is required.'], ['02', v.dash.items[1] ?? 'Configure', 'The palette, type, and radius do the branding for you.'], ['03', v.dash.items[2] ?? 'Ship', 'Publish it — the system holds the page together.']].map(([n, title, body]) => (
-          <div key={n} className="dv-step"><span className="dv-step-num">{n}</span><h3>{title}</h3><p>{body}</p></div>
+        {v.page.steps.map((s) => (
+          <div key={s.n} className="dv-step"><span className="dv-step-num">{s.n}</span><h3>{s.title}</h3><p>{s.body}</p></div>
         ))}
       </section>
       <section className="dv-quote-band" style={{ background: withAlpha(t.primary, 0.08) }}>
@@ -474,7 +502,7 @@ function CenteredBody({ d }: { d: DesignSystem }) {
       </section>
       <section className="dv-cta-final">
         <h2>Ready when you are.</h2>
-        <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Get started free</button>
+        <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
       </section>
     </>
   )
@@ -482,6 +510,7 @@ function CenteredBody({ d }: { d: DesignSystem }) {
 
 function EditorialBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <header className="dv-ed-head">
@@ -490,18 +519,18 @@ function EditorialBody({ d }: { d: DesignSystem }) {
         <div className="dv-ed-byline">By {d.author} · {d.createdAt} · 8 min read</div>
       </header>
       <div className="dv-ed-body">
-        <p className="dv-ed-lead">The cursor blinked. Twelve words survived the edit. That was the whole pitch — and it worked, because everything around those words agreed with itself: the type, the spacing, the palette, the pauses.</p>
-        <div className="dv-ed-pull">“Consistency is not the enemy of character. It is character, repeated.”</div>
-        <p>Every token in {d.name} exists because something else would be worse. The scale has seven steps because six cramped and eight wandered. The accent appears exactly where your eye needs a handhold.</p>
+        <p className="dv-ed-lead">{v.page.essay.lead}</p>
+        <div className="dv-ed-pull">{v.page.essay.pull}</div>
+        <p>{v.page.essay.body}</p>
         <div className="dv-ed-aside">
-          <strong>Inside this system</strong>
-          <ul>{['Display + body pairing', 'Six-color palette', 'Motion with restraint', 'AA contrast minimums'].map((li) => <li key={li}>{li}</li>)}</ul>
+          <strong>Inside {d.name}</strong>
+          <ul>{v.page.essay.aside.map((li) => <li key={li}>{li}</li>)}</ul>
         </div>
-        <p>Adoption was the test. Teams shipped pages that looked art-directed without a designer in the room — and the designers, instead of minding, finally had time for the work only they could do.</p>
+        <p>{v.page.essay.closing}</p>
       </div>
       <section className="dv-ed-footer-cta">
-        <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Use this system</button>
-        <button className="dv-btn dv-btn-secondary">Read the docs</button>
+        <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+        <button className="dv-btn dv-btn-secondary">{v.cta[1]}</button>
       </section>
     </>
   )
@@ -538,10 +567,10 @@ function AsymmetricBody({ d }: { d: DesignSystem }) {
       <section className="dv-asym-feature">
         <div className="dv-asym-media" style={{ background: `linear-gradient(150deg, ${t.primary}, ${t.secondary})` }} />
         <div className="dv-asym-copy">
-          <h2 className="dv-h2">One column writes, one column proves</h2>
-          <p>{d.designPhilosophy.split('.')[0]}. The asymmetric arrangement keeps the argument and the evidence side by side — text left, proof right, whitespace doing the arguing in between.</p>
+          <h2 className="dv-h2">{v.page.headings[1]}</h2>
+          <p>{v.page.feature.body}</p>
           <div className="dv-comp-row">
-            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Read the method</button>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
             <span className="dv-badge" style={{ background: withAlpha(t.accent, 0.15), color: t.accent, borderRadius: extractRadius(d.components.radius) }}>New in 2026</span>
           </div>
         </div>
@@ -570,7 +599,7 @@ function FullBleedBody({ d }: { d: DesignSystem }) {
         ))}
       </section>
       <section className="dv-section">
-        <h2 className="dv-h2">Nothing hides. Nothing shrinks.</h2>
+        <h2 className="dv-h2">{v.page.headings[0]}</h2>
         <div className="dv-cards">
           {features(d).map((f, i) => (
             <article key={i} className="dv-card"><span className="dv-card-icon" aria-hidden>{f.icon}</span><h3>{f.title}</h3><p>{f.body}</p></article>
@@ -600,11 +629,7 @@ function SpotlightBody({ d }: { d: DesignSystem }) {
         </div>
       </section>
       <section className="dv-spotlight-row">
-        {[
-          { k: 'Spec', v: 'Every token named, every state drawn — nothing left to taste.' },
-          { k: 'Scale', v: 'Seven type steps, one spacing unit, zero exceptions granted.' },
-          { k: 'Stay', v: 'Teams still on it a year later: 94%. The churn is elsewhere.' },
-        ].map((x) => (
+        {v.page.spotlight.map((x) => (
           <div key={x.k} className="dv-card dv-spot-card">
             <span className="dv-spot-key" style={{ color: t.primary, fontFamily: `'${t.display}', sans-serif` }}>{x.k}</span>
             <p>{x.v}</p>
@@ -620,6 +645,7 @@ function SpotlightBody({ d }: { d: DesignSystem }) {
 
 function ManifestoBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   const lines = manifestoLines(d)
   return (
     <>
@@ -631,14 +657,14 @@ function ManifestoBody({ d }: { d: DesignSystem }) {
           ))}
         </div>
         <div className="dv-manifesto-sign">
-          <span>— {d.name}, a design system by {d.author}</span>
-          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Adopt the whole argument</button>
+          <span>— {v.page.manifesto.signoff}</span>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
         </div>
       </section>
       <section className="dv-manifesto-proof">
-        {[['01', 'No filler'], ['02', 'No defaults'], ['03', 'No apologies']].map(([n, w]) => (
-          <div key={n} className="dv-manifesto-word">
-            <span className="dv-manifesto-num">{n}</span>
+        {v.page.manifesto.words.map((w, i) => (
+          <div key={w} className="dv-manifesto-word">
+            <span className="dv-manifesto-num">{String(i + 1).padStart(2, '0')}</span>
             <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{w}</strong>
           </div>
         ))}
@@ -666,33 +692,30 @@ function BentoBody({ d }: { d: DesignSystem }) {
         </header>
         <div className="dv-bento-grid">
           <div className="dv-bento-tile dv-bento-tile-lg" style={{ background: `linear-gradient(150deg, ${t.primary}, ${t.secondary})` }}>
-            <span className="dv-bento-cap" style={{ color: onColor(t.primary) }}>Live in four minutes</span>
+            <span className="dv-bento-cap" style={{ color: onColor(t.primary) }}>{v.page.bento.cap}</span>
           </div>
           <div className="dv-bento-tile dv-bento-tile-stat" style={{ background: withAlpha(t.primary, 0.1) }}>
             <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{v.stats[0][0]}</strong>
             <span>{v.stats[0][1]}</span>
           </div>
-          <div className="dv-bento-tile">
-            <span className="dv-card-icon" aria-hidden>◆</span>
-            <h3>Tokens first</h3>
-            <p>Everything derives from six named colors.</p>
-          </div>
-          <div className="dv-bento-tile">
-            <span className="dv-card-icon" aria-hidden>◇</span>
-            <h3>States included</h3>
-            <p>Hover, focus, empty, and error, all drawn.</p>
-          </div>
+          {v.page.bento.tiles.map((tile, i) => (
+            <div key={tile.title} className="dv-bento-tile">
+              <span className="dv-card-icon" aria-hidden>{i ? '◇' : '◆'}</span>
+              <h3>{tile.title}</h3>
+              <p>{tile.body}</p>
+            </div>
+          ))}
           <div className="dv-bento-tile dv-bento-tile-wide" style={{ borderColor: withAlpha(t.text, 0.16) }}>
             <span className="dv-badge" style={{ background: withAlpha(t.accent, 0.16), color: t.accent }}>Accent</span>
-            <h3>One accent, placed with intent</h3>
-            <p>{d.designPhilosophy.split('.')[0]}.</p>
+            <h3>{v.page.bento.wideTitle}</h3>
+            <p>{v.page.bento.wideBody}</p>
           </div>
         </div>
       </section>
       <section className="dv-stats-band">
-        <div className="dv-stat"><strong>12k+</strong><span>teams on board</span></div>
-        <div className="dv-stat"><strong>4.9★</strong><span>average rating</span></div>
-        <div className="dv-stat"><strong>6</strong><span>tokens to learn</span></div>
+        {v.page.bento.stats.map((s) => (
+          <div key={s.label} className="dv-stat"><strong>{s.v}</strong><span>{s.label}</span></div>
+        ))}
       </section>
     </>
   )
@@ -700,6 +723,7 @@ function BentoBody({ d }: { d: DesignSystem }) {
 
 function PosterBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   const meta: [string, string][] = [
     ['Type', d.typography.displayFont],
     ['Ink', d.colors.primary],
@@ -718,7 +742,7 @@ function PosterBody({ d }: { d: DesignSystem }) {
             </div>
           ))}
         </div>
-        <button className="dv-btn dv-btn-primary dv-poster-cta" style={btnStyle(t)}>Hang it up</button>
+        <button className="dv-btn dv-btn-primary dv-poster-cta" style={btnStyle(t)}>{v.cta[0]}</button>
       </section>
       <section className="dv-poster-list">
         {features(d).map((f, i) => (
@@ -739,12 +763,13 @@ function PosterBody({ d }: { d: DesignSystem }) {
 
 function CatalogBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
-  const items = ['Series 01', 'Series 02', 'Series 03', 'Series 04', 'Series 05', 'Series 06']
+  const v = useMemo(() => voicePack(d), [d])
+  const items = v.page.catalog.items
   return (
     <section className="dv-catalog">
       <aside className="dv-catalog-rail">
         <span className="dv-label">Collection</span>
-        {['All', 'New in', 'Archive', 'Collab'].map((x, i) => (
+        {v.page.catalog.filters.map((x, i) => (
           <span key={x} className={`dv-catalog-filter ${i === 0 ? 'dv-catalog-on' : ''}`} style={i === 0 ? { color: t.primary, borderColor: t.primary } : undefined}>
             {x}
           </span>
@@ -812,25 +837,22 @@ function MosaicBody({ d }: { d: DesignSystem }) {
           className="dv-mos-tile dv-mos-media"
           style={{ background: `linear-gradient(150deg, ${t.primary}, ${t.secondary})` }}
         >
-          <span className="dv-mos-cap" style={{ color: onColor(t.primary) }}>In production since 2021</span>
+          <span className="dv-mos-cap" style={{ color: onColor(t.primary) }}>{v.page.mosaic.cap}</span>
         </div>
         <div className="dv-mos-tile dv-mos-stat" style={{ background: withAlpha(t.primary, 0.1) }}>
           <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{v.stats[0][0]}</strong>
           <span>{v.stats[0][1]}</span>
         </div>
-        <div className="dv-mos-tile">
-          <span className="dv-card-icon" aria-hidden>◆</span>
-          <h3>Six colors, no exceptions</h3>
-          <p>Every surface, border, and accent in {d.name} derives from the same six tokens.</p>
-        </div>
-        <div className="dv-mos-tile">
-          <span className="dv-card-icon" aria-hidden>◇</span>
-          <h3>States, drawn</h3>
-          <p>Hover, focus, disabled, empty, error — nothing is left to improvisation.</p>
-        </div>
+        {v.page.mosaic.tiles.map((tile, i) => (
+          <div key={tile.title} className="dv-mos-tile">
+            <span className="dv-card-icon" aria-hidden>{i ? '◇' : '◆'}</span>
+            <h3>{tile.title}</h3>
+            <p>{tile.body}</p>
+          </div>
+        ))}
         <div className="dv-mos-tile dv-mos-tall" style={{ borderColor: withAlpha(t.text, 0.18) }}>
           <span className="dv-label">Method</span>
-          {['Decide the type pairing', 'Fix the spacing unit', 'Name every token', 'Write the rules down'].map((li, i) => (
+          {v.page.mosaic.method.map((li, i) => (
             <p key={li} className="dv-mos-step">
               <span style={{ color: t.primary, fontFamily: `'${t.display}', sans-serif` }}>{String(i + 1).padStart(2, '0')}</span>
               {li}
@@ -838,14 +860,14 @@ function MosaicBody({ d }: { d: DesignSystem }) {
           ))}
         </div>
         <div className="dv-mos-tile dv-mos-quote" style={{ background: withAlpha(t.accent, 0.1) }}>
-          <blockquote>“{d.designPhilosophy.split('.')[0]}.”</blockquote>
+          <blockquote>“{v.page.mosaic.quote}”</blockquote>
           <span className="dv-label">— {d.author}</span>
         </div>
       </section>
       <section className="dv-stats-band">
-        <div className="dv-stat"><strong>12k+</strong><span>teams on board</span></div>
-        <div className="dv-stat"><strong>4.9★</strong><span>average rating</span></div>
-        <div className="dv-stat"><strong>6</strong><span>tokens to learn</span></div>
+        {v.page.bento.stats.map((s) => (
+          <div key={s.label} className="dv-stat"><strong>{s.v}</strong><span>{s.label}</span></div>
+        ))}
       </section>
     </>
   )
@@ -859,10 +881,10 @@ function TimelineBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
   const v = useMemo(() => voicePack(d), [d])
   const entries: [string, string, string][] = [
-    ['2019', 'The first rule', `A single spacing unit, committed to before the first component existed. It is still the one thing nobody in ${d.name} argues about.`],
-    ['2021', 'Type becomes the system', `${d.typography.displayFont} for display, ${d.typography.bodyFont} for everything else — chosen for contrast, not for trend.`],
-    ['2023', 'The palette narrows', 'Six tokens. Two of them do all the work, and the accent is rationed so it still means something.'] as [string, string, string],
-    ['2026', 'It ships every day', 'Four hundred pages later, the system has not needed a rewrite — only additions that follow the original rules.'],
+    ['2019', `Where ${d.tags[0] ?? 'the rule'} started`, `A single spacing unit for ${d.tags[0] ?? 'the work'}, committed to before the first component existed. It is still the one thing nobody in ${d.name} argues about.`],
+    ['2021', 'Type becomes the system', `${d.typography.displayFont} for display, ${d.typography.bodyFont} for everything else — chosen for ${d.tags[1] ?? 'contrast'}, not for trend.`],
+    ['2023', 'The palette narrows', `Six tokens for ${d.tags[2] ?? 'the whole page'}. Two of them do all the work, and the accent is rationed so it still means something.`] as [string, string, string],
+    ['2026', 'It ships every day', `Four hundred ${d.tags[0] ?? 'pages'} later, ${d.name} has not needed a rewrite — only additions that follow the original rules.`],
   ]
   return (
     <>
@@ -888,7 +910,7 @@ function TimelineBody({ d }: { d: DesignSystem }) {
         ))}
       </ol>
       <section className="dv-quote-band" style={{ background: withAlpha(t.primary, 0.08) }}>
-        <blockquote>“The record is the proof. Everything else is marketing.”<footer>— {d.name}, internal memo</footer></blockquote>
+        <blockquote>“The ${d.tags[0] ?? 'record'} is the proof. Everything else is marketing.”<footer>— {d.name}, internal memo</footer></blockquote>
       </section>
     </>
   )
@@ -924,7 +946,7 @@ function SplitScrollBody({ d }: { d: DesignSystem }) {
       </aside>
       <div className="dv-ss-main">
         <section className="dv-ss-block">
-          <h2 className="dv-h2">Why the rail stays put</h2>
+          <h2 className="dv-h2">{v.page.headings[1]}</h2>
           <p>{d.designPhilosophy.split('.')[0]}. Keeping the identity pinned means the reading column can be as long as the argument needs — no repeated headers, no lost context.</p>
           <div className="dv-cards">
             {features(d).map((f, i) => (
@@ -957,15 +979,16 @@ function SplitScrollBody({ d }: { d: DesignSystem }) {
 /** Docs — a documentation shell: tree on the left, reading column, on-this-page rail. */
 function DocsBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <section className="dv-docs">
       <aside className="dv-docs-tree">
         <div className="dv-docs-brand">◈ {d.name}</div>
-        {[['Getting started', ['Install', 'Quickstart', 'Concepts']], ['Guides', ['Theming', 'Motion', 'Accessibility']], ['Reference', ['Tokens', 'Components']]].map(([group, items]) => (
-          <div key={group as string} className="dv-docs-group">
-            <span className="dv-label">{group as string}</span>
-            {(items as string[]).map((item, i) => (
-              <span key={item} className={`dv-docs-item ${item === 'Theming' ? 'dv-docs-on' : ''}`} style={item === 'Theming' ? { background: withAlpha(t.primary, 0.12), color: t.primary } : undefined}>
+        {v.page.docs.groups.map(([group, items]) => (
+          <div key={group} className="dv-docs-group">
+            <span className="dv-label">{group}</span>
+            {items.map((item) => (
+              <span key={item} className={`dv-docs-item ${item === 'Motion' ? 'dv-docs-on' : ''}`} style={item === 'Motion' ? { background: withAlpha(t.primary, 0.12), color: t.primary } : undefined}>
                 {item}
               </span>
             ))}
@@ -981,10 +1004,10 @@ function DocsBody({ d }: { d: DesignSystem }) {
           <p>{d.designPhilosophy.split('.')[0]}.</p>
         </div>
         <pre className="dv-docs-code">{`$ npm install ${d.id}\n# ${d.name} — ${d.description}`}</pre>
-        <h2 className="dv-h2">The rules, in order</h2>
-        <p>Every token in this system exists because something else would be worse. The scale has seven steps because six cramped and eight wandered; the accent appears exactly where your eye needs a handhold.</p>
+        <h2 className="dv-h2">{v.page.headings[1]}</h2>
+        <p>{v.page.essay.body}</p>
         <ul className="dv-docs-list">
-          {['Six named colors, no unnamed greys', 'One spacing unit, applied without exception', `Display voice: ${d.typography.displayFont}`].map((li) => <li key={li}>{li}</li>)}
+          {v.page.essay.aside.map((li) => <li key={li}>{li}</li>)}
         </ul>
         <div className="dv-docs-pager">
           <button className="dv-btn dv-btn-secondary">← Concepts</button>
@@ -993,7 +1016,7 @@ function DocsBody({ d }: { d: DesignSystem }) {
       </article>
       <aside className="dv-docs-toc">
         <span className="dv-label">On this page</span>
-        {['Install', 'The rules, in order', 'Next steps'].map((x, i) => (
+        {v.page.docs.toc.map((x, i) => (
           <span key={x} className={i === 1 ? 'dv-docs-toc-on' : ''} style={i === 1 ? { color: t.primary } : undefined}>{x}</span>
         ))}
       </aside>
@@ -1004,6 +1027,7 @@ function DocsBody({ d }: { d: DesignSystem }) {
 /** Film Strip — a horizontal roll of frames, sprockets included. */
 function FilmStripBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   const frames = ['01', '02', '03', '04', '05']
   return (
     <>
@@ -1012,8 +1036,8 @@ function FilmStripBody({ d }: { d: DesignSystem }) {
         <h1>{heroTitle(d)}</h1>
         <p className="dv-sub dv-align-left">{d.description}</p>
         <div className="dv-cta-row" style={{ justifyContent: 'flex-start' }}>
-          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Thread the reel</button>
-          <button className="dv-btn dv-btn-secondary">Frame notes</button>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+          <button className="dv-btn dv-btn-secondary">{v.cta[1]}</button>
         </div>
       </header>
       <div className="dv-fs-reel">
@@ -1024,17 +1048,17 @@ function FilmStripBody({ d }: { d: DesignSystem }) {
               <div className="dv-fs-cell" style={{ background: i % 2 ? withAlpha(t.secondary, 0.22) : `linear-gradient(150deg, ${withAlpha(t.primary, 0.85)}, ${withAlpha(t.secondary, 0.7)})` }}>
                 <span className="dv-fs-num" style={{ color: i % 2 ? t.text : onColor(t.primary) }}>{n}</span>
               </div>
-              <figcaption>{i % 2 ? 'Interior, available light' : 'Establishing frame, handheld'}</figcaption>
+              <figcaption>{v.page.film.frames[i]}</figcaption>
             </figure>
           ))}
         </div>
         <div className="dv-fs-perf" aria-hidden />
       </div>
       <section className="dv-fs-notes">
-        {[['Exposure', 'One stop under, printed down.'], ['Grain', '400 speed, pushed to 1600.'], ['Cut', 'Straight, never a dissolve.']].map(([k, v]) => (
-          <div key={k} className="dv-card dv-fs-note">
-            <span className="dv-label">{k}</span>
-            <p>{v}</p>
+        {v.page.film.notes.map((note) => (
+          <div key={note.k} className="dv-card dv-fs-note">
+            <span className="dv-label">{note.k}</span>
+            <p>{note.v}</p>
           </div>
         ))}
       </section>
@@ -1045,6 +1069,7 @@ function FilmStripBody({ d }: { d: DesignSystem }) {
 /** Map Plate — a map canvas with pins and legend beside a briefing column. */
 function MapPlateBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <>
       <section className="dv-map">
@@ -1057,8 +1082,8 @@ function MapPlateBody({ d }: { d: DesignSystem }) {
             </span>
           ))}
           <span className="dv-map-legend">
-            <i style={{ background: t.primary }} /> Station
-            <i style={{ background: t.accent }} /> Current
+            <i style={{ background: t.primary }} /> {v.page.map.legend[0]}
+            <i style={{ background: t.accent }} /> {v.page.map.legend[1]}
           </span>
         </div>
         <div className="dv-map-copy">
@@ -1066,15 +1091,15 @@ function MapPlateBody({ d }: { d: DesignSystem }) {
           <h1>{heroTitle(d)}</h1>
           <p className="dv-sub dv-align-left">{d.description}</p>
           <div className="dv-map-facts">
-            {[['Plate', '41° 23′ N'], ['Scale', '1 : 25 000'], ['Edition', '3rd, revised']].map(([k, v]) => (
-              <div key={k} className="dv-ss-fact"><span className="dv-label">{k}</span><span>{v}</span></div>
+            {v.page.map.facts.map(([k, val]) => (
+              <div key={k} className="dv-ss-fact"><span className="dv-label">{k}</span><span>{val}</span></div>
             ))}
           </div>
-          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Open the chart</button>
+          <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
         </div>
       </section>
       <section className="dv-map-rows">
-        {[['North quay', '1.2 km', 'Sheltered, all tide'], ['Old lock', '3.4 km', 'Heritage, no mooring'], ['Outer mole', '5.8 km', 'Exposed in easterlies']].map(([name, dist, note]) => (
+        {v.page.map.rows.map(([name, dist, note]) => (
           <div key={name} className="dv-map-row" style={{ borderColor: withAlpha(t.text, 0.14) }}>
             <strong>{name}</strong>
             <span className="dv-label">{dist}</span>
@@ -1089,6 +1114,7 @@ function MapPlateBody({ d }: { d: DesignSystem }) {
 /** Field Notes — a ruled notebook spread with a margin for marginalia. */
 function FieldNotesBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
   return (
     <section className="dv-fn">
       <header className="dv-fn-head">
@@ -1098,7 +1124,7 @@ function FieldNotesBody({ d }: { d: DesignSystem }) {
       </header>
       <div className="dv-fn-spread">
         <div className="dv-fn-entries">
-          {[['07:40', 'Trunk diameter', '41 cm at breast height.'], ['11:05', 'Canopy cover', 'Dense — over 80% by eye.'], ['15:20', 'Soil', 'Dark, loose, two earthworms.'], ['18:00', 'Weather', 'Rain by evening, as promised.']].map(([time, title, body]) => (
+          {v.page.field.entries.map(([time, title, body]) => (
             <div key={time} className="dv-fn-entry">
               <span className="dv-fn-time" style={{ color: t.primary }}>{time}</span>
               <div className="dv-fn-entry-body"><h3>{title}</h3><p>{body}</p></div>
@@ -1108,7 +1134,7 @@ function FieldNotesBody({ d }: { d: DesignSystem }) {
         <aside className="dv-fn-margin">
           <div className="dv-fn-sticky" style={{ background: withAlpha(t.accent, 0.28) }}>{d.designPhilosophy.split('.')[0]}.</div>
           <ul className="dv-fn-checks">
-            {['Tag tree #41', 'Photograph canopy', 'Mail the logsheet'].map((x, i) => (
+            {v.page.field.checks.map((x, i) => (
               <li key={x}><span className={i === 0 ? 'dv-fn-check-on' : ''} style={i === 0 ? { background: t.primary, borderColor: t.primary } : undefined} />{x}</li>
             ))}
           </ul>
@@ -1122,7 +1148,7 @@ function FieldNotesBody({ d }: { d: DesignSystem }) {
 function ReceiptBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
   const v = useMemo(() => voicePack(d), [d])
-  const items: [string, string][] = [['House blend, 250g', '9.00'], ['Filter papers, 100', '4.50'], ['Brew class', '32.00'], ['Cup deposit', '1.00']]
+  const items: [string, string][] = v.page.receipt.items
   return (
     <section className="dv-receipt">
       <div className="dv-receipt-paper" style={{ borderColor: withAlpha(t.text, 0.22) }}>
@@ -1133,15 +1159,15 @@ function ReceiptBody({ d }: { d: DesignSystem }) {
           <p key={name} className="dv-receipt-line"><span>{name}</span><span>{price}</span></p>
         ))}
         <div className="dv-receipt-rule" />
-        <p className="dv-receipt-line dv-receipt-total"><strong>TOTAL</strong><strong style={{ color: t.primary }}>46.50</strong></p>
-        <p className="dv-receipt-thanks">{d.designPhilosophy.split('.')[0]}. Thank you — come back hungry.</p>
+        <p className="dv-receipt-line dv-receipt-total"><strong>TOTAL</strong><strong style={{ color: t.primary }}>{items.reduce((n, [, p]) => n + (parseFloat(p) || 0), 0).toFixed(2)}</strong></p>
+        <p className="dv-receipt-thanks">{v.page.receipt.thanks}</p>
         <div className="dv-receipt-barcode" aria-hidden />
-        <p className="dv-receipt-meta">41°23′N 2°11′E</p>
+        <p className="dv-receipt-meta">{d.colors.primary.toUpperCase()} · {d.motif} · {d.layout}</p>
       </div>
       <div className="dv-receipt-side">
         <h1 className="dv-receipt-hero">{heroTitle(d)}</h1>
         <p className="dv-sub dv-align-left">{d.description}</p>
-        <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>Print another</button>
+        <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
       </div>
     </section>
   )

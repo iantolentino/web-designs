@@ -73,6 +73,56 @@ const VOICE_QUOTES: Record<string, string[]> = {
     'Pull quotes from our archive land without extra styling.',
     'The film-strip coverage block is doing our photo essays for us.',
   ],
+  logistics: [
+    'The dispatch board, the manifest and the invoice finally agree.',
+    'Drivers read the same status the customer does. Fewer phone calls.',
+    'Every handoff keeps its timestamp, which is the whole argument.',
+  ],
+  manufacturing: [
+    'The spec sheet and the shop floor now share one vocabulary.',
+    'Tolerance tables read like drawings, not like forms.',
+    'Batch records survive a real audit without a rebuild.',
+  ],
+  energy: [
+    'Generation, usage and outages finally sit on one page.',
+    'The grid report reads like a newspaper, not a spreadsheet.',
+    'Field crews can read it in sunlight on a phone.',
+  ],
+  agriculture: [
+    'The harvest calendar is the homepage, and it should be.',
+    'Market weights, crate counts and seed notes all agree.',
+    'The farm finally looks like the place it actually is.',
+  ],
+  architecture: [
+    'Plans, sections and site notes share one quiet grid.',
+    'The project index reads like a portfolio, not a filing cabinet.',
+    'Clients understand the drawings before the meeting starts.',
+  ],
+  sport: [
+    'The session timetable is the most-used page on the site.',
+    'Results, coaches and programmes finally read as one club.',
+    'Athletes find their next session in two taps.',
+  ],
+  community: [
+    'The notice board carries real deadlines and still looks human.',
+    'Volunteer shifts, donations and stories share one voice.',
+    'Neighbours actually read the updates now.',
+  ],
+  consulting: [
+    'Case notes and findings read like prose, not like decks.',
+    'The engagement timeline is legible to clients and to us.',
+    'Workshop outputs land on the site the same week.',
+  ],
+  music: [
+    'Releases, credits and tour dates finally share a spine.',
+    'The catalogue reads like a record sleeve, not a database.',
+    'Artists can update their own page without breaking the type.',
+  ],
+  family: [
+    'Parents find the timetable, the fees and the form in one place.',
+    'The play programme reads as friendly without going soft.',
+    'Drop-off details are legible at the school gate.',
+  ],
   default: [
     'The rules did the arguing so the team did not have to.',
     'We stopped debating shades and started shipping pages.',
@@ -84,6 +134,16 @@ type VoiceKey = keyof typeof VOICE_QUOTES
 
 /** Which quote bank a design draws from, keyed off tags + use-cases. */
 const VOICE_RULES: [RegExp, VoiceKey][] = [
+  [/\b(freight|logistics|dispatch|warehouse|warehousing|routing|cargo|fleet|pallet)\b/i, 'logistics'],
+  [/\b(factory|manufactur|production|machining|fabricat|tolerance)\b/i, 'manufacturing'],
+  [/\b(energy|grid|solar|utilities|kilowatt|generation)\b/i, 'energy'],
+  [/\b(farm|harvest|soil|crops|growers|orchard|dairy|agricultur)\b/i, 'agriculture'],
+  [/\b(architecture|buildings|interiors|architects|sections|site notes)\b/i, 'architecture'],
+  [/\b(training|fitness|athletes|sports|teams|coaching)\b/i, 'sport'],
+  [/\b(community|mutual aid|volunteers|volunteer|charity|giving)\b/i, 'community'],
+  [/\b(strategy|advisory|consulting|workshops|engagements)\b/i, 'consulting'],
+  [/\b(music|album|band|sound|musicians|artists|releases)\b/i, 'music'],
+  [/\b(kids|family|toys|childcare|playtime|parents)\b/i, 'family'],
   [/\b(pet|dog|cat|vet|kennel|puppy|animal|grooming|adoption)\b/i, 'pets'],
   [/\b(coffee|cafe|menu|bakery|recipe|kitchen|food|harvest|grocery|deli|pantry|brew|restaurant|diner|milk.?bar|pizza|taco|butcher|bistro|cream|confectionery)\b/i, 'food'],
   [/\b(bank|fintech|ledger|invoice|accounting|tax|payroll|trading|money|payment|underwriting|insurance|audit|expense|treasury|capital)\b/i, 'finance'],
@@ -94,8 +154,8 @@ const VOICE_RULES: [RegExp, VoiceKey][] = [
   [/\b(shop|store|catalog|commerce|product|marketplace|retail|market.?stall|classified|listing|vinyl|records)\b/i, 'retail'],
   [/\b(courses|lesson|school|academy|learning|education|study|campus|university|tutor|curriculum|classroom)\b/i, 'learning'],
   [/\b(hotel|stay|hostel|resort|booking|suite|lobby|concierge|room|travel|itinerary|atlas|waypoints)\b/i, 'hospitality'],
-  [/\b(gov|council|civic|archive|notary|legal|law|court|library|history|heritage|observatory|survey|geological)\b/i, 'civic'],
   [/\b(news|press|magazine|journal|broadsheet|editorial|zine|publishing|blog|review|film|cinema|podcast|broadcast)\b/i, 'media'],
+  [/\b(gov|council|civic|archive|notary|legal|law|court|library|history|heritage|observatory|survey|geological)\b/i, 'civic'],
 ]
 
 const CATEGORY_VOICE: Record<string, VoiceKey> = {
@@ -112,6 +172,16 @@ const CATEGORY_VOICE: Record<string, VoiceKey> = {
 
 /** Nav vocabularies by family — picked per design. */
 const NAV_BANKS: [RegExp, string[]][] = [
+  [/\b(freight|logistics|dispatch|warehouse|cargo|fleet|pallet)\b/i, ['Dispatch', 'Routes', 'Depots', 'Track a load']],
+  [/\b(factory|manufactur|machining|fabricat|tolerance|production)\b/i, ['Capabilities', 'Materials', 'Facilities', 'Request a quote']],
+  [/\b(energy|grid|solar|utilities|kilowatt|generation)\b/i, ['Generation', 'Grid', 'Projects', 'Usage']],
+  [/\b(farm|harvest|soil|crops|growers|orchard|dairy|agricultur)\b/i, ['Produce', 'Growing', 'Markets', 'Visit the farm']],
+  [/\b(architecture|buildings|interiors|architects)\b/i, ['Projects', 'Practice', 'Process', 'Enquire']],
+  [/\b(training|fitness|athletes|sports|coaching)\b/i, ['Programmes', 'Coaches', 'Results', 'Join a session']],
+  [/\b(community|mutual aid|volunteers|charity|giving)\b/i, ['Programmes', 'Volunteer', 'Stories', 'Donate']],
+  [/\b(strategy|advisory|consulting|workshops|engagements)\b/i, ['Services', 'Cases', 'Insights', 'Talk to us']],
+  [/\b(music|album|band|musicians|releases)\b/i, ['Releases', 'Artists', 'Studio', 'Listen']],
+  [/\b(kids|family|toys|childcare|playtime|parents)\b/i, ['Play', 'Programmes', 'Parties', 'Visit']],
   [/\b(shop|store|commerce|marketplace|retail|vinyl|market.?stall|classified|listing|grocery|butcher|deli|confectionery|records)\b/i, ['Shop', 'Lookbook', 'Stockists', 'Cart (2)']],
   [/\b(restaurant|cafe|menu|bakery|coffee|kitchen|deli|diner|bistro|cream|milk.?bar|pizza|taco|recipe|harvest)\b/i, ['Menu', 'Our story', 'Find us', 'Book a table']],
   [/\b(hotel|stay|hostel|resort|booking|suite|travel|itinerary|atlas|waypoints|tour|expedition)\b/i, ['Stays', 'Routes', 'Journal', 'Availability']],
@@ -129,8 +199,128 @@ const NAV_BANKS: [RegExp, string[]][] = [
 
 const DEFAULT_NAV = ['Work', 'Studio', 'Journal', 'Contact']
 
+/* Bank keys mirror the order of the four arrays. The primary website type is
+   a stronger signal than any single tag: a music school should read as a
+   school even though "music" is one of its tags. */
+const NAV_KEYS: VoiceKey[] = [
+  'logistics', 'manufacturing', 'energy', 'agriculture', 'architecture',
+  'sport', 'community', 'consulting', 'music', 'family',
+  'retail', 'food', 'hospitality', 'creative', 'wellness',
+  'events', 'ops', 'finance', 'media', 'learning',
+  'civic', 'pets', 'media',
+]
+const CTA_KEYS: VoiceKey[] = [
+  'logistics', 'manufacturing', 'energy', 'agriculture', 'architecture',
+  'sport', 'community', 'consulting', 'music', 'family',
+  'retail', 'food', 'hospitality', 'wellness', 'events',
+  'ops', 'finance', 'creative', 'media', 'learning',
+  'civic', 'pets', 'ops', 'family',
+]
+const TIER_KEYS: VoiceKey[] = [
+  'logistics', 'manufacturing', 'energy', 'agriculture', 'architecture',
+  'sport', 'community', 'consulting', 'music', 'family',
+  'pets', 'food', 'retail', 'hospitality', 'wellness',
+  'events', 'ops', 'finance', 'creative', 'media',
+  'learning', 'civic', 'family',
+]
+const PERK_KEYS: VoiceKey[] = [
+  'logistics', 'manufacturing', 'energy', 'agriculture', 'architecture',
+  'sport', 'community', 'consulting', 'music', 'family',
+  'pets', 'food', 'retail', 'hospitality', 'wellness',
+  'events', 'ops', 'finance', 'creative', 'media',
+  'learning', 'civic', 'family',
+]
+
+const USE_CASE_VOICE: Record<string, VoiceKey> = {
+  Logistics: 'logistics',
+  Manufacturing: 'manufacturing',
+  Automotive: 'manufacturing',
+  Energy: 'energy',
+  Agriculture: 'agriculture',
+  Architecture: 'architecture',
+  Construction: 'architecture',
+  'Real Estate': 'architecture',
+  Sports: 'sport',
+  Fitness: 'sport',
+  Community: 'community',
+  Consulting: 'consulting',
+  Agency: 'consulting',
+  Music: 'music',
+  Podcast: 'media',
+  Kids: 'family',
+  Gaming: 'family',
+  Education: 'learning',
+  'E-learning': 'learning',
+  University: 'learning',
+  News: 'media',
+  Publishing: 'media',
+  'Film & TV': 'media',
+  Streaming: 'media',
+  Hotel: 'hospitality',
+  Travel: 'hospitality',
+  Booking: 'hospitality',
+  'E-commerce': 'retail',
+  Marketplace: 'retail',
+  Grocery: 'retail',
+  Fashion: 'retail',
+  'Developer Tools': 'ops',
+  'AI/ML': 'ops',
+  SaaS: 'ops',
+  'DevOps & Cloud': 'ops',
+  Cybersecurity: 'ops',
+  'Data & Analytics': 'ops',
+  CRM: 'ops',
+  Productivity: 'ops',
+  'Remote Work': 'ops',
+  Startup: 'ops',
+  Restaurant: 'food',
+  'Coffee Shop': 'food',
+  'Art Gallery': 'creative',
+  Photography: 'creative',
+  Portfolio: 'creative',
+  'Design Tools': 'creative',
+  Government: 'civic',
+  Legal: 'civic',
+  Nonprofit: 'community',
+  Health: 'wellness',
+  'Mental Health': 'wellness',
+  Wellness: 'wellness',
+  'Beauty & Spa': 'wellness',
+  Fintech: 'finance',
+  Banking: 'finance',
+  Insurance: 'finance',
+  Accounting: 'finance',
+  Pets: 'pets',
+  Events: 'events',
+  Wedding: 'events',
+}
+
+/** Prefer the bank for the primary website type; fall back to tag matching. */
+function pickBank<T>(
+  banks: [RegExp, T][],
+  keys: VoiceKey[],
+  preferred: VoiceKey | undefined,
+  haystack: string,
+): T | undefined {
+  if (preferred) {
+    const i = keys.indexOf(preferred)
+    if (i >= 0) return banks[i]?.[1]
+  }
+  return banks.find(([re]) => re.test(haystack))?.[1]
+}
+
 /** CTA pairs — primary + secondary per voice family. */
 const CTA_BANKS: [RegExp, [string, string]][] = [
+  [/\b(freight|logistics|dispatch|warehouse|cargo|fleet|pallet)\b/i, ['Track a shipment', 'See the network']],
+  [/\b(factory|manufactur|machining|fabricat|tolerance|production)\b/i, ['Request a quote', 'Tour the floor']],
+  [/\b(energy|grid|solar|utilities|kilowatt|generation)\b/i, ['See the projects', 'Read the report']],
+  [/\b(farm|harvest|soil|crops|growers|orchard|dairy|agricultur)\b/i, ['See what\u2019s growing', 'Plan a visit']],
+  [/\b(architecture|buildings|interiors|architects)\b/i, ['See the projects', 'Start a brief']],
+  [/\b(training|fitness|athletes|sports|coaching)\b/i, ['Join a session', 'Meet the coaches']],
+  [/\b(community|mutual aid|volunteers|charity|giving)\b/i, ['Get involved', 'See the programmes']],
+  [/\b(strategy|advisory|consulting|workshops|engagements)\b/i, ['Start a conversation', 'Read the cases']],
+  [/\b(music|album|band|musicians|releases)\b/i, ['Listen now', 'See the roster']],
+  [/\b(kids|family|toys|childcare|playtime|parents)\b/i, ['Plan a visit', 'See the programme']],
   [/\b(shop|store|commerce|marketplace|retail|vinyl|listing|classified)\b/i, ['Shop new arrivals', 'Browse the archive']],
   [/\b(restaurant|cafe|menu|bakery|coffee|kitchen|deli|diner|bistro|cream|milk.?bar|recipe|harvest)\b/i, ['See the menu', 'Book a table']],
   [/\b(booking|hotel|stay|hostel|resort|suite|travel|itinerary|atlas|waypoints)\b/i, ['Check availability', 'See the routes']],
@@ -164,6 +354,16 @@ const CATEGORY_KICKER: Record<string, string> = {
 
 /** Tier names + prices for pricing blocks, per voice family. */
 const TIER_BANKS: [RegExp, [string, string][]][] = [
+  [/\b(freight|logistics|dispatch|warehouse|cargo|fleet|pallet)\b/i, [['Single shipment', 'on quote'], ['Business', 'monthly'], ['Fleet', 'contract']]],
+  [/\b(factory|manufactur|machining|fabricat|tolerance|production)\b/i, [['Sample part', 'free'], ['Batch', 'on quote'], ['Production', 'contract']]],
+  [/\b(energy|grid|solar|utilities|kilowatt|generation)\b/i, [['Home', 'free'], ['Commercial', 'on quote'], ['Industrial', 'contract']]],
+  [/\b(farm|harvest|soil|crops|growers|orchard|dairy|agricultur)\b/i, [['Market box', '18'], ['Weekly share', '32/wk'], ['Restaurant', 'on account']]],
+  [/\b(architecture|buildings|interiors|architects)\b/i, [['Consultation', 'free'], ['Concept', 'from 2k'], ['Full build', 'on quote']]],
+  [/\b(training|fitness|athletes|sports|coaching)\b/i, [['Drop-in', '12'], ['Monthly', '48/mo'], ['Season', '180']]],
+  [/\b(community|mutual aid|volunteers|charity|giving)\b/i, [['Volunteer', 'free'], ['Member', '8/mo'], ['Patron', '25/mo']]],
+  [/\b(strategy|advisory|consulting|workshops|engagements)\b/i, [['Brief', 'free'], ['Sprint', '6k'], ['Retainer', 'monthly']]],
+  [/\b(music|album|band|musicians|releases)\b/i, [['Single', '1.29'], ['Album', '9'], ['Membership', '5/mo']]],
+  [/\b(kids|family|toys|childcare|playtime|parents)\b/i, [['Drop-in', '6'], ['Term', '48'], ['Party', '120']]],
   [/\b(pet|dog|cat|vet|kennel|animal|adoption|grooming)\b/i, [['Single visit', '45'], ['Care plan', '19/mo'], ['Whole family', '39/mo']]],
   [/\b(restaurant|cafe|menu|bakery|coffee|kitchen|deli|diner|bistro|cream)\b/i, [['Flat white', '4.20'], ['Lunch set', '16'], ['Feast menu', '42/head']]],
   [/\b(shop|store|commerce|marketplace|retail|vinyl|listing)\b/i, [['Standard', 'free'], ['Member', '9/mo'], ['Trade', '24/mo']]],
@@ -187,6 +387,16 @@ const DEFAULT_TIERS: [string, string][] = [
 
 /** Tier-perk lines below the price, per voice family. */
 const PERK_BANKS: [RegExp, string[][]][] = [
+  [/\b(freight|logistics|dispatch|warehouse|cargo|fleet|pallet)\b/i, [['Live tracking', 'Proof of delivery', 'One invoice'], ['Scheduled lanes', 'Customs handled', 'Named contact'], ['Dedicated fleet', 'API feed', 'Quarterly review']]],
+  [/\b(factory|manufactur|machining|fabricat|tolerance|production)\b/i, [['Material spec', 'Tolerance check', 'Sample'], ['Batch pricing', 'QA report', 'Lead times'], ['Dedicated line', 'Tooling', 'Volume terms']]],
+  [/\b(energy|grid|solar|utilities|kilowatt|generation)\b/i, [['Usage dashboard', 'One bill', 'Outage alerts'], ['Site survey', 'Load plan', 'Priority repair'], ['Metering', 'Reports', 'Account engineer']]],
+  [/\b(farm|harvest|soil|crops|growers|orchard|dairy|agricultur)\b/i, [['Weekly box', 'Seasonal picks', 'Farm notes'], ['Choose contents', 'Home delivery', 'Recipe cards'], ['Standing order', 'Invoicing', 'Crate returns']]],
+  [/\b(architecture|buildings|interiors|architects)\b/i, [['Site visit', 'Feasibility notes', 'Moodboard'], ['Concept plan', 'Materials list', 'Planning advice'], ['Full drawings', 'Site oversight', 'Handover file']]],
+  [/\b(training|fitness|athletes|sports|coaching)\b/i, [['Taster session', 'Kit loan', 'Progress notes'], ['Weekly sessions', 'Coach check-in', 'Recovery plan'], ['Season plan', 'Testing days', 'Travel kit']]],
+  [/\b(community|mutual aid|volunteers|charity|giving)\b/i, [['Open events', 'Notice board', 'Neighbour list'], ['Monthly meetups', 'Working groups', 'Vote'], ['Named fund', 'Reports', 'Site visits']]],
+  [/\b(strategy|advisory|consulting|workshops|engagements)\b/i, [['Discovery call', 'Notes', 'Reading list'], ['Workshop', 'Findings', 'Roadmap'], ['Embedded team', 'Weekly review', 'Handover']]],
+  [/\b(music|album|band|musicians|releases)\b/i, [['Stream', 'Liner notes', 'Mailing list'], ['Download', 'Artwork', 'Early access'], ['Full catalogue', 'Studio notes', 'Credits']]],
+  [/\b(kids|family|toys|childcare|playtime|parents)\b/i, [['Drop-in play', 'Snack', 'Carer on site'], ['Term pass', 'Holiday clubs', 'Progress notes'], ['Private party', 'Room hire', 'Catering']]],
   [/\b(pet|dog|cat|vet|kennel|animal|adoption|grooming)\b/i, [['Meet-and-greet', 'Vet-checked', 'Take-home kit'], ['Home check', 'Vaccines up to date', 'Support line'], ['Training taster', 'Photo album', 'Lifetime advice']]],
   [/\b(restaurant|cafe|menu|bakery|coffee|kitchen|deli|diner|bistro|cream)\b/i, [['Counter seat', 'Daily bake', 'Refills'], ['Two courses', 'House wine', 'No service charge'], ['Chef\u2019s table', 'Tasting menu', 'Sommelier picks']]],
   [/\b(shop|store|commerce|marketplace|retail|vinyl|listing)\b/i, [['Free returns', 'Member prices', 'Wishlist'], ['Early access', 'Gift wrap', 'Free shipping'], ['Trade prices', 'Net-30 terms', 'Account manager']]],
@@ -246,6 +456,24 @@ function pick<T>(arr: T[], seed: number, spin = 0): T {
   return arr[(seed + spin) % arr.length]
 }
 
+export interface PageVoice {
+  articles: { tag: string; title: string; dek: string }[]
+  feature: { tag: string; title: string; body: string }
+  essay: { lead: string; pull: string; body: string; aside: string[]; closing: string }
+  steps: { n: string; title: string; body: string }[]
+  spotlight: { k: string; v: string }[]
+  bento: { cap: string; tiles: { title: string; body: string }[]; wideTitle: string; wideBody: string; stats: { v: string; label: string }[] }
+  mosaic: { cap: string; method: string[]; tiles: { title: string; body: string }[]; quote: string }
+  film: { frames: string[]; notes: { k: string; v: string }[] }
+  map: { facts: [string, string][]; rows: [string, string, string][]; legend: [string, string] }
+  field: { entries: [string, string, string][]; checks: string[] }
+  receipt: { items: [string, string][]; thanks: string }
+  catalog: { filters: string[]; items: string[] }
+  docs: { groups: [string, string[]][]; toc: string[] }
+  manifesto: { words: string[]; signoff: string }
+  headings: string[]
+}
+
 export interface VoicePack {
   /** Hero kicker, category-flavored. */
   kicker: string
@@ -269,12 +497,126 @@ export interface VoicePack {
   meta: string
   /** Short action for the nav button. */
   navAction: string
+  /** Per-design page copy for the layout bodies. */
+  page: PageVoice
 }
 
 /** Perk rows for a given tier index, from the matched bank. */
 export function voicePerks(p: VoicePack, i: number): string[] {
   const rows = p.tierPerks
   return rows[i % rows.length]
+}
+
+/** Per-design page copy. Every line carries the design's name or its own tags,
+ *  so two pages can share an arrangement without sharing a sentence. */
+function pagePack(d: DesignSystem): PageVoice {
+  const tags = (d.tags.length ? d.tags : ['craft', 'detail', 'rhythm']).map((x) => x.replace(/-/g, ' '))
+  const t = (i: number) => tags[i % tags.length]
+  const cap = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s)
+  const first = d.designPhilosophy.split('.')[0]
+  return {
+    articles: [
+      { tag: 'Feature', title: `${d.name} and the ${t(0)} question`, dek: `The ${t(0)} work, documented in public and argued in plain language.` },
+      { tag: 'Opinion', title: `Why ${t(1)} is the whole brief`, dek: `${cap(t(1))} is not a feature. It is the reason the rest can stay quiet.` },
+      { tag: 'Inside', title: `A day at the ${t(2)} desk`, dek: `How ${d.name} keeps ${t(2)} honest from first note to final page.` },
+    ],
+    feature: {
+      tag: 'Cover story',
+      title: `${cap(t(0))}, without the theatre`,
+      body: `${first}. The ${t(1)} work is shown, not summarised — which is why ${d.name} reads as a place rather than a pitch.`,
+    },
+    essay: {
+      lead: `The first thing ${d.name} fixes is the argument. ${cap(t(0))} and ${t(1)} finally share a page, and the page does not flinch.`,
+      pull: `“${cap(t(0))} is not a feature. It is the reason the rest of the system can stay quiet.”`,
+      body: `Every token in ${d.name} exists because something else would be worse. The scale has seven steps because six cramped and eight wandered. The ${t(1)} accent appears exactly where your eye needs a handhold, and nowhere else.`,
+      aside: [`${cap(t(0))} as the primary verb`, `${cap(t(1))} kept visible`, `Six colors, no unnamed greys`, `Motion that confirms, never performs`],
+      closing: `Adoption was the test. The ${t(2)} team shipped pages that looked art-directed without a designer in the room — and the designers finally had time for the work only they could do.`,
+    },
+    steps: [
+      { n: '01', title: `Map the ${t(0)}`, body: `Start with the one ${t(0)} decision everything else depends on. ${d.name} makes it explicit before a single component is drawn.` },
+      { n: '02', title: `Set the ${t(1)} rhythm`, body: `One spacing unit, one type scale, one accent rule. The ${t(1)} pages inherit the rhythm instead of inventing it.` },
+      { n: '03', title: `Ship the ${t(2)} page`, body: `Publish it. ${d.name} holds the page together, so the ${t(2)} work stays the point.` },
+    ],
+    spotlight: [
+      { k: 'Spec', v: `${cap(t(0))} named, ${t(1)} drawn — ${d.name} leaves nothing to taste.` },
+      { k: 'Scale', v: `Seven type steps for ${t(2)}, one spacing unit, zero exceptions granted.` },
+      { k: 'Stay', v: `The ${t(0)} team still on it a year later. The churn is elsewhere.` },
+    ],
+    bento: {
+      cap: `${cap(t(0))} in four minutes`,
+      tiles: [
+        { title: 'Tokens first', body: `${cap(t(0))}, ${t(1)} and ${t(2)} all derive from six named colors.` },
+        { title: 'States included', body: `Hover, focus, empty and error for every ${t(0)} control.` },
+      ],
+      wideTitle: `${cap(t(0))}, placed with intent`,
+      wideBody: `${first}.`,
+      stats: [
+        { v: '12k+', label: `teams on ${t(0)}` },
+        { v: '4.9★', label: `${t(1)} rating` },
+        { v: '6', label: 'tokens to learn' },
+      ],
+    },
+    mosaic: {
+      cap: `${cap(t(0))} in production since 2021`,
+      method: [`Decide the ${t(0)} voice`, `Fix the ${t(1)} unit`, `Name every ${t(2)} token`, `Write the ${t(0)} rules down`],
+      tiles: [
+        { title: 'Six colors, no exceptions', body: `Every ${t(0)} surface, border and accent in ${d.name} derives from the same six tokens.` },
+        { title: 'States, drawn', body: `Every ${t(1)} state, including the ones nobody screenshots.` },
+      ],
+      quote: `${first}.`,
+    },
+    film: {
+      frames: [`${cap(t(0))}, establishing`, `${cap(t(1))}, available light`, `${cap(t(2))} close-up`, `The ${t(0)} detail`, `Last frame, unposed`],
+      notes: [
+        { k: 'Exposure', v: `${cap(t(0))} rendered one stop under, then printed down.` },
+        { k: 'Grain', v: `Fine grain, kept for the ${t(1)} texture.` },
+        { k: 'Cut', v: `Straight cuts — the ${t(2)} sequence never dissolves.` },
+      ],
+    },
+    map: {
+      facts: [['Route', cap(t(0))], ['Scale', '1 : 25 000'], ['Edition', `${cap(t(1))}, revised`]],
+      rows: [
+        [`${cap(t(0))} quay`, '1.2 km', 'Sheltered, all tide'],
+        [`${cap(t(1))} lock`, '3.4 km', `Heritage, ${t(2)} access`],
+        [`${cap(t(2))} mole`, '5.8 km', 'Exposed in easterlies'],
+      ],
+      legend: [cap(t(0)), cap(t(1))],
+    },
+    field: {
+      entries: [
+        ['07:40', `${cap(t(0))} check`, `Measured against the ${t(0)} baseline set in spring.`],
+        ['11:05', `${cap(t(1))} count`, `Dense by eye; the ${t(1)} ledger agrees.`],
+        ['15:20', `${cap(t(2))} note`, `Dark, loose, two earthworms — a good sign.`],
+        ['18:00', 'Weather', `Rain by evening, as the ${t(0)} schedule promised.`],
+      ],
+      checks: [`Tag the ${t(0)}`, `Photograph the ${t(1)}`, `File the ${t(2)} sheet`],
+    },
+    receipt: {
+      items: [
+        [`${cap(t(0))} \u2014 line 01`, '12.00'],
+        [`${cap(t(1))} \u2014 line 02`, '8.50'],
+        [`${cap(t(2))} \u2014 line 03`, '24.00'],
+      ],
+      thanks: `${first}. Filed under ${t(0)}.`,
+    },
+    catalog: {
+      filters: ['All', cap(t(0)), cap(t(1)), 'Archive'],
+      items: [0, 1, 2, 3, 4, 5].map((i) => `${cap(t(i))} ${String(i + 1).padStart(2, '0')}`),
+    },
+    docs: {
+      groups: [
+        ['Start here', [`Install ${d.name}`, `First ${t(0)} page`, 'Concepts']],
+        ['Guides', [cap(t(1)), cap(t(2)), 'Motion']],
+        ['Reference', ['Tokens', 'Components', 'Changelog']],
+      ],
+      toc: ['Install', `The ${t(0)} rules`, 'Next steps'],
+    },
+    manifesto: {
+      words: [`No ${t(0)} theatre`, `No ${t(1)} defaults`, `No ${t(2)} apologies`],
+      signoff: `${d.name}, a design system by ${d.author}`,
+    },
+    headings: [`Built for ${t(0)}`, `The ${t(1)} method`, `Everything ${t(2)} needs`],
+  }
 }
 
 /**
@@ -285,19 +627,24 @@ export function voicePack(d: DesignSystem): VoicePack {
   // The preview prose (`designDetails`) is not consulted: it ships in its own
   // chunk, so a voice would otherwise depend on whether a preview had opened.
   // Identity, tags, website types and category carry the same signals.
-  const haystack = `${d.id} ${d.name} ${d.tags.join(' ')} ${d.useCases.join(' ')} ${d.category}`
+  // Primary website type only: secondary use-cases are related categories, not
+  // the design's own vocabulary, and previously let "E-commerce" or
+  // "Publishing" hijack a freight or school page's nav and testimonials.
+  const haystack = `${d.name} ${d.tags.join(' ')} ${d.useCases[0] ?? ''} ${d.category}`
   const seed = voiceHash(d.id)
+  const preferred = USE_CASE_VOICE[d.useCases[0] ?? '']
 
   const voiceKey: VoiceKey =
+    preferred ??
     VOICE_RULES.find(([re]) => re.test(haystack))?.[1] ??
     CATEGORY_VOICE[d.category] ??
     'default'
   const quotes = VOICE_QUOTES[voiceKey] ?? VOICE_QUOTES.default
 
-  const nav = NAV_BANKS.find(([re]) => re.test(haystack))?.[1] ?? DEFAULT_NAV
-  const cta = CTA_BANKS.find(([re]) => re.test(haystack))?.[1] ?? DEFAULT_CTA
-  const tiers = TIER_BANKS.find(([re]) => re.test(haystack))?.[1] ?? DEFAULT_TIERS
-  const perks = PERK_BANKS.find(([re]) => re.test(haystack))?.[1] ?? DEFAULT_PERKS
+  const nav = pickBank(NAV_BANKS, NAV_KEYS, preferred, haystack) ?? DEFAULT_NAV
+  const cta = pickBank(CTA_BANKS, CTA_KEYS, preferred, haystack) ?? DEFAULT_CTA
+  const tiers = pickBank(TIER_BANKS, TIER_KEYS, preferred, haystack) ?? DEFAULT_TIERS
+  const perks = pickBank(PERK_BANKS, PERK_KEYS, preferred, haystack) ?? DEFAULT_PERKS
 
   const kpis: [string, string, string][] =
     voiceKey === 'ops' ? OPS_KPI
@@ -337,6 +684,7 @@ export function voicePack(d: DesignSystem): VoicePack {
     },
     meta: `${d.category.toUpperCase()} · EST. 2026 · ${d.author.toUpperCase()}`,
     navAction: navActionFor(voiceKey),
+    page: pagePack(d),
   }
 }
 

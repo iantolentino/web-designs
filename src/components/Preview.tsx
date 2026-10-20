@@ -202,7 +202,7 @@ function useCopiedState(id: string) {
  *
  * `aria-modal` promises the rest of the page is inert. Without moving focus
  * that promise is a lie: focus stays on the card in the gallery, so the first
- * Tab press walks the 550 cards *behind* the open preview.
+ * Tab press walks the 1,000 cards *behind* the open preview.
  *
  * So the overlay takes focus when it opens (which also announces its label and
  * the design's name), Tab cycles inside it, and closing hands focus back to

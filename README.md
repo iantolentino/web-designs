@@ -1,6 +1,6 @@
 # The Design Vault
 
-A production-grade design-system showcase: **550 curated, intentionally distinct design
+A production-grade design-system showcase: **1,000 curated, intentionally distinct design
 systems**, a **153-layout pattern library**, and a **110-component kit** — all browsable,
 previewable live, and copyable as ready-to-use AI design prompts. 
 Built to kill AI design slop — no Inter, no purple-on-white, no generic layouts.
@@ -16,9 +16,18 @@ Other scripts:
 
 ```bash
 npm run typecheck  # strict TypeScript, no emit
-npm run verify     # expansion invariants (components, website types, patterns)
+npm run verify     # expansion + differentiation invariants
 npm run build      # typecheck + production build to dist/
 npm run preview    # serve the production build locally
+```
+
+`npm run verify` fails if any two designs share a name, hero line, description, or id,
+or if fewer than 98% of designs have a distinct tag set. To see the full
+differentiation worklist:
+
+```bash
+node scripts/scan-differentiation.cjs        # repeated concepts, copy, tags, fingerprints
+node scripts/scan-differentiation.cjs --json # machine-readable report (gitignored)
 ```
 
 ## The shell
@@ -28,7 +37,7 @@ sort, and saved filters live there, so the main column is nothing but content.
 
 | View | What it shows |
 | --- | --- |
-| **Design systems** | 550 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
+| **Design systems** | 1,000 systems as live thumbnails, **four per row** (five on very wide screens, stepping down to 3 → 2 → 1). |
 | **Layout arrangements** | 21 archetypes (incl. Bento, Poster, Catalog, Docs, Map plate); each design offers its own set so previews differ structurally, not just by color. |
 | **Pattern library** | 153 production layouts with live previews, filterable by family and searchable by block. |
 | **Component kit** | The 110-component kit rendered for any design — with a side-by-side compare mode. |
@@ -38,7 +47,7 @@ On narrow screens the sidebar becomes a drawer (hamburger in the top bar, `Esc` 
 
 ## What's inside
 
-### Design systems (550)
+### Design systems (1,000)
 
 Twenty-one arrangements ship today: the original thirteen (hero + cards, split hero, magazine,
 dashboard, centered, editorial, asymmetric, full-bleed, spotlight, manifesto, bento, poster,
@@ -66,12 +75,34 @@ a full preview with:
 - **Details** — philosophy, click-to-copy palette, type scale, component specs, a themed
   playground, the full prompt, and JSON / CSS-variable export.
 
+### Differentiation, not recoloring
+
+The waves 20–23 expansion shipped 415 designs built from only 50 business concepts, so
+`scripts/generate-unique-concepts.cjs` keeps one design per concept and re-themes the
+other 365 from the 21-industry pool in `scripts/concept-pool.cjs`. It writes
+`src/designs/uniqueConcepts.ts` and changes identity only: name, tags, website types,
+hero, description, philosophy, and accent role. Palette, typography, motif, layout,
+radius, depth, and author stay exactly as authored, so every design keeps the visual
+identity it earned.
+
+`src/designs/differentiation.ts` is the last-mile pass: it walks the assembled catalog
+and gives any remaining duplicate or empty hero/description its own line built from the
+design's name and tags. On the page itself, each design gets a deterministic composition
+variant (`dv-v0`–`dv-v3`), section reordering, and industry-specific navigation, CTAs,
+pricing, and testimonial copy from `src/components/miniVoice.ts`.
+
+`scripts/scan-differentiation.cjs` is the read-only audit: repeated business concepts,
+taglines, descriptions, philosophy blocks, tag sets, visual fingerprints, and per-category
+crowding. `npm run verify` enforces the hard invariants (unique names, heroes,
+descriptions, ids, and ≥98% distinct tag sets). Run the generator, then the scanner, then
+`npm run verify` whenever the catalog changes.
+
 ### The component kit (110 components, per design)
 
 `src/components/ComponentKit.tsx` implements one vocabulary — buttons, fields, selection
 controls, feedback, data display, navigation, and overlays — and renders it entirely from
 whatever tokens it is handed. Nothing is hard-coded, which is why the same kit reads as a
-different product in every one of the 550 systems. Groups:
+different product in every one of the 1,000 systems. Groups:
 
 **Inputs & actions** (28) · **Selection & toggles** (14) · **Feedback & status** (15) ·
 **Data display** (23) · **Navigation** (10) · **Overlays & media** (20)
@@ -126,7 +157,7 @@ bucket is 5 designs, and `npm run verify` fails the build if that stops being tr
 
 ## Speed
 
-Four things keep the vault fast as the catalog grows past 550 systems:
+Four things keep the vault fast as the catalog grows past 1,000 systems:
 
 - **The catalog loads lazily.** `src/designs/*` is more than two thirds of the app's
   JavaScript, so the shell (topbar, sidebar, search, theme) paints from its own markup while
@@ -158,7 +189,7 @@ Open Graph and Twitter cards with a 1200×630 image, `theme-color` per color sch
 JSON-LD (`WebSite` + `CollectionPage`). A `<noscript>` block carries the same description a
 crawler that does not run JavaScript would otherwise miss, and `robots.txt` points at a
 `sitemap.xml` that lists the single URL — the query-string views are the same document with
-different state, so enumerating them would ask crawlers to index 550 near-identical pages.
+different state, so enumerating them would ask crawlers to index 1,000 near-identical pages.
 Giving each design its own indexable page needs a build-time render, which is the natural
 next step.
 
@@ -190,6 +221,8 @@ src/
 │   ├── theme.ts          #   themeOf(), contrast/onColor, withAlpha, sorting
 │   ├── usecases.ts       #   derived website-type index (rules + top-up)
 │   ├── build.ts          #   sys()/row() seed builders + on-demand details
+│   ├── uniqueConcepts.ts #   GENERATED redesigns of duplicated wave concepts
+│   ├── differentiation.ts #  last-mile unique hero/description pass
 │   ├── details.ts        #   GENERATED preview prose (scripts/extract-details.cjs)
 │   ├── previewDetails.ts #   on-demand accessor + loader for both paths
 │   └── extras.ts         #   per-design layout sets, block sets, dashboard extras
@@ -203,6 +236,7 @@ src/
     ├── Gallery.tsx       #   4-up cards, lazy thumbnails, infinite scroll
     ├── Preview.tsx       #   overlay: live/components/code/details, device modes
     ├── MiniSite.tsx      #   shared live renderer + per-instance CSS scoping
+    ├── miniVoice.ts      #   per-industry page copy, nav, CTAs, tiers, perks
     ├── ComponentKit.tsx  #   110 themed components + the kit board
     ├── KitExplorer.tsx   #   kit-per-design view with compare mode
     ├── minisite.css      #   themed layout, motif variants, container queries
@@ -211,8 +245,8 @@ src/
 
 Design thumbnails and previews are the **same component** (`MiniSite`) — cards render it
 scaled inside the thumb, the preview renders it full-size in a device frame. Each design's
-`signatureCss` is auto-scoped per instance so 550 previews can coexist without style bleed.
-Thumbnails use `compact` mode, which skips the kit and blocks sections so 550 scaled pages
+`signatureCss` is auto-scoped per instance so 1,000 previews can coexist without style bleed.
+Thumbnails use `compact` mode, which skips the kit and blocks sections so 1,000 scaled pages
 stay cheap.
 
 ## Adding a design system

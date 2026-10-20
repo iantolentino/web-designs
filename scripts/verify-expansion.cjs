@@ -141,6 +141,10 @@ console.log(JSON.stringify({
   useCases: USE_CASES,
   designCount: DESIGN_SYSTEMS.length,
   designIds: DESIGN_SYSTEMS.map((d) => d.id),
+  names: DESIGN_SYSTEMS.map((d) => d.name),
+  heroes: DESIGN_SYSTEMS.map((d) => d.hero ?? ''),
+  descriptions: DESIGN_SYSTEMS.map((d) => d.description),
+  tagSets: DESIGN_SYSTEMS.map((d) => [...d.tags].sort().join('|')),
   stats: useCaseStats(),
   patternCount: PATTERNS.length,
   patternIds: PATTERNS.map((p) => p.id),
@@ -164,6 +168,20 @@ try {
     ok(`meta.ts DESIGN_COUNT (${metaDesignCount}) matches DESIGN_SYSTEMS.length`)
   else
     flag(`meta.ts DESIGN_COUNT = ${metaDesignCount} but DESIGN_SYSTEMS.length = ${designCount}`)
+
+  /* ---------- 6. every design is its own business, not a recolor ---------- */
+  const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '')
+  const uniqueBy = (list) => new Set(list.map(norm)).size
+  const emptyHeroes = data.heroes.filter((h) => !h.trim()).length
+  if (uniqueBy(data.names) === designCount) ok(`all ${designCount} design names are unique`)
+  else flag(`only ${uniqueBy(data.names)}/${designCount} design names are unique`)
+  if (uniqueBy(data.heroes) === designCount && !emptyHeroes) ok(`all ${designCount} hero lines are unique and non-empty`)
+  else flag(`only ${uniqueBy(data.heroes)}/${designCount} hero lines are unique (${emptyHeroes} empty)`)
+  if (uniqueBy(data.descriptions) === designCount) ok(`all ${designCount} descriptions are unique`)
+  else flag(`only ${uniqueBy(data.descriptions)}/${designCount} descriptions are unique`)
+  const uniqueTagSets = new Set(data.tagSets).size
+  if (uniqueTagSets >= designCount * 0.98) ok(`${uniqueTagSets}/${designCount} tag sets are distinct`)
+  else flag(`only ${uniqueTagSets}/${designCount} tag sets are distinct`)
 
   if (metaPatternCount === patternCount)
     ok(`meta.ts PATTERN_COUNT (${metaPatternCount}) matches PATTERNS.length`)

@@ -12,6 +12,7 @@ import type {
   UseCase,
 } from '../types'
 import { contrastRatio, readableOn } from './palette'
+import { UNIQUE_CONCEPTS } from './uniqueConcepts'
 
 /**
  * Seed builder — how the catalog scales past a few hundred systems without
@@ -476,15 +477,16 @@ export function row(
   extras: RowExtras = {},
 ): DesignSystem {
   const [primary, secondary, accent, neutral, background, text] = colors.split(' ')
+  const unique = UNIQUE_CONCEPTS[id]
   return sys({
     id,
-    name,
+    name: unique?.name ?? name,
     category,
-    tags: tags.split(' '),
-    useCases: useCases.split('|') as UseCase[],
-    hero,
-    description,
-    philosophy,
+    tags: unique?.tags ?? tags.split(' '),
+    useCases: unique?.useCases ?? (useCases.split('|') as UseCase[]),
+    hero: unique?.hero ?? hero,
+    description: unique?.description ?? description,
+    philosophy: unique?.philosophy ?? philosophy,
     colors: { primary, secondary, accent, neutral, background, text },
     display,
     body,
@@ -492,7 +494,7 @@ export function row(
     layout,
     radius,
     depth,
-    accentRole,
+    accentRole: unique?.accentRole ?? accentRole,
     author,
     density: extras.dens,
     motion: extras.mot,
