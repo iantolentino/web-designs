@@ -1,9 +1,10 @@
 import { Children, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import type { DesignSystem, Layout } from '../types'
+import type { DesignSystem, Layout, PageSectionKind, PageStructure } from '../types'
 import { LAYOUT_LABEL } from '../types'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
-import { getBlockSet, getDashExtra, layoutSetFor, primaryLayout, type BlockId, type DashExtra } from '../designs/extras'
+import { getBlockSet, getDashExtra, layoutSetFor, type BlockId, type DashExtra } from '../designs/extras'
+import { pageStructure } from '../designs/structure'
 import { voicePack, voicePerks, type VoicePack } from './miniVoice'
 
 /**
@@ -27,27 +28,6 @@ import { voicePack, voicePerks, type VoicePack } from './miniVoice'
 
 let dvScopeCounter = 0
 
-/** Deterministic composition variant: same design, same structure, every render. */
-function designVariant(id: string): number {
-  let h = 0
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0
-  return Math.abs(h) % 4
-}
-
-/** Reorder the sections after the opener so two designs sharing an archetype
- *  do not share a page rhythm. The hero/first block always stays first. */
-function reorderSections(node: ReactNode, variant: number): ReactNode {
-  const parts = Children.toArray(node)
-  if (variant === 0 || parts.length < 3) return node
-  const [first, ...rest] = parts
-  if (variant === 1) return <>{first}{[...rest].reverse()}</>
-  if (variant === 2) return <>{first}{[...rest.slice(1), rest[0]]}</>
-  const last = rest.length - 1
-  const swapped = [...rest]
-  ;[swapped[last - 1], swapped[last]] = [swapped[last], swapped[last - 1]]
-  return <>{first}{swapped}</>
-}
-
 export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSystem; compact?: boolean; layoutOverride?: Layout | null }) {
   const t = useMemo(() => themeOf(d), [d])
   const v = useMemo(() => voicePack(d), [d])
@@ -59,6 +39,7 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
   const radiusBtn = extractRadius(d.components.radius)
   const scope = useMemo(() => `dv-s${++dvScopeCounter}`, [])
   const scopedCss = useMemo(() => scopeSignatureCss(d.signatureCss, scope), [d.signatureCss, scope])
+  const structure = useMemo(() => pageStructure(d), [d])
 
   const cssVars = {
     '--dv-bg': t.bg,
@@ -72,13 +53,26 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
     '--dv-display': `'${t.display}', sans-serif`,
     '--dv-body': `'${t.body}', sans-serif`,
     '--dv-r': radiusBtn,
+    /* Per-page geometry, derived from the structural signature dimensions. */
+    '--dv-hero-measure': `${19 + ((structure.opener * 3 + structure.chrome * 2) % 12)}ch`,
+    '--dv-hero-pad': `${2.3 + ((structure.footer * 2 + structure.rhythm) % 8) * 0.34}em`,
+    '--dv-shell': `${62 + ((structure.chrome * 5 + structure.card * 3) % 18)}em`,
+    '--dv-gap': `${0.75 + ((structure.nav * 2 + structure.columns) % 6) * 0.14}em`,
+    '--dv-cat-cols': `${2 + (structure.chrome % 4)}`,
+    '--dv-cat-gap': `${0.55 + (structure.rhythm % 3) * 0.35}em`,
+    '--dv-cat-media-h': `${5.5 + structure.card * 1.8}em`,
+    '--dv-cat-rail-w': `${8 + structure.columns * 2}em`,
   } as React.CSSProperties
 
-  const activeLayout = layoutOverride ?? primaryLayout(d)
-  const variant = useMemo(() => designVariant(d.id), [d.id])
+  const activeLayout = layoutOverride ?? structure.openerLayout
+  const ctx = { setModalOpen, openFaq, setOpenFaq }
 
   return (
-    <div className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} dv-v${variant} ${compact ? 'dv-compact' : ''}`} style={cssVars}>
+    <div
+      className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} dv-ov${structure.opener} dv-nv${structure.nav} dv-ch${structure.chrome} dv-ft${structure.footer} dv-rh${structure.rhythm} dv-uc${structure.columns} dv-uk${structure.card} ${compact ? 'dv-compact' : ''}`}
+      style={cssVars}
+      data-dv-structure={structure.signature}
+    >
       <style>{scopedCss}</style>
       <div className="dv-stage">
         <nav className="dv-nav">
@@ -110,7 +104,7 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
           </div>
         )}
 
-        {reorderSections(renderLayout(d, activeLayout, { setModalOpen, openFaq, setOpenFaq }), variant)}
+        {composePage(renderLayout(d, activeLayout, ctx), d, structure, compact)}
 
         {!compact && (
           <section className="dv-section dv-blocks-section">
@@ -289,6 +283,343 @@ function renderLayout(
     case 'hero-cards':
     default: return <HeroCards d={d} />
   }
+}
+
+/**
+ * Compose a page from an opener + the design's own five-section sequence.
+ * The opener keeps the authored layout identity; the sequence is unique per
+ * design and is inserted immediately after the opener, before the archetype's
+ * own supporting sections. Two designs can share a hero mood but not a page.
+ */
+function composePage(body: ReactNode, d: DesignSystem, structure: PageStructure, compact: boolean): ReactNode {
+  const parts = Children.toArray(body)
+  const sections = compact ? structure.sections.slice(0, 2) : structure.sections
+  const stream = <UniqueSections d={d} structure={structure} sections={sections} compact={compact} />
+  if (!parts.length) return stream
+  if (compact) return <>{parts[0]}{stream}</>
+  if (parts.length === 1) return <>{body}{stream}</>
+  return <>{parts[0]}{stream}{parts.slice(1)}</>
+}
+
+function UniqueSections({
+  d,
+  structure,
+  sections,
+  compact,
+}: {
+  d: DesignSystem
+  structure: PageStructure
+  sections: PageSectionKind[]
+  compact: boolean
+}) {
+  return (
+    <div className="dv-usec-stream">
+      {sections.map((kind, i) => (
+        <UniqueSection
+          key={`${kind}-${i}`}
+          d={d}
+          kind={kind}
+          index={i}
+          rhythm={(structure.rhythm + i * 2) % 6}
+          columns={2 + ((structure.columns + i) % 3)}
+          card={(structure.card + i) % 4}
+          compact={compact}
+        />
+      ))}
+    </div>
+  )
+}
+
+function UniqueSection({
+  d,
+  kind,
+  index,
+  rhythm,
+  columns,
+  card,
+  compact,
+}: {
+  d: DesignSystem
+  kind: PageSectionKind
+  index: number
+  rhythm: number
+  columns: number
+  card: number
+  compact: boolean
+}) {
+  const v = useMemo(() => voicePack(d), [d])
+  return (
+    <section className={`dv-usec dv-usec-kind-${kind} dv-ur${rhythm} dv-uc${columns} dv-uk${card}`}>
+      <div className="dv-usec-inner">
+        <header className="dv-usec-head">
+          <p className="dv-kicker">{sectionKicker(d, kind)}</p>
+          <h2 className="dv-usec-title">{sectionHeading(d, v, kind, index)}</h2>
+        </header>
+        <div className="dv-usec-body">{sectionBody(d, v, kind, compact)}</div>
+      </div>
+    </section>
+  )
+}
+
+function sectionKicker(d: DesignSystem, kind: PageSectionKind): string {
+  const labels: Record<PageSectionKind, string> = {
+    features: 'the system',
+    split: 'the work',
+    stats: 'the record',
+    quote: 'in their words',
+    pricing: 'ways in',
+    testimonials: 'proof',
+    faq: 'before you start',
+    cta: 'next step',
+    form: 'get in touch',
+    essay: 'the argument',
+    steps: 'the process',
+    gallery: 'selected',
+    table: 'the detail',
+    timeline: 'the history',
+    catalog: 'the collection',
+    bento: 'one view',
+    logos: 'who it is for',
+    team: 'the people',
+  }
+  return `${d.category} · ${labels[kind]}`
+}
+
+function sectionHeading(d: DesignSystem, v: VoicePack, kind: PageSectionKind, index: number): string {
+  switch (kind) {
+    case 'features': return v.page.headings[index % v.page.headings.length]
+    case 'split': return v.page.feature.title
+    case 'stats': return `The numbers behind ${d.name}`
+    case 'quote': return `What ${d.tags[0] ?? 'the work'} asks for`
+    case 'pricing': return `Ways to work with ${d.name}`
+    case 'testimonials': return 'Notes from the people using it'
+    case 'faq': return 'Questions, answered'
+    case 'cta': return `Start with ${d.name}`
+    case 'form': return v.form.heading
+    case 'essay': return 'The argument'
+    case 'steps': return 'How the work moves'
+    case 'gallery': return `Selected ${d.tags[0] ?? 'work'}`
+    case 'table': return 'At a glance'
+    case 'timeline': return 'The record so far'
+    case 'catalog': return `The ${v.page.catalog.filters[0] ?? 'full'} collection`
+    case 'bento': return 'Everything in one view'
+    case 'logos': return 'Built for'
+    case 'team': return `The people behind ${d.name}`
+  }
+}
+
+function sectionBody(d: DesignSystem, v: VoicePack, kind: PageSectionKind, compact: boolean): ReactNode {
+  const t = themeOf(d)
+  switch (kind) {
+    case 'features':
+      return (
+        <div className="dv-usec-grid">
+          {features(d).slice(0, compact ? 2 : 3).map((f, i) => (
+            <article key={i} className="dv-card dv-usec-card">
+              <span className="dv-card-icon" aria-hidden>{f.icon}</span>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </article>
+          ))}
+        </div>
+      )
+    case 'split':
+      return (
+        <div className="dv-usec-split">
+          <div className="dv-usec-media" style={{ background: `linear-gradient(145deg, ${t.primary}, ${t.secondary})` }} />
+          <div className="dv-usec-copy">
+            <span className="dv-badge" style={{ background: withAlpha(t.accent, 0.16), color: t.accent }}>{v.page.feature.tag}</span>
+            <p>{v.page.feature.body}</p>
+            <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+          </div>
+        </div>
+      )
+    case 'stats':
+      return (
+        <div className="dv-usec-stats">
+          {v.stats.map(([val, label]) => (
+            <div key={label} className="dv-usec-stat">
+              <strong style={{ fontFamily: `'${t.display}', sans-serif` }}>{val}</strong>
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
+      )
+    case 'quote':
+      return (
+        <blockquote className="dv-usec-quote">
+          “{v.quotes[2].q}”
+          <footer>— {v.quotes[2].a}</footer>
+        </blockquote>
+      )
+    case 'pricing':
+      return (
+        <div className="dv-usec-pricing">
+          {v.tiers.map(([name, price], pi) => (
+            <div key={name} className={`dv-card dv-usec-price ${pi === 1 ? 'dv-price-hot' : ''}`} style={pi === 1 ? { borderColor: t.primary, borderWidth: 2 } : {}}>
+              <h3>{name}</h3>
+              <div className="dv-price">{price}</div>
+              <ul>{voicePerks(v, pi).slice(0, compact ? 2 : 4).map((li) => <li key={li}>{li}</li>)}</ul>
+              <button className="dv-btn dv-btn-primary" style={btnStyle(t)}>{v.cta[0]}</button>
+            </div>
+          ))}
+        </div>
+      )
+    case 'testimonials':
+      return (
+        <div className="dv-usec-testi">
+          {v.quotes.slice(0, compact ? 2 : 3).map((q, i) => (
+            <figure key={i} className="dv-card dv-usec-quote-card">
+              <blockquote>“{q.q}”</blockquote>
+              <figcaption><span className="dv-avatar" style={{ background: i === 1 ? t.secondary : t.primary }}>{q.i}</span>{q.a}</figcaption>
+            </figure>
+          ))}
+        </div>
+      )
+    case 'faq':
+      return <UniqueFaq d={d} v={v} compact={compact} />
+    case 'cta':
+      return (
+        <div className="dv-usec-cta" style={{ background: `linear-gradient(120deg, ${t.primary}, ${t.secondary})`, borderRadius: extractRadius(d.components.radius) }}>
+          <div>
+            <strong>Bring {d.name} to your next build.</strong>
+            <span>One page, one voice, one set of rules.</span>
+          </div>
+          <button className="dv-btn" style={{ background: onColor(t.primary), color: t.primary }}>{v.cta[0]}</button>
+        </div>
+      )
+    case 'form':
+      return <MiniForm d={d} v={v} />
+    case 'essay':
+      return (
+        <div className="dv-usec-essay">
+          <p className="dv-usec-lead">{v.page.essay.lead}</p>
+          <div className="dv-usec-pull">{v.page.essay.pull}</div>
+          <p>{v.page.essay.body}</p>
+        </div>
+      )
+    case 'steps':
+      return (
+        <div className="dv-usec-steps">
+          {v.page.steps.slice(0, compact ? 2 : 3).map((s) => (
+            <div key={s.n} className="dv-usec-step">
+              <span style={{ color: t.primary, fontFamily: `'${t.display}', sans-serif` }}>{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))}
+        </div>
+      )
+    case 'gallery':
+      return (
+        <div className="dv-usec-gallery">
+          {v.page.articles.slice(0, compact ? 2 : 3).map((a, i) => (
+            <article key={a.title} className="dv-usec-tile" style={{ background: i % 2 ? withAlpha(t.secondary, 0.2) : withAlpha(t.primary, 0.16) }}>
+              <span className="dv-badge" style={{ background: withAlpha(t.accent, 0.16), color: t.accent }}>{a.tag}</span>
+              <h3>{a.title}</h3>
+              <p>{a.dek}</p>
+            </article>
+          ))}
+        </div>
+      )
+    case 'table':
+      return (
+        <div className="dv-usec-table-wrap">
+          <table className="dv-table">
+            <thead><tr><th>{v.dash.heading}</th><th>Tier</th><th>Value</th><th>Status</th></tr></thead>
+            <tbody>
+              {v.dash.items.slice(0, compact ? 3 : 5).map((item, i) => (
+                <tr key={item}>
+                  <td>{item}</td>
+                  <td>{v.tiers[i % v.tiers.length][0]}</td>
+                  <td>{v.stats[i % v.stats.length][0]}</td>
+                  <td><span className="dv-badge" style={{ background: withAlpha(t.accent, 0.14), color: t.accent }}>{i % 2 ? 'Open' : 'Ready'}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
+    case 'timeline':
+      return (
+        <ol className="dv-usec-timeline">
+          {[['2019', `The first rule of ${d.tags[0] ?? 'the work'}`], ['2021', 'The type becomes the system'], ['2023', 'The palette narrows'], ['2026', 'It ships every day']].map(([year, title], i) => (
+            <li key={year} style={{ borderColor: withAlpha(t.text, 0.14) }}>
+              <span style={{ color: t.primary, fontFamily: `'${t.display}', sans-serif` }}>{year}</span>
+              <div><strong>{title}</strong><p>{v.page.essay.aside[i % v.page.essay.aside.length]}</p></div>
+            </li>
+          ))}
+        </ol>
+      )
+    case 'catalog':
+      return (
+        <div className="dv-usec-catalog">
+          {v.page.catalog.items.slice(0, compact ? 2 : 4).map((name, i) => (
+            <article key={name} className="dv-card dv-usec-product">
+              <div className="dv-media" style={{ background: i % 2 ? withAlpha(t.secondary, 0.3) : withAlpha(t.primary, 0.18) }} />
+              <div><h3>{name}</h3><span className="dv-label">${40 + i * 17}</span></div>
+            </article>
+          ))}
+        </div>
+      )
+    case 'bento':
+      return (
+        <div className="dv-usec-bento">
+          <div className="dv-usec-bento-stat" style={{ background: withAlpha(t.primary, 0.12) }}>
+            <strong>{v.stats[0][0]}</strong><span>{v.stats[0][1]}</span>
+          </div>
+          {v.page.bento.tiles.slice(0, compact ? 2 : 3).map((tile) => (
+            <div key={tile.title} className="dv-card dv-usec-bento-tile">
+              <h3>{tile.title}</h3><p>{tile.body}</p>
+            </div>
+          ))}
+          <div className="dv-card dv-usec-bento-wide"><h3>{v.page.bento.wideTitle}</h3><p>{v.page.bento.wideBody}</p></div>
+        </div>
+      )
+    case 'logos':
+      return (
+        <div className="dv-usec-logos">
+          {[...d.useCases, ...d.tags].slice(0, compact ? 4 : 8).map((x) => (
+            <span key={x} className="dv-usec-logo" style={{ borderColor: withAlpha(t.text, 0.18) }}>{x}</span>
+          ))}
+        </div>
+      )
+    case 'team':
+      return (
+        <div className="dv-usec-team">
+          {[{ n: d.author, r: 'Author' }, ...v.quotes.map((q, i) => ({ n: q.a, r: ['Editor', 'Engineer', 'Operator'][i % 3] }))].slice(0, compact ? 2 : 4).map((p) => (
+            <div key={p.n} className="dv-card dv-usec-person">
+              <span className="dv-avatar" style={{ background: t.primary }}>{p.n.charAt(0)}</span>
+              <strong>{p.n}</strong>
+              <span className="dv-label">{p.r}</span>
+            </div>
+          ))}
+        </div>
+      )
+  }
+}
+
+function UniqueFaq({ d, v, compact }: { d: DesignSystem; v: VoicePack; compact: boolean }) {
+  const [open, setOpen] = useState(0)
+  const t = themeOf(d)
+  const qs: [string, string][] = [
+    [`What does ${d.name} actually ship?`, `${v.page.essay.lead} ${v.page.essay.closing}`],
+    [`How is ${d.tags[0] ?? 'the work'} handled?`, v.page.feature.body],
+    ['Can this scale beyond one team?', `Yes. ${d.name} is a specification, not a one-off page: tokens, components, and rules travel together.`],
+    ['What changes on day one?', v.form.ok],
+  ]
+  return (
+    <div className="dv-usec-faq">
+      {qs.slice(0, compact ? 2 : 4).map(([q, a], i) => (
+        <div key={q} className={`dv-usec-faq-item ${open === i ? 'dv-usec-faq-open' : ''}`} style={{ borderColor: withAlpha(t.text, 0.14) }}>
+          <button className="dv-usec-faq-q" onClick={() => setOpen(open === i ? -1 : i)} aria-expanded={open === i}>
+            <span>{q}</span><span style={{ color: t.primary }}>{open === i ? '−' : '+'}</span>
+          </button>
+          {open === i && <p>{a}</p>}
+        </div>
+      ))}
+    </div>
+  )
 }
 
 function HeroCards({ d }: { d: DesignSystem }) {
@@ -1407,11 +1738,31 @@ function btnStyle(t: { primary: string; onPrimary: string }): React.CSSPropertie
 }
 
 function features(d: DesignSystem): { icon: string; title: string; body: string }[] {
-  const n = d.name
+  const tags = d.tags.length ? d.tags : ['structure', 'rhythm', 'clarity']
+  const uses = d.useCases.length ? d.useCases : [d.category]
+  const lines = d.designPhilosophy
+    .split(/[.;]/)
+    .map((x) => x.trim())
+    .filter(Boolean)
+  const titleCase = (x: string) => x.replace(/(^|[- ])\w/g, (m) => m.toUpperCase())
   return [
-    { icon: '◆', title: 'Intentional by default', body: `Every token in ${n} exists for a reason — nothing is decorative filler.` },
-    { icon: '◇', title: 'Ships production-ready', body: 'Spacing rhythm, shadows, and states are all specified. Copy, paste, publish.' },
-    { icon: '◈', title: 'Documented to the px', body: 'Typography, color, motion, and a11y notes travel with the system.' },
+    {
+      icon: '01',
+      title: `${titleCase(tags[0])} is load-bearing`,
+      body: `${d.name} treats ${tags[0]} as a structural decision, not a finish. Remove it and the page stops explaining itself.`,
+    },
+    {
+      icon: '02',
+      title: `Shaped for ${uses[0]}`,
+      body: `The default page is tuned for ${uses[0].toLowerCase()} work, with ${tags[1] ?? tags[0]} carrying the second beat and ${tags[2] ?? tags[0]} keeping the edges honest.`,
+    },
+    {
+      icon: '03',
+      title: `Why ${d.name} holds together`,
+      body: lines[0]
+        ? `${lines[0]}.`
+        : `${d.name} keeps ${tags[0]} and ${tags[1] ?? tags[0]} in the same system, so every section inherits the same argument.`,
+    },
   ]
 }
 

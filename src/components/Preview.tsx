@@ -4,7 +4,8 @@ import { CATEGORY_ACCENT, LAYOUT_LABEL } from '../types'
 import type { DesignDetails, DesignSystem, DeviceMode, Layout, PreviewTab } from '../types'
 import { detailsOf, loadDetails } from '../designs/previewDetails'
 import { useCatalog } from '../catalog'
-import { layoutSetFor, primaryLayout } from '../designs/extras'
+import { layoutSetFor } from '../designs/extras'
+import { pageStructure } from '../designs/structure'
 import { themeOf, withAlpha, onColor } from '../designs/theme'
 import { buildDesignPrompt } from '../prompt'
 import { copyDesignPrompt, copyText } from '../hooks'
@@ -63,7 +64,7 @@ export function Preview({ ids }: { ids: string[] }) {
     return () => window.removeEventListener('dv-layout-change', onLayoutChange)
   }, [d.id])
   const layoutOptions = getLayoutSet(d)
-  const activeLayout = previewLayout ?? primaryLayout(d)
+  const activeLayout = previewLayout ?? pageStructure(d).openerLayout
   // The palette can be overridden per design; every surface below uses the
   // effective design so structure stays fixed while the ink is yours.
   const override = useStore((s) => s.paletteOverrides[d.id])

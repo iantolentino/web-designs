@@ -22,7 +22,7 @@ npm run preview    # serve the production build locally
 ```
 
 `npm run verify` fails if any two designs share a name, hero line, description, or id,
-or if fewer than 98% of designs have a distinct tag set. To see the full
+or if any two designs share a tag set. To see the full
 differentiation worklist:
 
 ```bash
@@ -68,7 +68,7 @@ a full preview with:
   voice (nav, CTAs, stats, pricing, testimonials, and dashboard labels derived from the
   design's tags and use-cases), plus per-design content blocks, Desktop / Tablet / Mobile
   framing (container queries, so the design truly responds), and an arrangement switcher
-  (2–4 layout archetypes per design). The 110-component kit lives in its own Components
+  (2-5 layout archetypes per design). The 110-component kit lives in its own Components
   tab and the standalone Component kit view — it does not repeat inside the page.
 - **Colors** — a Color Studio: keep the design, swap the ink. Apply a curated palette, harmonize a full palette from any single color, or edit each of the six tokens; overrides save per design.
 - **Code** — a simplified, readable HTML/CSS sample (tokens + one hero).
@@ -85,17 +85,33 @@ hero, description, philosophy, and accent role. Palette, typography, motif, layo
 radius, depth, and author stay exactly as authored, so every design keeps the visual
 identity it earned.
 
-`src/designs/differentiation.ts` is the last-mile pass: it walks the assembled catalog
-and gives any remaining duplicate or empty hero/description its own line built from the
-design's name and tags. On the page itself, each design gets a deterministic composition
-variant (`dv-v0`–`dv-v3`), section reordering, and industry-specific navigation, CTAs,
-pricing, and testimonial copy from `src/components/miniVoice.ts`.
+`src/designs/differentiation.ts` is the last-mile pass for identity: it walks the
+assembled catalog and gives any remaining duplicate or empty hero/description its own
+line built from the design's name and tags.
+
+`src/designs/structure.ts` is the structural pass. Every design gets its own page DNA:
+
+- an opening arrangement chosen from that design's own arrangement set;
+- one of eight opener variations, plus per-page hero measure and section spacing;
+- a unique ordered sequence of five sections drawn from eighteen section kinds
+  (`18P5 = 1,028,160` sequences, assigned with a bijective permutation walk);
+- page chrome, nav arrangement, footer arrangement, column count, and card treatment;
+- industry-specific navigation, CTAs, pricing, and testimonial copy from
+  `src/components/miniVoice.ts`.
+
+The signature deliberately ignores color, typography, and motif. It is the proof that
+two pages are not the same design recolored. The verify pass asserts all 1,000 structural
+signatures are distinct, all five-section sequences are distinct, and all 1,000
+above-the-fold opener combinations are distinct. The generated sections use unique
+feature copy derived from the design's tags, use cases, and philosophy, so repeated section
+kinds still read as different work.
 
 `scripts/scan-differentiation.cjs` is the read-only audit: repeated business concepts,
-taglines, descriptions, philosophy blocks, tag sets, visual fingerprints, and per-category
-crowding. `npm run verify` enforces the hard invariants (unique names, heroes,
-descriptions, ids, and ≥98% distinct tag sets). Run the generator, then the scanner, then
-`npm run verify` whenever the catalog changes.
+taglines, descriptions, philosophy blocks, tag sets, structural signatures, above-the-fold
+openers, section sequences, visual fingerprints, and per-category crowding. `npm run
+verify` enforces the hard invariants (unique names, heroes, descriptions, ids, structural
+signatures, opener combinations, sequences, and 100% distinct tag sets). Run the generator, then the
+scanner, then `npm run verify` whenever the catalog changes.
 
 ### The component kit (110 components, per design)
 
@@ -226,6 +242,7 @@ src/
 │   ├── details.ts        #   GENERATED preview prose (scripts/extract-details.cjs)
 │   ├── previewDetails.ts #   on-demand accessor + loader for both paths
 │   └── extras.ts         #   per-design layout sets, block sets, dashboard extras
+│   ├── structure.ts      #   unique page DNA: opener, section sequence, chrome, nav
 ├── patterns/
 │   ├── patterns.ts       #   153 pattern recipes + the CSS builder
 │   ├── layouts.ts        #   canvas arrangements and stacked rhythms
@@ -258,7 +275,8 @@ stay cheap.
 3. Add a hero line in `MiniSite.tsx`'s `heroTitle` switch (optional — falls back to the
    design name).
 4. Add a `LAYOUT_SETS` entry in `designs/extras.ts` so the arrangement switcher has options
-   (2–4 arrangements; the **first must equal the design's card `layout` tag**).
+   (2–5 arrangements; keep the authored primary layout first). The structural pass chooses
+   the opening arrangement from this set, so the card label and live preview agree.
 5. Run `node scripts/wave6-wire.cjs`. It wires the id into the registry, the arrangement sets,
    the block-set rotation, and the mini-site hero titles, and it fails the run on duplicate
    palettes, near-identical taglines, same-category type or palette clashes, invalid website

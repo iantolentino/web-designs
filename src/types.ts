@@ -393,6 +393,56 @@ export interface Typography {
   letterSpacing: string
 }
 
+/**
+ * The five content sections that follow a design's opener. These are composed
+ * into a unique sequence per design so two systems can share a typographic
+ * mood without ever sharing a page structure.
+ */
+export type PageSectionKind =
+  | 'features'
+  | 'split'
+  | 'stats'
+  | 'quote'
+  | 'pricing'
+  | 'testimonials'
+  | 'faq'
+  | 'cta'
+  | 'form'
+  | 'essay'
+  | 'steps'
+  | 'gallery'
+  | 'table'
+  | 'timeline'
+  | 'catalog'
+  | 'bento'
+  | 'logos'
+  | 'team'
+
+export interface PageStructure {
+  /** The design's authored primary layout. */
+  layout: Layout
+  /** The arrangement this design opens with (chosen from its own arrangement set). */
+  openerLayout: Layout
+  /** Which variation of that opener to render. */
+  opener: number
+  /** Page chrome: framed, ruled, full-bleed, split band, etc. */
+  chrome: number
+  /** Navigation arrangement. */
+  nav: number
+  /** Footer arrangement. */
+  footer: number
+  /** How the generated sections are arranged on the page. */
+  rhythm: number
+  /** Default column count for generated grids. */
+  columns: number
+  /** Card treatment for generated sections. */
+  card: number
+  /** The unique ordered content-section sequence for this design. */
+  sections: PageSectionKind[]
+  /** Stable key used by verify/scan to prove structural uniqueness. */
+  signature: string
+}
+
 export interface DesignSystem {
   id: string
   name: string
@@ -424,6 +474,11 @@ export interface DesignSystem {
   createdAt: string
   popularity: number
   trending?: boolean
+  /**
+   * Assigned once when the catalog is assembled. It is structural data, not a
+   * theme: two systems may share a palette mood but never a signature.
+   */
+  structure?: PageStructure
 }
 
 export const CATEGORY_ORDER: Category[] = [

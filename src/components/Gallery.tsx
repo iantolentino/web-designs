@@ -150,7 +150,7 @@ export function DesignCard({ d }: { d: DesignSystem }) {
         </div>
         <h3 className="card-name">{d.name}</h3>
         <p className="card-desc">{d.description}</p>
-        <div className="card-layout">▤ {LAYOUT_LABEL[d.layout]}</div>
+        <div className="card-layout">OPENING ? {LAYOUT_LABEL[d.structure?.openerLayout ?? d.layout]}</div>
         <div className="card-meta">
           <span>v{d.createdAt.slice(0, 4)}</span>
           <span>♥ {d.popularity}</span>

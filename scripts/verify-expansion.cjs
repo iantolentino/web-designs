@@ -145,6 +145,14 @@ console.log(JSON.stringify({
   heroes: DESIGN_SYSTEMS.map((d) => d.hero ?? ''),
   descriptions: DESIGN_SYSTEMS.map((d) => d.description),
   tagSets: DESIGN_SYSTEMS.map((d) => [...d.tags].sort().join('|')),
+  structures: DESIGN_SYSTEMS.map((d) => (d.structure ? d.structure.signature : '')),
+  topScreens: DESIGN_SYSTEMS.map((d) =>
+    d.structure
+      ? d.structure.openerLayout + '|o' + d.structure.opener + '|c' + d.structure.chrome + '|n' + d.structure.nav
+      : '',
+  ),
+  sectionCounts: DESIGN_SYSTEMS.map((d) => (d.structure ? d.structure.sections.length : 0)),
+  sectionSequences: DESIGN_SYSTEMS.map((d) => (d.structure ? d.structure.sections.join('>') : '')),
   stats: useCaseStats(),
   patternCount: PATTERNS.length,
   patternIds: PATTERNS.map((p) => p.id),
@@ -182,6 +190,24 @@ try {
   const uniqueTagSets = new Set(data.tagSets).size
   if (uniqueTagSets >= designCount * 0.98) ok(`${uniqueTagSets}/${designCount} tag sets are distinct`)
   else flag(`only ${uniqueTagSets}/${designCount} tag sets are distinct`)
+
+  /* Structural uniqueness ignores color, type and motif. */
+  const structureKeys = data.structures.filter(Boolean)
+  const uniqueStructures = new Set(structureKeys).size
+  if (structureKeys.length === designCount && uniqueStructures === designCount)
+    ok(`all ${designCount} pages have distinct structural signatures (color/type/motif ignored)`)
+  else flag(`only ${uniqueStructures}/${designCount} structural signatures are distinct`)
+  if (data.sectionCounts.every((n) => n === 5))
+    ok('every page composes exactly five generated sections')
+  else flag(`generated section counts differ: ${[...new Set(data.sectionCounts)].join(', ')}`)
+  const sequences = data.sectionSequences.filter(Boolean)
+  if (sequences.length === designCount && new Set(sequences).size === designCount)
+    ok(`all ${designCount} five-section sequences are distinct`)
+  else flag(`only ${new Set(sequences).size}/${designCount} five-section sequences are distinct`)
+  const tops = data.topScreens.filter(Boolean)
+  if (tops.length === designCount && new Set(tops).size === designCount)
+    ok(`all ${designCount} above-the-fold opener combinations are distinct`)
+  else flag(`only ${new Set(tops).size}/${designCount} above-the-fold opener combinations are distinct`)
 
   if (metaPatternCount === patternCount)
     ok(`meta.ts PATTERN_COUNT (${metaPatternCount}) matches PATTERNS.length`)

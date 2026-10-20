@@ -54,13 +54,17 @@ const DESC_TEMPLATES = [
   (d: DesignSystem) => `${d.name} turns ${tagPhrase(d)} into a ${CATEGORY_ADJ[d.category] ?? 'complete'} design language.`,
 ]
 
+const tagKey = (tags: string[]) => [...tags].sort().join('|')
+
 export function differentiateDesigns(list: DesignSystem[]): DesignSystem[] {
   const heroes = new Set<string>()
   const descriptions = new Set<string>()
+  const tagSets = new Set<string>()
 
   return list.map((d) => {
     let hero = d.hero ?? ''
     let description = d.description ?? ''
+    let tags = [...d.tags]
 
     if (!hero.trim() || heroes.has(norm(hero))) {
       for (let i = 0; i < 24; i++) {
@@ -87,9 +91,27 @@ export function differentiateDesigns(list: DesignSystem[]): DesignSystem[] {
       if (!description.trim()) description = `${d.name} is a complete system for ${tagPhrase(d)}.`
     }
 
+    /* A repeated tag set is an identity repeat. Give the later design one
+     * meaningful tag from its own name, then keep the target set unique too. */
+    let key = tagKey(tags)
+    if (tagSets.has(key)) {
+      const nameWord = d.name.split(/[^a-zA-Z0-9]+/).find(Boolean)?.toLowerCase() ?? 'study'
+      let candidate = nameWord
+      let n = 2
+      while (
+        tags.some((t) => t.toLowerCase() === candidate) ||
+        tagSets.has(tagKey([...tags, candidate]))
+      ) {
+        candidate = `${nameWord}-${n++}`
+      }
+      tags = [...tags, candidate]
+      key = tagKey(tags)
+    }
+    tagSets.add(key)
+
     heroes.add(norm(hero))
     descriptions.add(norm(description))
-    if (hero === d.hero && description === d.description) return d
-    return { ...d, hero, description }
+    if (hero === d.hero && description === d.description && tags.length === d.tags.length) return d
+    return { ...d, hero, description, tags }
   })
 }
