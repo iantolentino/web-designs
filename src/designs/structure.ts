@@ -79,6 +79,8 @@ function unrankSequence(rank: number, k: number): PageSectionKind[] {
 function structureForRank(d: DesignSystem, rank: number, salt = 0): PageStructure {
   const h = (hashString(d.id) + Math.imul(salt, 2654435761)) >>> 0
   const lh = (hashString(`${d.id}:layout`) + Math.imul(salt, 2246822519)) >>> 0
+  const fh = (hashString(`${d.id}:flow`) + Math.imul(salt, 3266489917)) >>> 0
+  const vh = (hashString(`${d.id}:visual`) + Math.imul(salt, 668265263)) >>> 0
   const arrangements = layoutSetFor(d)
   const openerLayout = arrangements[lh % arrangements.length]
   const sections = unrankSequence(rank % SEQUENCE_TOTAL, SECTION_COUNT)
@@ -91,6 +93,8 @@ function structureForRank(d: DesignSystem, rank: number, salt = 0): PageStructur
   const card = (h >>> 23) % 4
   const placement = (h >>> 26) % 5
   const side = (h >>> 29) % 2
+  const flow = fh % 8
+  const visual = vh % 8
   return {
     layout: d.layout,
     openerLayout,
@@ -103,6 +107,8 @@ function structureForRank(d: DesignSystem, rank: number, salt = 0): PageStructur
     card,
     placement,
     side,
+    flow,
+    visual,
     sections,
     signature: [
       d.layout,
@@ -116,6 +122,8 @@ function structureForRank(d: DesignSystem, rank: number, salt = 0): PageStructur
       `k${card}`,
       `p${placement}`,
       `s${side}`,
+      `b${flow}`,
+      `v${visual}`,
       sections.join('>'),
     ].join('|'),
   }
@@ -123,7 +131,7 @@ function structureForRank(d: DesignSystem, rank: number, salt = 0): PageStructur
 
 /** The part of the signature a visitor sees before scrolling. */
 export function topScreenKey(s: PageStructure): string {
-  return `${s.openerLayout}|o${s.opener}|c${s.chrome}|n${s.nav}|s${s.side}`
+  return `${s.openerLayout}|o${s.opener}|c${s.chrome}|n${s.nav}|s${s.side}|b${s.flow}|v${s.visual}`
 }
 
 /**

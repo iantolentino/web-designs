@@ -81,7 +81,7 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
 
   return (
     <div
-      className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} dv-ol-${activeLayout} dv-side${structure.side} ${fontClass} dv-ov${structure.opener} dv-nv${structure.nav} dv-ch${structure.chrome} dv-ft${structure.footer} dv-rh${structure.rhythm} dv-uc${structure.columns} dv-uk${structure.card} ${compact ? 'dv-compact' : ''}`}
+      className={`dv-site ${scope} dv-m-${d.motif} dv-l-${d.layout} dv-ol-${activeLayout} dv-side${structure.side} ${fontClass} dv-ov${structure.opener} dv-nv${structure.nav} dv-ch${structure.chrome} dv-ft${structure.footer} dv-rh${structure.rhythm} dv-uc${structure.columns} dv-uk${structure.card} dv-flow${structure.flow} dv-viz${structure.visual} ${compact ? 'dv-compact' : ''}`}
       style={cssVars}
       data-dv-structure={structure.signature}
     >
@@ -116,7 +116,7 @@ export function MiniSite({ d, compact = false, layoutOverride }: { d: DesignSyst
           </div>
         )}
 
-        {composePage(renderLayout(d, activeLayout, ctx), d, structure, compact)}
+        {composePage(renderLayout(d, activeLayout, ctx), d, structure, compact, isWrapper)}
 
         {!compact && (
           <section className="dv-section dv-blocks-section">
@@ -303,7 +303,7 @@ function renderLayout(
  * design and is inserted immediately after the opener, before the archetype's
  * own supporting sections. Two designs can share a hero mood but not a page.
  */
-function composePage(body: ReactNode, d: DesignSystem, structure: PageStructure, compact: boolean): ReactNode {
+function composePage(body: ReactNode, d: DesignSystem, structure: PageStructure, compact: boolean, isWrapper: boolean): ReactNode {
   const parts = Children.toArray(body)
   const sections = compact ? structure.sections.slice(0, 2) : structure.sections
   const stream = (slice: typeof sections, offset = 0) => (
@@ -313,9 +313,11 @@ function composePage(body: ReactNode, d: DesignSystem, structure: PageStructure,
   if (compact) return <>{parts[0]}{stream(sections)}</>
 
   // Wrapper layouts (dashboard, docs, catalog, receipt, field notes...) are one
-  // composed child. They still get three page-level placements so the generated
-  // sections do not always land in the same place after the shell.
-  if (parts.length === 1) {
+  // composed shell. They still get page-level placements so the generated
+  // sections do not always land in the same place around the shell. Direct
+  // layouts always keep their opener first: hiding the hero behind a generic
+  // section made some cards open on a near-empty testimonial band.
+  if (isWrapper) {
     if (structure.placement === 2) return <>{stream(sections)}{body}</>
     if (structure.placement === 3) {
       return <>{stream(sections.slice(0, 2))}{body}{stream(sections.slice(2), 2)}</>
@@ -714,6 +716,7 @@ function HeroCards({ d }: { d: DesignSystem }) {
 function SplitHero({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
   const v = useMemo(() => voicePack(d), [d])
+  const structure = pageStructure(d)
   return (
     <>
       <section className="dv-split">
@@ -732,8 +735,11 @@ function SplitHero({ d }: { d: DesignSystem }) {
         <div className="dv-split-visual">
           <div className="dv-fake-ui">
             <div className="dv-fake-ui-bar"><span /><span /><span /></div>
-            <div className="dv-fake-ui-chart">{[38, 62, 45, 80, 56, 92, 70].map((h, i) => <div key={i} style={{ height: `${h}%`, background: i % 2 ? t.secondary : t.primary }} />)}</div>
-            <div className="dv-fake-ui-rows">{[0, 1, 2].map((i) => <div key={i} style={{ background: withAlpha(t.text, i === 1 ? 0.14 : 0.07) }} />)}</div>
+            <div className="dv-viz-head">
+              <span>{VISUAL_TITLE[structure.visual]}</span>
+              <span className="dv-label">{VISUAL_META[structure.visual]}</span>
+            </div>
+            <DataVisual d={d} variant={structure.visual} flow={structure.flow} />
           </div>
         </div>
       </section>
@@ -804,6 +810,7 @@ function MagazineBody({ d }: { d: DesignSystem }) {
 function DashboardBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
   const v = useMemo(() => voicePack(d), [d])
+  const structure = pageStructure(d)
   return (
     <>
       <div className="dv-dash">
@@ -824,9 +831,9 @@ function DashboardBody({ d }: { d: DesignSystem }) {
               </div>
             ))}
           </div>
-          <div className="dv-card dv-chart-card">
-            <div className="dv-chart-head"><strong>Revenue, last 12 weeks</strong><span className="dv-label">Weekly · USD</span></div>
-            <div className="dv-fake-ui-chart dv-chart-lg">{[42, 55, 48, 66, 59, 74, 68, 82, 77, 90, 84, 96].map((h, i) => <div key={i} style={{ height: `${h}%`, background: i % 3 === 2 ? t.secondary : t.primary }} />)}</div>
+          <div className={`dv-card dv-chart-card dv-chart-card-v${structure.visual}`}>
+            <div className="dv-chart-head"><strong>{VISUAL_TITLE[structure.visual]}</strong><span className="dv-label">Weekly · USD</span></div>
+            <DataVisual d={d} variant={structure.visual} flow={structure.flow} dashboard />
           </div>
           <table className="dv-table dv-table-lg">
             <thead><tr><th>{v.dash.heading}</th><th>Tier</th><th>Value</th><th>Status</th></tr></thead>
@@ -984,11 +991,15 @@ function FullBleedBody({ d }: { d: DesignSystem }) {
 function SpotlightBody({ d }: { d: DesignSystem }) {
   const t = themeOf(d)
   const v = useMemo(() => voicePack(d), [d])
+  const structure = pageStructure(d)
   return (
     <>
       <section className="dv-spotlight">
         <div className="dv-spotlight-stage" style={{ background: `radial-gradient(circle at 50% 38%, ${withAlpha(t.accent, 0.35)}, ${withAlpha(t.primary, 0.14)} 55%, transparent 75%)` }}>
-          <div className="dv-spotlight-object" style={{ background: `linear-gradient(145deg, ${t.primary}, ${t.secondary})`, boxShadow: `0 30px 60px ${withAlpha(t.primary, 0.35)}` }} />
+          <div
+            className={`dv-spotlight-object dv-obj${structure.visual}`}
+            style={{ '--dv-obj-a': t.primary, '--dv-obj-b': t.secondary, '--dv-obj-c': t.accent, boxShadow: `0 30px 60px ${withAlpha(t.primary, 0.35)}` } as React.CSSProperties}
+          />
         </div>
         <div className="dv-spotlight-caption">
           <p className="dv-kicker">{d.category} · the object, centered</p>
@@ -1775,6 +1786,228 @@ function MiniForm({ d, v }: { d: DesignSystem; v: VoicePack }) {
 
 function btnStyle(t: { primary: string; onPrimary: string }): React.CSSProperties {
   return { background: t.primary, color: t.onPrimary }
+}
+
+/* The hero evidence object. A dashboard and a split hero used to show the
+ * same twelve-bar chart on every card, which made a thousand systems read as
+ * one page recolored. Each design now gets one of eight genuinely different
+ * evidence types, selected by its structural signature. */
+const VISUAL_TITLE = [
+  'Volume by week',
+  'Trend, twelve periods',
+  'Mix by channel',
+  'Activity by hour',
+  'Live queue',
+  'Goal progress',
+  'Release calendar',
+  'Segment spread',
+]
+const VISUAL_META = [
+  '12 weeks · weekly',
+  'rolling 90 days',
+  'share of total',
+  'density · last 7 days',
+  'newest first',
+  'quarter to date',
+  'next 14 days',
+  'by cohort',
+]
+
+function DataVisual({ d, variant, flow, dashboard = false }: { d: DesignSystem; variant: number; flow: number; dashboard?: boolean }) {
+  const t = themeOf(d)
+  const v = useMemo(() => voicePack(d), [d])
+  const kind = ((variant % 8) + 8) % 8
+  const mode = ((flow % 3) + 3) % 3
+  const cls = `dv-viz dv-viz-${kind}${dashboard ? ' dv-viz-dashboard' : ''}`
+
+  if (kind === 0) {
+    if (mode === 1) {
+      const rows: [string, number][] = [['Direct', 78], ['Search', 64], ['Referral', 49], ['Social', 37], ['Other', 22]]
+      return (
+        <div className={cls} aria-hidden>
+          <div className="dv-viz-hbars">
+            {rows.map(([label, pct], i) => (
+              <div key={label} className="dv-viz-hbar">
+                <span>{label}</span>
+                <div><i style={{ width: `${pct}%`, background: i === 0 ? t.primary : i === 1 ? t.secondary : withAlpha(t.primary, 0.55 - i * 0.08) }} /></div>
+                <b>{pct}%</b>
+              </div>
+            ))}
+          </div>
+          <div className="dv-viz-axis"><span>ranked</span><span>top five</span></div>
+        </div>
+      )
+    }
+    if (mode === 2) {
+      const columns: [number, number][] = [[34, 22], [46, 16], [39, 28], [56, 20], [48, 31], [64, 18], [58, 26], [72, 21], [61, 29], [78, 18], [69, 25], [84, 14]]
+      return (
+        <div className={cls} aria-hidden>
+          <div className="dv-viz-stack">
+            {columns.map(([a, b], i) => (
+              <span key={i}>
+                <b style={{ height: `${a}%`, background: i % 3 === 2 ? t.accent : t.secondary }} />
+                <i style={{ height: `${b}%`, background: t.primary }} />
+              </span>
+            ))}
+          </div>
+          <div className="dv-viz-axis"><span>W1</span><span>W6</span><span>W12</span></div>
+        </div>
+      )
+    }
+    return (
+      <div className={cls} aria-hidden>
+        <div className="dv-viz-bars">
+          {[42, 55, 48, 66, 59, 74, 68, 82, 77, 90, 84, 96].map((h, i) => (
+            <span key={i} style={{ height: `${h}%`, background: i % 3 === 2 ? t.secondary : t.primary }} />
+          ))}
+        </div>
+        <div className="dv-viz-axis"><span>W1</span><span>W6</span><span>W12</span></div>
+      </div>
+    )
+  }
+
+  if (kind === 1) {
+    const series = [
+      [34, 48, 41, 58, 52, 68, 61, 78, 72, 84, 79, 92],
+      [62, 54, 58, 46, 50, 39, 45, 33, 40, 29, 34, 24],
+      [28, 36, 32, 49, 44, 41, 58, 54, 66, 61, 73, 80],
+      [44, 52, 48, 63, 55, 71, 64, 76, 70, 81, 88, 94],
+    ]
+    const values = series[flow % series.length]
+    const points = values.map((p, i) => `${(i / (values.length - 1)) * 100},${56 - (p / 100) * 48}`).join(' ')
+    const area = flow % 3 !== 2
+    return (
+      <div className={cls} aria-hidden>
+        <svg className="dv-viz-line" viewBox="0 0 100 56" preserveAspectRatio="none">
+          {area && <polygon points={`0,56 ${points} 100,56`} fill={withAlpha(t.primary, 0.14)} />}
+          <polyline points={points} fill="none" stroke={t.primary} strokeWidth="1.8" vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" strokeDasharray={flow % 5 === 0 ? '2.5 2' : undefined} />
+          {values.map((p, i) => (
+            <circle key={i} cx={(i / (values.length - 1)) * 100} cy={56 - (p / 100) * 48} r={i === values.length - 1 ? 1.5 : 1.1} fill={i === values.length - 1 ? t.accent : t.primary} vectorEffect="non-scaling-stroke" />
+          ))}
+        </svg>
+        <div className="dv-viz-axis"><span>Jan</span><span>Jun</span><span>Dec</span></div>
+      </div>
+    )
+  }
+
+  if (kind === 2) {
+    const cuts = [
+      [46, 74, 92],
+      [58, 80, 94],
+      [35, 62, 86],
+      [52, 69, 88],
+      [40, 66, 90],
+      [62, 82, 95],
+      [30, 58, 84],
+      [48, 78, 93],
+    ][flow % 8]
+    const [a, b, c] = cuts
+    return (
+      <div className={`${cls} dv-viz-donut-wrap`} aria-hidden>
+        <div className="dv-viz-donut" style={{ background: `conic-gradient(${t.primary} 0 ${a}%, ${t.secondary} ${a}% ${b}%, ${t.accent} ${b}% ${c}%, ${withAlpha(t.text, 0.16)} ${c}% 100%)` }}>
+          <span><strong>{v.stats[0][0]}</strong><em>total</em></span>
+        </div>
+        <ul className="dv-viz-legend">
+          {[['Direct', `${a}%`, t.primary], ['Search', `${b - a}%`, t.secondary], ['Referral', `${c - b}%`, t.accent], ['Other', `${100 - c}%`, withAlpha(t.text, 0.3)]].map(([label, share, color]) => (
+            <li key={label as string}><i style={{ background: color as string }} />{label}<b>{share}</b></li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  if (kind === 3) {
+    const count = flow % 2 === 0 ? 35 : 28
+    const step = 5 + (flow % 4) * 2
+    return (
+      <div className={cls} aria-hidden>
+        <div className="dv-viz-heat" data-cells={count}>
+          {Array.from({ length: count }, (_, i) => (
+            <span key={i} style={{ background: withAlpha(t.primary, 0.08 + ((i * step + flow * 3) % 9) * 0.07), outlineColor: withAlpha(t.text, 0.08) }} />
+          ))}
+        </div>
+        <div className="dv-viz-axis"><span>Mon</span><span>Wed</span><span>Fri</span><span>Sun</span></div>
+      </div>
+    )
+  }
+
+  if (kind === 4) {
+    const rows: [string, string, string][] = [
+      ['Deploy finished', '2m', t.primary],
+      ['Threshold cleared', '18m', t.secondary],
+      ['New member joined', '1h', t.accent],
+      ['Report exported', '3h', withAlpha(t.text, 0.28)],
+      ['Review requested', '5h', withAlpha(t.text, 0.45)],
+    ]
+    const offset = flow % rows.length
+    const ordered = [...rows.slice(offset), ...rows.slice(0, offset)].slice(0, 3 + (flow % 3))
+    return (
+      <div className={`${cls} dv-viz-feed`} aria-hidden>
+        {ordered.map(([label, when, color]) => (
+          <div key={label} className="dv-viz-feed-row">
+            <i style={{ background: color }} />
+            <span>{label}</span>
+            <b>{when}</b>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  if (kind === 5) {
+    const rows: [string, number, string][] = [
+      ['Coverage', 82, t.primary],
+      ['Reviewed', 64, t.secondary],
+      ['In flight', 41, t.accent],
+      ['Backlog', 23, withAlpha(t.text, 0.28)],
+      ['Escalated', 12, withAlpha(t.text, 0.45)],
+    ]
+    const offset = flow % rows.length
+    const ordered = [...rows.slice(offset), ...rows.slice(0, offset)].slice(0, 3 + (flow % 3))
+    return (
+      <div className={`${cls} dv-viz-progress`} aria-hidden>
+        {ordered.map(([label, pct, color], i) => {
+          const value = Math.min(96, pct + ((flow * 7 + i * 5) % 13))
+          return (
+            <div key={label} className="dv-viz-progress-row">
+              <span>{label}</span>
+              <div><i style={{ width: `${value}%`, background: color }} /></div>
+              <b>{value}%</b>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
+  if (kind === 6) {
+    const highlighted = [2 + (flow % 3), 5 + (flow % 2), 9 - (flow % 2), 12]
+    return (
+      <div className={`${cls} dv-viz-calendar`} aria-hidden>
+        {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, i) => <span key={`${day}${i}`} className="dv-viz-day">{day}</span>)}
+        {Array.from({ length: 14 }, (_, i) => (
+          <span key={i} className={`dv-viz-date${highlighted.includes(i) ? ' on' : ''}`} style={highlighted.includes(i) ? { background: withAlpha(i === highlighted[1] ? t.accent : t.primary, 0.16), color: i === highlighted[1] ? t.accent : t.primary } : undefined}>
+            {i + 9}
+          </span>
+        ))}
+      </div>
+    )
+  }
+
+  const pointSets: [number, number][][] = [
+    [[18, 68], [28, 52], [37, 74], [44, 38], [54, 60], [63, 30], [71, 48], [82, 22], [88, 40], [47, 82]],
+    [[14, 24], [24, 44], [31, 68], [43, 54], [49, 78], [58, 36], [66, 62], [74, 82], [83, 48], [91, 70]],
+    [[20, 80], [29, 62], [35, 36], [46, 52], [52, 26], [61, 74], [69, 44], [77, 58], [85, 30], [92, 66]],
+  ]
+  const points = pointSets[flow % pointSets.length]
+  return (
+    <div className={`${cls} dv-viz-scatter`} aria-hidden>
+      <div className="dv-viz-scatter-grid" />
+      {points.map(([x, y], i) => (
+        <i key={i} style={{ left: `${x}%`, bottom: `${y}%`, background: i % 3 === 0 ? t.accent : i % 2 ? t.secondary : t.primary }} />
+      ))}
+    </div>
+  )
 }
 
 function features(d: DesignSystem): { icon: string; title: string; body: string }[] {

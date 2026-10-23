@@ -441,6 +441,10 @@ export interface PageStructure {
   placement: number
   /** Which side of the composition leads: opener left/right or rail left/right. */
   side: number
+  /** Page-wide body flow: how generated sections and family shells are arranged. */
+  flow: number
+  /** Hero evidence type: bars, line, donut, heatmap, feed, progress, calendar, scatter. */
+  visual: number
   /** The unique ordered content-section sequence for this design. */
   sections: PageSectionKind[]
   /** Stable key used by verify/scan to prove structural uniqueness. */

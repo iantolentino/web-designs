@@ -148,7 +148,7 @@ console.log(JSON.stringify({
   structures: DESIGN_SYSTEMS.map((d) => (d.structure ? d.structure.signature : '')),
   topScreens: DESIGN_SYSTEMS.map((d) =>
     d.structure
-      ? d.structure.openerLayout + '|o' + d.structure.opener + '|c' + d.structure.chrome + '|n' + d.structure.nav + '|s' + d.structure.side
+      ? d.structure.openerLayout + '|o' + d.structure.opener + '|c' + d.structure.chrome + '|n' + d.structure.nav + '|s' + d.structure.side + '|b' + d.structure.flow + '|v' + d.structure.visual
       : '',
   ),
   sectionCounts: DESIGN_SYSTEMS.map((d) => (d.structure ? d.structure.sections.length : 0)),
