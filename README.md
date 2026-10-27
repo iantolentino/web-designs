@@ -10,7 +10,7 @@ Built to kill AI design slop — no Inter, no purple-on-white, no generic layout
 ```bash 
 npm install
 npm run dev        # http://localhost:5180 (picks a free port if taken)
-``` 
+```  
 
 Other scripts:
 
