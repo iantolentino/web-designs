@@ -12,7 +12,7 @@ npm install
 npm run dev        # http://localhost:5180 (picks a free port if taken)
 ```  
 
-Other scripts:
+Other scripts: 
 
 ```bash
 npm run typecheck  # strict TypeScript, no emit
